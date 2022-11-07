@@ -1,0 +1,15 @@
+@use '../../abstracts/colors';
+@use '../../abstracts/fonts';
+@use '../../abstracts/assets';
+
+    
+body {
+    @include assets.body;
+}
+
+h1 {
+    @include assets.h1;
+}
+#root {
+    @include assets.root;
+}
