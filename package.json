@@ -16,7 +16,9 @@
     "react-dom": "^18.2.0",
     "react-google-button": "^0.7.2",
     "react-router": "^6.4.3",
-    "react-router-dom": "^6.4.3"
+    "react-router-dom": "^6.4.3",
+    "vite-plugin-svgr": "^2.2.2",
+    "vite-plugin-svgr-component": "^1.0.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.22",
