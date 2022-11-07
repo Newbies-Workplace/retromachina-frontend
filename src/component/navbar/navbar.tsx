@@ -1,39 +1,50 @@
 import React from 'react';
-import './navbar.scss';
-
+import styles from './navbar.module.scss';
+import Button from '../button/button'
 import CreateTeamSvg from '../../assets/icons/create-team.svg'
 
 interface PropsNavbar{
-    isScrumMaster: boolean;
+    isOnRun:boolean,
+    isScrumMaster: boolean,
+    children ?: React.ReactElement
 }
 
-const Navbar: React.FC<PropsNavbar> = ({isScrumMaster}) =>{
+const Navbar: React.FC<PropsNavbar> = ({isOnRun,isScrumMaster,children}) =>{
     
     return(
-        <div className='navbar'>
-            <div className='section-wrapper'>
-                <div className='visual'>
-                    <h1>RETROMACHINA</h1> 
-                </div>
-                <div className='section'>
-                    <div className='profile-wrapper'>
-                        <div className='profile'></div>
+        <div className={styles.navbar}>
+            <div className={styles.sectionWrapper}>
+                <div className={styles.section1}>
+
+                    <div className={styles.name}>
+                        <h1>RETROMACHINA</h1> 
                     </div>
-                    {
-                        isScrumMaster &&
-                        <div className='btn-wrapper'>
-                            <div className='create-team-btn'>
-                                    <CreateTeamSvg />
-                                <p>Stwórz Zespół</p>
-                            </div>
-                        </div>
-                    }
+
+                    <div className={styles.usection}>
+                        <div className={styles.profile}>eo</div>
+                    </div>
                     
                 </div>
+                <div className={styles.section2}>
+                   
+                    {
+                        isScrumMaster &&
+                        <div className={styles.buttonWrapper}>
+                            <Button><CreateTeamSvg />Stwórz Zespół</Button>
+                        </div>
+                    }
+                
+                    {children} 
+                    
+                </div>
+            
+                <div className={styles.section3}>
+                    <div className={styles.line}></div>
+                </div>
             </div>
-            <div className='line'></div>
         </div>
     );
 };
 
 export default Navbar;
+

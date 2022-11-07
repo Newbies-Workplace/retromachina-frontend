@@ -16,6 +16,6 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "src/component/signIn/signIn.tsx", "src/main.tsx", "src/Account.tsx"],
+  "include": ["src", "src/signIn.tsx", "src/main.tsx", "src/Account.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
