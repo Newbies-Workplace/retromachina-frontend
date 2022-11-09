@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './button.module.scss'
+import styles from './Button.module.scss'
 
 
 const Button: React.FC<any> = ({children}) =>{
