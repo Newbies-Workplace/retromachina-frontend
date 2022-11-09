@@ -2,6 +2,8 @@ import React from 'react';
 import styles from './navbar.module.scss';
 import Button from '../button/button'
 import CreateTeamSvg from '../../assets/icons/create-team.svg'
+import Circle from '../avatar/avatar';
+import Avatar from '../avatar/avatar';
 
 interface PropsNavbar{
     isOnRun:boolean,
@@ -21,7 +23,8 @@ const Navbar: React.FC<PropsNavbar> = ({isOnRun,isScrumMaster,children}) =>{
                     </div>
 
                     <div className={styles.usection}>
-                        <div className={styles.profile}>eo</div>
+                        <Avatar isActive={true}  url= {"https://pbs.twimg.com/media/D8Dp0c5WkAAkvME.jpg "}/>
+                        
                     </div>
                     
                 </div>
