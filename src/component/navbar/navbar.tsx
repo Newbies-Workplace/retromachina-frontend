@@ -2,13 +2,17 @@ import React from 'react';
 import styles from './navbar.module.scss';
 import Button from '../button/button'
 import CreateTeamSvg from '../../assets/icons/create-team.svg'
+<<<<<<< HEAD
 import Circle from '../avatar/avatar';
 import Avatar from '../avatar/avatar';
+=======
+import LogoSvg from '../../assets/images/Logo.svg'
+>>>>>>> f3f57d8158844a738f475b27a6c4a43e9eec1c59
 
 interface PropsNavbar{
     isOnRun:boolean,
     isScrumMaster: boolean,
-    children ?: React.ReactElement
+    children ?: any
 }
 
 const Navbar: React.FC<PropsNavbar> = ({isOnRun,isScrumMaster,children}) =>{
@@ -19,7 +23,7 @@ const Navbar: React.FC<PropsNavbar> = ({isOnRun,isScrumMaster,children}) =>{
                 <div className={styles.section1}>
 
                     <div className={styles.name}>
-                        <h1>RETROMACHINA</h1> 
+                        <LogoSvg />
                     </div>
 
                     <div className={styles.usection}>
@@ -31,9 +35,9 @@ const Navbar: React.FC<PropsNavbar> = ({isOnRun,isScrumMaster,children}) =>{
                 <div className={styles.section2}>
                    
                     {
-                        isScrumMaster &&
+                        isScrumMaster && !isOnRun &&
                         <div className={styles.buttonWrapper}>
-                            <Button><CreateTeamSvg />Stwórz Zespół</Button>
+                            <Button><CreateTeamSvg /><p>Stwórz Zespół</p></Button>
                         </div>
                     }
                 

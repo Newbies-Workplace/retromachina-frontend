@@ -3,8 +3,9 @@
 @use '../../abstracts/assets';
 
     
-body {
+body{
     @include assets.body;
+    
 }
 
 h1 {
