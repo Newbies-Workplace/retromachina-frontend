@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 import HomeView from "./home/HomeView";
 import SignInView from "./auth/signIn/SignInView";
+import Loading from './auth/signIn/LoadinPage/LoadingPage';
 
 export const AppRouter: React.FC = () => {
     return (
@@ -18,6 +19,10 @@ export const AppRouter: React.FC = () => {
                 <Route
                     element={<HomeView/>}
                     path="/"/>
+
+                <Route
+                    element={<Loading/>}
+                    path="/loading"/>
 
                 <Route
                     element={<span>404</span>}

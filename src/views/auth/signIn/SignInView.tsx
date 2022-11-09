@@ -4,7 +4,7 @@ import styles from './SignInView.module.scss';
 import LogoSvg from '../../../assets/images/Logo.svg'
 
 const SignInView = () => {
-    const href = __API_URL__ + "/v1/redirect/google"
+    const href = "http://retro.newbies.pl:3000/api/rest/v1/google/redirect"
     return (
         <div className={styles.container}>
             <div className={styles.dialog}>
@@ -16,7 +16,7 @@ const SignInView = () => {
                 </div>
 
                 <a href={href}>
-                    <GoogleButton className={styles.googleBtn}/>
+                    <GoogleButton className={styles.googleBtn} />
                 </a>
             </div>
         </div>

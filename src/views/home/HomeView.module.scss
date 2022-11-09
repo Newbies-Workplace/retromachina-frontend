@@ -3,8 +3,9 @@
 @use '../../abstracts/assets';
 
     
-body {
+body{
     @include assets.body;
+    
 }
 
 h1 {
@@ -12,26 +13,4 @@ h1 {
 }
 #root {
     @include assets.root;
-}
-.container{
-    padding-left: 20px;
-    width: 100%;
-    margin-top: 40px;
-    & h2 {
-        font-family: fonts.$font-paragraph;
-        font-size: 20px;
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
-    & p {
-        font-size: 15px;
-    }
-}
-.wrapper{
-    display: flex;
-    gap: 20px;
-}
-.icons{
-    display: flex;
-    
 }
