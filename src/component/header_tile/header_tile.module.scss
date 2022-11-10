@@ -1,0 +1,23 @@
+@use  'src/abstracts/colors';
+@use  'src/abstracts/fonts';
+@use  'src/abstracts/assets';
+
+.tile{
+    
+    width: 265px;
+    height: 44px;
+    
+    background-color: #F4F2E6;
+    border: 2px solid #73BDA8;
+    border-radius: 50px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    
+    font-family: fonts.$font-paragraph;
+    
+    
+    font-weight: 700;
+    font-size: 24px;
+    
+}
