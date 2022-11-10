@@ -8,14 +8,16 @@ import { useNavigate } from 'react-router';
 
 const LoadingPage = () => {
 
-    const {login,user} = useUser();
+    const { login, user } = useUser();
     const navigate = useNavigate();
+
     useEffect(()=> {
-        const cookie = parseCookie(document.cookie)['jwtToken'];
-        console.log(cookie);
-        login(cookie)
-        .then( () => {navigate('/')})
-        .catch()
+        const params = Object.fromEntries(
+            new URLSearchParams(window.location.search)
+        );
+        login(params)
+            .then( () => {navigate('/')})
+            .catch()
     }, [])
 
     return (
@@ -30,14 +32,5 @@ const LoadingPage = () => {
         </div>
     );
 };
-
-const parseCookie = (str: any) =>
-  str
-  .split(';')
-  .map((v: any) => v.split('='))
-  .reduce((acc: any, v:any) => {
-    acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
-    return acc;
-  }, {});
 
 export default LoadingPage
