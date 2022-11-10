@@ -6,6 +6,7 @@ import AddIcon from '../../assets/icons/add-icon.svg';
 import TaskIconSvg from '../../assets/icons/task-icon.svg'
 import EditIconSvg from '../../assets/icons/edit-icon.svg'
 import { RetroResponse } from '../../interfaces/Retro.interface';
+import { axiosInstance } from '../../AxiosInstance';
 
 
 
@@ -59,6 +60,12 @@ interface PropsRetroTeam {
 
 
 const RetroTeam: React.FC<PropsRetroTeam> = ({isScrumMaster,teamName,teamId}) => {
+    () => {axiosInstance.get("/users?team_id={"+teamId+"}")
+    .then()
+    .catch()
+}
+    
+    
     return(
     <div className={styles.container}>
         <div className={styles.icons}>
