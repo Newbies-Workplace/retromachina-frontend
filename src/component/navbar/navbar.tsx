@@ -2,12 +2,9 @@ import React from 'react';
 import styles from './navbar.module.scss';
 import Button from '../button/button'
 import CreateTeamSvg from '../../assets/icons/create-team.svg'
-<<<<<<< HEAD
 import Circle from '../avatar/avatar';
 import Avatar from '../avatar/avatar';
-=======
 import LogoSvg from '../../assets/images/Logo.svg'
->>>>>>> f3f57d8158844a738f475b27a6c4a43e9eec1c59
 
 interface PropsNavbar{
     isOnRun:boolean,
