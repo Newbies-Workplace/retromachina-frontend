@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from '../team_retro/TeamRetro.module.scss'
+import styles from './TeamRetroList.module.scss'
 import HomeBox from '../home_box/HomeBox';
 import Button from '../button/button';
 import AddIcon from '../../assets/icons/add-icon.svg';
@@ -59,7 +59,7 @@ interface PropsRetroTeam {
 }
 
 
-const RetroTeam: React.FC<PropsRetroTeam> = ({isScrumMaster,teamName,teamId}) => {
+const RetroTeamList: React.FC<PropsRetroTeam> = ({isScrumMaster,teamName,teamId}) => {
     () => {axiosInstance.get("/users?team_id={"+teamId+"}")
     .then()
     .catch()
@@ -99,4 +99,4 @@ const RetroTeam: React.FC<PropsRetroTeam> = ({isScrumMaster,teamName,teamId}) =>
     );
 };
 
-export default RetroTeam
+export default RetroTeamList

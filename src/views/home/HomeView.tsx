@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import Navbar from '../../component/navbar/Navbar';
-import TeamRetro from '../../component/team_retro/TeamRetro';
+import TeamRetro from '../../component/team_retro_list/TeamRetroList';
 import { useUser } from '../../context/UserContext.hook';
 
 
