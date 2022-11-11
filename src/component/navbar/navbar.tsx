@@ -1,11 +1,10 @@
-import React from 'react';
-import styles from './navbar.module.scss';
-import Button from '../button/button'
-import CreateTeamSvg from '../../assets/icons/create-team.svg'
-import Avatar from '../avatar/avatar';
-import LogoSvg from '../../assets/images/Logo.svg'
+import React from "react";
+import styles from "./navbar.module.scss";
+import Button from "../button/Button";
+import CreateTeamSvg from "../../assets/icons/create-team.svg";
+import LogoSvg from "../../assets/images/Logo.svg";
 import Timer from "../timer/Timer";
-
+import Avatar from "../avatar/avatar";
 
 interface PropsNavbar {
   isOnRun: boolean;
