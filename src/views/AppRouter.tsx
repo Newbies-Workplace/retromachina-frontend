@@ -8,6 +8,7 @@ import HomeView from "./home/HomeView";
 import SignInView from "./auth/signIn/SignInView";
 import Loading from './auth/signIn/LoadinPage/LoadingPage';
 import { UserContext } from '../context/UserContext';
+import CreateTeamview from './create_team/CreateTeamView';
 
 export const AppRouter: React.FC = () => {
     return (
@@ -25,6 +26,10 @@ export const AppRouter: React.FC = () => {
                     <Route
                         element={<Loading/>}
                         path="/loading"/>
+                    
+                    <Route
+                        element={<CreateTeamview/>}
+                        path="/create"/>
                 
                     <Route
                         element={<span>404</span>}
