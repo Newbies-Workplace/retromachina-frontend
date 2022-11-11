@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import Navbar from '../../component/navbar/Navbar';
 import TeamRetro from '../../component/team_retro_list/TeamRetroList';
 import { useUser } from '../../context/UserContext.hook';
-import Tile from '../../component/header_tile/header_tile'
+import Tile from '../../component/header_bar/HeaderBar'
 
 
 

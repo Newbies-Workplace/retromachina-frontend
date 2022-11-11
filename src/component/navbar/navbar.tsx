@@ -5,7 +5,7 @@ import CreateTeamSvg from '../../assets/icons/create-team.svg'
 import Circle from '../avatar/avatar';
 import Avatar from '../avatar/avatar';
 import LogoSvg from '../../assets/images/Logo.svg'
-import Tile from '../header_tile/header_tile';
+import Tile from '../header_bar/HeaderBar';
 
 interface PropsNavbar{
     isOnRun:boolean,
