@@ -4,7 +4,7 @@ import Button from "../button/Button";
 import CreateTeamSvg from "../../assets/icons/create-team.svg";
 import LogoSvg from "../../assets/images/Logo.svg";
 import Timer from "../timer/Timer";
-import Avatar from "../avatar/avatar";
+import Avatar from "../avatar/Avatar";
 
 interface PropsNavbar {
   isOnRun: boolean;

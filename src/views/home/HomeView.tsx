@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import TeamRetro from "../../component/team_retro_list/TeamRetroList";
 import { useUser } from "../../context/UserContext.hook";
 import Tile from "../../component/header_bar/HeaderBar";
-import Navbar from "../../component/navbar/navbar";
+import Navbar from "../../component/navbar/Navbar";
 
 const HomeView: React.FC = () => {
   const { user } = useUser();
