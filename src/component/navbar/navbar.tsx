@@ -10,12 +10,14 @@ import Timer from "../timer/Timer";
 interface PropsNavbar {
   isOnRun: boolean;
   isScrumMaster: boolean;
+  isButtonHiden: boolean;
   children?: any;
 }
 
 const Navbar: React.FC<PropsNavbar> = ({
   isOnRun,
   isScrumMaster,
+  isButtonHiden,
   children,
 }) => {
   return (
@@ -41,7 +43,7 @@ const Navbar: React.FC<PropsNavbar> = ({
           </div>
         </div>
         <div className={styles.section2}>
-          {isScrumMaster && !isOnRun && (
+          {isScrumMaster && !isOnRun && !isButtonHiden &&(
             <div className={styles.buttonWrapper}>
               <Button>
                 <CreateTeamSvg />
