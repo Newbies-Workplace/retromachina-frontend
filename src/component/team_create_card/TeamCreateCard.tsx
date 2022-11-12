@@ -29,7 +29,6 @@ const TeamCreateCard: React.FC = () => {
         if (!nameInputRef.current 
             || nameInputRef.current.value.trim().length == 0) return;
 
-        console.log("submit!")
         axiosInstance.post("/teams", {
                 name: nameInputRef.current.value,
                 emails: emails
@@ -50,7 +49,6 @@ const TeamCreateCard: React.FC = () => {
     const navigate = useNavigate()
 
     if (!user) navigate("/signin");
-    console.log(user);
 
 
     let counter = -1;
