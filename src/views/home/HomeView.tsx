@@ -10,7 +10,7 @@ const HomeView: React.FC = () => {
 
   return (
     <>
-      <Navbar isScrumMaster={isScrumMaster} isOnRun={true}>
+      <Navbar isScrumMaster={isScrumMaster} isOnRun={true} isButtonHiden={false}>
         {" "}
         <Tile text="" />{" "}
       </Navbar>
