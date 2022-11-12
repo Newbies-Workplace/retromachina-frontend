@@ -2,9 +2,14 @@ import React from 'react'
 import styles from './Button.module.scss'
 
 
-const Button: React.FC<any> = ({children}) =>{
+interface PropsButton {
+    onClick?(): void;
+    children?: any;
+}
+
+const Button: React.FC<any> = ({children, onClick}) =>{
     return(
-        <button className={styles.button}>
+        <button onClick={onClick} className={styles.button}>
             {children}
         </button>
     );

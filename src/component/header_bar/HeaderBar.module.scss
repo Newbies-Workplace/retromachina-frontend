@@ -3,21 +3,24 @@
 @use  'src/abstracts/assets';
 
 .tile{
-    
-    width: 265px;
-    height: 44px;
-    
+    height: 40px;
+    width: 33%;
+
     background-color: #F4F2E6;
-    border: 2px solid #73BDA8;
     border-radius: 50px;
-    justify-content: center;
+    border: 1px solid black;
+
+   
     display: flex;
+    justify-content: center;
     align-items: center;
-    
+
     font-family: fonts.$font-paragraph;
-    
-    
     font-weight: 700;
-    font-size: 24px;
-    
+    font-size: 20px;
+}
+
+.active {
+    @extend .tile;
+    border: 2px solid #73BDA8;
 }
