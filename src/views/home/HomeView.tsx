@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import TeamRetro from "../../component/team_retro_list/TeamRetroList";
 import { useUser } from "../../context/UserContext.hook";
-import Tile from "../../component/header_bar/HeaderBar";
 import Navbar from "../../component/navbar/Navbar";
 
 const HomeView: React.FC = () => {
@@ -10,10 +9,7 @@ const HomeView: React.FC = () => {
 
   return (
     <>
-      <Navbar isScrumMaster={isScrumMaster} isOnRun={true} isButtonHiden={false}>
-        {" "}
-        <Tile text="" />{" "}
-      </Navbar>
+      <Navbar isScrumMaster={isScrumMaster} isOnRun={false} isButtonHiden={false}></Navbar>
       {user?.teams.map((team, key) => {
         return (
           <TeamRetro

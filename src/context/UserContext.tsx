@@ -16,6 +16,7 @@ interface UserContext {
 
 
 type User = {
+    email: string,
     user_type: string,
     name: string,
     teams: {
