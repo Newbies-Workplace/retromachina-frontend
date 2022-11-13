@@ -11,11 +11,13 @@ interface Params {
 
 interface UserContext {
     user: User | null,
+    refreshUser(): Promise<void>,
     login(params: Object): Promise<void>
 };
 
 
 type User = {
+    email: string,
     user_type: string,
     name: string,
     teams: {
@@ -24,21 +26,34 @@ type User = {
            }[]  
 }
 
-export const UserContext = createContext<UserContext>({user:null,login:()=>{return Promise.reject()}});
+export const UserContext = createContext<UserContext>({
+    user:null,
+    refreshUser:() => { return Promise.reject() },
+    login:()=>{return Promise.reject()}
+});
 
 export const UserContextProvider: React.FC<any> = ({ children }) => {
 
-    const[user,setUser] = useState<User|null>(null);
+    const[user, setUser] = useState<User|null>(null);
 
     useEffect(() => {
-        const token = localStorage.getItem('Bearer')
-        if( token ) {
+        const token = localStorage.getItem('Bearer');
+
+
+        if ( token ) {
             axiosInstance.get("users/@me")
                 .then((response) => {
-                        setUser(response.data)
+                    setUser(response.data)
                 });
         }
     },[])
+
+    const refreshUser = () => {
+        return axiosInstance.get("users/@me")
+            .then((response) => {
+                setUser(response.data)
+            });
+    }
 
     const login = (params: Params) => {
         return axiosInstance.get("google/login", {
@@ -60,7 +75,7 @@ export const UserContextProvider: React.FC<any> = ({ children }) => {
     }
 
     return(
-        <UserContext.Provider value={{user: user, login:login}}>
+        <UserContext.Provider value={{user: user, refreshUser: refreshUser, login:login}}>
                 {children}
         </UserContext.Provider>
     );

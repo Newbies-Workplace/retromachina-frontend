@@ -4,6 +4,8 @@
 
 .wrapper{
     
+    font-family: fonts.$font-paragraph;
+    font-weight: bold;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,7 +20,7 @@
     word-break: break-all;
     white-space: normal;
     
-   & P { 
+   & div { 
         display: flex;
         justify-content: center;
         align-items: center;

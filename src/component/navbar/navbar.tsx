@@ -5,18 +5,23 @@ import CreateTeamSvg from "../../assets/icons/create-team.svg";
 import LogoSvg from "../../assets/images/Logo.svg";
 import Timer from "../timer/Timer";
 import Avatar from "../avatar/Avatar";
+import { useNavigate } from "react-router";
 
 interface PropsNavbar {
   isOnRun: boolean;
   isScrumMaster: boolean;
+  isButtonHiden: boolean;
   children?: any;
 }
 
 const Navbar: React.FC<PropsNavbar> = ({
   isOnRun,
   isScrumMaster,
+  isButtonHiden,
   children,
 }) => {
+  const navigate = useNavigate();
+
   return (
     <div className={styles.navbar}>
       <div className={styles.sectionWrapper}>
@@ -40,9 +45,9 @@ const Navbar: React.FC<PropsNavbar> = ({
           </div>
         </div>
         <div className={styles.section2}>
-          {isScrumMaster && !isOnRun && (
+          {isScrumMaster && !isOnRun && !isButtonHiden &&(
             <div className={styles.buttonWrapper}>
-              <Button>
+              <Button onClick={() => {navigate("/create")}}>
                 <CreateTeamSvg />
                 <p>Stwórz Zespół</p>
               </Button>
