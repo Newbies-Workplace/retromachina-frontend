@@ -9,13 +9,12 @@ const CardCount: React.FC<PropsCardCount> = ({ count, variant }) => {
   let text = "kartki";
   let lastDigit = count % 10;
 
-  if (
+  if (count == 1) text = "kartka";
+  else if (
     count == 0 ||
-    (count >= 5 && count <= 21) ||
+    (count >= 5 && count <= 21) || // nastki są dziwne "kartki"
     [0, 1, 5, 6, 7, 8, 9].includes(lastDigit)
-  )
-    text = "kartek";
-  else if (count == 1) text = "kartka";
+  ) text = "kartek";
 
   return (
     <div className={styles.wrapper}>
