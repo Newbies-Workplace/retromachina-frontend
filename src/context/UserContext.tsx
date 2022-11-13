@@ -46,8 +46,9 @@ export const UserContextProvider: React.FC<any> = ({ children }) => {
             params
         })
         .then((response) => {
+            localStorage.setItem("Bearer", response.data.access_token);
+            
             axiosInstance.defaults.headers["Authorization"] = "Bearer " + response.data.access_token;
-
             axiosInstance.get("users/@me")
                 .then((response) => {
                     setUser(response.data);
