@@ -5,6 +5,7 @@ import Navbar from "../../component/navbar/Navbar";
 
 const HomeView: React.FC = () => {
   const { user } = useUser();
+
   const isScrumMaster = user?.user_type == "SCRUM_MASTER";
 
   return (

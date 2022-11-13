@@ -2,8 +2,7 @@ export interface RetroResponse{
     
     id: string,
     team_id: string,
-    name: string,
-    data: string,
+    date: string,
     is_running: boolean
 
 }

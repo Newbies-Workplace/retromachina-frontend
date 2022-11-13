@@ -33,8 +33,12 @@ const TeamCreateCard: React.FC = () => {
                 name: nameInputRef.current.value,
                 emails: emails
         }).then((response) => {
-            if (response.status == 201) 
-                navigate("/")
+            if (response.status == 201) {
+                refreshUser()
+                    .then(() => {
+                        navigate("/");
+                    })
+            }
             else {
                 //coś się musi stać???
                 console.log(response.status);
@@ -45,7 +49,7 @@ const TeamCreateCard: React.FC = () => {
     const [emails, setEmails] = useState(Array<string>());
     const emailInputRef = useRef<HTMLInputElement>(null);
     const nameInputRef = useRef<HTMLInputElement>(null);
-    const { user } = useUser();
+    const { user, refreshUser } = useUser();
     const navigate = useNavigate()
 
     if (!user) navigate("/signin");
