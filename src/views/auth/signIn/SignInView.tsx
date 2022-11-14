@@ -4,7 +4,10 @@ import styles from './SignInView.module.scss';
 import LogoSvg from '../../../assets/images/Logo.svg'
 
 const SignInView = () => {
-    const href = "http://localhost:3000/api/rest/v1/google/redirect"
+    
+    //@ts-ignore
+   
+    const href = API_URL + "google/redirect";
     return (
         <div className={styles.container}>
             <div className={styles.dialog}>
