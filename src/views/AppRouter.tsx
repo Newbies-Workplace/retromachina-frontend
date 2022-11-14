@@ -9,6 +9,7 @@ import SignInView from "./auth/signIn/SignInView";
 import Loading from './auth/signIn/LoadinPage/LoadingPage';
 import { UserContext } from '../context/UserContext';
 import CreateTeamview from './create_team/CreateTeamView';
+import { RequireAuth } from '../component/require_auth/RequireAuth';
 
 export const AppRouter: React.FC = () => {
     return (
@@ -19,30 +20,30 @@ export const AppRouter: React.FC = () => {
                         element={<SignInView/>}
                         path="/signin"/>
 
-                    <Route
-                        element={<HomeView/>}
-                        path="/"/>
+                        <Route
+                            element={ <RequireAuth><HomeView/></RequireAuth>}
+                            path="/"/>
 
-                    <Route
-                        element={<Loading/>}
-                        path="/loading"/>
+                        <Route
+                            element={<RequireAuth><Loading/></RequireAuth>}
+                            path="/loading"/>
+                        
+                        <Route
+                            element={<RequireAuth><CreateTeamview/></RequireAuth>}
+                            path="/create"/>
+
+                        <Route
+                            element={<RequireAuth><CreateTeamview /></RequireAuth>}
+                            path="/edit"/>
+
+                        <Route
+                            element={<RequireAuth><p>Lista Zadań</p></RequireAuth>}
+                            path="/tasks"/>
+
+                        <Route
+                            element={<RequireAuth><p>Retro</p></RequireAuth>}
+                            path="/retro"/>
                     
-                    <Route
-                        element={<CreateTeamview/>}
-                        path="/create"/>
-
-                    <Route
-                        element={<CreateTeamview />}
-                        path="/edit"/>
-
-                    <Route
-                        element={<p>Lista Zadań</p>}
-                        path="/tasks"/>
-                    
-                    <Route
-                        element={<p>Lista Zadań</p>}
-                        path="/retro"/>
-                
                     <Route
                         element={<span>404</span>}
                         path="*"/>
