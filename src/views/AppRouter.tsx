@@ -25,7 +25,7 @@ export const AppRouter: React.FC = () => {
                             path="/"/>
 
                         <Route
-                            element={<RequireAuth><Loading/></RequireAuth>}
+                            element={<Loading/>}
                             path="/loading"/>
                         
                         <Route
