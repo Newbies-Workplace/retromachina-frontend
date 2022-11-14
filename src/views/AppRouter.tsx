@@ -38,6 +38,10 @@ export const AppRouter: React.FC = () => {
                     <Route
                         element={<p>Lista Zadań</p>}
                         path="/tasks"/>
+                    
+                    <Route
+                        element={<p>Lista Zadań</p>}
+                        path="/retro"/>
                 
                     <Route
                         element={<span>404</span>}
