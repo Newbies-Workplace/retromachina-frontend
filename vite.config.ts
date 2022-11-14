@@ -3,6 +3,8 @@ import react from '@vitejs/plugin-react'
 import { svgrComponent } from 'vite-plugin-svgr-component'
 import { config } from 'dotenv' 
 
+
+config();
 // https://vitejs.dev/config/
 export default defineConfig ({
     
@@ -13,8 +15,7 @@ export default defineConfig ({
       port: 8080,
     },  
     define:{
-        ...config().parsed
-        //API_URL: "'http://localhost:3000/api/rest/v1'" 
+        API_URL: process.env.API_URL 
       }
       
   })
