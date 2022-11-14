@@ -1,7 +1,7 @@
 import React from 'react';
 import GoogleButton from 'react-google-button';
 import styles from './SignInView.module.scss';
-import LogoSvg from '../../../assets/images/Logo.svg'
+import LogoSvg from '../../../assets/images/logo.svg'
 
 const SignInView = () => {
     
