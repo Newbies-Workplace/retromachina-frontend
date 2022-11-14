@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate, useLocation } from "react-router";
+import { Navigate } from "react-router";
 import { useUser } from '../../context/UserContext.hook';
 
 interface RequireAuthProps {
@@ -9,8 +9,8 @@ interface RequireAuthProps {
 
 export const RequireAuth: React.FC<RequireAuthProps> = ({fallback, children}) => {
     const {user} = useUser();
-    const {pathname} = useLocation();
+    console.log(user);
     if (user)
         return <>{children}</>
-    return fallback || <Navigate to={`/signin?redirect=${pathname}`} />
+    return fallback || <Navigate to={`/signin`} />
 }
