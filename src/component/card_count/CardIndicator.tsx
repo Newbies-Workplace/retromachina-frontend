@@ -1,4 +1,4 @@
-import styles from "./CardCount.module.scss";
+import styles from "./CardIndicator.module.scss";
 
 interface PropsCardCount {
   count: number;
