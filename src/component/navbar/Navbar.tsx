@@ -31,11 +31,6 @@ const Navbar: React.FC<PropsNavbar> = ({
           </div>
 
           <div className={styles.usection}>
-            {isOnRun && (
-              <div className={styles.timerBox}>
-                <Timer variant={2} time={"0:30"} />
-              </div>
-            )}
             <div className={styles.profile}>
               <Avatar
                 isActive={true}
