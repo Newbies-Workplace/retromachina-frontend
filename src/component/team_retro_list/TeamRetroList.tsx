@@ -7,6 +7,7 @@ import TaskIconSvg from "../../assets/icons/task-icon.svg";
 import EditIconSvg from "../../assets/icons/edit-icon.svg";
 import { RetroResponse } from "../../interfaces/Retro.interface";
 import { axiosInstance } from "../../AxiosInstance";
+import { useNavigate } from "react-router-dom";
 
 interface PropsRetroTeam {
   isScrumMaster: boolean;
@@ -17,6 +18,7 @@ interface PropsRetroTeam {
 const RetroTeamList: React.FC<PropsRetroTeam> = ({ isScrumMaster, teamName, teamId }) => {
 
   const [retros, setRetros] = useState(Array<RetroResponse>());
+  const navigate = useNavigate();
 
   useEffect( () => {
     axiosInstance.get("/retros/" + teamId)
@@ -31,20 +33,21 @@ const RetroTeamList: React.FC<PropsRetroTeam> = ({ isScrumMaster, teamName, team
     <div className={styles.container}>
       <div className={styles.icons}>
         <h2 className={styles.title}>{teamName}</h2>
-        <Button>
-          <TaskIconSvg />
-          <p>Lista zadań</p>
-        </Button>
+          <Button onClick={() => {navigate("/tasks")}}>
+            <TaskIconSvg />
+            <p>Lista zadań</p>
+          </Button>
 
         {isScrumMaster && (
-          <Button>
+          <Button onClick={() => {navigate("/create")}}>
             <EditIconSvg />
           </Button>
         )}
       </div>
       <div className={styles.wrapper}>
         {isScrumMaster && (
-          <HomeBox isBackgorundGreen={true}>
+          
+          <HomeBox isBackgorundGreen={true} onClick={() => {navigate("/retro")}}>
             Nowa Retrospektywa <AddIcon />{" "}
           </HomeBox>
         )}
