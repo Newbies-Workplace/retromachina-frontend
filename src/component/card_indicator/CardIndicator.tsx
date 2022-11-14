@@ -2,10 +2,10 @@ import styles from "./CardIndicator.module.scss";
 
 interface PropsCardCount {
   count: number;
-  isWriting?: Boolean
+  isWritting?: Boolean
 }
 
-const CardCount: React.FC<PropsCardCount> = ({ count, isWriting }) => {
+const CardCount: React.FC<PropsCardCount> = ({ count, isWritting }) => {
   let text = "kartki";
   let lastDigit = count % 10;
 
@@ -18,7 +18,7 @@ const CardCount: React.FC<PropsCardCount> = ({ count, isWriting }) => {
 
   return (
     <div className={styles.wrapper}>
-      <div className={isWriting ? styles.rectColor : styles.rect}></div>
+      <div className={isWritting ? styles.rectColor : styles.rect}></div>
       {count} {text} zespołu
     </div>
   );
