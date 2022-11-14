@@ -30,6 +30,14 @@ export const AppRouter: React.FC = () => {
                     <Route
                         element={<CreateTeamview/>}
                         path="/create"/>
+
+                    <Route
+                        element={<CreateTeamview />}
+                        path="/edit"/>
+
+                    <Route
+                        element={<p>Lista Zadań</p>}
+                        path="/tasks"/>
                 
                     <Route
                         element={<span>404</span>}
