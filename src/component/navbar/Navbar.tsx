@@ -1,9 +1,8 @@
 import React from "react";
-import styles from "./navbar.module.scss";
+import styles from "./Navbar.module.scss";
 import Button from "../button/Button";
 import CreateTeamSvg from "../../assets/icons/create-team.svg";
-import LogoSvg from "../../assets/images/Logo.svg";
-import Timer from "../timer/Timer";
+import LogoSvg from "../../assets/images/logo.svg";
 import Avatar from "../avatar/Avatar";
 import { useNavigate } from "react-router";
 
