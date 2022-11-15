@@ -40,12 +40,8 @@ export const UserContextProvider: React.FC<any> = ({ children }) => {
     useEffect(() => {
         const token = localStorage.getItem('Bearer');
 
-
-        if ( token ) {
-            getUserInfo()
-                .then((response) => {
-                    setUser(response)
-                });
+        if ( token && !user ) {
+            refreshUser();
         }
     },[])
 
@@ -53,6 +49,12 @@ export const UserContextProvider: React.FC<any> = ({ children }) => {
         return getUserInfo()
             .then((response) => {
                 setUser(response)
+            })
+            .catch((error) => {
+                if (error.status == 401) {
+                    setUser(null);
+                } else 
+                    console.error(error); 
             });
     }
 
