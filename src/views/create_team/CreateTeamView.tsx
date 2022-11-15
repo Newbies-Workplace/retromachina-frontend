@@ -2,12 +2,12 @@ import { axiosInstance } from '../../api/AxiosInstance';
 import { useUser } from '../../context/UserContext.hook'
 import { useNavigate } from 'react-router'
 import TeamForm from '../../component/forms/TeamForm';
-import { TeamResult } from '../../interfaces/Team.interface';
+import { Team } from '../../interfaces/Team.interface';
 
 
 const CreateTeamview: React.FC = () => {
 
-  function onSubmit(team: TeamResult ) {
+  function onSubmit(team: Team) {
       axiosInstance.post("/teams", {
               name: team.name,
               emails: team.emails

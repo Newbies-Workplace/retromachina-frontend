@@ -75,8 +75,7 @@ const CreateTeamview: React.FC = () => {
     
     if (!team)
         return <LoadingView/>
-  
-    console.log(team);
+
     return (
       <TeamForm onSubmit={onSubmit} userEmail={user?.email || ""} team={team} />
     );

@@ -9,7 +9,7 @@ import { Team } from '../../interfaces/Team.interface';
 
 interface CreateTeamFormProps {
     userEmail: string
-    team: Team
+    team: Team | null
     onSubmit: (team: Team) => void
 }
 
@@ -31,7 +31,7 @@ const TeamForm: React.FC<CreateTeamFormProps> = ({userEmail, team, onSubmit}) =>
         setEmails(_emails);
     }
 
-    const [emails, setEmails] = useState(team?.emails);
+    const [emails, setEmails] = useState(team?.emails || []);
     const emailInputRef = useRef<HTMLInputElement>(null);
     const nameInputRef = useRef<HTMLInputElement>(null);
 
@@ -56,7 +56,7 @@ const TeamForm: React.FC<CreateTeamFormProps> = ({userEmail, team, onSubmit}) =>
                             <div className={styles.members}>
                                 <label>Członkowie</label>
                                     {
-                                        emails.map((email: string, index) => {
+                                        emails?.map((email: string, index) => {
                                             
                                             return <div className={styles.mailBox} key={email}>
                                                 {email}
