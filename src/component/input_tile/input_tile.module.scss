@@ -1,0 +1,27 @@
+@use  'src/abstracts/colors';
+@use  'src/abstracts/fonts';
+@use  'src/abstracts/assets';
+
+.tile{
+    display: flex;
+    justify-content: center;
+
+    background-color: #ffffff;
+
+    border-radius: 16px;
+    border: solid black 1px;
+
+    height: fit-content;
+    width: fit-content;
+    min-width: 345px;
+    min-height:96px;
+    
+    padding: 10px 10px 10px 10px ;
+
+    font-family: fonts.$font-paragraph;
+
+    font-size: 15px;
+}
+
+    
+
