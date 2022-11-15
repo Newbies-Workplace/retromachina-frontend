@@ -5,7 +5,6 @@ import LoadingView from '../loading_view/LoadingView';
 
 interface RequireAuthProps {
     fallback?: JSX.Element;
-    children: any;
 }
 
 export const RequireAuth: React.FC<React.PropsWithChildren<RequireAuthProps>> = ({fallback, children}) => {
