@@ -12,6 +12,7 @@ export const RequireAuth: React.FC<React.PropsWithChildren<RequireAuthProps>> = 
     const [ busy, setBusy ] = useState(true);
 
     useEffect(() => {
+            
         const waitForUser = async () => {
             await refreshUser();
             setBusy(false);

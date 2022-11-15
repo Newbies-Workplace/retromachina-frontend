@@ -1,8 +1,9 @@
-import { axiosInstance } from '../../AxiosInstance'
+import { axiosInstance } from '../../api/AxiosInstance';
 import { useUser } from '../../context/UserContext.hook'
 import { useNavigate } from 'react-router'
-import { TeamResult } from "../../interfaces/Team.interface";
 import TeamForm from '../../component/forms/TeamForm';
+import { TeamResult } from '../../interfaces/Team.interface';
+
 
 const CreateTeamview: React.FC = () => {
 

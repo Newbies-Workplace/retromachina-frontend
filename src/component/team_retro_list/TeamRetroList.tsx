@@ -5,9 +5,10 @@ import Button from "../button/Button";
 import AddIcon from "../../assets/icons/add-icon.svg";
 import TaskIconSvg from "../../assets/icons/task-icon.svg";
 import EditIconSvg from "../../assets/icons/edit-icon.svg";
-import { RetroResponse } from "../../interfaces/Retro.interface";
-import { axiosInstance } from "../../AxiosInstance";
+import { RetroResponse } from "../../api/retro/Retro.interface";
+import { axiosInstance } from "../../api/AxiosInstance";
 import { useNavigate } from "react-router-dom";
+import { getRetrosByTeamId } from "../../api/retro/Retro.service";
 
 interface PropsRetroTeam {
   isScrumMaster: boolean;
@@ -21,11 +22,11 @@ const RetroTeamList: React.FC<PropsRetroTeam> = ({ isScrumMaster, teamName, team
   const navigate = useNavigate();
 
   useEffect( () => {
-    axiosInstance.get("/retros/" + teamId)
-      .then((response) => {
-        setRetros(response.data);
-
-      }).catch();
+    getRetrosByTeamId(teamId)
+      .then((retros) => {
+        setRetros(retros);
+      })
+      .catch(console.log);
   }, []);
 
   let counter = retros.length;
