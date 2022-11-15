@@ -2,27 +2,27 @@ import React from "react";
 import styles from "./Timer.module.scss";
 
 interface PropsTimer {
-  time: string;
-  variant: 1 | 2 | 3;
+  time: number;
 }
 
-const Timer: React.FC<PropsTimer> = ({ time, variant }) => {
+const Timer: React.FC<PropsTimer> = ({ time }) => {
   let className;
   let _time;
 
-  switch (variant) {
-    case 1:
-      className = styles.state1;
-      _time = time;
-      break;
-    case 2:
-      className = styles.state2;
-      _time = time;
-      break;
-    case 3:
-      className = styles.state3;
-      _time = "po czasie";
-      break;
+  if ( time == 0) {
+    className = styles.noTime;
+    _time = "po czasie";
+  } else if (time <= 30) {
+    className = styles.closeEnd;
+    _time = `0:${time}`;
+  } else if (time > 30) {
+    var minutes = Math.floor(time / 60);
+    var seconds = time - minutes * 60;
+
+    _time = `${minutes}:${seconds}`;
+
+    className = styles.regular;
+
   }
   return <div className={className}>{_time}</div>;
 };

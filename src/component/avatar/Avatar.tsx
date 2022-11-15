@@ -1,6 +1,6 @@
 import { constants } from 'fs/promises';
 import React from 'react';
-import styles from './avatar.module.scss';
+import styles from './Avatar.module.scss';
 
 interface PropsCircle{
   isActive:Boolean,

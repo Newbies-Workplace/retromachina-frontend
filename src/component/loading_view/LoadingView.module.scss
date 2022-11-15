@@ -1,38 +1,38 @@
 @use  'src/abstracts/colors';
 @use  'src/abstracts/fonts';
 @use  'src/abstracts/assets';
-*{
-    @include assets.all;
-}
 
-
-
-body{
-    @include assets.body;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-image: url(public/background.svg);
-    background-size: cover;
-    background-repeat: no-repeat;
-}
 h1{
     @include assets.h1;
 }
-.wrapper{
-    max-width: 700px;
-    max-height: 400px;
+
+.container {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    color: colors.$background;
-    background-color: colors.$secondary-color;
-    padding: 30px 30px 30px 30px;
-    border-radius: 16px;
-    gap: 140px;
+
+    height: 100vh;
+    background-image: url("../../../assets/images/background.svg");
+    background-size: cover;
 }
-.text{
+
+.dialog {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 140px;
+
+    max-width: 700px;
+    max-height: 400px;
+    padding: 80px 140px 80px 140px;
+    border-radius: 16px;
+
+    background-color: colors.$secondary-color;
+    color: colors.$background;
+}
+
+.text {
     width: 100%;
     height: 10%;
     display: flex;
@@ -40,24 +40,28 @@ h1{
     align-items: center;
     flex-direction: column;
     gap: 10px;
+
+    & a {
+        color: colors.$primary-color;
+    }
 }
-.text a{
-    color: colors.$primary-color;
-}
-p{
+
+p {
     font-size: 22px;
-    margin: 0 ;  
     font-family: fonts.$font-paragraph;
 }
-.googleBtn{
+
+.googleBtn {
     color: black !important;
     background-color: white !important;
     border-radius: 40px !important;
-}    
 
-.googleBtn div{
-    border-radius: 40px !important;
+    & div {
+        border-radius: 40px !important;
+    }
 }
-a:has(.googleBtn){
+
+a:has(.googleBtn) {
     text-decoration: none;
 }
+

@@ -3,7 +3,7 @@ import HeaderBar from "../../component/header_bar/HeaderBar";
 import styles from './CreateTeamView.module.scss'
 import AddIconSvg from '../../assets/icons/add-icon.svg'
 import { useRef, useState } from 'react'
-import { axiosInstance } from '../../AxiosInstance'
+import { axiosInstance } from '../../api/AxiosInstance'
 import { useUser } from '../../context/UserContext.hook'
 import { useNavigate } from 'react-router'
 import Button from "../../component/button/Button";

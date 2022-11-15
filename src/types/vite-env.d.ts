@@ -1,1 +1,1 @@
-declare const __API_URL__: string;
+declare const API_URL: string

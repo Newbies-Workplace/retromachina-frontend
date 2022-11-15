@@ -46,7 +46,7 @@
     align-items: flex-start;
     font-size: 1.8rem;
     font-family: fonts.$font-paragraph;
-    font-weight: 900;
+    font-weight: 700;
 }
 
 .scrumMaster{
@@ -54,6 +54,7 @@
     & p {
         margin-top: 10px;
         font-family: fonts.$font-paragraph; 
+        font-weight: 400;
     }
 }
 
@@ -97,10 +98,11 @@
     }
 }
 
+
 input::placeholder{
     font-family: fonts.$font-paragraph;
     font-size: 1.4rem;
-    font-weight: 600;
+    font-weight: 400;
     line-height: normal;
 }
 
@@ -114,7 +116,6 @@ input{
     padding-left: 22px;
     font-family: fonts.$font-paragraph;
     font-size: 1.4rem;
-    font-weight: 600;
     line-height: normal;
 }
 
@@ -132,4 +133,8 @@ label {
     display: flex;
     flex-direction: row-reverse;
     font-size: 3rem;
+}
+
+label{
+    font-weight: 700;
 }
