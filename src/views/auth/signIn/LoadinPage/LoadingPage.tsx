@@ -1,10 +1,7 @@
-import axios from 'axios';
-import styles from '../SignInView.module.scss';
-import LogoSvg from '../../../../assets/images/logo.svg'
-import Loader from '../../../../component/loader/Loader'
 import { useEffect } from 'react';
 import { useUser } from '../../../../context/UserContext.hook';
 import { useNavigate } from 'react-router';
+import LoadingView from '../../../../component/loading_view/LoadingView';
 
 const LoadingPage = () => {
 
@@ -21,15 +18,7 @@ const LoadingPage = () => {
     }, [])
 
     return (
-        <div className={styles.container}>
-            <div className={styles.dialog}>
-                <div className={styles.text}>
-                    <LogoSvg />
-                    <p>powered by <a href="http://newbies.pl">Newbies</a></p>
-                </div>
-                <Loader />
-            </div>
-        </div>
+        <LoadingView />
     );
 };
 
