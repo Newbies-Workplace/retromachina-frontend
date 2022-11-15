@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import TeamRetro from "../../component/team_retro_list/TeamRetroList";
 import { useUser } from "../../context/UserContext.hook";
 import Navbar from "../../component/navbar/Navbar";
+import Button from "../../component/button/Button";
 
 const HomeView: React.FC = () => {
   const { user } = useUser();
@@ -11,6 +12,7 @@ const HomeView: React.FC = () => {
   return (
     <>
       <Navbar isScrumMaster={isScrumMaster} isOnRun={false} isButtonHiden={false}></Navbar>
+      
       {user?.teams.map((team, key) => {
         return (
           <TeamRetro
