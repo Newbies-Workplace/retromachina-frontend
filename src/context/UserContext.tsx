@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { axiosInstance } from "../AxiosInstance";
+import { axiosInstance } from "../api/AxiosInstance";
 
 
 interface Params {
