@@ -10,6 +10,7 @@ import Loading from './auth/signIn/LoadinPage/LoadingPage';
 import { UserContext } from '../context/UserContext';
 import CreateTeamview from './create_team/CreateTeamView';
 import { RequireAuth } from '../component/require_auth/RequireAuth';
+import EditTeamView from './edit_team/EditTeamView';
 
 export const AppRouter: React.FC = () => {
     return (
@@ -31,6 +32,10 @@ export const AppRouter: React.FC = () => {
                         <Route
                             element={<RequireAuth><CreateTeamview/></RequireAuth>}
                             path="/create"/>
+                        
+                        <Route
+                            element={<RequireAuth><EditTeamView/></RequireAuth>}
+                            path="/edit/:teamId"/>
 
                         <Route
                             element={<RequireAuth><CreateTeamview /></RequireAuth>}
