@@ -1,15 +1,30 @@
 import React from 'react'
 import styles from './Button.module.scss'
+import cs from 'classnames';
 
 
-interface PropsButton {
+interface ButtonProps{
     onClick?(): void;
-    children?: any;
+
+
+    size?: "medium" | "small" | "buttonicon" |"", 
 }
 
-const Button: React.FC<any> = ({children, onClick}) =>{
+const Button: React.FC<React.PropsWithChildren<ButtonProps>> = ({children, onClick, size = "medium"}) =>{
     return(
-        <button onClick={onClick} className={styles.button}>
+        <button onClick={onClick} className=
+        {cs(styles.button,{
+            [styles.small]: size === "small",
+            [styles.medium]: size === "medium",
+            [styles.buttonicon]:size === "buttonicon",
+
+
+
+        })
+
+        
+        }>
+            
             {children}
         </button>
     );
