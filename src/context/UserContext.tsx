@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { axiosInstance } from "../api/AxiosInstance";
+import { getUserInfo } from "../api/user/User.service";
 
 
 interface Params {
@@ -41,17 +42,17 @@ export const UserContextProvider: React.FC<any> = ({ children }) => {
 
 
         if ( token ) {
-            axiosInstance.get("users/@me")
+            getUserInfo()
                 .then((response) => {
-                    setUser(response.data)
+                    setUser(response)
                 });
         }
     },[])
 
     const refreshUser = () => {
-        return axiosInstance.get("users/@me")
+        return getUserInfo()
             .then((response) => {
-                setUser(response.data)
+                setUser(response)
             });
     }
 
@@ -63,9 +64,9 @@ export const UserContextProvider: React.FC<any> = ({ children }) => {
             localStorage.setItem("Bearer", response.data.access_token);
             
             axiosInstance.defaults.headers["Authorization"] = "Bearer " + response.data.access_token;
-            axiosInstance.get("users/@me")
+            getUserInfo()
                 .then((response) => {
-                    setUser(response.data);
+                    setUser(response);
                 });
         })
         .catch((err) => {
