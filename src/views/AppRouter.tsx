@@ -10,6 +10,7 @@ import Loading from './auth/signIn/LoadinPage/LoadingPage';
 import { UserContext } from '../context/UserContext';
 import CreateTeamview from './create_team/CreateTeamView';
 import { RequireAuth } from '../component/require_auth/RequireAuth';
+import { RetroCreateView } from './retro_create/RetroCreateView';
 
 export const AppRouter: React.FC = () => {
     return (
@@ -41,7 +42,7 @@ export const AppRouter: React.FC = () => {
                             path="/tasks"/>
 
                         <Route
-                            element={<RequireAuth><p>Retro</p></RequireAuth>}
+                            element={<RequireAuth><RetroCreateView/></RequireAuth>}
                             path="/retro"/>
                     
                     <Route

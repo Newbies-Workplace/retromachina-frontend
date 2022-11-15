@@ -1,0 +1,44 @@
+@use  'src/abstracts/colors';
+@use  'src/abstracts/fonts';
+@use  'src/abstracts/assets';
+
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+    width: min-content;
+    height: min-content;
+    min-width: 250px;
+    min-height: 95px;
+    
+    padding: 10px 20px;
+    
+    border-radius: 16px;
+    border: 1px solid black;
+
+   
+
+    & p{
+        font-size: 15px;
+        font-weight: 400;
+    }
+    
+}
+.title{
+    flex-wrap: nowrap;
+    display:flex;
+    align-items: center;
+    & p{
+        font-size: 25px;
+        font-weight: 700;  
+    }
+}
+.box{
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+    border-radius: 6px;
+    border: 1px solid black;
+}
