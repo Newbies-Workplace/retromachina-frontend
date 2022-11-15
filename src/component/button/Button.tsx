@@ -7,7 +7,7 @@ interface ButtonProps{
     onClick?(): void;
 
 
-    size?: "medium" | "small" | "buttonicon" |"", 
+    size?: "medium" | "small" | "buttonicon" |"big"|"ultrabig", 
 }
 
 const Button: React.FC<React.PropsWithChildren<ButtonProps>> = ({children, onClick, size = "medium"}) =>{
@@ -17,8 +17,8 @@ const Button: React.FC<React.PropsWithChildren<ButtonProps>> = ({children, onCli
             [styles.small]: size === "small",
             [styles.medium]: size === "medium",
             [styles.buttonicon]:size === "buttonicon",
-
-
+            [styles.big]:size === "big",
+            [styles.ultrabig]:size === "ultrabig",
 
         })
 
