@@ -6,7 +6,6 @@ import LogoSvg from '../../../assets/images/logo.svg'
 const SignInView = () => {
     
     //@ts-ignore
-   
     const href = API_URL + "google/redirect";
     return (
         <div className={styles.container}>

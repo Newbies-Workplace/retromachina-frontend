@@ -33,18 +33,13 @@ export const UserContext = createContext<UserContext>({
 });
 
 export const UserContextProvider: React.FC<any> = ({ children }) => {
-
     const[user, setUser] = useState<User|null>(null);
 
     useEffect(() => {
         const token = localStorage.getItem('Bearer');
 
-
-        if ( token ) {
-            axiosInstance.get("users/@me")
-                .then((response) => {
-                    setUser(response.data)
-                });
+        if ( token && !user ) {
+            refreshUser();
         }
     },[])
 
@@ -52,6 +47,12 @@ export const UserContextProvider: React.FC<any> = ({ children }) => {
         return axiosInstance.get("users/@me")
             .then((response) => {
                 setUser(response.data)
+            })
+            .catch((error) => {
+                if (error.status == 401) {
+                    setUser(null);
+                } else 
+                    console.error(error); 
             });
     }
 
