@@ -1,0 +1,88 @@
+import { useRef, useState } from 'react';
+import Button from '../button/Button';
+import HeaderBar from '../header_bar/HeaderBar';
+import Navbar from '../navbar/Navbar';
+import styles from './TeamForm.module.scss'
+import AddIconSvg from '../../assets/icons/add-icon.svg'
+import { TeamInput, TeamResult } from '../../interfaces/Team.interface';
+
+
+interface CreateTeamFormProps {
+    userEmail: string
+    team: TeamInput | null
+    onSubmit: (team: TeamResult) => void
+}
+
+
+const TeamForm: React.FC<CreateTeamFormProps> = ({userEmail, team, onSubmit}) => {
+    function addEmail() {
+        if (!emailInputRef.current 
+            || emailInputRef.current.value.trim().length == 0) return;
+        
+        setEmails([...emails, emailInputRef.current.value]);
+        emailInputRef.current.value = "";
+        emailInputRef.current.scrollIntoView();
+    }
+  
+    function deleteEmail(index: number) {
+        let _emails = [...emails];
+        _emails.splice(index, 1);
+  
+        setEmails(_emails);
+    }
+
+    const [emails, setEmails] = useState(team?.users?.map((user) => user.email) || []);
+    const emailInputRef = useRef<HTMLInputElement>(null);
+    const nameInputRef = useRef<HTMLInputElement>(null);
+
+
+    return (
+    <>
+        <Navbar isScrumMaster={true} isOnRun={false} isButtonHiden={true}>
+          <HeaderBar text="Edycja Zespołu"></HeaderBar>
+        </Navbar>
+        <div className={styles.container}>
+              <div className={styles.wrapper}>
+                  <form>
+                      <div className={styles.innerFormWrapper}>
+                          <div className={styles.teamName}>
+                              <label>Team</label>
+                              <input ref={nameInputRef} type="text" name="" id="" placeholder='Nazwa zespołu' />
+                          </div>
+                          <div className={styles.scrumMaster}>
+                              <label>Scrum Master</label>
+                              <p>Ty ({userEmail})</p>
+                          </div>
+                          <div className={styles.members}>
+                              <label>Członkowie</label>
+                                  {
+                                      emails.map((email: string, index) => {
+                                          
+                                          return <div className={styles.mailBox} key={email}>
+                                              {email}
+                                              <div className={styles.clickable} onClick={deleteEmail.bind(this, index)}><AddIconSvg/></div>
+                                          </div>
+                                      })
+                                  }
+                                  <div className={styles.emailWrapper}>
+                                      <input ref={emailInputRef} type="email" className={styles.newTeam} placeholder='Wpisz email'/>
+                                      <div className={styles.plus}><AddIconSvg onClick={addEmail}/></div>
+                                  </div>
+                          </div>
+                      </div>
+                  </form>
+                  <div className={styles.submitButtonWrapper}>
+                      <div className={styles.submitButton}>
+                          <Button onClick={() => {onSubmit({
+                            name: nameInputRef.current?.value || "",
+                            emails: emails
+                          })}}>Zapisz</Button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </>
+    );
+}
+
+export default TeamForm
