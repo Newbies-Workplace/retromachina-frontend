@@ -8,7 +8,7 @@ interface RequireAuthProps {
     children: any;
 }
 
-export const RequireAuth: React.FC<RequireAuthProps> = ({fallback, children}) => {
+export const RequireAuth: React.FC<React.PropsWithChildren<RequireAuthProps>> = ({fallback, children}) => {
     const { user, refreshUser } = useUser();
     const [ busy, setBusy ] = useState(true);
 
@@ -28,6 +28,4 @@ export const RequireAuth: React.FC<RequireAuthProps> = ({fallback, children}) =>
         return <>{children}</>
 
     return fallback || <Navigate to={`/signin`} />
-
-    
 }

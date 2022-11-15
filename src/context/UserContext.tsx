@@ -33,6 +33,7 @@ export const UserContext = createContext<UserContext>({
 });
 
 export const UserContextProvider: React.FC<any> = ({ children }) => {
+
     const[user, setUser] = useState<User|null>(null);
 
     useEffect(() => {

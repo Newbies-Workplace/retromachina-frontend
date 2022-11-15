@@ -1,1 +1,1 @@
-declare const VITE_API_URL: string
+declare const API_URL: string
