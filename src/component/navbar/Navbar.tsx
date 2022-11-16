@@ -12,7 +12,7 @@ interface PropsNavbar {
   isButtonHiden: boolean;
   children?: any;
 }
-
+//react prop with children
 const Navbar: React.FC<PropsNavbar> = ({
   isOnRun,
   isScrumMaster,
@@ -41,7 +41,7 @@ const Navbar: React.FC<PropsNavbar> = ({
         <div className={styles.section2}>
           {isScrumMaster && !isOnRun && !isButtonHiden &&(
             <div className={styles.buttonWrapper}>
-              <Button onClick={() => {navigate("/team/create")}} size="small">
+              <Button onClick={() => {navigate("/team/create")}} size="small" className={styles.button}>
                 <CreateTeamSvg />
                 <p>Stwórz Zespół</p>
               </Button>
