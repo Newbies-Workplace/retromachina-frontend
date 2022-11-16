@@ -1,7 +1,7 @@
 import styles from './LoadingView.module.scss';
 import LogoSvg from '../../assets/images/logo.svg'
 import Loader from '../loader/Loader'
-import InputTile from '../input_tile/input_tile';
+import InputTile from '../input/Input';
 
 const LoadingView = () => {
     return (
