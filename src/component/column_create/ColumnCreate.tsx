@@ -6,7 +6,8 @@ import Input from '../input/Input'
 import { ColorPicker } from '../color_picker/ColorPicker'
 
 const ColumnCreate = () => {
-    const [value,setValue] = useState("")
+    const [value1,setValue1] = useState("")
+    const [value2,setValue2] = useState("")
     const [color, setColor] = useState("#FF7711")
     
     
@@ -16,8 +17,8 @@ const ColumnCreate = () => {
                 <ColorPicker color={color} onChange={setColor}/>                 
                 <AddIconSvg className={styles.delete}/>
             </div>
-            <div className={styles.header}><Input value={value} setValue={setValue} placeholder="Nazwa Kolumny"/></div>
-            <div className={styles.opis}><Input value={value} setValue={setValue} placeholder="Opis"/></div>
+            <div className={styles.header}><Input variant="oneline" value={value1} setValue={setValue1} placeholder="Nazwa Kolumny"/></div>
+            <div className={styles.opis}><Input variant="multiline" value={value2} setValue={setValue2} placeholder="Opis"/></div>
         </div>
     )
 }

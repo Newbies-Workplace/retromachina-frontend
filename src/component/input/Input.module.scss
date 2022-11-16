@@ -7,7 +7,7 @@
     border: solid black 1px;
     height: fit-content;
     width: fit-content;
-    padding: 5px 10px;
+    padding: 10px 10px;
 }
 
 .tile{
@@ -21,13 +21,28 @@
     border: none;
     outline: none;
 
-    padding: 10px 10px 10px 10px ;
-
     font-family: fonts.$font-paragraph;
 
     font-size: 15px;
 
     resize: none;
+
+    min-width: 345px;
+    min-height: 96px;
+    
+}
+.oneline{
+    
+    min-width: 345px;
+    min-height: 20px;
+    font-weight: 100;
+    border: 1px solid black;
+    vertical-align: center;
+}
+.oneline::placeholder{
+    font-size: 15px;
+    vertical-align: middle;
+    text-align: left;
 }
 
 .tile::-webkit-scrollbar {
