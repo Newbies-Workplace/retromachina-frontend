@@ -2,14 +2,16 @@ import React from 'react';
 import GoogleButton from 'react-google-button';
 import styles from './SignInView.module.scss';
 import LogoSvg from '../../../assets/images/logo.svg'
-
+import Toolbox from '../../../component/toolbox/toolbox';
 const SignInView = () => {
     
     const href = API_URL + "google/redirect";
     return (
+        
         <div className={styles.container}>
+            <Toolbox/>
             <div className={styles.dialog}>
-
+                
                 <div className={styles.text}>
                     <LogoSvg />
 
