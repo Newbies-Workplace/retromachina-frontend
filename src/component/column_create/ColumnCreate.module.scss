@@ -1,0 +1,23 @@
+@use  'src/abstracts/colors';
+@use  'src/abstracts/fonts';
+@use  'src/abstracts/assets';
+
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 16px;
+    gap:   20px;
+}
+.delete{
+    transform: rotate(45deg);
+}   
+
+.topBar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
