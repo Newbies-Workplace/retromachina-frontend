@@ -1,5 +1,5 @@
-import React , { useState } from "react";
-import styles from '../input/input.module.scss';
+import React from "react";
+import styles from '../input/Input.module.scss';
 
 
 interface InputProps{
@@ -8,11 +8,11 @@ interface InputProps{
     setValue:(value:string)=>void,
 }
 
-const Input : React.FC<InputProps>  =  ({placeholder,value,setValue}) =>{
+const Input : React.FC<InputProps>  =  ({placeholder, value, setValue}) =>{
 return(
-    <textarea  className={styles.tile} value={value} placeholder = {placeholder} onChange={(e)=>{setValue(e.target.value)}}/>
+    <div className={styles.outer}>
+        <textarea  className={styles.tile} value={value} placeholder = {placeholder} onChange={(e)=>{setValue(e.target.value)}}/>
+    </div>
 );
 }
 export default Input;
-//<Input value={value} setValue={setValue} placeholder = {"bruh"}/>
-// const[value, setValue] = useState<string>("");
