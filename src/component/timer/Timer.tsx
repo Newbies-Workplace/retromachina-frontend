@@ -1,30 +1,37 @@
 import React from "react";
 import styles from "./Timer.module.scss";
+import cs from 'classnames';
+
 
 interface PropsTimer {
   time: number;
 }
 
 const Timer: React.FC<PropsTimer> = ({ time }) => {
-  let className;
-  let _time;
+  let variant;
+  let timeText;
 
-  if ( time == 0) {
-    className = styles.noTime;
-    _time = "po czasie";
+  if ( time <= 0) {
+    variant = "end"
+    timeText = "po czasie";
   } else if (time <= 30) {
-    className = styles.closeEnd;
-    _time = `0:${time}`;
+    variant = "expires"
+    timeText = `0:${time}`;
   } else if (time > 30) {
     var minutes = Math.floor(time / 60);
     var seconds = time - minutes * 60;
-
-    _time = `${minutes}:${seconds}`;
-
-    className = styles.regular;
+    variant = "default"
+    timeText = `${minutes}:${seconds}`;
 
   }
-  return <div className={className}>{_time}</div>;
+  return(
+    <div className={cs(styles.timer,{
+        [styles.default]: variant === "default",
+        [styles.expires]: variant === "expires",
+        [styles.end]:variant === "end",})}>
+        {timeText}
+    </div>
+  )
 };
 
 export default Timer;
