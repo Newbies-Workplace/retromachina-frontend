@@ -3,15 +3,15 @@ import { useUser } from '../../context/UserContext.hook'
 import { useNavigate } from 'react-router'
 import TeamForm from '../../component/forms/TeamForm';
 import { Team } from '../../interfaces/Team.interface';
+import Navbar from '../../component/navbar/Navbar';
+import HeaderBar from '../../component/header_bar/HeaderBar';
+import { createTeam } from '../../api/team/Create.service';
 
 
 const CreateTeamview: React.FC = () => {
 
-  function onSubmit(team: Team) {
-      axiosInstance.post("/teams", {
-              name: team.name,
-              emails: team.emails
-      }).then((response) => {
+  const onSubmit = (team: Team) => {
+        createTeam(team).then((response) => {
           if (response.status == 201) {
               refreshUser()
                   .then(() => {
@@ -25,13 +25,16 @@ const CreateTeamview: React.FC = () => {
       })
   }
 
-
   const { user, refreshUser } = useUser();
   const navigate = useNavigate()
 
-
   return (
-    <TeamForm onSubmit={onSubmit} userEmail={user?.email || ""} team={null} />
+    <>
+        <Navbar isScrumMaster={true} isOnRun={false} isButtonHiden={true}>
+            <HeaderBar text="Edycja Zespołu"></HeaderBar>
+        </Navbar>
+        <TeamForm onSubmit={onSubmit} userEmail={user?.email || ""} team={null} />
+    </>
   );
 };
 

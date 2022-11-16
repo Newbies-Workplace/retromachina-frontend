@@ -6,6 +6,9 @@ import { Team } from '../../interfaces/Team.interface';
 import { useEffect, useState } from 'react';
 import LoadingView from '../../component/loading_view/LoadingView';
 import { User } from '../../interfaces/User.interface';
+import Navbar from '../../component/navbar/Navbar';
+import HeaderBar from '../../component/header_bar/HeaderBar';
+import { getInvitesInfoByTeamId, getTeamInfoByTeamId, getUsersInfoByTeamId } from '../../api/team/Edit.service';
 
 
 interface Invite {
@@ -14,6 +17,11 @@ interface Invite {
 }
 
 const CreateTeamview: React.FC = () => {
+    const { teamId } = useParams<{teamId: string}>();
+    const { user, refreshUser } = useUser();
+    const navigate = useNavigate()
+    const [team, setTeam] = useState<Team | null>(null);
+
     function onSubmit(team: Team ) {
         axiosInstance.put(`/teams/${teamId}`, {
                 name: team.name,
@@ -31,11 +39,6 @@ const CreateTeamview: React.FC = () => {
             }
         })
     }
-  
-    const { teamId } = useParams<{teamId: string}>();
-    const { user, refreshUser } = useUser();
-    const navigate = useNavigate()
-    const [team, setTeam] = useState<Team | null>(null);
 
     useEffect(() => {
         let name: string;
@@ -43,12 +46,12 @@ const CreateTeamview: React.FC = () => {
         let invites: string[];
 
         const waitForResult = async () => {
-            await axiosInstance.get(`teams/${teamId}`)
+            await getTeamInfoByTeamId(teamId || "")
                 .then((response) => {
                     name = response.data.name;
                 });
 
-            await axiosInstance.get(`users?team_id=${teamId}`)
+            await getUsersInfoByTeamId(teamId || "")
                 .then((response) => {
                     emails = response.data.users.filter((elem: User) => {
                         return elem.email != user?.email
@@ -57,7 +60,7 @@ const CreateTeamview: React.FC = () => {
                     });
                 });
 
-            await axiosInstance.get(`invites?team_id=${teamId}`)
+            await getInvitesInfoByTeamId(teamId || "")
                 .then((response) => {
                     invites = response.data.invites.map((invite: Invite) => invite.email);
                 })
@@ -77,7 +80,12 @@ const CreateTeamview: React.FC = () => {
         return <LoadingView/>
 
     return (
-      <TeamForm onSubmit={onSubmit} userEmail={user?.email || ""} team={team} />
+        <>
+            <Navbar isScrumMaster={true} isOnRun={false} isButtonHiden={true}>
+                <HeaderBar text="Edycja Zespołu"></HeaderBar>
+            </Navbar>
+            <TeamForm onSubmit={onSubmit} userEmail={user?.email || ""} team={team} />
+        </>
     );
   };
   

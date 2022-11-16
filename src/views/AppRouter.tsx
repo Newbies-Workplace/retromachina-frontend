@@ -31,11 +31,11 @@ export const AppRouter: React.FC = () => {
                         
                         <Route
                             element={<RequireAuth><CreateTeamview/></RequireAuth>}
-                            path="/create"/>
+                            path="/team/create"/>
                         
                         <Route
                             element={<RequireAuth><EditTeamView/></RequireAuth>}
-                            path="/edit/:teamId"/>
+                            path="/team/:teamId/edit"/>
 
                         <Route
                             element={<RequireAuth><CreateTeamview /></RequireAuth>}

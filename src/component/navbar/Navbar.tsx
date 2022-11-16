@@ -41,7 +41,7 @@ const Navbar: React.FC<PropsNavbar> = ({
         <div className={styles.section2}>
           {isScrumMaster && !isOnRun && !isButtonHiden &&(
             <div className={styles.buttonWrapper}>
-              <Button onClick={() => {navigate("/create")}}>
+              <Button onClick={() => {navigate("/team/create")}}>
                 <CreateTeamSvg />
                 <p>Stwórz Zespół</p>
               </Button>
