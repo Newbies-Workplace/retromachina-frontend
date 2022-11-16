@@ -39,7 +39,7 @@ const RetroTeamList: React.FC<PropsRetroTeam> = ({ isScrumMaster, teamName, team
           </Button>
 
         {isScrumMaster && (
-          <Button onClick={() => {navigate("/create")}} size="buttonicon">
+          <Button onClick={() => {navigate(`/team/${teamId}/edit`)}} size="buttonicon">
             <EditIconSvg />
           </Button>
         )}

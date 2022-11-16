@@ -27,15 +27,12 @@
     background-color: colors.$primary-color;
     border-radius: 16px;
 
-    & form{
+    & .innerFormWrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        height: 100%;
         width: 100%;
-
-        & .innerFormWrapper {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            height: 100%;
-        }
     }
 }
 

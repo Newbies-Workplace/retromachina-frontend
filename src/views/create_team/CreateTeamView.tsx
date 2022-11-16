@@ -1,39 +1,17 @@
-import Navbar from "../../component/navbar/Navbar";
-import HeaderBar from "../../component/header_bar/HeaderBar";
-import styles from './CreateTeamView.module.scss'
-import AddIconSvg from '../../assets/icons/add-icon.svg'
-import { useRef, useState } from 'react'
-import { axiosInstance } from '../../api/AxiosInstance'
+import { axiosInstance } from '../../api/AxiosInstance';
 import { useUser } from '../../context/UserContext.hook'
 import { useNavigate } from 'react-router'
-import Button from "../../component/button/Button";
+import TeamForm from '../../component/forms/TeamForm';
+import { Team } from '../../interfaces/Team.interface';
+import Navbar from '../../component/navbar/Navbar';
+import HeaderBar from '../../component/header_bar/HeaderBar';
+import { createTeam } from '../../api/team/Team.service';
+
 
 const CreateTeamview: React.FC = () => {
 
-    function addEmail() {
-      if (!emailInputRef.current 
-          || emailInputRef.current.value.trim().length == 0) return;
-      
-      setEmails([...emails, emailInputRef.current.value]);
-      emailInputRef.current.value = "";
-      emailInputRef.current.scrollIntoView();
-  }
-
-  function deleteEmail(index: number) {
-      let _emails = [...emails];
-      _emails.splice(index, 1);
-
-      setEmails(_emails);
-  }
-
-  function submit() {
-      if (!nameInputRef.current 
-          || nameInputRef.current.value.trim().length == 0) return;
-
-      axiosInstance.post("/teams", {
-              name: nameInputRef.current.value,
-              emails: emails
-      }).then((response) => {
+  const onSubmit = (team: Team) => {
+        createTeam(team).then((response) => {
           if (response.status == 201) {
               refreshUser()
                   .then(() => {
@@ -47,60 +25,15 @@ const CreateTeamview: React.FC = () => {
       })
   }
 
-  const [emails, setEmails] = useState(Array<string>());
-  const emailInputRef = useRef<HTMLInputElement>(null);
-  const nameInputRef = useRef<HTMLInputElement>(null);
   const { user, refreshUser } = useUser();
   const navigate = useNavigate()
 
-  if (!user) navigate("/signin");
-
-
-  let counter = -1;
-
   return (
     <>
-      <Navbar isScrumMaster={true} isOnRun={false} isButtonHiden={true}>
-        <HeaderBar text="Edycja Zespołu"></HeaderBar>
-      </Navbar>
-      <div className={styles.container}>
-            <div className={styles.wrapper}>
-                <form>
-                    <div className={styles.innerFormWrapper}>
-                        <div className={styles.teamName}>
-                            <label>Team</label>
-                            <input ref={nameInputRef} type="text" name="" id="" placeholder='Nazwa zespołu' />
-                        </div>
-                        <div className={styles.scrumMaster}>
-                            <label>Scrum Master</label>
-                            <p>Ty ({user?.email})</p>
-                        </div>
-                        <div className={styles.members}>
-                            <label>Członkowie</label>
-                                {
-                                    emails.map((email: string, key) => {
-                                        counter++;
-                                        
-                                        return <div className={styles.mailBox} key={key}>
-                                            {email}
-                                            <div className={styles.clickable} onClick={deleteEmail.bind(this, counter)}><AddIconSvg/></div>
-                                        </div>
-                                    })
-                                }
-                                <div className={styles.emailWrapper}>
-                                    <input ref={emailInputRef} type="email" className={styles.newTeam} placeholder='Wpisz email'/>
-                                    <div className={styles.plus}><AddIconSvg onClick={addEmail}/></div>
-                                </div>
-                        </div>
-                    </div>
-                </form>
-                <div className={styles.submitButtonWrapper}>
-                    <div className={styles.submitButton}>
-                        <Button onClick={submit}>Zapisz</Button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <Navbar isScrumMaster={true} isOnRun={false} isButtonHiden={true}>
+            <HeaderBar text="Edycja Zespołu"></HeaderBar>
+        </Navbar>
+        <TeamForm onSubmit={onSubmit} userEmail={user?.email || ""} team={null} />
     </>
   );
 };

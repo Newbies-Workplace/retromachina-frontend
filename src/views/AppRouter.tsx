@@ -11,6 +11,7 @@ import { UserContext } from '../context/UserContext';
 import CreateTeamview from './create_team/CreateTeamView';
 import { RequireAuth } from '../component/require_auth/RequireAuth';
 import { RetroCreateView } from './retro_create/RetroCreateView';
+import EditTeamView from './edit_team/EditTeamView';
 
 export const AppRouter: React.FC = () => {
     return (
@@ -31,7 +32,11 @@ export const AppRouter: React.FC = () => {
                         
                         <Route
                             element={<RequireAuth><CreateTeamview/></RequireAuth>}
-                            path="/create"/>
+                            path="/team/create"/>
+                        
+                        <Route
+                            element={<RequireAuth><EditTeamView/></RequireAuth>}
+                            path="/team/:teamId/edit"/>
 
                         <Route
                             element={<RequireAuth><CreateTeamview /></RequireAuth>}
