@@ -5,7 +5,7 @@ import TeamForm from '../../component/forms/TeamForm';
 import { Team } from '../../interfaces/Team.interface';
 import Navbar from '../../component/navbar/Navbar';
 import HeaderBar from '../../component/header_bar/HeaderBar';
-import { createTeam } from '../../api/team/Create.service';
+import { createTeam } from '../../api/team/Team.service';
 
 
 const CreateTeamview: React.FC = () => {

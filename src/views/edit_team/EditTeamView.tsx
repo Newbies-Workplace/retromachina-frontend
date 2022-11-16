@@ -8,7 +8,8 @@ import LoadingView from '../../component/loading_view/LoadingView';
 import { User } from '../../interfaces/User.interface';
 import Navbar from '../../component/navbar/Navbar';
 import HeaderBar from '../../component/header_bar/HeaderBar';
-import { getInvitesInfoByTeamId, getTeamInfoByTeamId, getUsersInfoByTeamId } from '../../api/team/Edit.service';
+import { getInvitesInfoByTeamId, getTeamInfoByTeamId } from '../../api/team/Team.service';
+import { getUsersInfoByTeamId } from '../../api/user/User.service';
 
 
 interface Invite {
