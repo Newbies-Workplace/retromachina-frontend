@@ -6,7 +6,6 @@ import AddIcon from "../../assets/icons/add-icon.svg";
 import TaskIconSvg from "../../assets/icons/task-icon.svg";
 import EditIconSvg from "../../assets/icons/edit-icon.svg";
 import { RetroResponse } from "../../api/retro/Retro.interface";
-import { axiosInstance } from "../../api/AxiosInstance";
 import { useNavigate } from "react-router-dom";
 import { getRetrosByTeamId } from "../../api/retro/Retro.service";
 
@@ -34,13 +33,13 @@ const RetroTeamList: React.FC<PropsRetroTeam> = ({ isScrumMaster, teamName, team
     <div className={styles.container}>
       <div className={styles.icons}>
         <h2 className={styles.title}>{teamName}</h2>
-          <Button onClick={() => {navigate("/tasks")}}>
+          <Button onClick={() => {navigate("/tasks")}} size="small">
             <TaskIconSvg />
             <p>Lista zadań</p>
           </Button>
 
         {isScrumMaster && (
-          <Button onClick={() => {navigate("/create")}}>
+          <Button onClick={() => {navigate("/create")}} size="buttonicon">
             <EditIconSvg />
           </Button>
         )}
