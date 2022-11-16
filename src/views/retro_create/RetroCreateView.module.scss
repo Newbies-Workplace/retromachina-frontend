@@ -28,15 +28,3 @@ align-items: center;
     align-items: center;
     justify-content: flex-start;
 }
-input{
-    margin-top: 10px;
-    width: 90%;
-    display: flex;
-}
-input[type=checkbox]:checked{
-    accent-color: #73BDA8;
-}
-
-label{
-    margin-top: 10px;
-}

@@ -39,10 +39,6 @@ export const AppRouter: React.FC = () => {
                             path="/team/:teamId/edit"/>
 
                         <Route
-                            element={<RequireAuth><CreateTeamview /></RequireAuth>}
-                            path="/edit"/>
-
-                        <Route
                             element={<RequireAuth><p>Lista Zadań</p></RequireAuth>}
                             path="/tasks"/>
 
