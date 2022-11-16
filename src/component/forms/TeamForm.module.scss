@@ -123,12 +123,18 @@ input:focus {
 label {
     margin-bottom: 10px;
 }
-
+.submitButtonWrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .submitButton{
     height: 100px;
     width: 520px;
     display: flex;
     flex-direction: row-reverse;
+    align-items: center;
+    
     font-size: 3rem;
 }
 

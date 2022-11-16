@@ -33,13 +33,13 @@ const RetroTeamList: React.FC<PropsRetroTeam> = ({ isScrumMaster, teamName, team
     <div className={styles.container}>
       <div className={styles.icons}>
         <h2 className={styles.title}>{teamName}</h2>
-          <Button onClick={() => {navigate("/tasks")}}>
+          <Button onClick={() => {navigate("/tasks")}} size="small">
             <TaskIconSvg />
             <p>Lista zadań</p>
           </Button>
 
         {isScrumMaster && (
-          <Button onClick={() => {navigate(`/team/${teamId}/edit`)}}>
+          <Button onClick={() => {navigate(`/team/${teamId}/edit`)}} size="buttonicon">
             <EditIconSvg />
           </Button>
         )}
