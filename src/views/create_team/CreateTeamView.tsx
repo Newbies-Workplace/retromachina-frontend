@@ -31,7 +31,7 @@ const CreateTeamview: React.FC = () => {
   return (
     <>
         <Navbar isScrumMaster={true} isOnRun={false} isButtonHiden={true}>
-            <HeaderBar text="Edycja Zespołu"></HeaderBar>
+            <HeaderBar text="Tworzenie Zespołu"></HeaderBar>
         </Navbar>
         <TeamForm onSubmit={onSubmit} userEmail={user?.email || ""} team={null} />
     </>
