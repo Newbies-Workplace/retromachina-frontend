@@ -18,6 +18,7 @@ interface UserContext {
 
 
 type User = {
+    avatar_link: string,
     email: string,
     user_type: string,
     nick: string,
