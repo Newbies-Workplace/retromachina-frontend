@@ -26,11 +26,12 @@ h1{
 }
 
 .buttonWrapper{
-    margin-top: 18px;
+    
     padding-right: 20px;
-    width: 100%;
+    min-height: 36px;
+    min-width: 33%;
+    width: 33%;
     display: flex;
-    flex-direction: row-reverse;
     justify-content: end;
     align-items: flex-end;
     & p {
@@ -67,6 +68,7 @@ h1{
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
 
 .section3{
@@ -93,4 +95,20 @@ h1{
     width: 40px;
     height: 40px;
     margin-right: 20px;
+}
+.homeButton{
+    min-height: 36px;
+    min-width: 33%;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
+.home{
+    border-radius: 10px !important;
+}
+.childrenWrapper{
+    min-height: 36px;
+    min-width: 33%;
+    display: flex;
+    align-items: center;
 }
