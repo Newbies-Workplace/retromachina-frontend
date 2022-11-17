@@ -5,8 +5,6 @@
 .outer {
     border-radius: 16px;
     border: solid black 1px;
-    height: fit-content;
-    width: fit-content;
     padding: 10px 10px;
 }
 
@@ -15,8 +13,7 @@
 
     height: fit-content;
     width: fit-content;
-    min-width: 345px;
-    min-height: 96px;
+    
 
     border: none;
     outline: none;
@@ -27,17 +24,18 @@
 
     resize: none;
 
-    min-width: 345px;
+    min-width: 200px;
     min-height: 96px;
     
 }
 .oneline{
     
-    min-width: 345px;
+    min-width: 90px;
     min-height: 20px;
-    font-weight: 100;
+    font-weight: 400;
     border: 1px solid black;
     vertical-align: center;
+    font-size: 15px;
 }
 .oneline::placeholder{
     font-size: 15px;
