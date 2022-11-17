@@ -31,9 +31,8 @@ const Navbar: React.FC<PropsNavbar> = ({
       <div className={styles.sectionWrapper}>
         <div className={styles.section1}>
           <div className={styles.name}>
-            <LogoSvg />
+            <LogoSvg onClick={() => navigate("/")} style={{cursor:"pointer"}}/>
           </div>
-
           <div className={styles.usection}>
             <div className={styles.profile}>
               <Avatar isActive={true} url={User.user?.avatar_link} />
@@ -41,33 +40,22 @@ const Navbar: React.FC<PropsNavbar> = ({
           </div>
         </div>
         <div className={styles.section2}>
-          <div className={styles.homeButton}>
-            {location.pathname !== "/" && (
-              <Button
-                onClick={() => navigate("/")}
-                size="medium"
-                className={styles.home}
-              >
-                <HomeButtonSvg />
-              </Button>
-            )}
-          </div>
-          <div className={styles.childrenWrapper}>{children}</div>
-          <div className={styles.buttonWrapper}>
             {isScrumMaster && !isOnRun && !isButtonHiden && (
-              <Button
-                onClick={() => {
-                  navigate("/team/create");
-                }}
-                size="small"
-                className={styles.button}
-              >
-                
-                <CreateTeamSvg />
-                <p>Stwórz Zespół</p>
-              </Button>
+              <div className={styles.buttonWrapper}>
+                <Button
+                  onClick={() => {
+                    navigate("/team/create");
+                  }}
+                  size="small"
+                  className={styles.button}
+                >
+                  
+                  <CreateTeamSvg />
+                  <p>Stwórz Zespół</p>
+                </Button>
+              </div>
             )}
-          </div>
+          {children}
         </div>
 
         <div className={styles.section3}>

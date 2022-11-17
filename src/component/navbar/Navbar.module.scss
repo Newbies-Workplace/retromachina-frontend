@@ -26,11 +26,11 @@ h1{
 }
 
 .buttonWrapper{
+    padding-top: 20px;
     padding-right: 20px;
-    min-height: 36px;
-    min-width: 33%;
-    width: 33%;
+    width: 100%;
     display: flex;
+    flex-direction: row-reverse;
     justify-content: end;
     align-items: flex-end;
     & p {
@@ -94,20 +94,4 @@ h1{
     width: 40px;
     height: 40px;
     margin-right: 20px;
-}
-.homeButton{
-    min-height: 36px;
-    min-width: 33%;
-    display: flex;
-    align-items: center;
-    padding-left: 20px;
-}
-.home{
-    border-radius: 10px !important;
-}
-.childrenWrapper{
-    min-height: 36px;
-    min-width: 33%;
-    display: flex;
-    align-items: center;
 }
