@@ -23,7 +23,6 @@ const Navbar: React.FC<PropsNavbar> = ({
   
   const navigate = useNavigate();
   const User = useUser();
-  console.log(User);
   return (
     <div className={styles.navbar}>
       <div className={styles.sectionWrapper}>
