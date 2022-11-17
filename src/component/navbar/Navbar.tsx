@@ -5,7 +5,9 @@ import CreateTeamSvg from "../../assets/icons/create-team.svg";
 import LogoSvg from "../../assets/images/logo.svg";
 import Avatar from "../avatar/Avatar";
 import { useNavigate } from "react-router";
-import { useUser } from '../../context/UserContext.hook'
+import { useUser } from "../../context/UserContext.hook";
+import HomeButtonSvg from "../../assets/icons/home-icon.svg";
+import { useLocation } from "react-router-dom";
 
 interface PropsNavbar {
   isOnRun: boolean;
@@ -20,7 +22,8 @@ const Navbar: React.FC<PropsNavbar> = ({
   isButtonHiden,
   children,
 }) => {
-  
+  let location = useLocation();
+  console.log();
   const navigate = useNavigate();
   const User = useUser();
   return (
@@ -33,24 +36,37 @@ const Navbar: React.FC<PropsNavbar> = ({
 
           <div className={styles.usection}>
             <div className={styles.profile}>
-              <Avatar
-                isActive={true}
-                url={User.user?.avatar_link}
-              />
+              <Avatar isActive={true} url={User.user?.avatar_link} />
             </div>
           </div>
         </div>
         <div className={styles.section2}>
-          {isScrumMaster && !isOnRun && !isButtonHiden &&(
-            <div className={styles.buttonWrapper}>
-              <Button onClick={() => {navigate("/team/create")}} size="small" className={styles.button}>
+          <div className={styles.homeButton}>
+            {location.pathname !== "/" && (
+              <Button
+                onClick={() => navigate("/")}
+                size="medium"
+                className={styles.home}
+              >
+                <HomeButtonSvg />
+              </Button>
+            )}
+          </div>
+          <div className={styles.childrenWrapper}>{children}</div>
+          <div className={styles.buttonWrapper}>
+            {isScrumMaster && !isOnRun && !isButtonHiden && (
+              <Button
+                onClick={() => {
+                  navigate("/team/create");
+                }}
+                size="small"
+                className={styles.button}
+              >
                 <CreateTeamSvg />
                 <p>Stwórz Zespół</p>
               </Button>
-            </div>
-          )}
-
-          {children}
+            )}
+          </div>
         </div>
 
         <div className={styles.section3}>
