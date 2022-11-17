@@ -13,7 +13,7 @@ const LogoutBubble = () => {
             <div className={styles.bubble}>
                 <p>{User.user?.nick}</p>
                 <p>{User.user?.email}</p>
-                <Button size='small' onClick={()=>{window.localStorage.clear();navigate("/signin")}} >Wyloguj</Button>
+                <Button className={styles.logoutButton} size='small' onClick={()=>{window.localStorage.clear();navigate("/signin")}} >Wyloguj</Button>
             </div>  
         </div> 
     )
