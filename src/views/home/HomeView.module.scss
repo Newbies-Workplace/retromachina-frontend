@@ -14,3 +14,15 @@ h1 {
 #root {
     @include assets.root;
 }
+.noTeam{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 100px;
+    height: 82vh;
+    & p {
+        font-size: 28px;
+        font-weight: 900;
+    }
+}
