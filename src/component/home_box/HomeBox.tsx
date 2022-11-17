@@ -10,7 +10,7 @@ interface PropsHomeBox{
 const HomeBox: React.FC<PropsHomeBox> = ({children,isBackgorundGreen,onClick}) => {
     
     return(
-        <div className={styles.wrapper} style={{backgroundColor: isBackgorundGreen ? '#73BDA8': '#F4F2E6'}} onClick={onClick}>
+        <div className={styles.wrapper} style={{backgroundColor: isBackgorundGreen ? '#73BDA8': '#FFFFFF'}} onClick={onClick}>
             <div>
                 {children}
             </div>
