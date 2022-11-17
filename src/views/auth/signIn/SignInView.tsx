@@ -11,7 +11,7 @@ const SignInView = () => {
         <div className={styles.container}>
             <Toolbox/>
             <div className={styles.dialog}>
-                
+            
                 <div className={styles.text}>
                     <LogoSvg />
 
