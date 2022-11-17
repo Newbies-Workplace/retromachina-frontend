@@ -9,6 +9,11 @@
     padding: 10px;
     border-radius: 16px;
     gap:   20px;
+    & input{
+        border-radius: 16px;
+        padding-left: 10px;
+        width: 65%;
+    }
 }
 .delete{
     transform: rotate(45deg);
