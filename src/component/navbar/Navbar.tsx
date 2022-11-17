@@ -62,6 +62,7 @@ const Navbar: React.FC<PropsNavbar> = ({
                 size="small"
                 className={styles.button}
               >
+                
                 <CreateTeamSvg />
                 <p>Stwórz Zespół</p>
               </Button>
