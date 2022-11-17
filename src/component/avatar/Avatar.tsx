@@ -2,10 +2,10 @@
 import styles from './Avatar.module.scss';
 import LogoutBubble from '../logout_bubble/LogoutBubble'
 import { useState , useRef, useCallback } from 'react';
-import useClickOutside from "../avatar/useClickOutside";
+import useClickOutside from "./useClickOutside";
 interface PropsCircle{
   isActive:Boolean,
-  url:string
+  url: any
 }
 
 const Avatar : React.FC <PropsCircle> =  ({isActive, url}) => { 
