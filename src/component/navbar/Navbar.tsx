@@ -5,6 +5,7 @@ import CreateTeamSvg from "../../assets/icons/create-team.svg";
 import LogoSvg from "../../assets/images/logo.svg";
 import Avatar from "../avatar/Avatar";
 import { useNavigate } from "react-router";
+import { useUser } from '../../context/UserContext.hook'
 
 interface PropsNavbar {
   isOnRun: boolean;
@@ -19,8 +20,10 @@ const Navbar: React.FC<PropsNavbar> = ({
   isButtonHiden,
   children,
 }) => {
+  
   const navigate = useNavigate();
-
+  const User = useUser();
+  console.log(User);
   return (
     <div className={styles.navbar}>
       <div className={styles.sectionWrapper}>
@@ -33,7 +36,7 @@ const Navbar: React.FC<PropsNavbar> = ({
             <div className={styles.profile}>
               <Avatar
                 isActive={true}
-                url={"https://pbs.twimg.com/media/D8Dp0c5WkAAkvME.jpg "}
+                url={User.user?.avatar_link}
               />
             </div>
           </div>
