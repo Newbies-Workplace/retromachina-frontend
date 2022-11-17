@@ -4,7 +4,7 @@ import Tile from "../../component/header_bar/HeaderBar";
 import style from './RetroCreateView.module.scss'
 import Button from "../../component/button/Button";
 import AddIcon from '../../assets/icons/add-icon.svg'
-import ColumnCreate, { ColumnCreateProps } from "../../component/column_create/ColumnCreate";
+import ColumnCreate from "../../component/column_create/ColumnCreate";
 import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -57,6 +57,17 @@ export const RetroCreateView: React.FC = () => {
         setColumns(columnsTemp);
     }
 
+    const onDelete = (id: string) => {
+        const columnIndex = columns.findIndex((column) => column.id === id);
+
+        let columnsTemp = Array<Column>();
+        columns.forEach((_column, index) => {
+            if (columnIndex == index) return;
+            columnsTemp.push(_column);
+        });
+
+        setColumns(columnsTemp);
+    }
 
     const isScrumMaster = user?.user_type == "SCRUM_MASTER";
     return( 
@@ -68,6 +79,7 @@ export const RetroCreateView: React.FC = () => {
                         return <ColumnCreate
                             key={column.id}
                             onChange={({color, name, desc}) => onChange(column.id, {color, name, desc})}
+                            onDelete={() => onDelete(column.id)}
                             color={column.color} 
                             name={column.name}
                             desc={column.desc} 

@@ -15,9 +15,10 @@ export interface ColumnCreateProps {
         name: string,
         desc: string
     }): void
+    onDelete(): void
 }
 
-const ColumnCreate: React.FC<ColumnCreateProps> = ({color, onChange, name, desc }) => {
+const ColumnCreate: React.FC<ColumnCreateProps> = ({color, name, desc, onChange, onDelete }) => {
     return(
         <div className={styles.wrapper} >
             <div className={styles.topBar}>
@@ -30,8 +31,10 @@ const ColumnCreate: React.FC<ColumnCreateProps> = ({color, onChange, name, desc 
                     color: color,
                     name: name,
                     desc: desc
-                })}} placeholder="Nazwa Kolumny"/>                
-                <AddIconSvg className={styles.delete}/>
+                })}} placeholder="Nazwa Kolumny"/>
+                <div onClick={onDelete}>
+                    <AddIconSvg className={styles.delete}/>
+                </div>       
             </div>
             
             <div className={styles.opis}><Input variant="multiline" value={desc} setValue={(desc) => onChange({
