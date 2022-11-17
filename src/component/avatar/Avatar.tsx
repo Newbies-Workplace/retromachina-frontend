@@ -16,11 +16,11 @@ const Avatar : React.FC <PropsCircle> =  ({isActive, url}) => {
   
   return (
     <>
-      <div className={styles.circle} ref={popover} onClick={() => toggle(true)}  style = {{outlineColor : isActive ? "#23F138": "#D9D9D9" }}>
+      <div className={styles.circle} onClick={() => toggle(true)}  style = {{outlineColor : isActive ? "#23F138": "#D9D9D9" }}>
         <img src={url} className={styles.photo}></img>
       </div>
       {
-        isOpen&&<div className={styles.bubbleContainer}><LogoutBubble/></div>
+        isOpen&&<div className={styles.bubbleContainer} ref={popover}><LogoutBubble /></div>
       }
       
     </>

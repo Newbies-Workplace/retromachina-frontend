@@ -4,6 +4,7 @@ import Tile from "../../component/header_bar/HeaderBar";
 import style from './RetroCreateView.module.scss'
 import Button from "../../component/button/Button";
 import AddIcon from '../../assets/icons/add-icon.svg'
+import ActionIconSvg from '../../assets/icons/action-icon.svg'
 import ColumnCreate from "../../component/column_create/ColumnCreate";
 import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
@@ -87,7 +88,9 @@ export const RetroCreateView: React.FC = () => {
                     })}
                     <Button size="big" onClick={onAdd} > <p>Nowa Kolumna</p><AddIcon /></Button> 
                 </div>
+                <Button className={style.actionButton} size="ultrabig"><div className={style.buttonSection}><p>Akcja</p>(Zacznij & skopiuj link)</div><ActionIconSvg/></Button>
             </div>
+            
         </>
     )
 }
