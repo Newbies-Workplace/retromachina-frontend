@@ -86,7 +86,7 @@ export const RetroCreateView: React.FC = () => {
                             desc={column.desc} 
                         />
                     })}
-                    <Button size="big" onClick={onAdd} > <p>Nowa Kolumna</p><AddIcon /></Button> 
+                    <div className={style.columnButton}><Button size="big" onClick={onAdd} > <p>Nowa Kolumna</p><AddIcon /></Button> </div>
                 </div>
                 <Button className={style.actionButton} size="ultrabig"><div className={style.buttonSection}><p>Akcja</p>(Zacznij & skopiuj link)</div><ActionIconSvg/></Button>
             </div>
