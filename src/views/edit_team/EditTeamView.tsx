@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router'
 import TeamForm from '../../component/forms/TeamForm';
 import { Team } from '../../interfaces/Team.interface';
 import { useEffect, useState } from 'react';
-import LoadingView from '../../component/loading_view/LoadingView';
+import TeamLoadingView from '../../views/team_loading_view/TeamLoadingView';
 import { User } from '../../interfaces/User.interface';
 import Navbar from '../../component/navbar/Navbar';
 import HeaderBar from '../../component/header_bar/HeaderBar';
@@ -78,7 +78,7 @@ const CreateTeamview: React.FC = () => {
 
     
     if (!team)
-        return <LoadingView/>
+        return <TeamLoadingView/>
 
     return (
         <>

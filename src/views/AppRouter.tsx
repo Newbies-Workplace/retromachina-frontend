@@ -12,6 +12,7 @@ import CreateTeamview from './create_team/CreateTeamView';
 import { RequireAuth } from '../component/require_auth/RequireAuth';
 import { RetroCreateView } from './retro_create/RetroCreateView';
 import EditTeamView from './edit_team/EditTeamView';
+import TeamLoadingView from './team_loading_view/TeamLoadingView';
 
 export const AppRouter: React.FC = () => {
     return (
@@ -45,7 +46,6 @@ export const AppRouter: React.FC = () => {
                         <Route
                             element={<RequireAuth><RetroCreateView/></RequireAuth>}
                             path="/retro"/>
-                    
                     <Route
                         element={<span>404</span>}
                         path="*"/>
