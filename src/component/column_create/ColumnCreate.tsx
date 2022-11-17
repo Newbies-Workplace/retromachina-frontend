@@ -4,22 +4,41 @@ import styles from './ColumnCreate.module.scss'
 import AddIconSvg from '../../assets/icons/add-icon.svg'
 import Input from '../input/Input'
 import { ColorPicker } from '../color_picker/ColorPicker'
+import { Column } from '../../views/retro_create/RetroCreateView'
 
-const ColumnCreate = () => {
-    const [value1,setValue1] = useState("")
-    const [value2,setValue2] = useState("")
-    const [color, setColor] = useState("#FF7711")
-    
-    
+export interface ColumnCreateProps {
+    color: string,
+    name: string,
+    desc: string
+    onChange(column: {
+        color: string,
+        name: string,
+        desc: string
+    }): void
+}
+
+const ColumnCreate: React.FC<ColumnCreateProps> = ({color, onChange, name, desc }) => {
     return(
         <div className={styles.wrapper} >
             <div className={styles.topBar}>
-                <ColorPicker color={color} onChange={setColor}/>
-                <Input variant="oneline" value={value1} setValue={setValue1} placeholder="Nazwa Kolumny"/>                
+                <ColorPicker color={color} onChange={(color) => {onChange({
+                    color: color,
+                    name: name,
+                    desc: desc
+                })}}/>
+                <Input variant="oneline" value={name} setValue={(name) => {onChange({
+                    color: color,
+                    name: name,
+                    desc: desc
+                })}} placeholder="Nazwa Kolumny"/>                
                 <AddIconSvg className={styles.delete}/>
             </div>
             
-            <div className={styles.opis}><Input variant="multiline" value={value2} setValue={setValue2} placeholder="Opis"/></div>
+            <div className={styles.opis}><Input variant="multiline" value={desc} setValue={(desc) => onChange({
+                    color: color,
+                    name: name,
+                    desc: desc
+                })} placeholder="Opis"/></div>
         </div>
     )
 }
