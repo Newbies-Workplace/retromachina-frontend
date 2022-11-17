@@ -2,7 +2,7 @@ import React from 'react';
 import {
     BrowserRouter as Router,
     Routes,
-    Route
+    Route,
 } from 'react-router-dom';
 import HomeView from "./home/HomeView";
 import SignInView from "./auth/signIn/SignInView";
@@ -13,9 +13,11 @@ import { RequireAuth } from '../component/require_auth/RequireAuth';
 import { RetroCreateView } from './retro_create/RetroCreateView';
 import EditTeamView from './edit_team/EditTeamView';
 import TeamLoadingView from './team_loading_view/TeamLoadingView';
+import ActiveRetro from './active_retro/ActiveRetro';
 
 export const AppRouter: React.FC = () => {
     return (
+        <>
         <Router>
             <Routes>
                 
@@ -46,10 +48,17 @@ export const AppRouter: React.FC = () => {
                         <Route
                             element={<RequireAuth><RetroCreateView/></RequireAuth>}
                             path="/retro"/>
+                        
+                        <Route
+                            element={<RequireAuth><ActiveRetro/></RequireAuth>}
+                            
+                            path="/retro/active"/>
                     <Route
                         element={<span>404</span>}
                         path="*"/>
             </Routes>
         </Router>
+        
+        </>
     )
 }
