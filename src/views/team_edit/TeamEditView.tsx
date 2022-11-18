@@ -4,12 +4,13 @@ import { useNavigate, useParams } from 'react-router'
 import {TeamForm} from '../../component/forms/TeamForm';
 import { Team } from '../../interfaces/Team.interface';
 import React, { useEffect, useState } from 'react';
-import TeamLoadingView from '../../views/team_loading_view/TeamLoadingView';
 import { User } from '../../interfaces/User.interface';
 import Navbar from '../../component/navbar/Navbar';
 import { getInvitesInfoByTeamId, getTeamInfoByTeamId } from '../../api/team/Team.service';
 import { getUsersInfoByTeamId } from '../../api/user/User.service';
 import {HeaderBar} from "../../component/header_bar/HeaderBar";
+import styles from "./TeamEditView.module.scss";
+import {Loader} from "../../component/loader/Loader";
 
 interface Invite {
     email: string,
@@ -58,20 +59,29 @@ const TeamEditView: React.FC = () => {
                     })
             } else {
                 //coś się musi stać???
+                // - pewnie coś musi
                 console.log(response.status);
             }
         })
     };
 
-    if (!team)
-        return <TeamLoadingView/>
-
     return (
         <>
-            <Navbar isScrumMaster={true} isOnRun={false} isButtonHidden={true}>
+            <Navbar>
                 <HeaderBar text="Edycja Zespołu" />
             </Navbar>
-            <TeamForm onSubmit={onSubmit} userEmail={user?.email || ""} team={team} />
+
+            {!team &&
+                <div className={styles.container}>
+                    <div className={styles.loadingWrapper}>
+                        <Loader/>
+                    </div>
+                </div>
+            }
+
+            {team &&
+                <TeamForm onSubmit={onSubmit} userEmail={user?.email || ""} team={team} />
+            }
         </>
     );
 };

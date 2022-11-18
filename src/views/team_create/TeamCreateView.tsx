@@ -27,7 +27,7 @@ export const TeamCreateView: React.FC = () => {
 
     return (
         <>
-            <Navbar isScrumMaster={true} isOnRun={false} isButtonHidden={true}>
+            <Navbar>
                 <HeaderBar text="Tworzenie Zespołu" />
             </Navbar>
             <TeamForm onSubmit={onSubmit} userEmail={user?.email || ""} team={null} />

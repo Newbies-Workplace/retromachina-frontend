@@ -15,24 +15,17 @@
     align-items: center;
     font-family: fonts.$font-paragraph;
     box-shadow: 0 4px 0 rgba(0, 0, 0, 0.25);
-    font-weight: 900;
     cursor: pointer;
-    
+
     &.small{
         padding: 5px 10px;
         border-radius: 8px;
-    
+
     }
     &.medium{
         padding:10px 32px;
         border-radius: 16px;
         font-size:24px;
-    }
-    &.buttonicon{
-        border-radius: 50%;
-        width: 30px;
-        height: 30px;
-
     }
     &.big{
         padding: 25px 42px;
@@ -42,21 +35,14 @@
         min-width: 250px;
     }
 
-    &.ultrabig{
-        min-width: 600px;
-        min-height: 100px;
-        padding: 10px 20px;
-        border-radius: 16px;
+    &.round{
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+    }
+
+    &:active {
+        box-shadow: none;
+        transform: translateY(4px);
     }
 }
-
-.button p{
-    margin-left: 8px;
-    font-weight: 400;
-}
-
-.button:active {
-    box-shadow: none;
-    transform: translateY(4px);
-}
-

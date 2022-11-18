@@ -27,3 +27,26 @@
     height: 100%;
     background-color: colors.$background;
 }
+
+@mixin horizontalScroll {
+    overflow-x: scroll;
+
+    &::-webkit-scrollbar {
+        width: 5px;
+        height: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+        border-radius: 2px;
+        border: solid 10px transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgb(97, 96, 96);
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: #a7a3a3;
+    }
+}

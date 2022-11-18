@@ -2,34 +2,37 @@
 @use '../../abstracts/fonts';
 @use '../../abstracts/assets';
 
-    
-body{
-    @include assets.body;
-    
+.noTeam {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 80px;
+
+  margin-top: 32px;
+
+  & p {
+    font-size: 28px;
+    font-weight: 900;
+  }
 }
 
-h1 {
-    @include assets.h1;
+.text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
 }
-#root {
-    @include assets.root;
-}
-.noTeam{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 80px;
-    height: 82vh;
-    & p {
-        font-size: 28px;
-        font-weight: 900;
-    }
-}
-.text{
- display: flex;
- justify-content: center;
- align-items: center;
- flex-direction: column;
- gap: 20px;
+
+.buttonWrapper{
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: flex-end;
+  margin-right: 16px;
+  & p {
+    font-size: 15px;
+    margin: 5px 5px 5px 5px;
+  }
 }

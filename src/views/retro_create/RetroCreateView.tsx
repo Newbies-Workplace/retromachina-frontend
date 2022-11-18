@@ -1,5 +1,4 @@
 import Navbar from "../../component/navbar/Navbar";
-import { useUser } from "../../context/UserContext.hook";
 import style from "./RetroCreateView.module.scss";
 import {Button} from "../../component/button/Button";
 import AddIcon from "../../assets/icons/add-icon.svg";
@@ -17,7 +16,6 @@ export interface Column {
 }
 
 export const RetroCreateView: React.FC = () => {
-  const {isScrumMaster} = useUser();
   const [columns, setColumns] = useState<Array<Column>>([]);
 
   const onAddColumn = () => {
@@ -74,29 +72,24 @@ export const RetroCreateView: React.FC = () => {
 
   return (
       <>
-        <Navbar
-            isScrumMaster={isScrumMaster}
-            isOnRun={false}
-            isButtonHidden={true}
-        >
+        <Navbar>
           <HeaderBar text="Edycja Kolumn"/>
         </Navbar>
+
         <div className={style.container}>
           <div className={style.columns}>
-            {columns.map((column: Column) => {
-              return (
-                  <ColumnCreate
-                      key={column.id}
-                      onChange={({ color, name, desc }) =>
-                          onChangeColumn(column.id, { color, name, desc })
-                      }
-                      onDelete={() => onDeleteColumn(column.id)}
-                      color={column.color}
-                      name={column.name}
-                      desc={column.desc}
-                  />
-              );
-            })}
+            {columns.map(column =>
+                <ColumnCreate
+                    key={column.id}
+                    onChange={({color, name, desc}) =>
+                        onChangeColumn(column.id, {color, name, desc})
+                    }
+                    onDelete={() => onDeleteColumn(column.id)}
+                    color={column.color}
+                    name={column.name}
+                    desc={column.desc}
+                />
+            )}
             <div className={style.columnButton}>
               <Button size="big" onClick={onAddColumn}>
                 <p>Nowa Kolumna</p>
@@ -104,13 +97,17 @@ export const RetroCreateView: React.FC = () => {
               </Button>
             </div>
           </div>
-          <Button className={style.actionButton} size="ultrabig">
-            <div className={style.buttonSection}>
-              <p>Akcja</p>
-              (Zacznij & skopiuj link)
-            </div>
-            <ActionIconSvg />
-          </Button>
+
+          <div className={style.actionWrapper}>
+            <Button className={style.actionButton}>
+              <div className={style.buttonSection}>
+                <p>Akcja</p>
+                (Zacznij & skopiuj link)
+              </div>
+
+              <ActionIconSvg />
+            </Button>
+          </div>
         </div>
       </>
   );

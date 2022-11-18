@@ -75,7 +75,7 @@ export const TeamForm: React.FC<CreateTeamFormProps> = ({userEmail, team, onSubm
                 </div>
                 <div className={styles.submitButtonWrapper}>
                     <div className={styles.submitButton}>
-                        <Button onClick={onSubmitClick} size="medium">Zapisz</Button>
+                        <Button onClick={onSubmitClick}>Zapisz</Button>
                     </div>
                 </div>
             </div>

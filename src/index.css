@@ -1,6 +1,6 @@
-body, main  {
+body, main {
+    min-height: 100%;
     margin: 0;
     padding: 0;
-    min-height: 100vh;
     background-color: #F4F2E6;;
 }
