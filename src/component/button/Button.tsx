@@ -6,6 +6,7 @@ import cs from 'classnames';
 interface ButtonProps{
     onClick?(): void;
     className? : string;
+    
 
 
     size?: "medium" | "small" | "buttonicon" |"big"|"ultrabig"

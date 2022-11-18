@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import GoogleButton from 'react-google-button';
 import styles from './SignInView.module.scss';
 import LogoSvg from '../../../assets/images/logo.svg'
+import Toolbox from '../../../component/toolbox/toolbox';
 
 
 const SignInView = () => {

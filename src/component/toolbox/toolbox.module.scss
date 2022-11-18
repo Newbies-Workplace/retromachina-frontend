@@ -7,9 +7,8 @@
 
     display: flex;
     align-items: center;
-   
-
-    width: 612px;
+    
+    width:612px; 
     height: 100px;
 
     border-radius:16px;
@@ -17,10 +16,30 @@
     box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.25);
 
     padding: 10px 10px 10px 10px;
-    justify-content: space-between;
-}
+    align-items: center;
+    gap:20px;
 
+}
+.timerbox{
+    background-color: #EBD3A8;
+    width:96px;
+    
+   
+    
+}
 .timer{
+    display:flex;
+    
+    width: 96px;
+    height: 84px;
+}
+.votebox{
+    background-color: #EBD3A8;
+    width:96px;
+   
+    
+}
+.voteboxbutton{
     display:flex;
     
     width: 96px;
@@ -34,11 +53,11 @@
     flex-direction: column;
     
     gap:5px;
+    width: 120px;
     
-    height: 100%;
-    max-width: 300px;
+  
 
-    padding:0px 20px 0px 20px;
+    
 }
 
 .readybutton{
@@ -49,6 +68,9 @@
     
     width: 120px;
     height: 68px;
+    &.ready{
+        background-color: #73BDA8;
+    }
 }
 
 .wraper{
@@ -76,17 +98,46 @@
     font-size: 0px;
    
 }
+.votestatebox{
+    background-color: #EBD3A8;
+    width:96px;
+    
+    
+ 
+}
+.votestate{
+    display:flex;
+    
+    width: 96px;
+    height: 84px;
+
+    background-color:#F4F2E6;
+
+    border-radius: 8px;
+
+    justify-content: center;
+    align-items: center;
+  
+    font-family: fonts.$font-paragraph;
+
+    box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.25);
+
+    padding-left: 2px;
+    padding-right: 2px;
+
+    word-break: break-all;
+}
+
 
 
 .buttonbox{
    display: flex;
    justify-content: space-between;
-   
-   width: 100px;
-   height: 84px;
+   gap:10px;
    background-color:#EBD3A8 ;
+   width:96px;
    
-   padding: 0px 0px 0px 12px;
+   
 }
 
 .button{
