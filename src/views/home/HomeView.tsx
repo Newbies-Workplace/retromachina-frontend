@@ -13,10 +13,15 @@ const HomeView: React.FC = () => {
     return (
       <>
         <Navbar isScrumMaster={isScrumMaster} isOnRun={false} isButtonHiden={false}></Navbar>
+        
         <div className={styles.noTeam}>
-          <p>Przepraszamy Nie dodano cię jeszcze do żadnego Zespołu!</p>
+          <div className={styles.text}>
+            <p>Nie jesteś członkiem żadnego Zespołu!</p>
+            <p style={{fontSize: 18}}>Daj znać swojemu scrum masterowi</p>
+          </div>
           <NotFoundSvg />
         </div>
+        
       </>
     );
   }else{

@@ -8,42 +8,24 @@ import {
 } from "react-router-dom";
 import EditTeamView from '../../views/edit_team/EditTeamView';
 
+type RoomState = "reflection" | "grouping" | "voting" | "discussing";
+
 
 const ActiveRetro = () => {
-  const [roomState, setRoomState] = useState("");
+  const [roomState, setRoomState] = useState<RoomState>("reflection");
   const navigate = useNavigate();
-  
-  useEffect(()=>{
-    setRoomState("reflection");
+
     switch (roomState) {
-        case "reflection":
-        navigate("/reflection");
-        break;
-        case "grouping":
-        navigate("/grouping");
-        break;
-        case "voting":
-        navigate("/voting");
-        break;
-        case "discussing":
-        navigate("/discussing");
-        break;
-  }
-},[])
+      case "reflection":
+        return <div>aaaa</div>
+      case "grouping":
+        return <div>aaaqwea</div>
+      case "voting":
+        return <div>aaewewaa</div>
+      case "discussing":
+        return <div>aaaqweqwea</div>
+}
 
-
-
-  return (
-    <MemoryRouter>
-        <Routes>
-            <Route path="/reflection" element={<EditTeamView/>} />
-            <Route path="/grouping" element={<EditTeamView/>} />
-            <Route path="/voting" element={<EditTeamView/>} />
-            <Route path="/discussing" element={<EditTeamView/>} />
-            <Route path="*" element={<div>error</div>} />
-        </Routes>
-    </MemoryRouter>
-  );
   
 };
 export default ActiveRetro;
