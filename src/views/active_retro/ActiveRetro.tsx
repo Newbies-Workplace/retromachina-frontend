@@ -9,7 +9,8 @@ const ActiveRetro = () => {
   const [roomState, setRoomState] = useState<RoomState>("reflection");
   const navigate = useNavigate();
   return (
-    <Routes>
+    <Routes >
+      
       <Route path="reflection" element />
 
       <Route path="grouping" element />
@@ -17,6 +18,9 @@ const ActiveRetro = () => {
       <Route path="voting" element />
 
       <Route path="discussing" element />
+
+      <Route  path="*" element/>
+
     </Routes>
   );
 };
