@@ -1,27 +1,30 @@
 import React , { useState } from "react";
 
-import { MemoryRouter, Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import {RetroContextProvider} from "../../context/RetroContext";
+import {Navigate, useParams} from "react-router";
 
+type RoomState = "reflection" | "group" | "vote" | "discuss";
 
-type RoomState = "reflection" | "grouping" | "voting" | "discussing";
+const ActiveRetro: React.FC = () => {
+    const { retroId } = useParams<{retroId: string}>();
+    if (!retroId) {
+        return <Navigate to={"/"}/>
+    }
 
-const ActiveRetro = () => {
-  const [roomState, setRoomState] = useState<RoomState>("reflection");
-  const navigate = useNavigate();
-  return (
-    <Routes >
-      
-      <Route path="reflection" element />
+    const [roomState, setRoomState] = useState<RoomState>("reflection");
+    const navigate = useNavigate();
 
-      <Route path="grouping" element />
-
-      <Route path="voting" element />
-
-      <Route path="discussing" element />
-
-      <Route  path="*" element/>
-
-    </Routes>
-  );
+    return (
+        <RetroContextProvider retroId={retroId}>
+            <Routes>
+                <Route path="reflection" element />
+                <Route path="group" element />
+                <Route path="vote" element />
+                <Route path="discuss" element />
+                <Route path="*" element={<>Prr, płotka...</>}/>
+            </Routes>
+        </RetroContextProvider>
+    );
 };
 export default ActiveRetro;

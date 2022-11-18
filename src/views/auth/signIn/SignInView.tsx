@@ -1,21 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import GoogleButton from 'react-google-button';
 import styles from './SignInView.module.scss';
 import LogoSvg from '../../../assets/images/logo.svg'
 
-
-const SignInView = () => {
-   
+export const SignInView: React.FC = () => {
     const href = API_URL + "google/redirect";
+
     return (
         <div className={styles.container}>
-            
-            
             <div className={styles.dialog}>
 
                 <div className={styles.text}>
                     <LogoSvg />
-
                     <p>powered by <a href="http://newbies.pl">Newbies</a></p>
                 </div>
 
@@ -26,7 +22,3 @@ const SignInView = () => {
         </div>
     );
 };
-
-
-
-export default SignInView;

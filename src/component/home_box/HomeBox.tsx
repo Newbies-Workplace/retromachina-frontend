@@ -2,21 +2,17 @@ import React from "react";
 import styles from './HomeBox.module.scss'
 
 interface PropsHomeBox{
-    children ?: any,
-    isBackgorundGreen: boolean,
-    onClick?() : void
+    children?: any,
+    isBackgroundGreen: boolean, //todo fix
+    onClick?: () => void
 }
 
-const HomeBox: React.FC<PropsHomeBox> = ({children,isBackgorundGreen,onClick}) => {
-    
-    return(
-        <div className={styles.wrapper} style={{backgroundColor: isBackgorundGreen ? '#73BDA8': '#FFFFFF'}} onClick={onClick}>
+export const HomeBox: React.FC<PropsHomeBox> = ({children, isBackgroundGreen, onClick}) => {
+    return (
+        <div className={styles.wrapper} style={{backgroundColor: isBackgroundGreen ? '#73BDA8': '#FFFFFF'}} onClick={onClick}>
             <div>
                 {children}
             </div>
         </div>
     );
-
 };
-
-export default HomeBox

@@ -4,27 +4,29 @@
 
 .bubbleWrapper{
 	position: absolute;
+
 	top: -50px;
 	left:-270px;
+
 	z-index: 1;
 }
 
 .bubble {
-	height: 200px;
-	width: 280px;
-	min-width: 280px;
-	background: colors.$primary-color;
-	display: block;
-	margin: 0 auto;
-	border-radius: 20px;
-	margin-top: 50px;
-	font-size: 200px;
-	text-align: center;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
 	gap: 30px;
+	text-align: center;
+
+	height: 200px;
+	width: 280px;
+	min-width: 280px;
+	margin: 50px auto 0;
+
+	background: colors.$primary-color;
+	border-radius: 20px;
+
 	& p{
 		padding: 10px;
 		border-radius: 16px;

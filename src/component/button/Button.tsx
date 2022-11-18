@@ -3,12 +3,12 @@ import styles from "./Button.module.scss";
 import cs from "classnames";
 
 interface ButtonProps {
-  onClick?(): void;
+  onClick?:() => void;
   className?: string;
   size?: "medium" | "small" | "buttonicon" | "big" | "ultrabig";
 }
 
-const Button: React.FC<React.PropsWithChildren<ButtonProps>> = ({
+export const Button: React.FC<React.PropsWithChildren<ButtonProps>> = ({
   children,
   onClick,
   size = "medium",
@@ -33,5 +33,3 @@ const Button: React.FC<React.PropsWithChildren<ButtonProps>> = ({
     </button>
   );
 };
-
-export default Button;

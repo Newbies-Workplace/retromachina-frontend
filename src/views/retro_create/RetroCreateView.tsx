@@ -1,15 +1,14 @@
 import Navbar from "../../component/navbar/Navbar";
 import { useUser } from "../../context/UserContext.hook";
-import Tile from "../../component/header_bar/HeaderBar";
 import style from "./RetroCreateView.module.scss";
-import Button from "../../component/button/Button";
+import {Button} from "../../component/button/Button";
 import AddIcon from "../../assets/icons/add-icon.svg";
 import ActionIconSvg from "../../assets/icons/action-icon.svg";
-import ColumnCreate from "../../component/column_create/ColumnCreate";
-import { useState } from "react";
+import {ColumnCreate} from "../../component/column_create/ColumnCreate";
+import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import Card from "../../component/card/Card";
-import Counter from "../../component/card/counter/Counter";
+import {HeaderBar} from "../../component/header_bar/HeaderBar";
+
 export interface Column {
   id: string;
   color: string;
@@ -18,11 +17,11 @@ export interface Column {
 }
 
 export const RetroCreateView: React.FC = () => {
-  const { user } = useUser();
+  const {isScrumMaster} = useUser();
   const [columns, setColumns] = useState<Array<Column>>([]);
 
-  const onAdd = () => {
-    let column = {
+  const onAddColumn = () => {
+    const column = {
       id: uuidv4(),
       color: "",
       name: "",
@@ -33,13 +32,13 @@ export const RetroCreateView: React.FC = () => {
     setColumns(columnsTemp);
   };
 
-  const onChange = (
-    id: string,
-    column: {
-      color: string;
-      name: string;
-      desc: string;
-    }
+  const onChangeColumn = (
+      id: string,
+      column: {
+        color: string;
+        name: string;
+        desc: string;
+      }
   ) => {
     const columnIndex = columns.findIndex((column) => column.id === id);
     if (columnIndex === -1) return;
@@ -61,7 +60,7 @@ export const RetroCreateView: React.FC = () => {
     setColumns(columnsTemp);
   };
 
-  const onDelete = (id: string) => {
+  const onDeleteColumn = (id: string) => {
     const columnIndex = columns.findIndex((column) => column.id === id);
 
     let columnsTemp = Array<Column>();
@@ -73,53 +72,46 @@ export const RetroCreateView: React.FC = () => {
     setColumns(columnsTemp);
   };
 
-  const isScrumMaster = user?.user_type == "SCRUM_MASTER";
   return (
-    <>
-      <Navbar
-        isScrumMaster={isScrumMaster}
-        isOnRun={false}
-        isButtonHiden={true}
-      >
-        <Tile text="Edycja Kolumn"></Tile>
-      </Navbar>
-      <div className={style.container}>
-        <div className={style.columns}>
-          {columns.map((column: Column) => {
-            return (
-              <>
-                <ColumnCreate
-                  key={column.id}
-                  onChange={({ color, name, desc }) =>
-                    onChange(column.id, { color, name, desc })
-                  }
-                  onDelete={() => onDelete(column.id)}
-                  color={column.color}
-                  name={column.name}
-                  desc={column.desc}
-                />
-                <Card
-                  text="asdfasadddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddfdAFAFASF"
-                  variant="1"
-                ></Card>
-              </>
-            );
-          })}
-          <div className={style.columnButton}>
-            <Button size="big" onClick={onAdd}>
-              {" "}
-              <p>Nowa Kolumna</p>
-              <AddIcon />
-            </Button>{" "}
+      <>
+        <Navbar
+            isScrumMaster={isScrumMaster}
+            isOnRun={false}
+            isButtonHidden={true}
+        >
+          <HeaderBar text="Edycja Kolumn"/>
+        </Navbar>
+        <div className={style.container}>
+          <div className={style.columns}>
+            {columns.map((column: Column) => {
+              return (
+                  <ColumnCreate
+                      key={column.id}
+                      onChange={({ color, name, desc }) =>
+                          onChangeColumn(column.id, { color, name, desc })
+                      }
+                      onDelete={() => onDeleteColumn(column.id)}
+                      color={column.color}
+                      name={column.name}
+                      desc={column.desc}
+                  />
+              );
+            })}
+            <div className={style.columnButton}>
+              <Button size="big" onClick={onAddColumn}>
+                <p>Nowa Kolumna</p>
+                <AddIcon />
+              </Button>
+            </div>
           </div>
+          <Button className={style.actionButton} size="ultrabig">
+            <div className={style.buttonSection}>
+              <p>Akcja</p>
+              (Zacznij & skopiuj link)
+            </div>
+            <ActionIconSvg />
+          </Button>
         </div>
-        <Button className={style.actionButton} size="ultrabig">
-          <div className={style.buttonSection}>
-            <p>Akcja</p>(Zacznij & skopiuj link)
-          </div>
-          <ActionIconSvg />
-        </Button>
-      </div>
-    </>
+      </>
   );
 };

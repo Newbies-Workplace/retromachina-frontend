@@ -1,4 +1,4 @@
-import { PropsWithChildren } from "react"
+import React from "react"
 import style from './ColumnHeader.module.scss'
 
 interface ColumnHeaderProps{
@@ -7,18 +7,17 @@ interface ColumnHeaderProps{
     header: string
 }
 
-const ColumnHeader: React.FC<React.PropsWithChildren<ColumnHeaderProps>> = ({children,color,withDescription,header}) => {
-    return(
+export const ColumnHeader: React.FC<React.PropsWithChildren<ColumnHeaderProps>> = ({children, color, withDescription, header}) => {
+    return (
         <div className={style.wrapper}>
             <div className={style.title}>
-                <div className={style.box} style ={{backgroundColor: color}}></div>
+                <div className={style.box} style={{backgroundColor: color}}></div>
                 <p>{header}</p>
             </div>
-            { withDescription&&<p>{children}</p>}
-            
+
+            {withDescription &&
+                <p>{children}</p>
+            }
         </div>
     )
-
 }
-
-export default ColumnHeader;

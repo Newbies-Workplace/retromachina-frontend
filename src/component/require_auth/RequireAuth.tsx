@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate } from "react-router";
 import { useUser } from '../../context/UserContext.hook';
-import LoadingView from '../loading_view/LoadingView';
+import {LoadingView} from '../loading_view/LoadingView';
 
 interface RequireAuthProps {
     fallback?: JSX.Element;

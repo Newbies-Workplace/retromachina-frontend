@@ -1,39 +1,37 @@
 import React from "react";
 import styles from "./Navbar.module.scss";
-import Button from "../button/Button";
+import {Button} from "../button/Button";
 import CreateTeamSvg from "../../assets/icons/create-team.svg";
 import LogoSvg from "../../assets/images/logo.svg";
-import Avatar from "../avatar/Avatar";
-import { useNavigate } from "react-router";
-import { useUser } from "../../context/UserContext.hook";
-import HomeButtonSvg from "../../assets/icons/home-icon.svg";
-import { useLocation } from "react-router-dom";
-import LogoutBubble from "../logout_bubble/LogoutBubble"
+import {Avatar} from "../avatar/Avatar";
+import {useNavigate} from "react-router";
+import {useUser} from "../../context/UserContext.hook";
+import {LogoutBubble} from "../logout_bubble/LogoutBubble"
 
+//todo bruh moment
 interface PropsNavbar {
   isOnRun: boolean;
   isScrumMaster: boolean;
-  isButtonHiden: boolean;
-  children?: any;
+  isButtonHidden: boolean;
 }
-//react prop with children
-const Navbar: React.FC<PropsNavbar> = ({
+
+const Navbar: React.FC<React.PropsWithChildren<PropsNavbar>> = ({
   isOnRun,
   isScrumMaster,
-  isButtonHiden,
+  isButtonHidden,
   children,
 }) => {
-  let location = useLocation();
-  console.log();
   const navigate = useNavigate();
   const User = useUser();
+
   return (
     <div className={styles.navbar}>
       <div className={styles.sectionWrapper}>
         <div className={styles.section1}>
           <div className={styles.name}>
-            <LogoSvg onClick={() => navigate("/")} style={{cursor:"pointer"}}/>
+            <LogoSvg onClick={() => navigate("/")} style={{cursor: "pointer"}}/>
           </div>
+
           <div className={styles.usection}>
             <div className={styles.profile}>
               <Avatar isActive={true} url={User.user?.avatar_link} >
@@ -43,7 +41,7 @@ const Navbar: React.FC<PropsNavbar> = ({
           </div>
         </div>
         <div className={styles.section2}>
-            {isScrumMaster && !isOnRun && !isButtonHiden && (
+            {isScrumMaster && !isOnRun && !isButtonHidden && (
               <div className={styles.buttonWrapper}>
                 <Button
                   onClick={() => {

@@ -6,10 +6,7 @@
     @include assets.all;
 }
 
-
-.button{
-    
-    
+.button {
     border-radius: 20px;
     border: none;
     background-color: colors.$accent ;
@@ -17,7 +14,7 @@
     justify-content: center;
     align-items: center;
     font-family: fonts.$font-paragraph;
-    box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.25);
     font-weight: 900;
     cursor: pointer;
     
@@ -44,16 +41,13 @@
         flex-direction: column;
         min-width: 250px;
     }
+
     &.ultrabig{
-        
         min-width: 600px;
         min-height: 100px;
         padding: 10px 20px;
         border-radius: 16px;
     }
-
-
-
 }
 
 .button p{
