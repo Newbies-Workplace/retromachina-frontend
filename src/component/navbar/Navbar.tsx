@@ -8,6 +8,7 @@ import { useNavigate } from "react-router";
 import { useUser } from "../../context/UserContext.hook";
 import HomeButtonSvg from "../../assets/icons/home-icon.svg";
 import { useLocation } from "react-router-dom";
+import LogoutBubble from "../logout_bubble/LogoutBubble"
 
 interface PropsNavbar {
   isOnRun: boolean;
@@ -35,7 +36,9 @@ const Navbar: React.FC<PropsNavbar> = ({
           </div>
           <div className={styles.usection}>
             <div className={styles.profile}>
-              <Avatar isActive={true} url={User.user?.avatar_link} />
+              <Avatar isActive={true} url={User.user?.avatar_link} >
+                <LogoutBubble />
+              </Avatar>
             </div>
           </div>
         </div>

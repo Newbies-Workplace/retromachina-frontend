@@ -8,7 +8,7 @@ interface PropsCircle{
   url: any
 }
 
-const Avatar : React.FC <PropsCircle> =  ({isActive, url}) => { 
+const Avatar : React.FC<React.PropsWithChildren<PropsCircle>> =  ({isActive, url, children}) => { 
   const popover = useRef<any>();
   const [isOpen, toggle] = useState(false);
   const close = useCallback(() => toggle(false), []);
@@ -20,7 +20,7 @@ const Avatar : React.FC <PropsCircle> =  ({isActive, url}) => {
         <img src={url} className={styles.photo}></img>
       </div>
       {
-        isOpen&&<div className={styles.bubbleContainer} ref={popover}><LogoutBubble /></div>
+        isOpen&&<div className={styles.bubbleContainer} ref={popover}>{children}</div>
       }
       
     </>
