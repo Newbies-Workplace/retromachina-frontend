@@ -1,31 +1,23 @@
-import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom";
-import {
-  MemoryRouter,
-  Route,
-  Routes,
-  useNavigate,
-} from "react-router-dom";
-import EditTeamView from '../../views/edit_team/EditTeamView';
+import React , { useState } from "react";
+
+import { MemoryRouter, Route, Routes, useNavigate } from "react-router-dom";
+
 
 type RoomState = "reflection" | "grouping" | "voting" | "discussing";
-
 
 const ActiveRetro = () => {
   const [roomState, setRoomState] = useState<RoomState>("reflection");
   const navigate = useNavigate();
+  return (
+    <Routes>
+      <Route path="reflection" element />
 
-    switch (roomState) {
-      case "reflection":
-        return <div>aaaa</div>
-      case "grouping":
-        return <div>aaaqwea</div>
-      case "voting":
-        return <div>aaewewaa</div>
-      case "discussing":
-        return <div>aaaqweqwea</div>
-}
+      <Route path="grouping" element />
 
-  
+      <Route path="voting" element />
+
+      <Route path="discussing" element />
+    </Routes>
+  );
 };
 export default ActiveRetro;

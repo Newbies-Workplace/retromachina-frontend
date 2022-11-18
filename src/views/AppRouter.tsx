@@ -50,7 +50,10 @@ export const AppRouter: React.FC = () => {
                             path="/retro"/>
                         
                         <Route
-                            element={<RequireAuth><ActiveRetro/></RequireAuth>}
+                            element={
+                            <RequireAuth>
+                                <ActiveRetro/>
+                            </RequireAuth>}
                             path="/retro/:id"/>
                         <Route
                             element={<span>404</span>}
