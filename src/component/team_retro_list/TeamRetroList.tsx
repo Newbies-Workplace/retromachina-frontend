@@ -46,7 +46,7 @@ export const TeamRetroList: React.FC<TeamRetroListProps> = ({ teamName, teamId }
 
             <div className={styles.wrapper}>
                 {isScrumMaster &&
-                    <Button className={styles.retroButton} onClick={() => navigate("/retro/create")}>
+                    <Button className={styles.retroButton} onClick={() => navigate(`/retro/create?teamId=${teamId}`)}>
                         Nowa Retrospektywa
                         <AddIcon />
                     </Button>

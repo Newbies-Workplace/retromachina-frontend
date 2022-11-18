@@ -14,7 +14,8 @@ export default defineConfig ({
         port: 8080,
     },
     define:{
-        API_URL: process.env.API_URL
+        API_URL: process.env.API_URL,
+        SOCKET_URL: process.env.SOCKET_URL
     }
 })
 

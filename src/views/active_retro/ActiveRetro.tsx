@@ -1,30 +1,48 @@
-import React , { useState } from "react";
+import React, {useEffect, useState} from "react";
 
-import { Route, Routes, useNavigate } from "react-router-dom";
-import {RetroContextProvider} from "../../context/RetroContext";
-import {Navigate, useParams} from "react-router";
-
-type RoomState = "reflection" | "group" | "vote" | "discuss";
+import {Route, Routes} from "react-router-dom";
+import {ProgressBar} from "../../component/progress_bar/ProgressBar";
+import Navbar from "../../component/navbar/Navbar";
+import {Timer} from "../../component/timer/Timer";
+import {useRetro} from "../../context/RetroContext.hook";
+import {Button} from "../../component/button/Button";
+import {useNavigate} from "react-router";
 
 const ActiveRetro: React.FC = () => {
-    const { retroId } = useParams<{retroId: string}>();
-    if (!retroId) {
-        return <Navigate to={"/"}/>
-    }
+    const navigate = useNavigate()
+    const {timerEnds, setReady, roomState, retroId} = useRetro()
+    const [timeLeft, setTimeLeft] = useState<number | null>(null)
 
-    const [roomState, setRoomState] = useState<RoomState>("reflection");
-    const navigate = useNavigate();
+    // to zmienia timer w navbarze
+    useEffect(() => {
+        if (timerEnds !== null) {
+            //todo licznik zmniejszający timeleft co sekundę (chyba useTimeout)
+        }
+
+
+        return () => {
+
+        }
+    }, [timerEnds])
+
+    // to zmienia etap pokoju
+    useEffect(() => {
+        navigate(`/retro/${retroId}/${roomState}`)
+    }, [roomState])
 
     return (
-        <RetroContextProvider retroId={retroId}>
+        <>
+            <Navbar topContent={timeLeft !== null && <Timer time={timeLeft}/>}/>
+            <Button onClick={() => {setReady(true)}}> hehe</Button>
+
             <Routes>
-                <Route path="reflection" element />
-                <Route path="group" element />
-                <Route path="vote" element />
-                <Route path="discuss" element />
-                <Route path="*" element={<>Prr, płotka...</>}/>
+                <Route path="reflection" element={<>reflection</>} />
+                <Route path="group" element={<>group</>} />
+                <Route path="vote" element={<>vote</>} />
+                <Route path="discuss" element={<>discuss</>} />
+                <Route path="*" element={<><ProgressBar/></>}/>
             </Routes>
-        </RetroContextProvider>
+        </>
     );
 };
 export default ActiveRetro;

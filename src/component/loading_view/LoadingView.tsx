@@ -1,6 +1,6 @@
 import styles from './LoadingView.module.scss';
 import LogoSvg from '../../assets/images/logo.svg'
-import {Loader} from '../loader/Loader'
+import {ProgressBar} from '../progress_bar/ProgressBar'
 
 export const LoadingView = () => {
     return (
@@ -11,7 +11,7 @@ export const LoadingView = () => {
                     <p>powered by <a href="http://newbies.pl">Newbies</a></p>
                 </div>
 
-                <Loader />
+                <ProgressBar />
             </div>
         </div>
     );

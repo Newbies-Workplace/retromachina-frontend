@@ -1,7 +1,7 @@
 import React from "react"
-import styles from './Loader.module.scss'
+import styles from './ProgressBar.module.scss'
 
-export const Loader = () => {
+export const ProgressBar = () => {
     return (
         <div className={styles.loadingWrapper}>          
             <div className={styles.loading}>

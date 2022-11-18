@@ -7,6 +7,9 @@ import {ColumnCreate} from "../../component/column_create/ColumnCreate";
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import {HeaderBar} from "../../component/header_bar/HeaderBar";
+import {postRetro} from "../../api/retro/Retro.service";
+import * as qs from 'query-string';
+import {Navigate, useNavigate} from "react-router";
 
 export interface Column {
   id: string;
@@ -16,7 +19,14 @@ export interface Column {
 }
 
 export const RetroCreateView: React.FC = () => {
+  const params = qs.parse(location.search)
+  const teamId: string = params.teamId as string
+  if (!teamId) {
+    return <Navigate to={"/"}/>
+  }
+
   const [columns, setColumns] = useState<Array<Column>>([]);
+  const navigate = useNavigate()
 
   const onAddColumn = () => {
     const column = {
@@ -70,10 +80,22 @@ export const RetroCreateView: React.FC = () => {
     setColumns(columnsTemp);
   };
 
+  const onCreateRetroClick = async () => {
+    // postRetro(teamId, columns)
+    //todo ustawienie loadera zamiast kamery w actionbutton
+    Promise.resolve({id: 'haba'})
+        .then((retro) => {
+          //todo skopiujcie linka do schowka użytkownika
+
+          navigate(`/retro/${retro.id}`)
+        })
+        .catch(console.log)
+  }
+
   return (
       <>
         <Navbar>
-          <HeaderBar text="Edycja Kolumn"/>
+          <HeaderBar text="TODO: Nazwa zespołu"/> {/* todo możecie to wyciągnąć z kontekstu z teamów usera*/}
         </Navbar>
 
         <div className={style.container}>
@@ -99,7 +121,7 @@ export const RetroCreateView: React.FC = () => {
           </div>
 
           <div className={style.actionWrapper}>
-            <Button className={style.actionButton}>
+            <Button className={style.actionButton} onClick={onCreateRetroClick}>
               <div className={style.buttonSection}>
                 <p>Akcja</p>
                 (Zacznij & skopiuj link)

@@ -9,3 +9,15 @@ export const getRetrosByTeamId = (teamId: string): Promise<RetroResponse[]> => {
     })
         .then(res => res.data)
 }
+
+//todo zweryfikujcie sobie czy tak będzie na backendzie (response też)
+export const postRetro = (
+    teamId: string,
+    columns: { color: string, name: string, desc: string }[]
+): Promise<RetroResponse> => {
+    return axiosInstance.post<RetroResponse>("retros", {
+        teamId: teamId,
+        columns: columns,
+    })
+        .then(res => res.data)
+}

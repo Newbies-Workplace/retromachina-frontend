@@ -10,7 +10,7 @@ import { getInvitesInfoByTeamId, getTeamInfoByTeamId } from '../../api/team/Team
 import { getUsersInfoByTeamId } from '../../api/user/User.service';
 import {HeaderBar} from "../../component/header_bar/HeaderBar";
 import styles from "./TeamEditView.module.scss";
-import {Loader} from "../../component/loader/Loader";
+import {ProgressBar} from "../../component/progress_bar/ProgressBar";
 
 interface Invite {
     email: string,
@@ -74,7 +74,7 @@ const TeamEditView: React.FC = () => {
             {!team &&
                 <div className={styles.container}>
                     <div className={styles.loadingWrapper}>
-                        <Loader/>
+                        <ProgressBar/>
                     </div>
                 </div>
             }

@@ -8,6 +8,7 @@ import {RetroCreateView} from './retro_create/RetroCreateView';
 import TeamEditView from './team_edit/TeamEditView';
 import ActiveRetro from './active_retro/ActiveRetro';
 import {TeamCreateView} from "./team_create/TeamCreateView";
+import {RetroWrapper} from "./active_retro/RetroWrapper";
 
 export const AppRouter: React.FC = () => {
     return (
@@ -38,8 +39,17 @@ export const AppRouter: React.FC = () => {
                     path="/retro/create"
                     element={<RequireAuth><RetroCreateView/></RequireAuth>}/>
                 <Route
-                    path="/retro/:retroId"
-                    element={<RequireAuth><ActiveRetro/></RequireAuth>}/>
+                    path="/retro/:retroId/*"
+                    element={
+                        <RequireAuth>
+                            <RetroWrapper>
+                                <ActiveRetro/>
+                            </RetroWrapper>
+                        </RequireAuth>
+                    }/>
+                <Route
+                    path="/retro/:retroId/summary"
+                    element={<RequireAuth><p>Podsumowanko</p></RequireAuth>}/>
 
                 <Route
                     path="*"
