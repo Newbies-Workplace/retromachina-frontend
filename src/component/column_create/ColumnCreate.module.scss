@@ -2,30 +2,33 @@
 @use  'src/abstracts/fonts';
 @use  'src/abstracts/assets';
 
-.wrapper{
+.wrapper {
     display: flex;
     flex-direction: column;
+    gap: 8px;
+
+    min-width: 340px;
+    padding: 8px;
+
     border: 1px solid black;
-    padding: 10px;
     border-radius: 16px;
-    gap:   20px;
-    & input{
-        border-radius: 16px;
-        padding-left: 10px;
-        width: 65%;
-    }
     background-color: #EAEAEA;
-    min-width: 325px;
 }
-.delete{
-    transform: rotate(45deg);
-    cursor: pointer;
-}   
 
-.topBar{
+.topBar {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    
+    gap: 8px;
 }
 
+.name {
+    min-width: 100px;
+}
+
+.delete {
+    min-width: 32px;
+    min-height: 32px;
+
+    cursor: pointer;
+}

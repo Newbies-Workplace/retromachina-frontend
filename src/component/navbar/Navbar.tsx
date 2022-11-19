@@ -1,69 +1,58 @@
-import React from "react";
+import React, {useCallback, useRef, useState} from "react";
 import styles from "./Navbar.module.scss";
-import Button from "../button/Button";
-import CreateTeamSvg from "../../assets/icons/create-team.svg";
 import LogoSvg from "../../assets/images/logo.svg";
-import Avatar from "../avatar/Avatar";
-import { useNavigate } from "react-router";
-import { useUser } from "../../context/UserContext.hook";
-import HomeButtonSvg from "../../assets/icons/home-icon.svg";
-import { useLocation } from "react-router-dom";
+import {Avatar} from "../avatar/Avatar";
+import {useNavigate} from "react-router";
+import {useUser} from "../../context/UserContext.hook";
+import {LogoutBubble} from "../logout_bubble/LogoutBubble"
+import useClickOutside from "../../context/useClickOutside";
 
-interface PropsNavbar {
-  isOnRun: boolean;
-  isScrumMaster: boolean;
-  isButtonHiden: boolean;
-  children?: any;
+interface NavbarProps {
+    topContent?: React.ReactNode,
 }
-//react prop with children
-const Navbar: React.FC<PropsNavbar> = ({
-  isOnRun,
-  isScrumMaster,
-  isButtonHiden,
-  children,
-}) => {
-  let location = useLocation();
-  console.log();
-  const navigate = useNavigate();
-  const User = useUser();
-  return (
-    <div className={styles.navbar}>
-      <div className={styles.sectionWrapper}>
-        <div className={styles.section1}>
-          <div className={styles.name}>
-            <LogoSvg onClick={() => navigate("/")} style={{cursor:"pointer"}}/>
-          </div>
-          <div className={styles.usection}>
-            <div className={styles.profile}>
-              <Avatar isActive={true} url={User.user?.avatar_link} />
-            </div>
-          </div>
-        </div>
-        <div className={styles.section2}>
-            {isScrumMaster && !isOnRun && !isButtonHiden && (
-              <div className={styles.buttonWrapper}>
-                <Button
-                  onClick={() => {
-                    navigate("/team/create");
-                  }}
-                  size="small"
-                  className={styles.button}
-                >
-                  
-                  <CreateTeamSvg />
-                  <p>Stwórz Zespół</p>
-                </Button>
-              </div>
-            )}
-          {children}
-        </div>
 
-        <div className={styles.section3}>
-          <div className={styles.line}></div>
+const Navbar: React.FC<React.PropsWithChildren<NavbarProps>> = ({children, topContent}) => {
+    const navigate = useNavigate();
+    const {user} = useUser();
+    const popover = useRef<any>();
+    const [isOpen, toggle] = useState(false);
+    const close = useCallback(() => toggle(false), []);
+
+    useClickOutside(popover, close);
+
+    return (
+        <div className={styles.navbar}>
+            <div className={styles.sectionWrapper}>
+                <div className={styles.topSection}>
+                    <div className={styles.name}>
+                        <LogoSvg onClick={() => navigate("/")} style={{cursor: "pointer"}}/>
+                    </div>
+
+                    <div className={styles.topContainer}>
+                        {topContent}
+
+                        <div className={styles.profile}>
+                            <div onClick={() => toggle(true)}>
+                                <Avatar isActive={true} url={user?.avatar_link} />
+
+                                {isOpen &&
+                                    <div className={styles.bubbleContainer} ref={popover}>
+                                        <LogoutBubble/>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className={styles.bottomSection}>
+                    {children}
+                </div>
+
+                <div className={styles.line} />
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default Navbar;

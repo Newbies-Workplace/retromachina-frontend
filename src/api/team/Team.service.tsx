@@ -10,7 +10,7 @@ export const getInvitesInfoByTeamId = async (teamId: string) => {
 }
 
 export const createTeam = async (team: Team) => {
-    return axiosInstance.post("/teams", {
+    return axiosInstance.post("teams", {
         name: team.name,
         emails: team.emails
     });
