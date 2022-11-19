@@ -12,21 +12,17 @@ export const LogoutBubble = () => {
         navigate("/signin")
     }
 
-    return(
-        <div className={styles.bubbleWrapper} >
-            <div className={styles.pointer} />
+    return (
+        <div className={styles.bubble}>
+            <span>{User.user?.nick}</span>
+            <span>{User.user?.email}</span>
 
-            <div className={styles.bubble}>
-                <p>{User.user?.nick}</p>
-                <p>{User.user?.email}</p>
-
-                <Button
-                    className={styles.logoutButton}
-                    size='small'
-                    onClick={onLogoutClick}>
-                    Wyloguj
-                </Button>
-            </div>  
-        </div> 
+            <Button
+                size='small'
+                className={styles.logoutButton}
+                onClick={onLogoutClick}>
+                Wyloguj
+            </Button>
+        </div>
     )
 }

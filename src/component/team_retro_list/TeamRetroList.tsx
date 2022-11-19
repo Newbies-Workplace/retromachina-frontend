@@ -34,7 +34,7 @@ export const TeamRetroList: React.FC<TeamRetroListProps> = ({ teamName, teamId }
                 <h2 className={styles.title}>{teamName}</h2>
                 <Button onClick={() => navigate("/tasks")} size="small">
                     <TaskIconSvg />
-                    <p>Lista zadań</p>
+                    Lista zadań
                 </Button>
 
                 {isScrumMaster &&
@@ -53,8 +53,8 @@ export const TeamRetroList: React.FC<TeamRetroListProps> = ({ teamName, teamId }
                 }
                     {retros.map((retro, index) =>
                         <Button className={cs(styles.retroButton, styles.retro)} key={retro.id}>
-                            <span>{`Retro #${retros.length - index}`}</span>
-                            <span>{new Date(retro.date).toLocaleDateString("pl-Pl")}</span>
+                            <span style={{fontSize: 24}}>{`Retro #${retros.length - index}`}</span>
+                            <span style={{fontSize: 24}}>{new Date(retro.date).toLocaleDateString("pl-Pl")}</span>
                         </Button>
                     )}
             </div>

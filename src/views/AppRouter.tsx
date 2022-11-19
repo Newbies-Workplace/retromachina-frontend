@@ -33,7 +33,7 @@ export const AppRouter: React.FC = () => {
                     element={<RequireAuth><TeamEditView/></RequireAuth>}/>
                 <Route
                     path="/tasks"
-                    element={<RequireAuth><p>Lista Zadań</p></RequireAuth>}/>
+                    element={<RequireAuth><span>Lista Zadań</span></RequireAuth>}/>
 
                 <Route
                     path="/retro/create"
@@ -49,7 +49,7 @@ export const AppRouter: React.FC = () => {
                     }/>
                 <Route
                     path="/retro/:retroId/summary"
-                    element={<RequireAuth><p>Podsumowanko</p></RequireAuth>}/>
+                    element={<RequireAuth><span>Podsumowanko</span></RequireAuth>}/>
 
                 <Route
                     path="*"

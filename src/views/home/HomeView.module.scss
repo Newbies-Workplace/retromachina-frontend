@@ -11,7 +11,7 @@
 
   margin-top: 32px;
 
-  & p {
+  & span {
     font-size: 28px;
     font-weight: 900;
   }
@@ -31,8 +31,4 @@
   justify-content: end;
   align-items: flex-end;
   margin-right: 16px;
-  & p {
-    font-size: 15px;
-    margin: 5px 5px 5px 5px;
-  }
 }

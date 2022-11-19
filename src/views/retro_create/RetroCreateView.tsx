@@ -1,22 +1,31 @@
 import Navbar from "../../component/navbar/Navbar";
-import style from "./RetroCreateView.module.scss";
+import styles from "./RetroCreateView.module.scss";
 import {Button} from "../../component/button/Button";
 import AddIcon from "../../assets/icons/add-icon.svg";
 import ActionIconSvg from "../../assets/icons/action-icon.svg";
 import {ColumnCreate} from "../../component/column_create/ColumnCreate";
-import React, { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import React, {useEffect, useState} from "react";
+import {v4 as uuidv4} from "uuid";
 import {HeaderBar} from "../../component/header_bar/HeaderBar";
-import {postRetro} from "../../api/retro/Retro.service";
 import * as qs from 'query-string';
 import {Navigate, useNavigate} from "react-router";
+import {getRandomTemplate} from "../../api/retro_template/RetroTemplate.service";
 
 export interface Column {
   id: string;
   color: string;
   name: string;
-  desc: string;
+  desc: string | null;
 }
+
+const getRandomColor = (): string => {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+};
 
 export const RetroCreateView: React.FC = () => {
   const params = qs.parse(location.search)
@@ -28,10 +37,14 @@ export const RetroCreateView: React.FC = () => {
   const [columns, setColumns] = useState<Array<Column>>([]);
   const navigate = useNavigate()
 
+  useEffect(() => {
+    randomizeTemplate()
+  }, [])
+
   const onAddColumn = () => {
     const column = {
       id: uuidv4(),
-      color: "",
+      color: getRandomColor(),
       name: "",
       desc: "",
     };
@@ -92,14 +105,30 @@ export const RetroCreateView: React.FC = () => {
         .catch(console.log)
   }
 
+  const randomizeTemplate = () => {
+    getRandomTemplate()
+        .then((template) => {
+          setColumns(template.columns.map(col => ({
+            id: uuidv4(),
+            name: col.name,
+            desc: col.desc,
+            color: col.color,
+          })))
+        })
+        .catch(console.log)
+  }
+
   return (
       <>
         <Navbar>
-          <HeaderBar text="TODO: Nazwa zespołu"/> {/* todo możecie to wyciągnąć z kontekstu z teamów usera*/}
+          <HeaderBar text="TODO: Nazwa zespołu"/> {/* todo możecie to wyciągnąć z kontekstu z teamów usera */}
+          <Button className={styles.randomize} size={"small"} onClick={() => randomizeTemplate()}>
+            Losuj szablon
+          </Button>
         </Navbar>
 
-        <div className={style.container}>
-          <div className={style.columns}>
+        <div className={styles.container}>
+          <div className={styles.columns}>
             {columns.map(column =>
                 <ColumnCreate
                     key={column.id}
@@ -109,21 +138,21 @@ export const RetroCreateView: React.FC = () => {
                     onDelete={() => onDeleteColumn(column.id)}
                     color={column.color}
                     name={column.name}
-                    desc={column.desc}
+                    desc={column.desc ?? ""}
                 />
             )}
-            <div className={style.columnButton}>
+            <div className={styles.columnButton}>
               <Button size="big" onClick={onAddColumn}>
-                <p>Nowa Kolumna</p>
+                <span>Nowa Kolumna</span>
                 <AddIcon />
               </Button>
             </div>
           </div>
 
-          <div className={style.actionWrapper}>
-            <Button className={style.actionButton} onClick={onCreateRetroClick}>
-              <div className={style.buttonSection}>
-                <p>Akcja</p>
+          <div className={styles.actionWrapper}>
+            <Button className={styles.actionButton} onClick={onCreateRetroClick}>
+              <div className={styles.buttonSection}>
+                <span>Akcja</span>
                 (Zacznij & skopiuj link)
               </div>
 

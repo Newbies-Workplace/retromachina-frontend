@@ -2,65 +2,52 @@
 @use  'src/abstracts/fonts';
 @use  'src/abstracts/assets';
 
-.outer {
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 4px;
     border-radius: 16px;
     border: solid black 1px;
-    padding: 10px 10px;
     background-color: #FFFFFF;
 }
 
-.tile{
-    background-color: #FFFFFF;
+.multiline {
+    min-height: 128px;
 
-    height: fit-content;
-    width: fit-content;
-    
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
 
-    border: none;
     outline: none;
-
-    font-family: fonts.$font-paragraph;
-
-    font-size: 15px;
+    border: none;
+    border-radius: 16px;
 
     resize: none;
 
-    min-width: 100%;
-    min-height: 96px;
-    
-}
-.oneline{
-    background-color: #FFFFFF;
-    min-width: 90px;
-    min-height: 20px;
-    font-weight: 400;
-    border: 1px solid black;
-    vertical-align: center;
-    font-size: 15px;
-}
-.oneline::placeholder{
-    font-size: 15px;
-    vertical-align: middle;
-    text-align: left;
+    @include assets.scrollbar;
 }
 
-.tile::-webkit-scrollbar {
-    width: 8px;
-}
-  
-.tile::-webkit-scrollbar-track {
-    background: rgb(201, 201, 201);
-    border-radius: 8px;
-    border: solid 10px transparent;
-}
-   
-.tile::-webkit-scrollbar-thumb {
-    background: rgb(97, 96, 96); 
-    border-radius: 10px;
-}
-  
-.tile::-webkit-scrollbar-thumb:hover {
-    background: #a7a3a3; 
+.oneline {
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-start;
+    align-items: center;
+
+    padding: 1px 0;
+
+    min-height: 40px;
+    width: 100%;
+    box-sizing: border-box;
+
+    outline: none;
+    border: none;
+    border-radius: 16px;
 }
 
-
+.rightWrapper {
+    display: flex;
+    align-items: center;
+}

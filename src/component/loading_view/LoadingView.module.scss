@@ -2,17 +2,13 @@
 @use  'src/abstracts/fonts';
 @use  'src/abstracts/assets';
 
-h1{
-    @include assets.h1;
-}
-
 .container {
     display: flex;
     justify-content: center;
     align-items: center;
 
     height: 100vh;
-    background-image: url("../../../assets/images/background.svg");
+    background-image: url("../../assets/images/background.svg");
     background-size: cover;
 }
 
@@ -46,7 +42,7 @@ h1{
     }
 }
 
-p {
+span {
     font-size: 22px;
     font-family: fonts.$font-paragraph;
 }

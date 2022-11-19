@@ -2,23 +2,23 @@
 @use  'src/abstracts/fonts';
 @use  'src/abstracts/assets';
 
-.container{
+.container {
     width: 100%;
     padding-bottom: 8px;
 
-    @include assets.horizontalScroll
+    @include assets.scrollbar
 }
 
 .columns {
     display: flex;
     align-items: start;
-    gap: 50px;
+    gap: 32px;
 
     margin-top: 32px;
     margin-left: 12px;
 }
 
-.columnButton{
+.columnButton {
     padding-right: 16px;
 }
 
@@ -32,7 +32,7 @@
     width: 100%;
 }
 
-.actionButton{
+.actionButton {
     display: flex;
 
     min-width: 600px;
@@ -45,8 +45,14 @@
 
         width: 100%;
 
-        & p {
+        & span {
             font-weight: 700;
         }
     }
+}
+
+.randomize {
+    position: absolute;
+
+    right: 16px;
 }

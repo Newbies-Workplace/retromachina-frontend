@@ -17,35 +17,32 @@ const HomeView: React.FC = () => {
             <Navbar>
                 <div className={styles.buttonWrapper}>
                     <Button
-                        onClick={() => {
-                            navigate("/team/create");
-                        }}
+                        onClick={() => navigate("/team/create")}
                         size="small"
-                        className={styles.button}
                     >
-
                         <CreateTeamSvg />
-                        <p>Stwórz Zespół</p>
+                        Stwórz Zespół
                     </Button>
                 </div>
             </Navbar>
-                {user?.teams?.length === 0 &&
-                    <div className={styles.noTeam}>
-                        <div className={styles.text}>
-                            <p>Nie jesteś członkiem żadnego Zespołu!</p>
-                            <p style={{fontSize: 18}}>Daj znać swojemu scrum masterowi</p>
-                        </div>
 
-                        <NotFoundSvg />
+            {user?.teams?.length === 0 &&
+                <div className={styles.noTeam}>
+                    <div className={styles.text}>
+                        <span>Nie jesteś członkiem żadnego Zespołu!</span>
+                        <span style={{fontSize: 18}}>Daj znać swojemu scrum masterowi</span>
                     </div>
-                }
 
-                {user?.teams.map((team) =>
-                    <TeamRetroList
-                        key={team.id}
-                        teamId={team.id}
-                        teamName={team.name} />
-                )}
+                    <NotFoundSvg />
+                </div>
+            }
+
+            {user?.teams.map((team) =>
+                <TeamRetroList
+                    key={team.id}
+                    teamId={team.id}
+                    teamName={team.name} />
+            )}
         </>
     )
 };

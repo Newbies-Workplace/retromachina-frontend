@@ -12,7 +12,7 @@ export const SignInView: React.FC = () => {
 
                 <div className={styles.text}>
                     <LogoSvg />
-                    <p>powered by <a href="http://newbies.pl">Newbies</a></p>
+                    <span>powered by <a href="http://newbies.pl">Newbies</a></span>
                 </div>
 
                 <a href={href}>

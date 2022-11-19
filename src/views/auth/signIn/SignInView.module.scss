@@ -2,10 +2,6 @@
 @use '../../../abstracts/fonts';
 @use '../../../abstracts/assets';
 
-h1{
-    @include assets.h1;
-}
-
 .container {
     display: flex;
     justify-content: center;
@@ -46,11 +42,6 @@ h1{
     }
 }
 
-p {
-    font-size: 22px;
-    font-family: fonts.$font-paragraph;
-}
-
 .googleBtn {
     color: black !important;
     background-color: white !important;
@@ -58,6 +49,11 @@ p {
 
     & div {
         border-radius: 40px !important;
+    }
+
+    & span {
+        font-family: Roboto, arial, sans-serif;
+        font-size: 16px;
     }
 }
 

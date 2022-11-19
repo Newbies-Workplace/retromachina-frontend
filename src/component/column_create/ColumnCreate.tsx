@@ -1,6 +1,6 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import styles from './ColumnCreate.module.scss'
-import AddIconSvg from '../../assets/icons/add-icon.svg'
+import DeleteIcon from '../../assets/icons/delete-icon.svg'
 import {Input} from '../input/Input'
 import {ColorPicker} from '../color_picker/ColorPicker'
 
@@ -29,6 +29,7 @@ export const ColumnCreate: React.FC<ColumnCreateProps> = ({color, name, desc, on
                             desc: desc
                         })
                     }}/>
+
                 <Input
                     value={name}
                     setValue={(name) => {
@@ -38,11 +39,10 @@ export const ColumnCreate: React.FC<ColumnCreateProps> = ({color, name, desc, on
                             desc: desc
                         })
                     }}
-                    placeholder="Nazwa Kolumny"/>
+                    placeholder="Nazwa Kolumny"
+                    className={styles.name}/>
 
-                <div onClick={onDelete}>
-                    <AddIconSvg className={styles.delete}/>
-                </div>
+                <DeleteIcon onClick={onDelete} className={styles.delete}/>
             </div>
 
             <Input
