@@ -1,18 +1,24 @@
 import React from "react"
 import styles from './ProgressBar.module.scss'
 
-export const ProgressBar = () => {
+interface ProgressBarProps{
+    color? : string;
+}
+
+
+export const ProgressBar: React.FC<ProgressBarProps> = ({color="white"}) => {
+    
     return (
         <div className={styles.loadingWrapper}>          
             <div className={styles.loading}>
-                <div/>
-                <div/>
-                <div/>
-                <div/>
-                <div/>
-                <div/>
-                <div/>
-                <div/>
+                <div style={{backgroundColor:color}}/>
+                <div style={{backgroundColor:color}}/>
+                <div style={{backgroundColor:color}}/>
+                <div style={{backgroundColor:color}}/>
+                <div style={{backgroundColor:color}}/>
+                <div style={{backgroundColor:color}}/>
+                <div style={{backgroundColor:color}}/>
+                <div style={{backgroundColor:color}}/>
             </div>
         </div>
     )  
