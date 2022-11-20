@@ -24,15 +24,27 @@ export const RetroContext = createContext<RetroContext>({
 })
 
 export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContextParams>> = ({children, retroId}) => {
-    const socket = io(SOCKET_URL + "?");
+    //@ts-ignore
+    const socket = io.connect(SOCKET_URL,{
+        path:"/socket.io",
+        query:{
+            retro_id: retroId
+        },
+        extraHeaders: {
+        //@ts-ignore
+        Authorization : window.localStorage.getItem('Bearer')
+    }
+  });
+  
 
     const [timerEnds, setTimerEnds] = useState<number | null>(null)
     const [isReady, setIsReady] = useState(false)
     const [roomState, setRoomState] = useState<RoomState>('reflection')
 
     useEffect(() => {
-        socket.on('connect', () => {
-            console.log('eluwina')
+        
+        socket.on('connection', () => {
+            
         });
 
         socket.on('event_change_timer', (e: ChangeTimerEvent) => {
@@ -40,7 +52,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
         });
 
         return () => {
-            socket.off('connect');
+            socket.off('connection');
             socket.off('event_change_timer');
         };
     }, [])
