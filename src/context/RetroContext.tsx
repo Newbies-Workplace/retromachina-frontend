@@ -1,6 +1,6 @@
-import React, {createContext, useEffect, useState} from "react";
-import io from 'socket.io-client';
-import {ChangeTimerEvent} from "../api/socket/Socket.events";
+import React, {createContext, useCallback, useEffect, useRef, useState} from "react";
+import io, {Socket} from 'socket.io-client';
+import {ChangeTimerEvent, OnJoinEvent} from "../api/socket/Socket.events";
 import {RoomState} from "../api/socket/Socket.commands";
 
 interface RetroContextParams {
@@ -24,41 +24,42 @@ export const RetroContext = createContext<RetroContext>({
 })
 
 export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContextParams>> = ({children, retroId}) => {
-    //@ts-ignore
-    const socket = io.connect(SOCKET_URL,{
-        path:"/socket.io",
-        query:{
-            retro_id: retroId
-        },
-        extraHeaders: {
-        //@ts-ignore
-        Authorization : window.localStorage.getItem('Bearer')
-    }
-  });
-  
-
+    const socket = useRef<Socket>()
     const [timerEnds, setTimerEnds] = useState<number | null>(null)
     const [isReady, setIsReady] = useState(false)
     const [roomState, setRoomState] = useState<RoomState>('reflection')
 
     useEffect(() => {
-        
-        socket.on('connection', () => {
-            
+        const createdSocket = io(
+            SOCKET_URL, {
+                query: {
+                    retro_id: retroId
+                },
+                extraHeaders: {
+                    //@ts-ignore
+                    Authorization : window.localStorage.getItem('Bearer')
+                }
+            }
+        )
+        socket.current = createdSocket
+
+        createdSocket.on('error', console.log)
+        createdSocket.on('event_on_join', (event: OnJoinEvent) => {
+            setRoomState(event.roomData.roomState)
         });
 
-        socket.on('event_change_timer', (e: ChangeTimerEvent) => {
+        createdSocket.on('event_change_timer', (e: ChangeTimerEvent) => {
             setTimerEnds(e.timerEnds)
         });
 
         return () => {
-            socket.off('connection');
-            socket.off('event_change_timer');
+            createdSocket.removeAllListeners()
+            createdSocket.disconnect()
         };
     }, [])
 
     const setReady = (ready: boolean) => {
-        socket.send("command_ready", {ready: ready})
+        socket.current?.emit("command_ready", {ready: ready})
         setIsReady(ready) //todo przegadajcie sobie co robić w wypadku errora
     }
 

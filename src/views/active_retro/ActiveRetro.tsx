@@ -33,7 +33,7 @@ const ActiveRetro: React.FC = () => {
     return (
         <>
             <Navbar topContent={timeLeft !== null && <Timer time={timeLeft}/>}/>
-            <Button onClick={() => {setReady(true)}}> hehe</Button>
+            <Button onClick={() => {setReady(true)}}>hehe</Button>
 
             <Routes>
                 <Route path="reflection" element={<>reflection</>} />
