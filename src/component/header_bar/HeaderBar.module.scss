@@ -5,22 +5,32 @@
 .tile{
     height: 40px;
     width: 33%;
-
-    background-color: #F4F2E6;
-    border-radius: 50px;
-    border: 1px solid black;
-
-   
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #F4F2E6;
+    border-radius: 50px;
+    border: 1px solid black;
+   
+    
+    
+    
+    
 
-    font-family: fonts.$font-paragraph;
-    font-weight: 700;
-    font-size: 20px;
 }
 
 .active {
     @extend .tile;
     border: 2px solid #73BDA8;
+}
+
+.text{
+    display: block;
+    
+    font-family: fonts.$font-paragraph;
+    font-weight: 700;
+    font-size: 20px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow:hidden;
 }

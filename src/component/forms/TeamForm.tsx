@@ -1,11 +1,10 @@
-import { useRef, useState } from 'react';
-import Button from '../button/Button';
-import HeaderBar from '../header_bar/HeaderBar';
-import Navbar from '../navbar/Navbar';
+import React, {useEffect, useState} from 'react';
+import {Button} from '../button/Button';
 import styles from './TeamForm.module.scss'
 import AddIconSvg from '../../assets/icons/add-icon.svg'
+import DeleteIcon from '../../assets/icons/delete-icon.svg'
 import { Team } from '../../interfaces/Team.interface';
-
+import {Input} from "../input/Input";
 
 interface CreateTeamFormProps {
     userEmail: string
@@ -13,75 +12,70 @@ interface CreateTeamFormProps {
     onSubmit: (team: Team) => void
 }
 
-
-const TeamForm: React.FC<CreateTeamFormProps> = ({userEmail, team, onSubmit}) => {
+export const TeamForm: React.FC<CreateTeamFormProps> = ({userEmail, team, onSubmit}) => {
     const [emails, setEmails] = useState(team?.emails || []);
-    const emailInputRef = useRef<HTMLInputElement>(null);
-    const nameInputRef = useRef<HTMLInputElement>(null);
+    const [name, setName] = useState(team?.name || "");
+    const [email, setEmail] = useState("");
 
+    const onAddEmailClick = () => {
+        if (email.trim().length == 0) {
+            return;
+        }
 
-    const addEmail = () => {
-        if (!emailInputRef.current 
-            || emailInputRef.current.value.trim().length == 0) return;
-        
-        setEmails([...emails, emailInputRef.current.value]);
-        emailInputRef.current.value = "";
-        emailInputRef.current.scrollIntoView();
+        setEmails([...emails, email]);
+        setEmail("")
     }
-  
-    const deleteEmail = (index: number) => {
+
+    const onDeleteEmailClick = (index: number) => {
         let _emails = [...emails];
         _emails.splice(index, 1);
-  
+
         setEmails(_emails);
     }
 
     const onSubmitClick = () => {
         onSubmit({
-            name: nameInputRef.current?.value || "",
+            name: name || "",
             emails: emails
         });
     }
 
     return (
-        <>
-            <div className={styles.container}>
-                <div className={styles.wrapper}>
-                    <div className={styles.innerFormWrapper}>
-                        <div className={styles.teamName}>
-                            <label>Team</label>
-                            <input ref={nameInputRef} type="text" name="" id="" defaultValue={team?.name || ""} placeholder='Nazwa zespołu' />
+        <div className={styles.container}>
+            <div className={styles.wrapper}>
+                <div className={styles.section}>
+                    <h1>Team</h1>
+                    <Input value={name} setValue={setName} placeholder={"Nazwa zespołu"}/>
+                </div>
+
+                <div className={styles.section}>
+                    <h1>Scrum Master</h1>
+                    <span style={{wordBreak: 'break-all'}}>Ty ({userEmail})</span>
+                </div>
+
+                <div className={styles.section}>
+                    <h1>Członkowie</h1>
+
+                    {emails?.map((email, index) =>
+                        <div className={styles.mailBox} key={email}>
+                            {email}
+                            <DeleteIcon style={{cursor: 'pointer'}} onClick={() => onDeleteEmailClick(index)}/>
                         </div>
-                        <div className={styles.scrumMaster}>
-                            <label>Scrum Master</label>
-                            <p>Ty ({userEmail})</p>
-                        </div>
-                        <div className={styles.members}>
-                            <label>Członkowie</label>
-                                {
-                                    emails?.map((email: string, index) => {
-                                        
-                                        return <div className={styles.mailBox} key={email}>
-                                            {email}
-                                            <div className={styles.clickable} onClick={deleteEmail.bind(this, index)}><AddIconSvg/></div>
-                                        </div>
-                                    })
-                                }
-                                <div className={styles.emailWrapper}>
-                                    <input ref={emailInputRef} type="email" className={styles.newTeam} placeholder='Wpisz email'/>
-                                    <div className={styles.plus}><AddIconSvg onClick={addEmail}/></div>
-                                </div>
-                        </div>
-                    </div>
-                    <div className={styles.submitButtonWrapper}>
-                        <div className={styles.submitButton}>
-                            <Button onClick={onSubmitClick} size="medium">Zapisz</Button>
-                        </div>
-                    </div>
+                    )}
+
+                    <Input
+                        value={email}
+                        setValue={setEmail}
+                        placeholder={'Wpisz email'}
+                        right={<AddIconSvg style={{cursor: 'pointer'}} onClick={() => onAddEmailClick()}/>}/>
+                </div>
+
+                <div className={styles.actionSection}>
+                    <Button onClick={onSubmitClick}>
+                        Zapisz
+                    </Button>
                 </div>
             </div>
-        </>
+        </div>
     );
 }
-
-export default TeamForm

@@ -20,7 +20,7 @@
 
    
 
-    & p{
+    & span {
         font-size: 15px;
         font-weight: 400;
     }
@@ -30,7 +30,7 @@
     flex-wrap: nowrap;
     display:flex;
     align-items: center;
-    & p{
+    & span {
         font-size: 25px;
         font-weight: 700;  
     }
