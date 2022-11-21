@@ -15,8 +15,8 @@ interface ToolboxProps {
     isScrumMaster: boolean,
     isVotingVisible: boolean,
     isFinishVisible:boolean,
-    timeLeft:number,
-    setTimer(value:number):void,
+    timeLeft?:number,
+    setTimer?(value:number):void,
 
 
 }
