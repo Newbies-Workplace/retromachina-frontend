@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 import { getRetrosByTeamId } from "../../api/retro/Retro.service";
 import {useUser} from "../../context/UserContext.hook";
 import cs from "classnames";
+import { RetroCard } from "../retro_card/RetroCard"
+import { useRetro } from "../../context/RetroContext.hook";
 
 interface TeamRetroListProps {
     teamName: string;
@@ -19,6 +21,7 @@ export const TeamRetroList: React.FC<TeamRetroListProps> = ({ teamName, teamId }
     const [retros, setRetros] = useState(Array<RetroResponse>());
     const navigate = useNavigate();
     const {isScrumMaster} = useUser()
+    const { onRun } = useRetro()
 
     useEffect( () => {
         getRetrosByTeamId(teamId)
@@ -41,16 +44,22 @@ export const TeamRetroList: React.FC<TeamRetroListProps> = ({ teamName, teamId }
                     <Button onClick={() => navigate(`/team/${teamId}/edit`)} size="round">
                         <EditIconSvg />
                     </Button>
+                    
                 }
+                
             </div>
 
             <div className={styles.wrapper}>
-                {isScrumMaster &&
+                {isScrumMaster && !onRun &&
                     <Button className={styles.retroButton} onClick={() => navigate(`/retro/create?teamId=${teamId}`)}>
                         Nowa Retrospektywa
                         <AddIcon />
                     </Button>
                 }
+                {
+                            onRun&&<RetroCard />
+                }
+                    
                     {retros.map((retro, index) =>
                         <Button className={cs(styles.retroButton, styles.retro)} key={retro.id}>
                             <span style={{fontSize: 24}}>{`Retro #${retros.length - index}`}</span>

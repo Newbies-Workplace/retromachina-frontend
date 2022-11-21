@@ -6,13 +6,13 @@ import useClickOutside from "../../context/useClickOutside";
 interface PopoverPickerProps{
     color: string,
     onChange: (color: string) => void,
+    
 }
-
 export const ColorPicker: React.FC<PopoverPickerProps> = ({ color , onChange }) => {
   const popover = useRef<any>();
   const [isOpen, toggle] = useState(false);
   const close = useCallback(() => toggle(false), []);
-
+  const presetColors = ["#FFFF00", "#FF0000", "#008000" , "#000080", "#800080"]
   useClickOutside(popover, close);
 
   return (
@@ -24,9 +24,22 @@ export const ColorPicker: React.FC<PopoverPickerProps> = ({ color , onChange }) 
       />
 
       {isOpen && (
+        <>
         <div className={styles.popover} ref={popover}>
           <HexColorPicker color={color} onChange={onChange}/>
+          <div className={styles.picker__swatches}>
+          {presetColors.map((presetColor) => (
+          <button
+            key={presetColor}
+            className={styles.picker__swatch}
+            style={{ background: presetColor }}
+            onClick={() => onChange(presetColor)}
+          />
+        ))}
+      </div>
         </div>
+        
+      </>
       )}
     </div>
   );
