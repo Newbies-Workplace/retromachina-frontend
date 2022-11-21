@@ -15,7 +15,7 @@ interface ToolboxProps {
     isScrumMaster: boolean,
     isVotingVisible: boolean,
     isFinishVisible:boolean,
-    timeLeft?:number,
+    timeLeft:number,
     setTimer?(value:number):void,
 
 
@@ -27,6 +27,8 @@ const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = ({ children, is
     const [peopleReady, setPeopleReady] = useState(0);
     const [isReady, setReady] = useState(false);
     const [isOpen, click] = useState(false)
+    const minutes:number = Math.floor(timeLeft/60)
+    const seconds:number= timeLeft%60
 
     return (
 
@@ -41,7 +43,7 @@ const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = ({ children, is
                         isOpen &&
                             (  
                                 <div className ={styles.timeBubbleWraper}> 
-                                    <div className={styles.timer}>{timeLeft}</div>
+                                    <div className={styles.timer}>{minutes}:{seconds}</div>
                                     <div className={styles.buttonWraper}>
                                         <Button size = "small" className={styles.seconds}>+30s</Button>
                                         <Button size = "small" className={styles.min}>+1m</Button>

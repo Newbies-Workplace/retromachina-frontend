@@ -11,7 +11,7 @@ const SignInView = () => {
     return (
         
         <div className={styles.container}>
-            <Toolbox isScrumMaster={true} isVotingVisible={false} isFinishVisible={true}/>
+            <Toolbox isScrumMaster={true} isVotingVisible={false} isFinishVisible={true} timeLeft={320}/>
             
             {/* <div className={styles.dialog}>
             
