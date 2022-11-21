@@ -11,9 +11,9 @@ const SignInView = () => {
     return (
         
         <div className={styles.container}>
+            <Toolbox isScrumMaster={true} isVotingVisible={false} isFinishVisible={true}/>
             
-            
-            <div className={styles.dialog}>
+            {/* <div className={styles.dialog}>
             
                 <div className={styles.text}>
                     <LogoSvg />
@@ -24,7 +24,7 @@ const SignInView = () => {
                 <a href={href}>
                     <GoogleButton className={styles.googleBtn} />
                 </a>
-            </div>
+            </div> */}
         </div>
     );
 };

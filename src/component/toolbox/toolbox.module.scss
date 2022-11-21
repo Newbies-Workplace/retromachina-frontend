@@ -18,16 +18,17 @@
     padding: 10px 10px 10px 10px;
     align-items: center;
     gap:20px;
+    
 
 }
 .timerbox{
     background-color: #EBD3A8;
     width:96px;
-    
+    position: relative;
    
     
 }
-.timer{
+.timerbutton{
     display:flex;
     
     width: 96px;
@@ -127,6 +128,11 @@
 
     word-break: break-all;
 }
+.finish{
+    
+    width: 96px;
+    height: 84px;
+}
 
 
 
@@ -143,4 +149,66 @@
 .button{
     width: 40px;
     height: 84px;
+}
+//popupy i wszystkie menu 
+
+.timeBubbleWraper{
+    display: column;
+
+    position: absolute;
+    top:200px;
+    
+    width:110px;
+    height:76px;
+    background-color:#EBD3A8;
+    border-radius: 16px;
+
+    padding: 8px 8px 8px 8px;
+
+    
+}
+.timer{
+    background-color: #ECE6C2;
+    
+    height: 30px;
+    width: 100%;
+
+    padding-top: 2px;
+    padding-bottom: 2px;
+
+    border-radius: 8px;
+    
+    font-family: fonts.$font-paragraph;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size:18px;
+    &::placeholder{
+        font-size: 19px;
+        
+    }
+}
+.buttonWraper{
+   display: flex;
+
+   justify-content: space-between;
+
+   background-color: #EBD3A8;
+   
+   padding-top:5px;
+   
+   height:30px;
+   width: 100%;
+}
+.seconds{
+    height: 20px;
+    width: 45px;
+    font-size: 12px;
+}
+.min{
+    height: 20px;
+    width: 45px;
+    font-size: 12px;
 }

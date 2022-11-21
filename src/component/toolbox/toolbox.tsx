@@ -5,24 +5,28 @@ import RightArrowIconSvg from '../../assets/icons/right-arrow.svg'
 import LeftArrowIconSvg from '../../assets/icons/left-arrow.svg'
 import HourglassIconSvg from '../../assets/icons/hourglass.svg'
 import VoteIcongSvg from '../../assets/icons/vote.svg'
+import CheckeredFlagIconSvg from '../../assets/icons/finish-flag-svgrepo-com.svg'
 import ProgressBar from "@ramonak/react-progress-bar";
 import { useState } from "react";
 import cs from 'classnames';
-import { useUser } from '../../context/UserContext.hook';
+
 
 interface ToolboxProps {
     isScrumMaster: boolean,
     isVotingVisible: boolean,
-    //isFinishVisible:boolean,
+    isFinishVisible:boolean,
+    timeLeft:number,
+    setTimer(value:number):void,
 
 
 }
 
 
-const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = ({ children, isScrumMaster, isVotingVisible, isFinishOn }) => {
+const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = ({ children, isScrumMaster, isVotingVisible, isFinishVisible,timeLeft,setTimer }) => {
 
     const [peopleReady, setPeopleReady] = useState(0);
     const [isReady, setReady] = useState(false);
+    const [isOpen, click] = useState(false)
 
     return (
 
@@ -30,16 +34,25 @@ const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = ({ children, is
             <div className={styles.timerbox}>
                 {isScrumMaster && (
                     <>
-
-                        <Button size="medium" className={styles.timer}>
+                        <Button size="medium" className={styles.timerbutton} onClick ={()=> click(true)}>
                             <HourglassIconSvg />
                         </Button>
+                        {
+                        isOpen &&
+                            (  
+                                <div className ={styles.timeBubbleWraper}> 
+                                    <div className={styles.timer}>{timeLeft}</div>
+                                    <div className={styles.buttonWraper}>
+                                        <Button size = "small" className={styles.seconds}>+30s</Button>
+                                        <Button size = "small" className={styles.min}>+1m</Button>
+                                    </div>
+                                </div>
+                            )
+                        }
                     </>
                 )
                 }
             </div>
-
-
             <div className={styles.votebox}>
                 {isVotingVisible && isScrumMaster && (
                     <>
@@ -49,7 +62,6 @@ const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = ({ children, is
                     </>
                 )
                 }
-
             </div>
             <div className={styles.midbox}>
                 <Button size="medium" className={cs(styles.readybutton, { [styles.ready]: isReady })} onClick={() => setReady(!isReady)}>
@@ -74,6 +86,14 @@ const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = ({ children, is
                     </>
                 )
                 }
+                {isFinishVisible && isScrumMaster &&(
+                    <>
+                        <Button className={styles.finish} size="medium">
+                            <CheckeredFlagIconSvg />
+                        </Button>
+                    </>   
+                )
+                } 
             </div>
             {isScrumMaster && (
                 <>
@@ -90,8 +110,6 @@ const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = ({ children, is
             )
             }
         </div>
-
-
     );
 }
 export default Toolbox
