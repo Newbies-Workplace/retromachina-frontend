@@ -1,5 +1,5 @@
 import styles from './toolbox.module.scss'
-import Button from "../button/Button";
+import {Button} from "../button/Button";
 import TickIconSvg from '../../assets/icons/tick.svg'
 import RightArrowIconSvg from '../../assets/icons/right-arrow.svg'
 import LeftArrowIconSvg from '../../assets/icons/left-arrow.svg'
@@ -9,6 +9,8 @@ import CheckeredFlagIconSvg from '../../assets/icons/finish-flag-svgrepo-com.svg
 import ProgressBar from "@ramonak/react-progress-bar";
 import { useState } from "react";
 import cs from 'classnames';
+import dayjs from 'dayjs';
+
 
 
 interface ToolboxProps {
@@ -17,18 +19,13 @@ interface ToolboxProps {
     isFinishVisible:boolean,
     timeLeft:number,
     setTimer?(value:number):void,
-
-
 }
-
-
-const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = ({ children, isScrumMaster, isVotingVisible, isFinishVisible,timeLeft,setTimer }) => {
+export const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = ({ children, isScrumMaster, isVotingVisible, isFinishVisible,timeLeft,setTimer }) => {
 
     const [peopleReady, setPeopleReady] = useState(0);
     const [isReady, setReady] = useState(false);
     const [isOpen, click] = useState(false)
-    const minutes:number = Math.floor(timeLeft/60)
-    const seconds:number= timeLeft%60
+    let timeText = dayjs.duration(timeLeft, 's').format('m:ss');
 
     return (
 
@@ -43,7 +40,7 @@ const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = ({ children, is
                         isOpen &&
                             (  
                                 <div className ={styles.timeBubbleWraper}> 
-                                    <div className={styles.timer}>{minutes}:{seconds}</div>
+                                    <div className={styles.timer}>{timeText}</div>
                                     <div className={styles.buttonWraper}>
                                         <Button size = "small" className={styles.seconds}>+30s</Button>
                                         <Button size = "small" className={styles.min}>+1m</Button>
@@ -114,4 +111,4 @@ const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = ({ children, is
         </div>
     );
 }
-export default Toolbox
+

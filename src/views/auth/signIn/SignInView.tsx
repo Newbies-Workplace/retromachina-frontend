@@ -2,7 +2,7 @@ import React from 'react';
 import GoogleButton from 'react-google-button';
 import styles from './SignInView.module.scss';
 import LogoSvg from '../../../assets/images/logo.svg'
-import Toolbox from '../../../component/toolbox/Toolbox';
+import {Toolbox} from '../../../component/toolbox/Toolbox';
 
 export const SignInView: React.FC = () => {
     const href = API_URL + "google/redirect";
@@ -10,7 +10,7 @@ export const SignInView: React.FC = () => {
     return (
         
         <div className={styles.container}>
-            <Toolbox isScrumMaster={true} isVotingVisible={false} isFinishVisible={true} timeLeft={320}/>
+            <Toolbox isScrumMaster={true} isVotingVisible={false} isFinishVisible={true} timeLeft={20}/>
             
             {/* <div className={styles.dialog}>
             

@@ -8,14 +8,11 @@
     display: flex;
     align-items: center;
     
-    width:612px; 
-    height: 100px;
-
     border-radius:16px;
 
     box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.25);
 
-    padding: 10px 10px 10px 10px;
+    padding: 8px ;
     align-items: center;
     gap:20px;
     
@@ -156,11 +153,10 @@
     display: column;
 
     position: absolute;
-    top: -90px;
+    top: -120px;
     left: -10px;
     
     width:110px;
-    height:76px;
     background-color:#EBD3A8;
     border-radius: 16px;
 
@@ -207,11 +203,11 @@
 }
 .seconds{
     height: 20px;
-    width: 45px;
+    width: 50px;
     font-size: 12px;
 }
 .min{
     height: 20px;
-    width: 45px;
+    width: 50px;
     font-size: 12px;
 }
