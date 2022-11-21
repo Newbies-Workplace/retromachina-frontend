@@ -11,9 +11,10 @@
 .card{
     display: flex;
     flex-direction: column;
-    align-content: space-between;
-    width: 100%;
     
+    justify-content: space-between;
+    width: 100%;
+
     
 }
 .text{
@@ -25,7 +26,11 @@
     padding-top: 10px;
     
     display: flex;
-    align-items: flex-end;
+    align-items: center;
+    & span{
+        margin-left: 10px;
+        font-size: 16px;
+    }
 }
 
 .childrenWrapper{

@@ -8,6 +8,6 @@ interface HeaderBarProps {
 
 export const HeaderBar : React.FC <HeaderBarProps> = ({text, active = false}) => {
     return (
-        <div className={styles.tile}> {text} </div>
+        <div className={styles.tile}> <div className={styles.text}>{text}</div> </div>
     );
 }

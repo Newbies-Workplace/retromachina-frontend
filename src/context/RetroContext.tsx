@@ -1,64 +1,112 @@
-import React, {createContext, useEffect, useState} from "react";
-import io from 'socket.io-client';
-import {ChangeTimerEvent} from "../api/socket/Socket.events";
-import {RoomState} from "../api/socket/Socket.commands";
+import React, {
+  createContext,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import io, { Socket } from "socket.io-client";
+import { ChangeTimerEvent } from "../api/socket/Socket.events";
+import { OnJoinEvent } from "../api/socket/Socket.events";
+import { RoomState } from "../api/socket/Socket.commands";
+import { axiosInstance } from "../api/AxiosInstance";
+import { UserResponse } from "../api/user/User.interfaces";
 
 interface RetroContextParams {
-    retroId: string
+  retroId: string;
+  onRun: boolean;
 }
 
 interface RetroContext {
-    retroId: string
-    roomState: RoomState
-    timerEnds: number | null
-    ready: boolean
-    setReady: (ready: boolean) => void
+  onRun: boolean;
+  retroId: string;
+  roomState: RoomState;
+  timerEnds: number | null;
+  ready: boolean;
+  teamUsers: UserResponse[];
+  setReady: (ready: boolean) => void;
 }
 
 export const RetroContext = createContext<RetroContext>({
-    retroId: '',
-    roomState: 'reflection',
-    timerEnds: null,
-    ready: false,
-    setReady: () => {},
-})
+  onRun: false,
+  retroId: "",
+  roomState: "reflection",
+  timerEnds: null,
+  ready: false,
+  teamUsers: [],
+  setReady: () => {},
+});
 
-export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContextParams>> = ({children, retroId}) => {
-    const socket = io(SOCKET_URL + "?");
+export const RetroContextProvider: React.FC<
+  React.PropsWithChildren<RetroContextParams>
+> = ({ children, retroId, onRun }) => {
+  const socket = useRef<Socket>();
+  const [timerEnds, setTimerEnds] = useState<number | null>(null);
+  const [isReady, setIsReady] = useState(false);
+  const [roomState, setRoomState] = useState<RoomState>("reflection");
+  const [teamUsers, setTeamUsers] = useState<UserResponse[]>([]);
+  const [columns, setColumns] = useState();
+  const [column, setColumn] = useState();
 
-    const [timerEnds, setTimerEnds] = useState<number | null>(null)
-    const [isReady, setIsReady] = useState(false)
-    const [roomState, setRoomState] = useState<RoomState>('reflection')
+  useEffect(() => {
+    const createdSocket = io(
+      //@ts-ignore
+      SOCKET_URL,
+      {
+        query: {
+          retro_id: retroId,
+        },
+        extraHeaders: {
+          //@ts-ignore
+          Authorization: window.localStorage.getItem("Bearer"),
+        },
+      }
+    );
+    socket.current = createdSocket;
 
-    useEffect(() => {
-        socket.on('connect', () => {
-            console.log('eluwina')
-        });
+    createdSocket.on("error", console.log);
 
-        socket.on('event_change_timer', (e: ChangeTimerEvent) => {
-            setTimerEnds(e.timerEnds)
-        });
+    createdSocket.on("event_on_join", (event: OnJoinEvent) => {
+      setRoomState(event.roomData.roomState);
+      onRun = true;
 
-        return () => {
-            socket.off('connect');
-            socket.off('event_change_timer');
-        };
-    }, [])
+      axiosInstance
+        .get(`users?team_id=${event.roomData.teamId}`)
+        .then((response) => {
+          setTeamUsers(response.data);
+        })
+        .catch(console.log);
+    });
 
-    const setReady = (ready: boolean) => {
-        socket.send("command_ready", {ready: ready})
-        setIsReady(ready) //todo przegadajcie sobie co robić w wypadku errora
-    }
+    createdSocket.on("event_change_timer", (e: ChangeTimerEvent) => {
+      setTimerEnds(e.timerEnds);
+    });
 
-    return (
-        <RetroContext.Provider value={{
-            retroId: retroId,
-            timerEnds: timerEnds,
-            ready: isReady,
-            roomState: roomState,
-            setReady: setReady,
-        }}>
-            {children}
-        </RetroContext.Provider>
-    )
-}
+    return () => {
+      createdSocket.removeAllListeners();
+      createdSocket.disconnect();
+      onRun = false;
+    };
+  }, []);
+
+  const setReady = (ready: boolean) => {
+    socket.current?.emit("command_ready", { ready: ready });
+    setIsReady(ready); //todo przegadajcie sobie co robić w wypadku errora
+  };
+
+  return (
+    <RetroContext.Provider
+      value={{
+        onRun: onRun,
+        retroId: retroId,
+        timerEnds: timerEnds,
+        ready: isReady,
+        roomState: roomState,
+        setReady: setReady,
+        teamUsers: teamUsers,
+      }}
+    >
+      {children}
+    </RetroContext.Provider>
+  );
+};
