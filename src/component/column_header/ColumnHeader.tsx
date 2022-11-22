@@ -11,12 +11,16 @@ export const ColumnHeader: React.FC<React.PropsWithChildren<ColumnHeaderProps>> 
     return (
         <div className={style.wrapper}>
             <div className={style.title}>
-                <div className={style.box} style={{backgroundColor: color}}></div>
+                <div className={style.boxWrapper}>
+                    <div className={style.box} style={{backgroundColor: color}}></div>
+                </div>
                 <span>{header}</span>
             </div>
-
+        
             {withDescription &&
+            <div className={style.description}>
                 <span>{children}</span>
+            </div>
             }
         </div>
     )

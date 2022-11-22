@@ -24,29 +24,26 @@ export const ReflectionView = () => {
         console.log(value, columnId)
     }
     
-    return(
+    return (
         <div className={styles.container}>
-            {
-                columns?.map((column, index)=>{
-                    return (
-                        <Column
-                            key={column.id}
-                            columnData={column} 
-                            onCardCreated={(value) => {
-                                onCardCreated(value, column.id); 
-                            }}
-                            onIsWriting={(value: boolean) => {
-                                setIsWriting(value);
-                            }}
-                            usersWriting={usersWriting} 
-                            users={teamUsers} 
-                            isWriting={isWriting}
-                        />
-                    )
-                })
-            }
+            {columns?.map((column, index)=>{
+                return (
+                    <Column
+                        key={column.id}
+                        columnData={column} 
+                        onCardCreated={(value) => {
+                            onCardCreated(value, column.id); 
+                        }}
+                        onIsWriting={(value: boolean) => {
+                            setIsWriting(value);
+                        }}
+                        usersWriting={usersWriting} 
+                        users={teamUsers} 
+                        isWriting={isWriting}
+                    />
+                )
+                })}
         </div>
-    )
-    
+    );
 }
 
