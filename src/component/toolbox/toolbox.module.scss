@@ -34,6 +34,7 @@
 .votebox{
     background-color: #EBD3A8;
     width:96px;
+    position: relative;
    
     
 }
@@ -100,7 +101,7 @@
     background-color: #EBD3A8;
     width:96px;
     
-    
+    position: relative;
  
 }
 .votestate{
@@ -124,9 +125,11 @@
     padding-right: 2px;
 
     word-break: break-all;
+
+    position: relative;
 }
+
 .finish{
-    
     width: 96px;
     height: 84px;
 }
@@ -153,7 +156,7 @@
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: -120px;
+    top: -110px;
     left: -50%;
     
     background-color:#EBD3A8;
@@ -161,7 +164,7 @@
 
     padding: 8px 8px 8px 8px;
 
-    
+    box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.25);
 }
 .timer{
     background-color: #ECE6C2;
@@ -191,6 +194,7 @@
 .buttonWraper{
    display: flex;
 
+
    justify-content: space-between;
 
    background-color: #EBD3A8;
@@ -203,3 +207,58 @@
    gap:10px;
 }
 
+.voteBubbleWraper{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: -92px;
+    left: -40px;
+    
+    background-color:#EBD3A8;
+    border-radius: 16px;
+
+    padding: 8px 8px 8px 8px;
+
+    box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.votetext{
+
+    width: 100%;
+    min-width: 150px;   
+    font-size: 13px;
+}
+.numberfield{
+    background-color:#ECE6C2;
+    
+    width: 50px;
+    height: 30px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 8px;
+
+    font-weight: 700;
+}
+.plusminusbutton{
+    width: 40px;
+}
+.finishBubbleWraper{
+   background-color: #EBD3A8;
+
+   position: absolute;
+
+   border-radius: 16px;
+  
+   padding: 8px;
+
+   box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.25);
+
+    top: -95px;
+    left: -12px;
+
+}
+.yesbutton{
+    background-color: #DC6E47;
+}
