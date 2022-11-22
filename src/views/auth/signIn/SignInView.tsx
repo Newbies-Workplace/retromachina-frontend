@@ -10,7 +10,7 @@ export const SignInView: React.FC = () => {
     return (
         
         <div className={styles.container}>
-            <Toolbox isScrumMaster={true} isVotingVisible={false} isFinishVisible={true} timeLeft={20}/>
+            <Toolbox isScrumMaster={true} isVotingVisible={false} isFinishVisible={true} timeLeft={120}/>
             
             {/* <div className={styles.dialog}>
             

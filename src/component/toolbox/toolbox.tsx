@@ -25,8 +25,9 @@ export const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = ({ child
     const [peopleReady, setPeopleReady] = useState(0);
     const [isReady, setReady] = useState(false);
     const [isOpen, click] = useState(false)
-    let timeText = dayjs.duration(timeLeft, 's').format('m:ss');
-
+    const [sec, setSec] = useState(0)
+    let timeText = dayjs.duration(sec, 's').format('m:ss');
+    
     return (
 
         <div className={styles.toolbox}>
@@ -42,8 +43,10 @@ export const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = ({ child
                                 <div className ={styles.timeBubbleWraper}> 
                                     <div className={styles.timer}>{timeText}</div>
                                     <div className={styles.buttonWraper}>
-                                        <Button size = "small" className={styles.seconds}>+30s</Button>
-                                        <Button size = "small" className={styles.min}>+1m</Button>
+                                        <Button size='small' className={styles.zero} onClick={()=>setSec(0)}>0:00</Button>
+                                        <Button size = "small" className={styles.min} onClick={()=>setSec(sec+60)}>+1m</Button>
+                                        <Button size = "small" className={styles.seconds} onClick={()=>setSec(sec+30)} >+30s</Button>
+                                        
                                     </div>
                                 </div>
                             )
