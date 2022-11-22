@@ -7,6 +7,7 @@ import {Timer} from "../../component/timer/Timer";
 import {useRetro} from "../../context/RetroContext.hook";
 import {Button} from "../../component/button/Button";
 import {useNavigate} from "react-router";
+import { ReflectionView } from "./reflection/ReflectionView";
 
 const ActiveRetro: React.FC = () => {
     const navigate = useNavigate()
@@ -33,10 +34,10 @@ const ActiveRetro: React.FC = () => {
     return (
         <>
             <Navbar topContent={timeLeft !== null && <Timer time={timeLeft}/>}/>
-            <Button onClick={() => {setReady(true)}}>hehe</Button>
+            
 
             <Routes>
-                <Route path="reflection" element={<>reflection</>} />
+                <Route path="reflection" element={<ReflectionView/>} />
                 <Route path="group" element={<>group</>} />
                 <Route path="vote" element={<>vote</>} />
                 <Route path="discuss" element={<>discuss</>} />

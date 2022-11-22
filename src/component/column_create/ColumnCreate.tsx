@@ -7,11 +7,11 @@ import {ColorPicker} from '../color_picker/ColorPicker'
 export interface ColumnCreateProps {
     color: string,
     name: string,
-    desc: string
+    desc: string 
     onChange: (column: {
         color: string,
         name: string,
-        desc: string
+        desc: string | null,
     }) => void
     onDelete: () => void
 }

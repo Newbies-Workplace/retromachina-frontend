@@ -8,6 +8,7 @@ import {Button} from "../../component/button/Button";
 import CreateTeamSvg from "../../assets/icons/create-team.svg";
 import {useNavigate} from "react-router";
 
+
 const HomeView: React.FC = () => {
     const { user } = useUser();
     const navigate = useNavigate()
@@ -23,6 +24,7 @@ const HomeView: React.FC = () => {
                         <CreateTeamSvg />
                         Stwórz Zespół
                     </Button>
+                    
                 </div>
             </Navbar>
 
@@ -38,6 +40,7 @@ const HomeView: React.FC = () => {
             }
 
             {user?.teams.map((team) =>
+            
                 <TeamRetroList
                     key={team.id}
                     teamId={team.id}
