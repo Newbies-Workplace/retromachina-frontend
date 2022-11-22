@@ -21,7 +21,9 @@ export const ReflectionView = () => {
                 return (
                     <div className={styles.column}>
                         <div className={styles.cardWrapper}>
-                        <ColumnHeader color={color} withDescription={desc!==null} header={name} key={id} >{desc}</ColumnHeader>
+                        <div className={styles.columnHeaderWrapper}>
+                            <ColumnHeader color={color} withDescription={desc!==null} header={name} key={id} >{desc}</ColumnHeader>
+                        </div>
                             <Input value={inputValue} setValue={setInputValue} multiline={true} />
                             <CardCount count={usersWriting}/>
                             {
