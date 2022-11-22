@@ -15,17 +15,25 @@ import { useUser } from "../../context/UserContext.hook";
 import { ProgressBar } from "../../component/progress_bar/ProgressBar";
 
 
+export interface Card{
+  id: string
+  columnId: string
+  text: string
+  authorId: string
+}
 export interface Column {
   id: string;
   color: string;
   name: string;
   desc: string | null;
+  
 }
 interface RawColumn {
   color: string;
   name: string;
   desc: string | null;
 }
+
 const createRetro = (teamId: string, columns:Column[]) => {
   return axiosInstance.post("/retros",{teamId,columns})
 }
@@ -150,7 +158,9 @@ export const RetroCreateView: React.FC = () => {
                     name={column.name}
                     desc={column.desc ?? ""}
                 />
+                
             )}
+            
             <div className={styles.columnButton}>
               <Button size="big" onClick={onAddColumn}>
                 <span>Nowa Kolumna</span>

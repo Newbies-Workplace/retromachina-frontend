@@ -6,11 +6,12 @@ import React, {
   useState,
 } from "react";
 import io, { Socket } from "socket.io-client";
-import { ChangeTimerEvent } from "../api/socket/Socket.events";
+import { ChangeTimerEvent, SocketColumn } from "../api/socket/Socket.events";
 import { OnJoinEvent } from "../api/socket/Socket.events";
 import { RoomState } from "../api/socket/Socket.commands";
 import { axiosInstance } from "../api/AxiosInstance";
 import { UserResponse } from "../api/user/User.interfaces";
+
 
 interface RetroContextParams {
   retroId: string;
@@ -18,6 +19,8 @@ interface RetroContextParams {
 }
 
 interface RetroContext {
+  usersWriting: number,
+  columns: SocketColumn[]
   onRun: boolean;
   retroId: string;
   roomState: RoomState;
@@ -28,6 +31,8 @@ interface RetroContext {
 }
 
 export const RetroContext = createContext<RetroContext>({
+  usersWriting: 0,
+  columns: [],
   onRun: false,
   retroId: "",
   roomState: "reflection",
@@ -45,8 +50,9 @@ export const RetroContextProvider: React.FC<
   const [isReady, setIsReady] = useState(false);
   const [roomState, setRoomState] = useState<RoomState>("reflection");
   const [teamUsers, setTeamUsers] = useState<UserResponse[]>([]);
-  const [columns, setColumns] = useState();
-  const [column, setColumn] = useState();
+  const [columns, setColumns] = useState<SocketColumn[]>([]);
+  const [usersWriting, setUseWriting] = useState<number>(0);
+  
 
   useEffect(() => {
     const createdSocket = io(
@@ -68,6 +74,8 @@ export const RetroContextProvider: React.FC<
 
     createdSocket.on("event_on_join", (event: OnJoinEvent) => {
       setRoomState(event.roomData.roomState);
+      setColumns(event.roomData.retroColumns)
+      
       onRun = true;
 
       axiosInstance
@@ -97,6 +105,8 @@ export const RetroContextProvider: React.FC<
   return (
     <RetroContext.Provider
       value={{
+        usersWriting: usersWriting,
+        columns: columns,
         onRun: onRun,
         retroId: retroId,
         timerEnds: timerEnds,

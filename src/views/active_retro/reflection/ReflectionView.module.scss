@@ -1,0 +1,14 @@
+.container{
+    
+    width: 100%;
+    
+    display: flex;
+    gap: 16px;
+}
+
+.cardWrapper{
+    padding: 32px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
