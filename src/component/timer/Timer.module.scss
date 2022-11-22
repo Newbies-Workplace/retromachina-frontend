@@ -2,27 +2,28 @@
 @use  'src/abstracts/fonts';
 @use  'src/abstracts/assets';
 
-
-
 .timer{
-    font-family: fonts.$font-paragraph;
-    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 700;
-    font-size: 20px;
+
+    height: 48px;
+    width: 150px;
+
     border-radius: 34px;
     border: 2px solid black;
-    width: 150px;
-    &.default{
-        background-color: colors.$background;
-    }
+    background-color: colors.$background;
+
+    font-family: fonts.$font-paragraph;
+    font-weight: 700;
+    font-size: 20px;
+
     &.expires {
         border-color: colors.$warn;
         color: colors.$warn;
         animation: blink 1s infinite;
     }
+
     &.end {
         background-color: colors.$warn;
         color: colors.$background;
@@ -30,11 +31,6 @@
         font-size: 20px;
     }
 }
-
-
-
-
-
 
 @keyframes blink {
     0% {

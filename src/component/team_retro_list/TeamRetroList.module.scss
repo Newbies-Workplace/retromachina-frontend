@@ -2,11 +2,14 @@
 @use '../../abstracts/fonts';
 @use '../../abstracts/assets';
 
+.team{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 
-.container{
-    padding-left: 20px;
     width: 100%;
-    margin-top: 40px;
+    margin-top: 32px;
+
     & h2 {
         font-family: fonts.$font-paragraph;
         font-weight: 700;
@@ -14,17 +17,45 @@
         margin-top: 20px;
         margin-bottom: 20px;
     }
-    & p {
+    & span {
         font-size: 15px;
         font-weight: 400;
     }
 }
+
+.retro {
+    min-width: 256px;
+    height: 126px;
+
+    background-color: #FFFFFF;
+}
+
+.retroButton {
+    flex-direction: column;
+
+    gap: 8px;
+
+    width: 256px;
+    height: 126px;
+}
+
 .wrapper{
     display: flex;
     gap: 20px;
+
+    padding: 0 16px 8px;
+
+    @include assets.scrollbar
 }
-.icons{
+
+.topBar {
     display: flex;
     align-items: center;
     gap: 10px;
+
+    padding-left: 16px;
+
+    & h2 {
+        margin: 0;
+    }
 }

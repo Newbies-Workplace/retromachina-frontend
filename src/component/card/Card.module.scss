@@ -1,0 +1,41 @@
+.wrapper{
+    min-height: 105px;
+    min-width: 325px;
+    background-color: #FFFFFF;
+    padding: 10px;
+    border-radius: 16px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+}
+.card{
+    display: flex;
+    flex-direction: column;
+    
+    justify-content: space-between;
+    width: 100%;
+
+    
+}
+.text{
+    width: 90%;   
+    word-break: break-all;
+}
+
+.creator{
+    padding-top: 10px;
+    
+    display: flex;
+    align-items: center;
+    & span{
+        margin-left: 10px;
+        font-size: 16px;
+    }
+}
+
+.childrenWrapper{
+    display: flex;
+    justify-content: flex-end;
+    width:15%;
+    user-select: none;
+}

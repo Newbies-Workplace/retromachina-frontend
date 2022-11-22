@@ -1,0 +1,22 @@
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.action{
+    cursor: pointer;
+    &.active{
+        & path{
+            fill: black;
+        }  
+    } 
+    &.inactive{
+        & path{
+            fill: #696969;
+        }  
+    }
+}
+

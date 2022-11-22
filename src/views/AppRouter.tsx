@@ -1,54 +1,59 @@
 import React from 'react';
-import {
-    BrowserRouter as Router,
-    Routes,
-    Route
-} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import HomeView from "./home/HomeView";
-import SignInView from "./auth/signIn/SignInView";
-import Loading from './auth/signIn/LoadinPage/LoadingPage';
-import { UserContext } from '../context/UserContext';
-import CreateTeamview from './create_team/CreateTeamView';
-import { RequireAuth } from '../component/require_auth/RequireAuth';
-import { RetroCreateView } from './retro_create/RetroCreateView';
-import EditTeamView from './edit_team/EditTeamView';
+import {SignInView} from "./auth/signIn/SignInView";
+import Loading from './auth/LoadingPage/LoadingPage';
+import {RequireAuth} from '../component/require_auth/RequireAuth';
+import {RetroCreateView} from './retro_create/RetroCreateView';
+import TeamEditView from './team_edit/TeamEditView';
+import ActiveRetro from './active_retro/ActiveRetro';
+import {TeamCreateView} from "./team_create/TeamCreateView";
+import {RetroWrapper} from "./active_retro/RetroWrapper";
 
 export const AppRouter: React.FC = () => {
     return (
         <Router>
             <Routes>
-                
-                    <Route
-                        element={<SignInView/>}
-                        path="/signin"/>
+                <Route
+                    path="/signin"
+                    element={<SignInView/>}/>
+                <Route
+                    path="/loading"
+                    element={<Loading/>}/>
 
-                        <Route
-                            element={ <RequireAuth><HomeView/></RequireAuth>}
-                            path="/"/>
+                <Route
+                    path="/"
+                    element={<RequireAuth><HomeView/></RequireAuth>}/>
 
-                        <Route
-                            element={<Loading/>}
-                            path="/loading"/>
-                        
-                        <Route
-                            element={<RequireAuth><CreateTeamview/></RequireAuth>}
-                            path="/team/create"/>
-                        
-                        <Route
-                            element={<RequireAuth><EditTeamView/></RequireAuth>}
-                            path="/team/:teamId/edit"/>
+                <Route
+                    path="/team/create"
+                    element={<RequireAuth><TeamCreateView/></RequireAuth>}/>
+                <Route
+                    path="/team/:teamId/edit"
+                    element={<RequireAuth><TeamEditView/></RequireAuth>}/>
+                <Route
+                    path="/tasks"
+                    element={<RequireAuth><span>Lista Zadań</span></RequireAuth>}/>
 
-                        <Route
-                            element={<RequireAuth><p>Lista Zadań</p></RequireAuth>}
-                            path="/tasks"/>
+                <Route
+                    path="/retro/create"
+                    element={<RequireAuth><RetroCreateView/></RequireAuth>}/>
+                <Route
+                    path="/retro/:retroId/*"
+                    element={
+                        <RequireAuth>
+                            <RetroWrapper>
+                                <ActiveRetro/>
+                            </RetroWrapper>
+                        </RequireAuth>
+                    }/>
+                <Route
+                    path="/retro/:retroId/summary"
+                    element={<RequireAuth><span>Podsumowanko</span></RequireAuth>}/>
 
-                        <Route
-                            element={<RequireAuth><RetroCreateView/></RequireAuth>}
-                            path="/retro"/>
-                    
-                    <Route
-                        element={<span>404</span>}
-                        path="*"/>
+                <Route
+                    path="*"
+                    element={<span>404</span>}/>
             </Routes>
         </Router>
     )
