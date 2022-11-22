@@ -19,7 +19,7 @@ interface RetroContextParams {
 }
 
 interface RetroContext {
-  usersWriting: number,
+  usersWriting: boolean,
   columns: SocketColumn[]
   onRun: boolean;
   retroId: string;
@@ -31,7 +31,7 @@ interface RetroContext {
 }
 
 export const RetroContext = createContext<RetroContext>({
-  usersWriting: 0,
+  usersWriting: false,
   columns: [],
   onRun: false,
   retroId: "",
@@ -51,7 +51,7 @@ export const RetroContextProvider: React.FC<
   const [roomState, setRoomState] = useState<RoomState>("reflection");
   const [teamUsers, setTeamUsers] = useState<UserResponse[]>([]);
   const [columns, setColumns] = useState<SocketColumn[]>([]);
-  const [usersWriting, setUseWriting] = useState<number>(0);
+  const [usersWriting, setUseWriting] = useState<boolean>(false);
   
 
   useEffect(() => {

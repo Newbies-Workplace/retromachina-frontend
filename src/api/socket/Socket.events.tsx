@@ -23,7 +23,8 @@ export interface SocketCard{
   color: string;
   name: string;
   desc: string | null;
-  cards: SocketCard[]
+  cards: SocketCard[];
+  teamCardsAmount: number;
 }
 
 export interface OnJoinEvent {
