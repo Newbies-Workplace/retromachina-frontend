@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router'
 
 export const LogoutBubble = () => {
     const navigate = useNavigate();
-    const User = useUser();
+    const {user} = useUser();
 
     const onLogoutClick = () => {
         window.localStorage.clear();
@@ -14,8 +14,8 @@ export const LogoutBubble = () => {
 
     return (
         <div className={styles.bubble}>
-            <span>{User.user?.nick}</span>
-            <span>{User.user?.email}</span>
+            <span>{user?.nick}</span>
+            <span>{user?.email}</span>
 
             <Button
                 size='small'
