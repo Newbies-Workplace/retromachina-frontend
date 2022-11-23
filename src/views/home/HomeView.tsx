@@ -16,18 +16,21 @@ const HomeView: React.FC = () => {
     return (
         <>
             <Navbar>
-                <div className={styles.buttonWrapper}>
-                    <Button
-                        onClick={() => navigate("/team/create")}
-                        size="small"
-                    >
-                        <CreateTeamSvg />
-                        Stwórz Zespół
-                    </Button>
+                { user?.user_type=="SCRUM_MASTER"  &&
+                    <div className={styles.buttonWrapper}>
+                        
+                        <Button
+                            onClick={() => navigate("/team/create")}
+                            size="small"
+                        >
+                            <CreateTeamSvg />
+                            Stwórz Zespół
+                        </Button>
                     
-                </div>
+                    </div>
+                }
             </Navbar>
-
+            <div className={styles.container}>
             {user?.teams?.length === 0 &&
                 <div className={styles.noTeam}>
                     <div className={styles.text}>
@@ -46,6 +49,7 @@ const HomeView: React.FC = () => {
                     teamId={team.id}
                     teamName={team.name} />
             )}
+            </div>
         </>
     )
 };

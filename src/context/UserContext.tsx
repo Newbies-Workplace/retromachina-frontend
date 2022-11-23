@@ -1,30 +1,15 @@
 import React, { createContext, useEffect, useState } from "react";
 import { axiosInstance } from "../api/AxiosInstance";
-import { getUserInfo } from "../api/user/User.service";
-
-export interface AuthParams {
-    code: string,
-    scope: string,
-    authUser: string,
-    prompt: string
-}
+import { getMyUser } from "../api/user/User.service";
+import {UserResponse} from "../api/user/User.interfaces";
+import {AuthParams} from "../api/auth/Auth.interface";
+import {loginGoogle} from "../api/auth/Auth.service";
 
 interface UserContext {
-    user: User | null,
+    user: UserResponse | null,
     isScrumMaster: boolean,
     refreshUser: () => Promise<void>,
     login: (params: AuthParams) => Promise<void>
-}
-
-type User = {
-    avatar_link: string,
-    email: string,
-    user_type: string,
-    nick: string,
-    teams: {
-        name: string,
-        id: string
-    }[]
 }
 
 export const UserContext = createContext<UserContext>({
@@ -35,7 +20,7 @@ export const UserContext = createContext<UserContext>({
 });
 
 export const UserContextProvider: React.FC<any> = ({ children }) => {
-    const [user, setUser] = useState<User | null>(null);
+    const [user, setUser] = useState<UserResponse | null>(null);
 
     const isScrumMaster = user?.user_type === "SCRUM_MASTER";
 
@@ -48,7 +33,7 @@ export const UserContextProvider: React.FC<any> = ({ children }) => {
     },[])
 
     const refreshUser = () => {
-        return getUserInfo()
+        return getMyUser()
             .then((response) => {
                 setUser(response)
             })
@@ -62,20 +47,17 @@ export const UserContextProvider: React.FC<any> = ({ children }) => {
     }
 
     const login = (params: AuthParams) => {
-        return axiosInstance.get("google/login", {
-            params
-        })
-            .then((response) => {
-                localStorage.setItem("Bearer", response.data.access_token);
+        return loginGoogle(params)
+            .then((res) => {
+                localStorage.setItem("Bearer", res.access_token);
 
-                axiosInstance.defaults.headers["Authorization"] = "Bearer " + response.data.access_token;
-                getUserInfo()
+                axiosInstance.defaults.headers["Authorization"] = "Bearer " + res.access_token;
+                getMyUser()
                     .then((response) => {
                         setUser(response);
                     });
             })
             .catch((err) => {
-                // se napraw :)
                 console.log(err);
             });
     }

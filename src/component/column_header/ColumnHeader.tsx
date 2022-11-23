@@ -3,11 +3,11 @@ import style from './ColumnHeader.module.scss'
 
 interface ColumnHeaderProps{
     color: string,
-    withDescription: boolean,
+    description?: string
     header: string
 }
 
-export const ColumnHeader: React.FC<React.PropsWithChildren<ColumnHeaderProps>> = ({children, color, withDescription, header}) => {
+export const ColumnHeader: React.FC<ColumnHeaderProps> = ({color, description, header}) => {
     return (
         <div className={style.wrapper}>
             <div className={style.title}>
@@ -16,11 +16,11 @@ export const ColumnHeader: React.FC<React.PropsWithChildren<ColumnHeaderProps>> 
                 </div>
                 <span>{header}</span>
             </div>
-        
-            {withDescription &&
-            <div className={style.description}>
-                <span>{children}</span>
-            </div>
+
+            {description !== undefined &&
+                <div className={style.description}>
+                    <span>{description}</span>
+                </div>
             }
         </div>
     )

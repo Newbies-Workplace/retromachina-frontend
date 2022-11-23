@@ -1,56 +1,37 @@
-import { Card } from "../../../component/card/Card"
-import { useRetro } from "../../../context/RetroContext.hook"
-import  Navbar  from "../../../component/navbar/Navbar"
+import {useRetro} from "../../../context/RetroContext.hook"
 import styles from "./ReflectionView.module.scss"
-import { ColumnHeader } from "../../../component/column_header/ColumnHeader"
-import { Input } from "../../../component/input/Input"
-import { useState } from "react"
-import { CardCount } from "../../../component/card_indicator/CardIndicator"
+import {Column} from "../../../component/column/Column"
+import DeleteIconSvg from "../../../assets/icons/delete-icon.svg"
+import { useUser } from "../../../context/UserContext.hook"
 
 export const ReflectionView = () => {
-    const [inputValue , setInputValue]= useState("")
-    const [isWriting, setIsWriting] = useState(false)
-    const {teamUsers , columns, usersWriting, } = useRetro()
-    
-    
-    return(
+    const {user} = useUser();
+    const {teamUsers, columns, cards, setWriting, createCard, deleteCard} = useRetro()
+
+    return (
         <div className={styles.container}>
-            {
-            columns?.map(({id,color,name,desc,cards})=>{
-                
+            {columns?.map((column) => {
+                const columnCards = cards.filter(c => c.columnId === column.id)
+
                 return (
-                    <div className={styles.column}>
-                        <div className={styles.cardWrapper}>
-                        <div className={styles.columnHeaderWrapper}>
-                            <ColumnHeader color={color} withDescription={desc!==null} header={name} key={id} >{desc}</ColumnHeader>
-                        </div>
-                            <Input value={inputValue} setValue={setInputValue} multiline={true} />
-                            <CardCount count={usersWriting}/>
-                            {
-                                cards?.map(({text,authorId,columnId})=>{
-                                    const user = teamUsers.find((user)=>user.id===authorId)
-                                    return (
-                                        
-                                        <Card text={text} author={{
-                                            avatar_link: user?.avatar_link || "",
-                                            name: user?.nick || "",
-                                            id:authorId
-                                        }} 
-                                        teamUsers={teamUsers} />
-                                    )
-                                })
-                            }
-                        </div>
-                    </div>
-
-                    
+                    <Column
+                        cardContent={(cardId)=>{
+                            return <DeleteIconSvg style={{cursor: "pointer"}} onClick={() => deleteCard(cardId)}/>
+                        }}
+                        key={column.id}
+                        columnData={column}
+                        cards={columnCards.filter((card) => card.authorId === user?.user_id)}
+                        onCardCreated={(value) => {
+                            createCard(value, column.id)
+                        }}
+                        onIsWriting={(value) => {
+                            setWriting(value, column.id);
+                        }}
+                        users={teamUsers}
+                    />
                 )
-            })
-
-            }
-            
+            })}
         </div>
-    )
-    
+    );
 }
 
