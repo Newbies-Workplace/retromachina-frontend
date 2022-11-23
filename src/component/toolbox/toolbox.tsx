@@ -47,9 +47,6 @@ export const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = (
     const [time, setTime] = useState(300)
     const timeText = dayjs(0).add(time, 's').format('m:ss')
 
-    //states
-    const [peopleReady, setPeopleReady] = useState(0);
-
     const [isTimerOpen, setOpenTimer] = useState(false)
     const [isVoteOpen, setOpenVote] = useState(false)
     const [isFinishOpen, setOpenFinish] = useState(false)
@@ -192,11 +189,11 @@ export const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = (
             </div>
             {isScrumMaster && (
                 <div className={styles.buttonbox}>
-                    <Button size="small" className={styles.button}>
-                        <LeftArrowIconSvg onClick={onPrevClicked}/>
+                    <Button size="small" className={styles.button} onClick={onPrevClicked}>
+                        <LeftArrowIconSvg/>
                     </Button>
-                    <Button size="small" className={styles.button}>
-                        <RightArrowIconSvg onClick={onNextClicked}/>
+                    <Button size="small" className={styles.button} onClick={onNextClicked}>
+                        <RightArrowIconSvg/>
                     </Button>
                 </div>
             )}

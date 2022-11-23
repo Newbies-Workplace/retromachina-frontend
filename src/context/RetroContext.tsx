@@ -45,8 +45,8 @@ interface RetroContext {
   createCard: (text: string, columnId: string) => void
   deleteCard: (cardId: string) => void
 
-  nextRoomState: () => void;
-  prevRoomState: () => void;
+  nextRoomState: () => void
+  prevRoomState: () => void
 }
 
 export const RetroContext = createContext<RetroContext>({
@@ -172,6 +172,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
   }
 
   const nextRoomState = () => {
+    console.log(roomState)
     let state: RoomState;
     switch (roomState) {
       case "reflection":
@@ -195,6 +196,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
   }
 
   const prevRoomState = () => {
+    console.log(roomState)
     let state: RoomState;
     switch (roomState) {
       case "reflection":
