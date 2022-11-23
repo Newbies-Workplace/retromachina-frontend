@@ -43,6 +43,7 @@ const ActiveRetro: React.FC = () => {
                 <Route path="discuss" element={<>discuss</>} />
                 <Route path="*" element={<><ProgressBar/></>}/>
             </Routes>
+            
         </>
     );
 };
