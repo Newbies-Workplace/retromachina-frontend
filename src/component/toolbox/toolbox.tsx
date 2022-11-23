@@ -154,6 +154,7 @@ export const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = (
                     completed={readyPercentage}
                     maxCompleted={100}
                     bgColor="#73bda8"
+                    transitionDuration={"0.4s"}
                     isLabelVisible={false}
                     labelColor="#e80909"
                     height="10px"
