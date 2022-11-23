@@ -7,38 +7,46 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+    gap: 5px;
 
     width: min-content;
     height: min-content;
     min-width: 250px;
     min-height: 95px;
+    max-width: 350px;
     
     padding: 10px 20px;
     
     border-radius: 16px;
     border: 1px solid black;
-
-   
-
     & span {
         font-size: 15px;
-        font-weight: 400;
+        font-weight: 400;      
     }
     
 }
 .title{
     flex-wrap: nowrap;
     display:flex;
-    align-items: center;
+    word-wrap: break-word;
+        
+    align-items: flex-start;
     & span {
         font-size: 25px;
         font-weight: 700;  
+        
     }
+    gap: 10px;
 }
 .box{
     width: 25px;
     height: 25px;
-    margin-right: 10px;
+    
     border-radius: 6px;
     border: 1px solid black;
+}
+.description{
+    word-wrap: break-word;
+    
+    max-width: 300px;
 }

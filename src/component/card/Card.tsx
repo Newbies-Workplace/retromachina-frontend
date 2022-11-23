@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Card.module.scss"
-import Avatar from "../avatar/Avatar"
+import {Avatar} from "../avatar/Avatar"
 import {User} from "../../interfaces/User.interface";
 import { axiosInstance } from "../../api/AxiosInstance";
 import { useUser } from "../../context/UserContext.hook";
@@ -11,6 +11,7 @@ export interface CardProps {
     author: {
         avatar_link: string
         name: string
+        id: string
     } //id usera
     teamUsers: UserResponse[]
     editable?: boolean
