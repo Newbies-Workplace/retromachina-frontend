@@ -16,7 +16,7 @@ interface ToolboxProps {
     isScrumMaster: boolean,
     isVotingVisible: boolean,
     isFinishVisible:boolean,
-    timeLeft:number,
+    timeLeft: number | null,
     setTimer?(value:number):void,
 }
 export const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = ({ children, isScrumMaster, isVotingVisible, isFinishVisible,timeLeft,setTimer }) => {

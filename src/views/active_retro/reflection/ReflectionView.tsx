@@ -1,10 +1,12 @@
 import {useRetro} from "../../../context/RetroContext.hook"
 import styles from "./ReflectionView.module.scss"
 import {Column} from "../../../component/column/Column"
+import DeleteIconSvg from "../../../assets/icons/delete-icon.svg"
+import { useEffect } from "react"
 
 export const ReflectionView = () => {
-    const {teamUsers, columns, cards, setWriting, createCard} = useRetro()
-
+    const {teamUsers, columns, cards, setWriting, createCard, deleteCard} = useRetro()
+    
     return (
         <div className={styles.container}>
             {columns?.map((column) => {
@@ -12,6 +14,9 @@ export const ReflectionView = () => {
 
                 return (
                     <Column
+                        cardContent={(cardId)=>{
+                            return <DeleteIconSvg style={{cursor: "pointer"}} onClick={() => deleteCard(cardId)}/>
+                        }}
                         key={column.id}
                         columnData={column}
                         cards={columnCards}

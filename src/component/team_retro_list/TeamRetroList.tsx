@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { getRetrosByTeamId } from "../../api/retro/Retro.service";
 import {useUser} from "../../context/UserContext.hook";
 import cs from "classnames";
+import { RetroCard } from "../retro_card/RetroCard";
 
 interface TeamRetroListProps {
     teamName: string;
@@ -53,7 +54,9 @@ export const TeamRetroList: React.FC<TeamRetroListProps> = ({ teamName, teamId }
                         <AddIcon />
                     </Button>
                 }
-
+                {
+                    isAnyRetroRunning&&<RetroCard/>
+                }
                 {retros.map((retro, index) => {
                     return (
                         <Button className={cs(styles.retroButton, styles.retro)} key={retro.id}>

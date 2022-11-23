@@ -13,6 +13,7 @@ interface ColumnProps {
     onCardCreated: (text: string) => void
     onIsWriting: (value: boolean) => void
     users: UserResponse[]
+    cardContent(cardId: string): React.ReactNode
 }
 
 export const Column: React.FC<ColumnProps> = (
@@ -21,7 +22,8 @@ export const Column: React.FC<ColumnProps> = (
         cards,
         onCardCreated,
         onIsWriting,
-        users
+        users,
+        cardContent
     }
 ) => {
     const [value, setValue] = useState("");
@@ -42,14 +44,17 @@ export const Column: React.FC<ColumnProps> = (
         }
     }, [value])
 
+   
     return (
         <div className={styles.column}>
             <div className={styles.cardWrapper}>
-                <ColumnHeader
+                <div className={styles.columnHeaderWrapper}>
+                 <ColumnHeader
                     color={columnData.color}
                     header={columnData.name}
-                    description={columnData.desc ?? undefined} />
-
+                    description={columnData.desc ?? undefined} />   
+                </div>
+                
                 <Input
                     value={value}
                     setValue={setValue}
@@ -79,7 +84,7 @@ export const Column: React.FC<ColumnProps> = (
                                 id: card.authorId,
                             }}
                             teamUsers={users}
-                        />
+                        >{cardContent(card.id)}</Card>
                     );
                 })}
             </div>

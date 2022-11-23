@@ -88,7 +88,7 @@ export const RetroContextProvider: React.FC<
       }
     );
     socket.current = createdSocket;
-
+    
     createdSocket.on("error", console.log);
 
     const roomDataListener = (roomData: RoomData) => {
@@ -113,17 +113,20 @@ export const RetroContextProvider: React.FC<
       setTimerEnds(e.timerEnds);
     });
 
-    createdSocket.on("event_new_card", (e: NewCardEvent) => {
-      setCards((prevCards) => [e.card, ...prevCards])
-    })
-    createdSocket.on("event_delete_card", (e: DeleteCardEvent) => {
-      const deletedIndex = cards.findIndex(c => c.id === e.cardId)
-
-      if (deletedIndex !== -1) {
-        const newCards = cards.splice(deletedIndex, 1)
-        setCards(newCards)
-      }
-    })
+    // createdSocket.on("event_new_card", (e: NewCardEvent) => {
+    //   setCards([e.card, ...cards])
+      
+    // })
+    // createdSocket.on("event_delete_card", (e: DeleteCardEvent) => {
+    //   const deletedIndex = cards.findIndex(c => c.id === e.cardId)
+      
+      
+    //   if (deletedIndex !== -1) {
+    //     const newCards = cards.splice(deletedIndex, 1)
+        
+    //     setCards(newCards)
+    //   }
+    // })
 
     return () => {
       createdSocket.removeAllListeners();
@@ -164,6 +167,10 @@ export const RetroContextProvider: React.FC<
     socket.current?.emit("command_delete_card", command)
   }
 
+  const setTimer = () => {
+    
+    socket.current?.emit("command_change_timer")
+  }
   return (
     <RetroContext.Provider
       value={{
