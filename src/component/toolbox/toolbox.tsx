@@ -7,19 +7,20 @@ import HourglassIconSvg from '../../assets/icons/hourglass.svg'
 import VoteIcongSvg from '../../assets/icons/vote.svg'
 import CheckeredFlagIconSvg from '../../assets/icons/finish-flag-svgrepo-com.svg'
 import ProgressBar from "@ramonak/react-progress-bar";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import cs from 'classnames';
 import dayjs from 'dayjs';
 import useClickOutside from "../../context/useClickOutside";
+import { useRetro } from '../../context/RetroContext.hook';
 
 interface ToolboxProps {
     isScrumMaster: boolean,
     isVotingVisible: boolean,
     isFinishVisible:boolean,
     timeLeft: number | null,
-    setTimer?(value:number):void,
+    
 }
-export const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = ({ children, isScrumMaster, isVotingVisible, isFinishVisible,timeLeft,setTimer }) => {
+export const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = ({ children, isScrumMaster, isVotingVisible, isFinishVisible,timeLeft}) => {
 
     //states
     const [peopleReady, setPeopleReady] = useState(0);
@@ -43,7 +44,12 @@ export const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = ({ child
     //time 
     const [sec, setSec] = useState(0)
     let timeText = dayjs.duration(sec, 's').format('m:ss');
-    
+    const [time,setTime] = useState<Date>(new Date)
+
+    useEffect(()=>{
+        console.log(time)
+        
+    },[time])
     return (
 
         <div className={styles.toolbox}>
@@ -59,9 +65,9 @@ export const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = ({ child
                                 <div className ={styles.timeBubbleWraper}  ref={timePopover} > 
                                     <div className={styles.timer}>{timeText}</div>
                                     <div className={styles.buttonWraper}>
-                                        <Button size='small' className={styles.zero} onClick={()=>setSec(0)}>0:00</Button>
-                                        <Button size = "small" className={styles.min} onClick={()=>setSec(sec+60)}>+1m</Button>
-                                        <Button size = "small" className={styles.seconds} onClick={()=>setSec(sec+30)} >+30s</Button>
+                                        <Button size='small' className={styles.zero} onClick={()=>{setSec(0);setTime(dayjs().second(0).toDate())}}>0:00</Button>
+                                        <Button size = "small" className={styles.min} onClick={()=>{setSec(sec+60);setTime(dayjs().second(sec+60).toDate())}}>+1m</Button>
+                                        <Button size = "small" className={styles.seconds} onClick={()=>{setSec(sec+30);setTime((dayjs().second(sec+30).toDate()))}} >+30s</Button>
                                     </div>
                                 </div>
                             )

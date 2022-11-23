@@ -56,6 +56,7 @@ export const Column: React.FC<ColumnProps> = (
                 </div>
                 
                 <Input
+                    style={{backgroundColor: "#EAEAEA"}}
                     value={value}
                     setValue={setValue}
                     multiline={true}

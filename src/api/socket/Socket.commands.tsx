@@ -18,4 +18,8 @@ export interface WriteStateCommand {
     columnId: string
 }
 
+export interface SetTimerCommand{
+    timestamp: Date
+}
+
 export type RoomState = "reflection" | "group" | "vote" | "discuss";

@@ -10,6 +10,7 @@ import {useNavigate} from "react-router";
 import { ReflectionView } from "./reflection/ReflectionView";
 import { Toolbox } from "../../component/toolbox/toolbox";
 import { useUser } from "../../context/UserContext.hook";
+import dayjs from "dayjs";
 
 const ActiveRetro: React.FC = () => {
     const navigate = useNavigate()
@@ -18,13 +19,16 @@ const ActiveRetro: React.FC = () => {
     const {isScrumMaster} = useUser()
     // to zmienia timer w navbarze
     useEffect(() => {
-        if (timerEnds !== null) {
-            //todo licznik zmniejszający timeleft co sekundę (chyba useTimeout)
-        }
+        
+        console.log(timerEnds) 
+        const counter = setInterval(() => {
+                setTimeLeft(dayjs().diff(dayjs(timerEnds)))
+            }, 1000)
+        
 
 
         return () => {
-
+            clearInterval(counter)
         }
     }, [timerEnds])
 

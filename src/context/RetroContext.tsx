@@ -60,13 +60,15 @@ export const RetroContext = createContext<RetroContext>({
   setWriting: () => {},
   createCard: () => {},
   deleteCard: () => {},
+  
 });
 
 export const RetroContextProvider: React.FC<
   React.PropsWithChildren<RetroContextParams>
 > = ({children, retroId}) => {
   const socket = useRef<Socket>()
-  const [timerEnds, setTimerEnds] = useState<number | null>(null)
+  const [sec, setSec] = useState(0)
+  const [timerEnds, setTimerEnds] = useState<number | null>(163727000)
   const [isReady, setIsReady] = useState(false)
   const [roomState, setRoomState] = useState<RoomState>("reflection")
   const [teamUsers, setTeamUsers] = useState<UserResponse[]>([])
@@ -113,20 +115,6 @@ export const RetroContextProvider: React.FC<
       setTimerEnds(e.timerEnds);
     });
 
-    // createdSocket.on("event_new_card", (e: NewCardEvent) => {
-    //   setCards([e.card, ...cards])
-      
-    // })
-    // createdSocket.on("event_delete_card", (e: DeleteCardEvent) => {
-    //   const deletedIndex = cards.findIndex(c => c.id === e.cardId)
-      
-      
-    //   if (deletedIndex !== -1) {
-    //     const newCards = cards.splice(deletedIndex, 1)
-        
-    //     setCards(newCards)
-    //   }
-    // })
 
     return () => {
       createdSocket.removeAllListeners();
@@ -166,7 +154,7 @@ export const RetroContextProvider: React.FC<
     }
     socket.current?.emit("command_delete_card", command)
   }
-
+ 
   const setTimer = () => {
     
     socket.current?.emit("command_change_timer")
