@@ -2,11 +2,12 @@ import {useRetro} from "../../../context/RetroContext.hook"
 import styles from "./ReflectionView.module.scss"
 import {Column} from "../../../component/column/Column"
 import DeleteIconSvg from "../../../assets/icons/delete-icon.svg"
-import { useEffect } from "react"
+import { useUser } from "../../../context/UserContext.hook"
 
 export const ReflectionView = () => {
+    const {user} = useUser();
     const {teamUsers, columns, cards, setWriting, createCard, deleteCard} = useRetro()
-    
+
     return (
         <div className={styles.container}>
             {columns?.map((column) => {
@@ -19,7 +20,7 @@ export const ReflectionView = () => {
                         }}
                         key={column.id}
                         columnData={column}
-                        cards={columnCards}
+                        cards={columnCards.filter((card) => card.authorId === user?.user_id)}
                         onCardCreated={(value) => {
                             createCard(value, column.id)
                         }}
