@@ -1,5 +1,5 @@
 export interface ReadyCommand {
-    ready: boolean
+    readyState: boolean
 }
 
 export interface NewCardCommand {
@@ -18,8 +18,12 @@ export interface WriteStateCommand {
     columnId: string
 }
 
-export interface SetTimerCommand{
-    timestamp: Date
+export interface SetTimerCommand {
+    timestamp: number | null
+}
+
+export interface RoomStateCommand {
+    roomState: RoomState
 }
 
 export type RoomState = "reflection" | "group" | "vote" | "discuss";

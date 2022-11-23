@@ -20,19 +20,23 @@ export interface SocketColumn {
     isWriting: boolean
 }
 
+export interface SocketUser {
+    id: string
+    isReady: boolean
+    isWriting: boolean
+}
+
 export interface RoomData {
     roomState: RoomState
     teamId: string
     createdDate: Date
+    timerEnds: number | null
     maxVotes: number
     usersReady: number
     usersWriting: number
     retroColumns: SocketColumn[]
     cards: SocketCard[]
-    users: {
-        id: string
-        isReady: boolean
-    }[]
+    users: SocketUser[]
 }
 
 export interface OnJoinEvent {
@@ -41,12 +45,4 @@ export interface OnJoinEvent {
 
 export interface RoomSyncEvent {
     roomData: RoomData
-}
-
-export interface NewCardEvent {
-    card: SocketCard
-}
-
-export interface DeleteCardEvent {
-    cardId: string
 }

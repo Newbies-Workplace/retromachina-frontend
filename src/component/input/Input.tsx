@@ -3,7 +3,7 @@ import styles from '../input/Input.module.scss';
 import cs from "classnames";
 
 interface InputProps {
-    style: any 
+    style?: any
     className?: string
     value: string
     setValue: (value: string) => void

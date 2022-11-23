@@ -5,32 +5,25 @@ import {ProgressBar} from "../../component/progress_bar/ProgressBar";
 import Navbar from "../../component/navbar/Navbar";
 import {Timer} from "../../component/timer/Timer";
 import {useRetro} from "../../context/RetroContext.hook";
-import {Button} from "../../component/button/Button";
 import {useNavigate} from "react-router";
 import { ReflectionView } from "./reflection/ReflectionView";
 import { Toolbox } from "../../component/toolbox/toolbox";
 import { useUser } from "../../context/UserContext.hook";
-import dayjs from "dayjs";
 
 const ActiveRetro: React.FC = () => {
     const navigate = useNavigate()
-    const {timerEnds, setReady, roomState, retroId} = useRetro()
-    const [timeLeft, setTimeLeft] = useState<number | null>(null)
+    const {
+        timerEnds,
+        roomState,
+        retroId,
+        setTimer,
+        ready,
+        setReady,
+        readyPercentage,
+        nextRoomState,
+        prevRoomState,
+    } = useRetro()
     const {isScrumMaster} = useUser()
-    // to zmienia timer w navbarze
-    useEffect(() => {
-        
-        console.log(timerEnds) 
-        const counter = setInterval(() => {
-                setTimeLeft(dayjs().diff(dayjs(timerEnds)))
-            }, 1000)
-        
-
-
-        return () => {
-            clearInterval(counter)
-        }
-    }, [timerEnds])
 
     // to zmienia etap pokoju
     useEffect(() => {
@@ -39,8 +32,7 @@ const ActiveRetro: React.FC = () => {
 
     return (
         <>
-            <Navbar topContent={timeLeft !== null && <Timer time={timeLeft}/>}/>
-            
+            <Navbar topContent={timerEnds !== null && <Timer timerEnds={timerEnds}/>}/>
 
             <Routes>
                 <Route path="reflection" element={<ReflectionView/>} />
@@ -49,7 +41,19 @@ const ActiveRetro: React.FC = () => {
                 <Route path="discuss" element={<>discuss</>} />
                 <Route path="*" element={<><ProgressBar/></>}/>
             </Routes>
-            <div className={styles.toolboxWrapper}><Toolbox timeLeft={timeLeft} isScrumMaster={isScrumMaster} isVotingVisible={roomState=="vote"} isFinishVisible={roomState=="discuss"}/></div>
+
+            <div className={styles.toolboxWrapper}>
+                <Toolbox
+                    isScrumMaster={isScrumMaster}
+                    isVotingVisible={roomState == "vote"}
+                    isFinishVisible={roomState == "discuss"}
+                    onTimeChanged={setTimer}
+                    isReady={ready}
+                    onReadyChange={setReady}
+                    readyPercentage={readyPercentage}
+                    onNextClicked={nextRoomState}
+                    onPrevClicked={prevRoomState}/>
+            </div>
         </>
     );
 };
