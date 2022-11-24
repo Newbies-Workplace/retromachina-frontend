@@ -2,16 +2,21 @@ import React, {createContext, useEffect, useMemo, useRef, useState,} from "react
 import io, {Socket} from "socket.io-client";
 import {
   ChangeTimerEvent,
+  
   OnJoinEvent,
   RoomData,
   RoomSyncEvent,
   SocketCard,
-  SocketColumn
+  SocketColumn,
+  SocketVote
 } from "../api/socket/Socket.events";
 import {
+  AddVote,
   DeleteCardCommand,
+  maxVotes,
   NewCardCommand,
   ReadyCommand,
+  RemoveVote,
   RoomState,
   RoomStateCommand,
   SetTimerCommand,
@@ -47,6 +52,11 @@ interface RetroContext {
 
   nextRoomState: () => void
   prevRoomState: () => void
+  removeVote: (parentCardId: string) => void
+  addVote: (parentCardId: string) => void
+  votes: SocketVote[]
+  maxVotes: number
+  setMaxVotesAmount: (amount: number) => void
 }
 
 export const RetroContext = createContext<RetroContext>({
@@ -65,6 +75,11 @@ export const RetroContext = createContext<RetroContext>({
   deleteCard: () => {},
   nextRoomState: () => {},
   prevRoomState: () => {},
+  removeVote: () => {},
+  addVote: () => {},
+  votes: [],
+  maxVotes: 0,
+  setMaxVotesAmount: () => {},
 });
 
 export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContextParams>> = (
@@ -74,6 +89,8 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
     }
 ) => {
   const socket = useRef<Socket>()
+  const [votes, setVotes] = useState<SocketVote[]>([])
+  const [maxVotes, setMaxVotes] = useState<number>(0)
   const [timerEnds, setTimerEnds] = useState<number | null>(0)
   const [isReady, setIsReady] = useState(false)
   const [roomState, setRoomState] = useState<RoomState>("reflection")
@@ -108,6 +125,8 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
       setCards(roomData.cards)
       setTimerEnds(roomData.timerEnds)
       setUsersReady(roomData.usersReady)
+      setVotes(roomData.votes)
+      setMaxVotes(roomData.maxVotes)
     }
     createdSocket.on("event_room_sync", (e: RoomSyncEvent) => {
       roomDataListener(e.roomData)
@@ -129,6 +148,28 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
       createdSocket.disconnect();
     };
   }, []);
+
+  const addVote = (parentCardId: string) => {
+    const command: AddVote = {
+      parentCardId: parentCardId
+    }
+    socket.current?.emit("command_vote_on_card", command)
+  }
+
+  const removeVote = (parentCardId: string) => {
+    const command: RemoveVote = {
+      parentCardId: parentCardId
+    }
+    socket.current?.emit("command_remove_vote_on_card", command)
+  }
+
+  const setMaxVotesAmount = (amount: number) => {
+    const command: maxVotes = {
+      votesAmount: amount
+    }
+    socket.current?.emit("command_change_vote_amount", command)
+  
+  }
 
   const setReady = (ready: boolean) => {
     const command: ReadyCommand = {
@@ -236,6 +277,11 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
             deleteCard: deleteCard,
             nextRoomState: nextRoomState,
             prevRoomState: prevRoomState,
+            removeVote: removeVote,
+            addVote: addVote,
+            votes: votes,
+            maxVotes: maxVotes,
+            setMaxVotesAmount: setMaxVotesAmount
           }}
       >
         {children}
