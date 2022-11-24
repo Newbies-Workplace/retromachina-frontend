@@ -105,7 +105,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
   const [users, setUsers] = useState<SocketUser[]>([])
   const {user} = useUser()
 
-  const readyPercentage = useMemo(() => (usersReady / users.length) * 100, [usersReady, teamUsers])
+  const readyPercentage = (usersReady / users.length) * 100
 
   useEffect(() => {
     const createdSocket = io(
