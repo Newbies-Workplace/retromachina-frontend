@@ -1,0 +1,38 @@
+@use '../../../abstracts/colors';
+@use '../../../abstracts/fonts';
+@use '../../../abstracts/assets';
+
+.container{
+    display: flex;
+    
+    height: calc(100% - 148px - 10px);
+    justify-content: space-between;
+    padding: 0;
+}
+.nextCardWrapper{
+    padding:16px 8px;
+    height: calc(100% - 40px);
+    & .header{
+        margin-left: 8px;
+        font-size: 32px;
+        font-weight: 700;
+    }
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.actionPointWrapper{
+    display: flex;
+    flex-direction: column;
+    width: 315px;
+    height: calc(100% - 30px);
+    background-color: colors.$primary-color;
+    padding: 16px;
+    justify-content: space-between;
+}
+.actionCardWrapper{
+    height: 80%;
+}
+.inputWrapper{
+    height: 20%;
+}
