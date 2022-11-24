@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {useUser} from "../../context/UserContext.hook";
 import Navbar from "../../component/navbar/Navbar";
 import NotFoundSvg from "../../assets/images/not-found.svg"

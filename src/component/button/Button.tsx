@@ -6,7 +6,8 @@ interface ButtonProps {
     onClick?: () => void;
     className?: string;
     size?: "medium" | "small" | "big" | "round";
-    disabled?: boolean
+    disabled?: boolean;
+    style?: React.CSSProperties
 }
 
 export const Button: React.FC<React.PropsWithChildren<ButtonProps>> = (
@@ -16,12 +17,14 @@ export const Button: React.FC<React.PropsWithChildren<ButtonProps>> = (
         size = "medium",
         className,
         disabled = false,
+        style
     }
 ) => {
     return (
         <button
             onClick={onClick}
             disabled = {disabled}
+            style={{...style}}
             className={cs(
                 styles.button,
                 {
