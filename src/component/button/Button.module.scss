@@ -38,6 +38,9 @@
         width: 30px;
         height: 30px;
     }
+    &.disabled{
+        background-color: grey;
+    }
 
     &:active {
         box-shadow: none;

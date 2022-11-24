@@ -162,7 +162,7 @@ export const RetroCreateView: React.FC = () => {
             )}
             
             <div className={styles.columnButton}>
-              <Button size="big" onClick={onAddColumn}>
+              <Button disabled={columns.length>=6} size="big" onClick={onAddColumn}>
                 <span>Nowa Kolumna</span>
                 <AddIcon />
               </Button>
