@@ -127,6 +127,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
       setUsersReady(roomData.usersReady)
       setVotes(roomData.votes)
       setMaxVotes(roomData.maxVotes)
+      setIsReady(roomData.users.find((u) => u.id === user?.user_id)?.isReady||false)
     }
     createdSocket.on("event_room_sync", (e: RoomSyncEvent) => {
       roomDataListener(e.roomData)
