@@ -14,7 +14,6 @@ export const ColumnInput: React.FC<ColumnInputProps> = (
         columnData,
         onCardCreated,
         onIsWriting,
-
     }
 ) => {
     const [value, setValue] = useState("");

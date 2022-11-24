@@ -2,30 +2,31 @@ import React, {createContext, useEffect, useMemo, useRef, useState,} from "react
 import io, {Socket} from "socket.io-client";
 import {
   ChangeTimerEvent,
-  
+
   OnJoinEvent,
   RoomData,
   RoomSyncEvent,
   SocketCard,
-  SocketColumn,
+  SocketColumn, SocketUser,
   SocketVote
 } from "../api/socket/Socket.events";
 import {
-  AddVote,
+  AddVoteCommand,
   DeleteCardCommand,
-  maxVotes,
+  SetMaxVotesCommand,
   NewCardCommand,
   ReadyCommand,
-  RemoveVote,
+  RemoveVoteCommand,
   RoomState,
   RoomStateCommand,
   SetTimerCommand,
-  WriteStateCommand
+  WriteStateCommand, MoveCardToColumnCommand, AddCardToCardCommand
 } from "../api/socket/Socket.commands";
 import {UserResponse} from "../api/user/User.interfaces";
 import {v4 as uuidv4} from "uuid";
 import {useUser} from "./UserContext.hook";
 import {getUsersByTeamId} from "../api/user/User.service";
+import {CardMoveAction} from "../interfaces/CardMoveAction.interface";
 
 interface RetroContextParams {
   retroId: string
@@ -57,6 +58,8 @@ interface RetroContext {
   votes: SocketVote[]
   maxVotes: number
   setMaxVotesAmount: (amount: number) => void
+
+  moveCard: (action: CardMoveAction) => void
 }
 
 export const RetroContext = createContext<RetroContext>({
@@ -80,6 +83,7 @@ export const RetroContext = createContext<RetroContext>({
   votes: [],
   maxVotes: 0,
   setMaxVotesAmount: () => {},
+  moveCard: () => {},
 });
 
 export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContextParams>> = (
@@ -98,9 +102,10 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
   const [columns, setColumns] = useState<SocketColumn[]>([])
   const [cards, setCards] = useState<SocketCard[]>([])
   const [usersReady, setUsersReady] = useState<number>(0)
+  const [users, setUsers] = useState<SocketUser[]>([])
   const {user} = useUser()
 
-  const readyPercentage = useMemo(() => (usersReady / teamUsers.length) * 100, [usersReady, teamUsers])
+  const readyPercentage = useMemo(() => (usersReady / users.length) * 100, [usersReady, teamUsers])
 
   useEffect(() => {
     const createdSocket = io(
@@ -127,7 +132,8 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
       setUsersReady(roomData.usersReady)
       setVotes(roomData.votes)
       setMaxVotes(roomData.maxVotes)
-      setIsReady(roomData.users.find((u) => u.id === user?.user_id)?.isReady||false)
+      setIsReady(roomData.users.find((u) => u.id === user?.user_id)?.isReady || false)
+      setUsers(roomData.users)
     }
     createdSocket.on("event_room_sync", (e: RoomSyncEvent) => {
       roomDataListener(e.roomData)
@@ -151,25 +157,25 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
   }, []);
 
   const addVote = (parentCardId: string) => {
-    const command: AddVote = {
+    const command: AddVoteCommand = {
       parentCardId: parentCardId
     }
     socket.current?.emit("command_vote_on_card", command)
   }
 
   const removeVote = (parentCardId: string) => {
-    const command: RemoveVote = {
+    const command: RemoveVoteCommand = {
       parentCardId: parentCardId
     }
     socket.current?.emit("command_remove_vote_on_card", command)
   }
 
   const setMaxVotesAmount = (amount: number) => {
-    const command: maxVotes = {
+    const command: SetMaxVotesCommand = {
       votesAmount: amount
     }
     socket.current?.emit("command_change_vote_amount", command)
-  
+
   }
 
   const setReady = (ready: boolean) => {
@@ -260,6 +266,22 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
     socket.current?.emit("command_room_state", command)
   }
 
+  const moveCard = (move: CardMoveAction) => {
+    if (move.targetType == 'column') {
+      const command: MoveCardToColumnCommand = {
+        cardId: move.cardId,
+        columnId: move.targetId,
+      }
+      socket.current?.emit("command_move_card_to_column", command)
+    } else if (move.targetType == 'card') {
+      const command: AddCardToCardCommand = {
+        cardId: move.cardId,
+        parentCardId: move.targetId,
+      }
+      socket.current?.emit("command_card_add_to_card", command)
+    }
+  }
+
   return (
       <RetroContext.Provider
           value={{
@@ -282,7 +304,8 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
             addVote: addVote,
             votes: votes,
             maxVotes: maxVotes,
-            setMaxVotesAmount: setMaxVotesAmount
+            setMaxVotesAmount: setMaxVotesAmount,
+            moveCard: moveCard,
           }}
       >
         {children}

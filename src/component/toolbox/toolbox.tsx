@@ -168,7 +168,8 @@ export const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = (
             <div className={styles.votestatebox}>
                 {isVotingVisible && (
                     <div className={styles.votestate}>
-                        {`${userVotes}/${maxVotes} `}
+                        {`${userVotes}/${maxVotes}`}
+                        <br/>
                         głosów
                     </div>
                 )}

@@ -9,12 +9,10 @@ import styles from "./VoteView.module.scss"
 export const VoteView = () => {
     const {columns,cards,teamUsers,votes,maxVotes,addVote,removeVote} = useRetro()
     const {user} = useUser()
-    
-    const votesLeft = maxVotes - votes.filter((vote) => user?.user_id === vote.voterId ).length    
-    
-    
-   
-    return(
+
+    const votesLeft = maxVotes - votes.filter((vote) => user?.user_id === vote.voterId ).length
+
+    return (
         <div className={styles.container}>
             {columns?.map((column) => {
                 return(
@@ -23,24 +21,24 @@ export const VoteView = () => {
                         columnData={column}
                     >
                         {cards?.filter((card)=>card.columnId==column.id).map((card) => {
-                                const author = teamUsers.find((user) => user.user_id === card.authorId);
-                                const userVotes = votes.filter((vote) => user?.user_id === vote.voterId && vote.parentCardId === card.id ).length
-                                return (
-                                    <Card
-                                        id={card.id}
-                                        key={card.id}
-                                        text={card.text}
-                                        author={{
-                                            avatar_link: author?.avatar_link || "",
-                                            name: author?.nick || "",
-                                            id: card.authorId,
-                                        }}
-                                        teamUsers={teamUsers}
-                                    >
-                                       <Counter canIncrement={votesLeft>0} count={userVotes} onIncrement={()=>{addVote(card.id)}} onDecrement={()=>{removeVote(card.id)}} />
-                                    </Card>
-                                );
-                            })}
+                            const author = teamUsers.find((user) => user.user_id === card.authorId);
+                            const userVotes = votes.filter((vote) => user?.user_id === vote.voterId && vote.parentCardId === card.id ).length
+                            return (
+                                <Card
+                                    id={card.id}
+                                    key={card.id}
+                                    text={card.text}
+                                    author={{
+                                        avatar_link: author?.avatar_link || "",
+                                        name: author?.nick || "",
+                                        id: card.authorId,
+                                    }}
+                                    teamUsers={teamUsers}
+                                >
+                                    <Counter canIncrement={votesLeft>0} count={userVotes} onIncrement={()=>{addVote(card.id)}} onDecrement={()=>{removeVote(card.id)}} />
+                                </Card>
+                            );
+                        })}
                     </Column>
                 )
             })}

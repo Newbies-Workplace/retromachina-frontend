@@ -26,13 +26,23 @@ export interface RoomStateCommand {
     roomState: RoomState
 }
 
-export interface AddVote{
+export interface AddCardToCardCommand {
+    parentCardId: string;
+    cardId: string;
+}
+
+export interface MoveCardToColumnCommand {
+    columnId: string;
+    cardId: string;
+}
+
+export interface AddVoteCommand {
     parentCardId: string
 }
-export interface RemoveVote{
+export interface RemoveVoteCommand {
     parentCardId: string
 }
-export interface maxVotes{
+export interface SetMaxVotesCommand {
     votesAmount: number
 }
 

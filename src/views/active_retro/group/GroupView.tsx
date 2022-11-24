@@ -3,10 +3,11 @@ import styles from "./GroupView.module.scss"
 import {Column} from "../../../component/column/Column"
 import React from "react";
 import {Card} from "../../../component/card/Card";
-import {ColumnCardContainer} from "../../../component/column/ColumnCardContainer";
+import {ColumnCardContainer} from "../../../component/dragndrop/ColumnCardContainer";
+import {DraggableCard} from "../../../component/dragndrop/DraggableCard";
 
 export const GroupView: React.FC = () => {
-    const {teamUsers, columns, cards} = useRetro()
+    const {teamUsers, columns, cards, moveCard} = useRetro()
 
     return (
         <div className={styles.container}>
@@ -18,26 +19,33 @@ export const GroupView: React.FC = () => {
                         key={column.id}
                         columnData={column}
                     >
-
-                        <ColumnCardContainer columnId={column.id} onCardDropped={(cardId) => {
-                            console.log(`Card ${cardId} dropped onto ${column.id} column`)
-                        }}>
+                        <ColumnCardContainer
+                            columnId={column.id}
+                            onCardDropped={(cardId) => moveCard({
+                                targetType: 'column',
+                                cardId: cardId,
+                                targetId: column.id
+                            })}>
 
                             {columnCards?.map((card) => {
                                 const user = teamUsers.find((user) => user.user_id === card.authorId);
 
                                 return (
-                                    <Card
-                                        id={card.id}
+                                    <DraggableCard
                                         key={card.id}
-                                        text={card.text}
-                                        author={{
-                                            avatar_link: user?.avatar_link || "",
-                                            name: user?.nick || "",
-                                            id: card.authorId,
-                                        }}
-                                        teamUsers={teamUsers}
-                                    />
+                                        cardId={card.id}
+                                        columnId={column.id}>
+                                        <Card
+                                            id={card.id}
+                                            text={card.text}
+                                            author={{
+                                                avatar_link: user?.avatar_link || "",
+                                                name: user?.nick || "",
+                                                id: card.authorId,
+                                            }}
+                                            teamUsers={teamUsers}
+                                        />
+                                    </DraggableCard>
                                 );
                             })}
                         </ColumnCardContainer>
