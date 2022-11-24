@@ -11,6 +11,7 @@ export interface ChangeTimerEvent {
 
 export interface SocketCard {
     id: string
+    parentCardId: string | null
     columnId: string
     text: string
     authorId: string
