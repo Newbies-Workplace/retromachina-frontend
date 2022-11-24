@@ -94,9 +94,10 @@ export const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = (
     const userVotes = maxVotes - votes.filter((vote) => user?.user_id === vote.voterId).length
     return (
         <div className={styles.toolbox}>
-            <div className={styles.timerbox}>
+            
                 {isScrumMaster && (
                     <>
+                    <div className={styles.timerbox}>
                         <Button size="medium" className={styles.timerbutton} onClick ={()=> setOpenTimer(true)}>
                             <HourglassIconSvg />
                         </Button>
@@ -121,9 +122,11 @@ export const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = (
                                 </div>
                             </div>
                         )}
+                        </div>
                     </>
+                    
                 )}
-            </div>
+            
             <div className={styles.votebox}>
                 {isVotingVisible && isScrumMaster && (
                     <>
@@ -193,17 +196,22 @@ export const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = (
                     </>
                 )}
             </div>
+            
             {isScrumMaster && (
-                <div className={styles.buttonbox}>
-                    <Button size="small" className={styles.button} onClick={onPrevClicked}>
-                        <LeftArrowIconSvg/>
-                    </Button>
-                    <Button size="small" className={styles.button} onClick={onNextClicked}>
-                        <RightArrowIconSvg/>
-                    </Button>
-                </div>
+                    <>
+                        <div className={styles.buttonbox}>
+                            <Button size="small" className={styles.button} onClick={onPrevClicked}>
+                                <LeftArrowIconSvg/>
+                            </Button>
+                            <Button size="small" className={styles.button} onClick={onNextClicked}>
+                                <RightArrowIconSvg/>
+                            </Button>
+                        </div>
+                    </>
+                
             )}
-        </div>
+            </div>
+        
     );
 }
 
