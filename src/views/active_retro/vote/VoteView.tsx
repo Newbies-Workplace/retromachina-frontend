@@ -10,7 +10,7 @@ export const VoteView = () => {
     const {columns,cards,teamUsers,votes,maxVotes,addVote,removeVote} = useRetro()
     const {user} = useUser()
     
-    const votesLeft = maxVotes - votes.filter((vote) => {user?.user_id === vote.voterId }).length    
+    const votesLeft = maxVotes - votes.filter((vote) => user?.user_id === vote.voterId ).length    
     
     
    

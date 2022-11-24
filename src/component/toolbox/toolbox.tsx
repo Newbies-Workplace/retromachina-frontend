@@ -13,6 +13,7 @@ import cs from 'classnames';
 import dayjs from 'dayjs';
 import useClickOutside from "../../context/useClickOutside";
 import { useRetro } from '../../context/RetroContext.hook';
+import { useUser } from '../../context/UserContext.hook';
 
 interface ToolboxProps {
     isScrumMaster: boolean
@@ -88,8 +89,9 @@ export const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = (
         closeTimer()
         setTime(300)
     }
-    const {maxVotes,setMaxVotesAmount} = useRetro();
-    
+    const {maxVotes,setMaxVotesAmount,votes} = useRetro();
+    const {user} = useUser()
+    const userVotes = maxVotes - votes.filter((vote) => user?.user_id === vote.voterId).length
     return (
         <div className={styles.toolbox}>
             <div className={styles.timerbox}>
@@ -133,7 +135,7 @@ export const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = (
                             <div className={styles.voteBubbleWraper} ref={votePopover}>
                                 <div className={styles.votetext}>głosów na osobę</div>
                                 <div className={styles.buttonWraper}>
-                                    <Button size="small" className={styles.plusminusbutton} onClick={() => setMaxVotesAmount(maxVotes-1)}>-</Button>
+                                    <Button size="small" className={styles.plusminusbutton} onClick={() => maxVotes>0&&setMaxVotesAmount(maxVotes-1)}>-</Button>
                                     <div className={styles.numberfield}>{maxVotes}</div>
                                     <Button size="small" className={styles.plusminusbutton} onClick={() => setMaxVotesAmount(maxVotes+1)}>+</Button>
                                 </div>
@@ -166,7 +168,8 @@ export const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = (
             <div className={styles.votestatebox}>
                 {isVotingVisible && (
                     <div className={styles.votestate}>
-                        {children}
+                        {`${userVotes}/${maxVotes} `}
+                        głosów
                     </div>
                 )}
 
