@@ -23,7 +23,7 @@ export const VoteView = () => {
                         columnData={column}
                     >
                         {cards?.filter((card)=>card.columnId==column.id).map((card) => {
-                                const user = teamUsers.find((user) => user.user_id === card.authorId);
+                                const author = teamUsers.find((user) => user.user_id === card.authorId);
                                 const userVotes = votes.filter((vote) => user?.user_id === vote.voterId && vote.parentCardId === card.id ).length
                                 return (
                                     <Card
@@ -31,8 +31,8 @@ export const VoteView = () => {
                                         key={card.id}
                                         text={card.text}
                                         author={{
-                                            avatar_link: user?.avatar_link || "",
-                                            name: user?.nick || "",
+                                            avatar_link: author?.avatar_link || "",
+                                            name: author?.nick || "",
                                             id: card.authorId,
                                         }}
                                         teamUsers={teamUsers}
