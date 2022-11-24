@@ -1,5 +1,10 @@
 import {RoomState} from "./Socket.commands";
 
+export interface SocketVote{
+    parentCardId: string,
+    voterId: string
+}
+
 export interface ChangeTimerEvent {
     timerEnds: number | null //timestamp
 }
@@ -32,6 +37,7 @@ export interface RoomData {
     createdDate: Date
     timerEnds: number | null
     maxVotes: number
+    votes: SocketVote[]
     usersReady: number
     usersWriting: number
     retroColumns: SocketColumn[]

@@ -10,6 +10,7 @@ import { ReflectionView } from "./reflection/ReflectionView";
 import {GroupView} from "./group/GroupView";
 import { Toolbox } from "../../component/toolbox/toolbox";
 import { useUser } from "../../context/UserContext.hook";
+import { VoteView } from "./vote/VoteView";
 
 const ActiveRetro: React.FC = () => {
     const navigate = useNavigate()
@@ -38,7 +39,7 @@ const ActiveRetro: React.FC = () => {
             <Routes>
                 <Route path="reflection" element={<ReflectionView/>} />
                 <Route path="group" element={<GroupView/>} />
-                <Route path="vote" element={<>vote</>} />
+                <Route path="vote" element={<VoteView/>} />
                 <Route path="discuss" element={<>discuss</>} />
                 <Route path="*" element={<><ProgressBar/></>}/>
             </Routes>

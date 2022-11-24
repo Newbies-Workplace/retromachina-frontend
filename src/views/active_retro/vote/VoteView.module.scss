@@ -1,0 +1,10 @@
+@use '../../../abstracts/colors';
+@use '../../../abstracts/fonts';
+@use '../../../abstracts/assets';
+
+.container{
+    display: flex;
+    @include assets.scrollbar;
+    height: calc(100% - 148px - 10px);
+}
+
