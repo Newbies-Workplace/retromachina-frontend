@@ -89,7 +89,7 @@ export const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = (
         closeTimer()
         setTime(300)
     }
-    const {maxVotes,setMaxVotesAmount,votes} = useRetro();
+    const {maxVotes,setMaxVotesAmount,votes,endRetro} = useRetro();
     const {user} = useUser()
     const userVotes = maxVotes - votes.filter((vote) => user?.user_id === vote.voterId).length
     return (
@@ -181,7 +181,7 @@ export const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = (
                     <>
                         <div className={styles.votebox}>
                             <Button className={styles.finish} size="medium" onClick={()=>setOpenFinish(true)}>
-                                <CheckeredFlagIconSvg />
+                                <CheckeredFlagIconSvg/>
                             </Button>
                         </div>
 
@@ -189,8 +189,8 @@ export const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = (
                             <div className={styles.finishBubbleWraper} ref={finishPopover}>
                                 <span className={styles.votetext}>Czy na pewno?</span>
                                 <div className={styles.buttonWraper}>
-                                    <Button size="small"> Nie </Button>
-                                    <Button size="small" className={styles.yesbutton}> Tak </Button>
+                                    <Button  size="small" onClick={()=>setOpenFinish(false)}> Nie </Button>
+                                    <Button size="small" className={styles.yesbutton} onClick={endRetro}> Tak </Button>
                                 </div>
                             </div>
                         )}

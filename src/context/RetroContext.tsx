@@ -27,6 +27,7 @@ import {v4 as uuidv4} from "uuid";
 import {useUser} from "./UserContext.hook";
 import {getUsersByTeamId} from "../api/user/User.service";
 import {CardMoveAction} from "../interfaces/CardMoveAction.interface";
+import { Navigate, useNavigate } from "react-router";
 
 interface RetroContextParams {
   retroId: string
@@ -60,6 +61,8 @@ interface RetroContext {
   setMaxVotesAmount: (amount: number) => void
 
   moveCard: (action: CardMoveAction) => void
+  
+  endRetro: () => void
 }
 
 export const RetroContext = createContext<RetroContext>({
@@ -84,6 +87,7 @@ export const RetroContext = createContext<RetroContext>({
   maxVotes: 0,
   setMaxVotesAmount: () => {},
   moveCard: () => {},
+  endRetro: () => {},
 });
 
 export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContextParams>> = (
@@ -104,7 +108,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
   const [usersReady, setUsersReady] = useState<number>(0)
   const [users, setUsers] = useState<SocketUser[]>([])
   const {user} = useUser()
-
+  const navigate = useNavigate()
   const readyPercentage = (usersReady / users.length) * 100
 
   useEffect(() => {
@@ -150,11 +154,20 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
       setTimerEnds(e.timerEnds);
     });
 
+    createdSocket.on("event_close_room", ()=>{
+      navigate(`/retro/${retroId}/summary`)
+    });
+    
+
     return () => {
       createdSocket.removeAllListeners();
       createdSocket.disconnect();
     };
   }, []);
+
+  const endRetro = () => {
+    socket.current?.emit("command_close_room")
+  } 
 
   const addVote = (parentCardId: string) => {
     const command: AddVoteCommand = {
@@ -306,6 +319,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
             maxVotes: maxVotes,
             setMaxVotesAmount: setMaxVotesAmount,
             moveCard: moveCard,
+            endRetro:endRetro,
           }}
       >
         {children}
