@@ -12,6 +12,8 @@ import React, { useCallback, useRef, useState } from "react";
 import cs from 'classnames';
 import dayjs from 'dayjs';
 import useClickOutside from "../../context/useClickOutside";
+import { useRetro } from '../../context/RetroContext.hook';
+import { useUser } from '../../context/UserContext.hook';
 
 interface ToolboxProps {
     isScrumMaster: boolean
@@ -87,12 +89,15 @@ export const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = (
         closeTimer()
         setTime(300)
     }
-
+    const {maxVotes,setMaxVotesAmount,votes} = useRetro();
+    const {user} = useUser()
+    const userVotes = maxVotes - votes.filter((vote) => user?.user_id === vote.voterId).length
     return (
         <div className={styles.toolbox}>
-            <div className={styles.timerbox}>
+            
                 {isScrumMaster && (
                     <>
+                    <div className={styles.timerbox}>
                         <Button size="medium" className={styles.timerbutton} onClick ={()=> setOpenTimer(true)}>
                             <HourglassIconSvg />
                         </Button>
@@ -117,9 +122,11 @@ export const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = (
                                 </div>
                             </div>
                         )}
+                        </div>
                     </>
+                    
                 )}
-            </div>
+            
             <div className={styles.votebox}>
                 {isVotingVisible && isScrumMaster && (
                     <>
@@ -131,9 +138,9 @@ export const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = (
                             <div className={styles.voteBubbleWraper} ref={votePopover}>
                                 <div className={styles.votetext}>głosów na osobę</div>
                                 <div className={styles.buttonWraper}>
-                                    <Button size="small" className={styles.plusminusbutton}>-</Button>
-                                    <div className={styles.numberfield}>3</div>
-                                    <Button size="small" className={styles.plusminusbutton}>+</Button>
+                                    <Button size="small" className={styles.plusminusbutton} onClick={() => maxVotes>0&&setMaxVotesAmount(maxVotes-1)}>-</Button>
+                                    <div className={styles.numberfield}>{maxVotes}</div>
+                                    <Button size="small" className={styles.plusminusbutton} onClick={() => setMaxVotesAmount(maxVotes+1)}>+</Button>
                                 </div>
                             </div>
                         )}
@@ -154,6 +161,7 @@ export const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = (
                     completed={readyPercentage}
                     maxCompleted={100}
                     bgColor="#73bda8"
+                    transitionDuration={"0.4s"}
                     isLabelVisible={false}
                     labelColor="#e80909"
                     height="10px"
@@ -163,7 +171,8 @@ export const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = (
             <div className={styles.votestatebox}>
                 {isVotingVisible && (
                     <div className={styles.votestate}>
-                        {children}
+                        {`${userVotes}/${maxVotes} `}
+                        głosów
                     </div>
                 )}
 
@@ -187,17 +196,22 @@ export const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = (
                     </>
                 )}
             </div>
+            
             {isScrumMaster && (
-                <div className={styles.buttonbox}>
-                    <Button size="small" className={styles.button} onClick={onPrevClicked}>
-                        <LeftArrowIconSvg/>
-                    </Button>
-                    <Button size="small" className={styles.button} onClick={onNextClicked}>
-                        <RightArrowIconSvg/>
-                    </Button>
-                </div>
+                    <>
+                        <div className={styles.buttonbox}>
+                            <Button size="small" className={styles.button} onClick={onPrevClicked}>
+                                <LeftArrowIconSvg/>
+                            </Button>
+                            <Button size="small" className={styles.button} onClick={onNextClicked}>
+                                <RightArrowIconSvg/>
+                            </Button>
+                        </div>
+                    </>
+                
             )}
-        </div>
+            </div>
+        
     );
 }
 

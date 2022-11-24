@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import styles from "./ActiveRetro.module.scss"
 import {Route, Routes} from "react-router-dom";
 import {ProgressBar} from "../../component/progress_bar/ProgressBar";
@@ -7,8 +7,10 @@ import {Timer} from "../../component/timer/Timer";
 import {useRetro} from "../../context/RetroContext.hook";
 import {useNavigate} from "react-router";
 import { ReflectionView } from "./reflection/ReflectionView";
+import {GroupView} from "./group/GroupView";
 import { Toolbox } from "../../component/toolbox/toolbox";
 import { useUser } from "../../context/UserContext.hook";
+import { VoteView } from "./vote/VoteView";
 
 const ActiveRetro: React.FC = () => {
     const navigate = useNavigate()
@@ -36,8 +38,8 @@ const ActiveRetro: React.FC = () => {
 
             <Routes>
                 <Route path="reflection" element={<ReflectionView/>} />
-                <Route path="group" element={<>group</>} />
-                <Route path="vote" element={<>vote</>} />
+                <Route path="group" element={<GroupView/>} />
+                <Route path="vote" element={<VoteView/>} />
                 <Route path="discuss" element={<>discuss</>} />
                 <Route path="*" element={<><ProgressBar/></>}/>
             </Routes>

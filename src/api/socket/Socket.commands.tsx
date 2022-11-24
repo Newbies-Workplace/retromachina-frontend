@@ -26,4 +26,14 @@ export interface RoomStateCommand {
     roomState: RoomState
 }
 
+export interface AddVote{
+    parentCardId: string
+}
+export interface RemoveVote{
+    parentCardId: string
+}
+export interface maxVotes{
+    votesAmount: number
+}
+
 export type RoomState = "reflection" | "group" | "vote" | "discuss";
