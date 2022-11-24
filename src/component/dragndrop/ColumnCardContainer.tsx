@@ -9,20 +9,27 @@ interface ColumnCardContainerProps {
 }
 
 export const ColumnCardContainer: React.FC<React.PropsWithChildren<ColumnCardContainerProps>> = ({children, columnId, onCardDropped}) => {
-    const [{ isOver, canDrop }, drop] = useDrop(
-        () => ({
-            accept: ItemTypes.CARD,
-            drop: (item: CardDragPayload) => onCardDropped(item.cardId, item.columnId),
-            canDrop: (item: CardDragPayload) => item.columnId !== columnId,
-            collect: (monitor) => ({
-                isOver: monitor.isOver(),
-                canDrop: monitor.canDrop(),
-            })
-        }),
-        [columnId]
-    )
+    const [{ isOverCurrent, canDrop }, drop] = useDrop(() => ({
+        accept: ItemTypes.CARD,
+        drop: (item: CardDragPayload, monitor) => {
+            if (!monitor.didDrop()) {
+                onCardDropped(item.cardId, item.columnId)
+            }
+        },
+        canDrop: (item: CardDragPayload) => item.parentCardId !== null || item.columnId !== columnId,
+        collect: (monitor) => ({
+            isOverCurrent: monitor.isOver({ shallow: true }),
+            canDrop: monitor.canDrop(),
+        })
+    }), [columnId])
 
-    return <div ref={drop} style={{height: '100%', backgroundColor: isOver && canDrop ? 'yellow' : 'transparent'}} className={styles.container}>
+    return <div
+        ref={drop}
+        style={{
+            height: '100%',
+            backgroundColor: isOverCurrent && canDrop ? 'yellow' : 'transparent'
+        }}
+        className={styles.container}>
         {children}
     </div>
 }

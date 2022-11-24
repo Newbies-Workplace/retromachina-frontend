@@ -105,7 +105,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
   const [users, setUsers] = useState<SocketUser[]>([])
   const {user} = useUser()
 
-  const readyPercentage = useMemo(() => (usersReady / users.length) * 100, [usersReady, teamUsers])
+  const readyPercentage = (usersReady / users.length) * 100
 
   useEffect(() => {
     const createdSocket = io(
@@ -202,6 +202,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
       authorId: user!.user_id,
     }
     socket.current?.emit("command_new_card", command)
+    setWriting(false, columnId)
   }
 
   const deleteCard = (cardId: string) => {
@@ -220,7 +221,6 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
   }
 
   const nextRoomState = () => {
-    console.log(roomState)
     let state: RoomState;
     switch (roomState) {
       case "reflection":
@@ -244,7 +244,6 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
   }
 
   const prevRoomState = () => {
-    console.log(roomState)
     let state: RoomState;
     switch (roomState) {
       case "reflection":
