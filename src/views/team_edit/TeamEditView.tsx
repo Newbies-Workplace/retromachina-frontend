@@ -68,6 +68,16 @@ const TeamEditView: React.FC = () => {
         })
     };
 
+    const onDelete = () => {
+        axiosInstance.delete(`/teams/${teamId}`)
+            .then(() => {
+                refreshUser()
+                    .then(() => {
+                        navigate("/");
+                    })
+            })
+    }
+
     return (
         <>
             <Navbar>
@@ -83,7 +93,7 @@ const TeamEditView: React.FC = () => {
             }
 
             {team &&
-                <TeamForm onSubmit={onSubmit} userEmail={user?.email || ""} team={team} />
+                <TeamForm onSubmit={onSubmit} onDelete={onDelete} userEmail={user?.email || ""} team={team} deletable/>
             }
         </>
     );
