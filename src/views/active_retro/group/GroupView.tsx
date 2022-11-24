@@ -47,7 +47,7 @@ export const GroupView: React.FC = () => {
                                                     parentCardId={card.parentCardId}
                                                     cardId={card.id}
                                                     columnId={column.id}
-                                                    style={{marginTop: index ==- 0 ? 0 : -80}}>
+                                                    style={{marginTop: index === 0 ? 0 : -80}}>
                                                     <Card
                                                         id={card.id}
                                                         text={card.text}
