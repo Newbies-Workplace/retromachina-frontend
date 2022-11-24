@@ -1,15 +1,16 @@
-.cardWrapper{
-    padding: 0 16px 32px 16px;
+.cardWrapper {
+    padding: 0 8px 32px 8px;
     display: flex;
     
     flex-direction: column;
     min-height: 450px;
     max-width: 380px;
-    gap: 32px;
+    gap: 16px;
 }
 
 .columnHeaderWrapper{
     min-height: 182px;
     display: flex;
     align-items: flex-end;
+    margin-bottom: 16px;
 }

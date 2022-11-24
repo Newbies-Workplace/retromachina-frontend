@@ -11,6 +11,7 @@ import {GroupView} from "./group/GroupView";
 import { Toolbox } from "../../component/toolbox/toolbox";
 import { useUser } from "../../context/UserContext.hook";
 import { VoteView } from "./vote/VoteView";
+import { RetroHeaderTracker } from "../../component/retro_header_tracker/RetroHeaderTracker";
 
 const ActiveRetro: React.FC = () => {
     const navigate = useNavigate()
@@ -34,7 +35,7 @@ const ActiveRetro: React.FC = () => {
 
     return (
         <>
-            <Navbar topContent={timerEnds !== null && <Timer timerEnds={timerEnds}/>}/>
+            <Navbar topContent={timerEnds !== null && <Timer timerEnds={timerEnds}/>}><RetroHeaderTracker/></Navbar>
 
             <Routes>
                 <Route path="reflection" element={<ReflectionView/>} />
