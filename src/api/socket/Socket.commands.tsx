@@ -36,8 +36,8 @@ export interface MoveCardToColumnCommand {
     cardId: string;
 }
 export interface changeOwnerCommand{
-    apId: string
-    userId: string
+    actionPointId: string
+    ownerId: string
 }
 export interface createActionPointCommand{
     text: string

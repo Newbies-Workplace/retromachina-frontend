@@ -31,6 +31,12 @@ export interface SocketUser {
     isReady: boolean
     isWriting: boolean
 }
+export interface ActionPoint{
+    id: string,
+    ownerId: string;
+    text: string;
+    parentCardId: string;
+}
 
 export interface RoomData {
     roomState: RoomState
@@ -44,6 +50,7 @@ export interface RoomData {
     retroColumns: SocketColumn[]
     cards: SocketCard[]
     users: SocketUser[]
+    actionPoints: ActionPoint[]
 }
 
 export interface OnJoinEvent {

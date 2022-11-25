@@ -1,6 +1,7 @@
 import React, {createContext, useEffect, useMemo, useRef, useState,} from "react";
 import io, {Socket} from "socket.io-client";
 import {
+  ActionPoint,
   ChangeTimerEvent,
 
   OnJoinEvent,
@@ -66,6 +67,7 @@ interface RetroContext {
 
   onChangeOwner: (apId: string, userId: string ) => void
   createActionPoint: (text: string, ownerId: string) => void
+  actionPoint: ActionPoint[]
 }
 
 export const RetroContext = createContext<RetroContext>({
@@ -93,6 +95,7 @@ export const RetroContext = createContext<RetroContext>({
   endRetro: () => {},
   onChangeOwner: () => {},
   createActionPoint: () => {},
+  actionPoint: [],
 });
 
 export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContextParams>> = (
@@ -112,6 +115,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
   const [cards, setCards] = useState<SocketCard[]>([])
   const [usersReady, setUsersReady] = useState<number>(0)
   const [users, setUsers] = useState<SocketUser[]>([])
+  const [actionPoint,setActionPoint] = useState<ActionPoint[]>([])
   
   const {user} = useUser()
   const navigate = useNavigate()
@@ -144,6 +148,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
       setMaxVotes(roomData.maxVotes)
       setIsReady(roomData.users.find((u) => u.id === user?.user_id)?.isReady || false)
       setUsers(roomData.users)
+      setActionPoint(roomData.actionPoints)
     }
     createdSocket.on("event_room_sync", (e: RoomSyncEvent) => {
       roomDataListener(e.roomData)
@@ -180,8 +185,8 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
 
   const onChangeOwner = (apId: string, userId: string ) => {
     const command: changeOwnerCommand = {
-      apId: apId,
-      userId: userId,
+      actionPointId: apId,
+      ownerId: userId,
     }
     socket.current?.emit("command_change_action_point_owner", command)
   }
@@ -342,6 +347,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
             endRetro:endRetro,
             onChangeOwner: onChangeOwner,
             createActionPoint: createActionPoint,
+            actionPoint: actionPoint,
           }}
       >
         {children}
