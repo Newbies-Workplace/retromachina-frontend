@@ -31,6 +31,7 @@
         margin-left: 10px;
         font-size: 16px;
     }
+    position: relative;
 }
 
 .childrenWrapper{
@@ -38,4 +39,23 @@
     justify-content: flex-end;
     width:15%;
     user-select: none;
+}
+.bubbleContainer{
+    position: absolute;
+    background-color: #FFFFFF;
+    min-width:280px;
+    min-height: 50px;
+    top: 68px;
+    left: -10px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+.usersWrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 8px;
 }

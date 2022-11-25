@@ -6,7 +6,7 @@ import styles from "./DiscussView.module.scss"
 
 
 export const DiscussView = () => {
-    const {cards,teamUsers} = useRetro()
+    const {cards,teamUsers, createActionPoint} = useRetro()
     const [value,setValue] = useState("")
     return  (
         <div className={styles.container}>
@@ -31,7 +31,9 @@ export const DiscussView = () => {
                     })
                 }
             </div>
-            <div className={styles.currentCardWrapper}></div>
+            <div className={styles.currentCardWrapper}>
+                
+            </div>
             <div className={styles.actionPointWrapper}>
                 <div className={styles.actionCardWrapper}></div>
                 <div className={styles.inputWrapper}><Input  multiline value={value} setValue={setValue}></Input></div>

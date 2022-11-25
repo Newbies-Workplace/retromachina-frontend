@@ -20,7 +20,7 @@ import {
   RoomState,
   RoomStateCommand,
   SetTimerCommand,
-  WriteStateCommand, MoveCardToColumnCommand, AddCardToCardCommand
+  WriteStateCommand, MoveCardToColumnCommand, AddCardToCardCommand, changeOwnerCommand, createActionPointCommand
 } from "../api/socket/Socket.commands";
 import {UserResponse} from "../api/user/User.interfaces";
 import {v4 as uuidv4} from "uuid";
@@ -63,6 +63,9 @@ interface RetroContext {
   moveCard: (action: CardMoveAction) => void
   
   endRetro: () => void
+
+  onChangeOwner: (apId: string, userId: string ) => void
+  createActionPoint: (text: string, ownerId: string) => void
 }
 
 export const RetroContext = createContext<RetroContext>({
@@ -88,6 +91,8 @@ export const RetroContext = createContext<RetroContext>({
   setMaxVotesAmount: () => {},
   moveCard: () => {},
   endRetro: () => {},
+  onChangeOwner: () => {},
+  createActionPoint: () => {},
 });
 
 export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContextParams>> = (
@@ -107,6 +112,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
   const [cards, setCards] = useState<SocketCard[]>([])
   const [usersReady, setUsersReady] = useState<number>(0)
   const [users, setUsers] = useState<SocketUser[]>([])
+  
   const {user} = useUser()
   const navigate = useNavigate()
   const readyPercentage = (usersReady / users.length) * 100
@@ -157,13 +163,28 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
     createdSocket.on("event_close_room", ()=>{
       navigate(`/retro/${retroId}/summary`)
     });
-    
 
     return () => {
       createdSocket.removeAllListeners();
       createdSocket.disconnect();
     };
   }, []);
+
+  const createActionPoint = (text: string, ownerId: string) => {
+    const command: createActionPointCommand = {
+      text: text,
+      ownerId: ownerId,
+    } 
+    socket.current?.emit("command_add_action_point", command)
+  }
+
+  const onChangeOwner = (apId: string, userId: string ) => {
+    const command: changeOwnerCommand = {
+      apId: apId,
+      userId: userId,
+    }
+    socket.current?.emit("command_change_action_point_owner", command)
+  }
 
   const endRetro = () => {
     socket.current?.emit("command_close_room")
@@ -320,6 +341,8 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
             setMaxVotesAmount: setMaxVotesAmount,
             moveCard: moveCard,
             endRetro:endRetro,
+            onChangeOwner: onChangeOwner,
+            createActionPoint: createActionPoint,
           }}
       >
         {children}

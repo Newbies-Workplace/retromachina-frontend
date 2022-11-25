@@ -7,6 +7,7 @@ interface ColumnInputProps {
     columnData: SocketColumn,
     onCardCreated: (text: string) => void
     onIsWriting: (value: boolean) => void
+    
 }
 
 export const ColumnInput: React.FC<ColumnInputProps> = (
@@ -48,10 +49,11 @@ export const ColumnInput: React.FC<ColumnInputProps> = (
                         setValue("");
                     }
                 }} />
-
-            <CardCount
+         
+                <CardCount
                 isWritting={columnData.isWriting}
                 count={columnData.teamCardsAmount} />
+            
         </>
     )
 }
