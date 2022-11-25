@@ -1,0 +1,82 @@
+@use '../../abstracts/colors';
+@use '../../abstracts/fonts';
+@use '../../abstracts/assets';
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 100vh;
+    background-image: url("../../../assets/images/background.svg");
+    background-size: cover;
+}
+
+.wrapper{
+    background-color: #EBD3A8;
+    
+    border-radius: 16px;
+
+    display: flex;
+    
+    flex-direction: column;
+
+    min-width: 1000px;
+    min-height: 800px;
+}
+.textSection{
+    width: 100%;
+    min-height: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding-top: 20px;
+
+}
+.textFile{
+    font-family: fonts.$font-paragraph;
+
+    width: 192px;
+    height: 84px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    padding: 2px 2px 2px 2px;
+
+    font-size: 32px;
+}
+.authorAndCardSection{
+
+    padding-top: 60px;
+   width:100% ;
+}
+.authorSection{
+    width: 100%;
+    height:10px;
+
+    display: flex;
+    justify-content: space-around;
+    align-items:center;
+
+    gap:30px;
+}
+.cardSection{
+    
+    width: 100%;
+    min-height: 150px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+}
+.blackcard{
+    width:300px;
+    height: 80px;
+    background-color: black;
+}
