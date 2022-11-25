@@ -1,7 +1,5 @@
 import React from "react";
 import { Avatar } from "../../component/avatar/Avatar";
-import { Card } from "../../component/card/Card";
-import { Input } from "../../component/input/Input";
 import Navbar from "../../component/navbar/Navbar";
 import styles from '../summary/SummaryView.module.scss'
 
