@@ -4,6 +4,7 @@ import React from 'react';
 interface PropsCircle{
     isActive:Boolean,
     url: any
+    style?:React.CSSProperties;
 }
 
 export const Avatar : React.FC<PropsCircle> =  ({isActive, url}) => {

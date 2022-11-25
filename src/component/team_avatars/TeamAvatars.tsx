@@ -1,7 +1,5 @@
 import React from "react";
-import { UserResponse } from "../../api/user/User.interfaces";
 import styles from '../../component/team_avatars/TeamAvatars.module.scss'
-import { User } from "../../interfaces/User.interface";
 import {Avatar} from '../avatar/Avatar'
 
 interface TeamAvatarProps{
