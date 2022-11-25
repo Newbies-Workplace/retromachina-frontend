@@ -5,7 +5,6 @@
 .container{
     display: flex;
     justify-content: center;
-    align-items: center;
     flex-grow: 1;
     min-height: 82vh;
     background-color: colors.$background;
@@ -17,6 +16,7 @@
     align-items: center;
     justify-content: center;
     
+    margin: 32px;
     width: 600px;
     height: 700px;
     background-color: colors.$primary-color;

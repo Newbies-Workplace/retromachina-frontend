@@ -1,9 +1,9 @@
 export const ItemTypes = {
     CARD: 'card',
-    GROUP: 'group'
 }
 
 export interface CardDragPayload {
+    parentCardId: string | null
     cardId: string
     columnId: string
 }
