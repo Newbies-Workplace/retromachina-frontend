@@ -7,6 +7,7 @@ import useClickOutside from "../../context/useClickOutside";
 
 import { useUser } from "../../context/UserContext.hook";
 import { useRetro } from "../../context/RetroContext.hook";
+import {User} from "../../interfaces/User.interface";
 
 export interface CardProps {
     id: string
@@ -15,19 +16,19 @@ export interface CardProps {
         avatar_link: string
         name: string
         id: string
-    } //id usera
+    }
     teamUsers: UserResponse[]
     editable?: boolean
 }
 
-export const Card: React.FC<React.PropsWithChildren<CardProps>> = ({id , children ,  text , author , teamUsers , editable=false}) => {
-    const popover = useRef<any>();
-    const [isOpen, toggle] = useState(false);
-    const close = useCallback(() => toggle(false), []);
-    useClickOutside(popover, close);
-    const {user} = useUser()
+export const Card: React.FC<React.PropsWithChildren<CardProps>> = ({id , children ,  text , author , teamUsers , editable= false}) => {
     const {onChangeOwner} = useRetro()
-     
+    const [isUsersOpen, setUsersOpen] = useState(false);
+
+    const close = useCallback(() => setUsersOpen(false), []);
+    const popover = useRef<any>();
+    useClickOutside(popover, close);
+
     return (
         <div className={styles.wrapper}>
             <div className={styles.card}>
@@ -35,29 +36,58 @@ export const Card: React.FC<React.PropsWithChildren<CardProps>> = ({id , childre
                     {text}
                 </div>
                 <div className={styles.creator}>
-                    <Avatar isActive={false} url={author.avatar_link}/>
-                    <span>{author.name}</span>
-                    {
-                     
-                        editable && <EditIconSvg style={{marginLeft: "8px",cursor: "pointer"}} onClick={()=>{toggle(true)}}/>
-                     
-                    }
-                    {isOpen && teamUsers.length>1 &&
-                        <div className={styles.bubbleContainer} ref={popover}>
-                            {teamUsers?.filter((u)=>user?.user_id!==u.user_id).map((u)=>{
-                                    return(
-                                        <div className={styles.usersWrapper} onClick={()=>{onChangeOwner(id , u.user_id)}}>
-                                            <Avatar isActive={false} url={u.avatar_link}/>
-                                            <span>{u.nick}</span>
-                                        </div>
-                                    )
-                                })
+                    <div style={{position: 'relative'}}>
+                        {isUsersOpen && teamUsers.length > 1 &&
+                            <div className={styles.bubbleContainer} ref={popover}>
+                                <TeamUserPicker
+                                    authorId={author.id}
+                                    teamUsers={teamUsers}
+                                    onUserPicked={(userId) => {
+                                        onChangeOwner(id, userId)
+                                        setUsersOpen(false)
+                                    }}/>
+                            </div>
+                        }
+                    </div>
+
+                    <div
+                        style={{display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 8, cursor: editable ? 'pointer' : 'default'}}
+                        onClick={() => {
+                            if (editable) {
+                                setUsersOpen(true)
                             }
-                        </div>
-                    }
+                        }}>
+                        <Avatar isActive={false} url={author.avatar_link}/>
+                        <span>{author.name}</span>
+                        {editable && <EditIconSvg/>}
+                    </div>
                 </div>
             </div>
-            <div className={styles.childrenWrapper}>{children}</div>
+
+            <div className={styles.childrenWrapper}>
+                {children}
+            </div>
         </div>
+    )
+}
+
+interface TeamUserPickerProps {
+    authorId: string,
+    teamUsers: UserResponse[],
+    onUserPicked: (userId: string) => void
+}
+
+const TeamUserPicker: React.FC<TeamUserPickerProps> = ({teamUsers, authorId, onUserPicked}) => {
+    return (
+        <>
+            {teamUsers?.filter(user => user.user_id !== authorId).map(user => {
+                return (
+                    <div className={styles.userWrapper} onClick={() => {onUserPicked(user.user_id)}}>
+                        <Avatar isActive={false} url={user.avatar_link}/>
+                        <span>{user.nick}</span>
+                    </div>
+                )
+            })}
+        </>
     )
 }

@@ -1,4 +1,4 @@
-import React, {createContext, useEffect, useMemo, useRef, useState,} from "react";
+import React, {createContext, useEffect, useRef, useState,} from "react";
 import io, {Socket} from "socket.io-client";
 import {
   ActionPoint,
@@ -21,14 +21,19 @@ import {
   RoomState,
   RoomStateCommand,
   SetTimerCommand,
-  WriteStateCommand, MoveCardToColumnCommand, AddCardToCardCommand, changeOwnerCommand, createActionPointCommand
+  WriteStateCommand,
+  MoveCardToColumnCommand,
+  AddCardToCardCommand,
+  ChangeOwnerCommand,
+  CreateActionPointCommand,
+  DeleteActionPointCommand
 } from "../api/socket/Socket.commands";
 import {UserResponse} from "../api/user/User.interfaces";
 import {v4 as uuidv4} from "uuid";
 import {useUser} from "./UserContext.hook";
 import {getUsersByTeamId} from "../api/user/User.service";
 import {CardMoveAction} from "../interfaces/CardMoveAction.interface";
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 interface RetroContextParams {
   retroId: string
@@ -62,12 +67,13 @@ interface RetroContext {
   setMaxVotesAmount: (amount: number) => void
 
   moveCard: (action: CardMoveAction) => void
-  
+
   endRetro: () => void
 
-  onChangeOwner: (apId: string, userId: string ) => void
+  onChangeOwner: (actionPointId: string, userId: string ) => void
   createActionPoint: (text: string, ownerId: string) => void
-  actionPoint: ActionPoint[]
+  deleteActionPoint: (actionPointId: string) => void
+  actionPoints: ActionPoint[]
 }
 
 export const RetroContext = createContext<RetroContext>({
@@ -95,7 +101,8 @@ export const RetroContext = createContext<RetroContext>({
   endRetro: () => {},
   onChangeOwner: () => {},
   createActionPoint: () => {},
-  actionPoint: [],
+  deleteActionPoint: () => {},
+  actionPoints: [],
 });
 
 export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContextParams>> = (
@@ -116,7 +123,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
   const [usersReady, setUsersReady] = useState<number>(0)
   const [users, setUsers] = useState<SocketUser[]>([])
   const [actionPoint,setActionPoint] = useState<ActionPoint[]>([])
-  
+
   const {user} = useUser()
   const navigate = useNavigate()
   const readyPercentage = (usersReady / users.length) * 100
@@ -176,15 +183,23 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
   }, []);
 
   const createActionPoint = (text: string, ownerId: string) => {
-    const command: createActionPointCommand = {
+    const command: CreateActionPointCommand = {
       text: text,
       ownerId: ownerId,
-    } 
+    }
     socket.current?.emit("command_add_action_point", command)
   }
 
+  const deleteActionPoint = (actionPointId: string) => {
+    const command: DeleteActionPointCommand = {
+      actionPointId: actionPointId
+    }
+
+    socket.current?.emit("command_delete_action_point", command)
+  }
+
   const onChangeOwner = (apId: string, userId: string ) => {
-    const command: changeOwnerCommand = {
+    const command: ChangeOwnerCommand = {
       actionPointId: apId,
       ownerId: userId,
     }
@@ -193,7 +208,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
 
   const endRetro = () => {
     socket.current?.emit("command_close_room")
-  } 
+  }
 
   const addVote = (parentCardId: string) => {
     const command: AddVoteCommand = {
@@ -347,7 +362,8 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
             endRetro:endRetro,
             onChangeOwner: onChangeOwner,
             createActionPoint: createActionPoint,
-            actionPoint: actionPoint,
+            deleteActionPoint: deleteActionPoint,
+            actionPoints: actionPoint,
           }}
       >
         {children}

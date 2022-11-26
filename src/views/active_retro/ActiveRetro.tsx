@@ -8,7 +8,7 @@ import {useRetro} from "../../context/RetroContext.hook";
 import {useNavigate} from "react-router";
 import { ReflectionView } from "./reflection/ReflectionView";
 import {GroupView} from "./group/GroupView";
-import { Toolbox } from "../../component/toolbox/toolbox";
+import { Toolbox } from "../../component/toolbox/Toolbox";
 import { useUser } from "../../context/UserContext.hook";
 import { VoteView } from "./vote/VoteView";
 import { RetroHeaderTracker } from "../../component/retro_header_tracker/RetroHeaderTracker";
@@ -46,8 +46,9 @@ const ActiveRetro: React.FC = () => {
                 <Route path="*" element={<><ProgressBar/></>}/>
             </Routes>
 
-            <div className={styles.toolboxWrapper}>
+            {/*<div className={styles.toolboxWrapper}>*/}
                 <Toolbox
+                    className={styles.toolbox}
                     isScrumMaster={isScrumMaster}
                     isVotingVisible={roomState == "vote"}
                     isFinishVisible={roomState == "discuss"}
@@ -57,7 +58,7 @@ const ActiveRetro: React.FC = () => {
                     readyPercentage={readyPercentage}
                     onNextClicked={nextRoomState}
                     onPrevClicked={prevRoomState}/>
-            </div>
+            {/*</div>*/}
         </>
     );
 };

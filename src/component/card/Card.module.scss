@@ -1,61 +1,65 @@
-.wrapper{
-    min-height: 105px;
-    min-width: 325px;
-    background-color: #FFFFFF;
-    padding: 10px;
-    border-radius: 16px;
-    border: 1px solid black;
+.wrapper {
     display: flex;
     justify-content: space-between;
+
+    min-height: 105px;
+    min-width: 225px;
+    padding: 8px;
+
+    background-color: #FFFFFF;
+    border-radius: 16px;
+    border: 1px solid black;
 }
-.card{
+
+.card {
     display: flex;
     flex-direction: column;
     
     justify-content: space-between;
-    width: 100%;
-
-    
-}
-.text{
-    width: 100%;
-    
 }
 
-.creator{
+.creator {
     padding-top: 10px;
     
     display: flex;
     align-items: center;
-    & span{
-        margin-left: 10px;
+
+    & span {
         font-size: 16px;
     }
-    position: relative;
 }
 
-.childrenWrapper{
+.childrenWrapper {
     display: flex;
     justify-content: flex-end;
-    width:15%;
+    min-width: 100px;
     user-select: none;
 }
-.bubbleContainer{
+.bubbleContainer {
     position: absolute;
     background-color: #FFFFFF;
     min-width:280px;
     min-height: 50px;
-    top: 68px;
-    left: -10px;
+    top: 38px;
+    left: -6px;
     border-radius: 16px;
     display: flex;
+    gap: 8px;
     flex-direction: column;
     justify-content: center;
-    
+    padding: 8px;
+
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
-.usersWrapper{
+.userWrapper {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-left: 8px;
+    gap: 8px;
+
+    cursor: pointer;
+    border-radius: 16px;
+    &:hover {
+        background-color: #D9D9D9;
+    }
 }

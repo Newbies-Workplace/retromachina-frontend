@@ -35,7 +35,7 @@ export const VoteView = () => {
                                         const userVotes = votes.filter((vote) => user?.user_id === vote.voterId && vote.parentCardId === card.id ).length
 
                                         return (
-                                            <div style={{marginTop: index === 0 ? 0 : -80}}>
+                                            <div key={card.id} style={{marginTop: index === 0 ? 0 : -80}}>
                                                 <Card
                                                     id={card.id}
                                                     text={card.text}

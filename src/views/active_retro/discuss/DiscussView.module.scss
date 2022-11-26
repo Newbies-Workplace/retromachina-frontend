@@ -12,6 +12,7 @@
 .nextCardWrapper{
     padding:16px 8px;
     height: calc(100% - 40px);
+    max-width: 350px;
     & .header{
         margin-left: 8px;
         font-size: 32px;
@@ -21,18 +22,28 @@
     flex-direction: column;
     gap: 16px;
 }
+
 .actionPointWrapper{
     display: flex;
     flex-direction: column;
-    width: 315px;
-    height: calc(100% - 30px);
+    height: calc(100vh - 156px);
+    max-width: 300px;
     background-color: colors.$primary-color;
-    padding: 16px;
+    padding: 0 16px;
     justify-content: space-between;
 }
-.actionCardWrapper{
-    height: 80%;
+
+.actionCardWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px 4px 100px 0;
+
+    @include assets.scrollbar;
+    overflow-x: hidden;
 }
-.inputWrapper{
-    height: 20%;
+
+.actionCardInput {
+    margin-top: -16px;
+    padding-bottom: 16px;
 }

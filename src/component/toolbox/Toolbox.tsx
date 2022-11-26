@@ -1,4 +1,4 @@
-import styles from './toolbox.module.scss'
+import styles from './Toolbox.module.scss'
 import {Button} from "../button/Button";
 import TickIconSvg from '../../assets/icons/tick.svg'
 import DeleteIconSvg from '../../assets/icons/delete-icon.svg'
@@ -16,6 +16,7 @@ import { useRetro } from '../../context/RetroContext.hook';
 import { useUser } from '../../context/UserContext.hook';
 
 interface ToolboxProps {
+    className?: string
     isScrumMaster: boolean
     isVotingVisible: boolean
     isFinishVisible: boolean
@@ -29,9 +30,10 @@ interface ToolboxProps {
     onNextClicked: () => void
     onPrevClicked: () => void
 }
-export const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = (
+
+export const Toolbox: React.FC<ToolboxProps> = (
     {
-        children,
+        className,
         isScrumMaster,
         isVotingVisible,
         isFinishVisible,
@@ -93,10 +95,9 @@ export const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = (
     const {user} = useUser()
     const userVotes = maxVotes - votes.filter((vote) => user?.user_id === vote.voterId).length
     return (
-        <div className={styles.toolbox}>
-            
-                {isScrumMaster && (
-                    <>
+        <div className={cs(styles.toolbox, className)}>
+            {isScrumMaster && (
+                <>
                     <div className={styles.timerbox}>
                         <Button size="medium" className={styles.timerbutton} onClick ={()=> setOpenTimer(true)}>
                             <HourglassIconSvg />
@@ -122,11 +123,10 @@ export const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = (
                                 </div>
                             </div>
                         )}
-                        </div>
-                    </>
-                    
-                )}
-            
+                    </div>
+                </>
+            )}
+
             <div className={styles.votebox}>
                 {isVotingVisible && isScrumMaster && (
                     <>
@@ -197,22 +197,22 @@ export const Toolbox: React.FC<React.PropsWithChildren<ToolboxProps>> = (
                     </>
                 )}
             </div>
-            
+
             {isScrumMaster && (
-                    <>
-                        <div className={styles.buttonbox}>
-                            <Button size="small" className={styles.button} onClick={onPrevClicked}>
-                                <LeftArrowIconSvg/>
-                            </Button>
-                            <Button size="small" className={styles.button} onClick={onNextClicked}>
-                                <RightArrowIconSvg/>
-                            </Button>
-                        </div>
-                    </>
-                
+                <>
+                    <div className={styles.buttonbox}>
+                        <Button size="small" className={styles.button} onClick={onPrevClicked}>
+                            <LeftArrowIconSvg/>
+                        </Button>
+                        <Button size="small" className={styles.button} onClick={onNextClicked}>
+                            <RightArrowIconSvg/>
+                        </Button>
+                    </div>
+                </>
+
             )}
-            </div>
-        
+        </div>
+
     );
 }
 
