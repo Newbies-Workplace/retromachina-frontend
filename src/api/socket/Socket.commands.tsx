@@ -35,6 +35,18 @@ export interface MoveCardToColumnCommand {
     columnId: string;
     cardId: string;
 }
+export interface ChangeOwnerCommand {
+    actionPointId: string
+    ownerId: string
+}
+export interface CreateActionPointCommand {
+    text: string
+    ownerId: string
+}
+
+export interface DeleteActionPointCommand {
+    actionPointId: string
+}
 
 export interface AddVoteCommand {
     parentCardId: string

@@ -1,0 +1,51 @@
+@use '../../../abstracts/colors';
+@use '../../../abstracts/fonts';
+@use '../../../abstracts/assets';
+
+.container{
+    display: flex;
+    
+    height: calc(100% - 148px - 10px);
+    justify-content: space-between;
+}
+
+.nextCardWrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    max-width: 350px;
+    padding: 16px 8px;
+
+    @include assets.scrollbar;
+    overflow-x: hidden;
+
+    & .header{
+        margin-left: 8px;
+        font-size: 32px;
+        font-weight: 700;
+    }
+}
+
+.actionPointWrapper{
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 156px);
+    max-width: 300px;
+    background-color: colors.$primary-color;
+    padding: 0 16px;
+    justify-content: space-between;
+}
+
+.actionCardWrapper {
+    flex-direction: column;
+    padding: 16px 4px 100px 0;
+
+    @include assets.scrollbar;
+    overflow-x: hidden;
+}
+
+.actionCardInput {
+    margin-top: -16px;
+    padding-bottom: 16px;
+}
