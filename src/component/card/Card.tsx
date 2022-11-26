@@ -88,7 +88,7 @@ const TeamUserPicker: React.FC<TeamUserPickerProps> = ({teamUsers, authorId, onU
         <>
             {teamUsers?.filter(user => user.user_id !== authorId).map(user => {
                 return (
-                    <div className={styles.userWrapper} onClick={() => {onUserPicked(user.user_id)}}>
+                    <div key={user.user_id} className={styles.userWrapper} onClick={() => {onUserPicked(user.user_id)}}>
                         <Avatar isActive={false} url={user.avatar_link}/>
                         <span>{user.nick}</span>
                     </div>

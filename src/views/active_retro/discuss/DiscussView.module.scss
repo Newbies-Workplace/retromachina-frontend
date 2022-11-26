@@ -7,20 +7,24 @@
     
     height: calc(100% - 148px - 10px);
     justify-content: space-between;
-    padding: 0;
 }
+
 .nextCardWrapper{
-    padding:16px 8px;
-    height: calc(100% - 40px);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
     max-width: 350px;
+    padding: 16px 8px;
+
+    @include assets.scrollbar;
+    overflow-x: hidden;
+
     & .header{
         margin-left: 8px;
         font-size: 32px;
         font-weight: 700;
     }
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
 }
 
 .actionPointWrapper{
