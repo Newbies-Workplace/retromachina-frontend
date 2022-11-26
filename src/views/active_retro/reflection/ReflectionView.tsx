@@ -36,7 +36,6 @@ export const ReflectionView: React.FC = () => {
 
                             return (
                                 <Card
-                                    editable
                                     id={card.id}
                                     key={card.id}
                                     text={card.text}

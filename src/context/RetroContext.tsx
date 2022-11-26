@@ -70,7 +70,7 @@ interface RetroContext {
 
   endRetro: () => void
 
-  onChangeOwner: (actionPointId: string, userId: string ) => void
+  changeActionPointOwner: (actionPointId: string, userId: string) => void
   createActionPoint: (text: string, ownerId: string) => void
   deleteActionPoint: (actionPointId: string) => void
   actionPoints: ActionPoint[]
@@ -99,7 +99,7 @@ export const RetroContext = createContext<RetroContext>({
   setMaxVotesAmount: () => {},
   moveCard: () => {},
   endRetro: () => {},
-  onChangeOwner: () => {},
+  changeActionPointOwner: () => {},
   createActionPoint: () => {},
   deleteActionPoint: () => {},
   actionPoints: [],
@@ -360,7 +360,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
             setMaxVotesAmount: setMaxVotesAmount,
             moveCard: moveCard,
             endRetro:endRetro,
-            onChangeOwner: onChangeOwner,
+            changeActionPointOwner: onChangeOwner,
             createActionPoint: createActionPoint,
             deleteActionPoint: deleteActionPoint,
             actionPoints: actionPoint,

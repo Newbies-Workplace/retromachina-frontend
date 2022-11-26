@@ -10,19 +10,20 @@ import { useRetro } from "../../context/RetroContext.hook";
 import {User} from "../../interfaces/User.interface";
 
 export interface CardProps {
+    style?: React.CSSProperties
     id: string
     text: string
-    author: {
+    author?: {
         avatar_link: string
         name: string
         id: string
     }
     teamUsers: UserResponse[]
     editable?: boolean
+    onChangeOwner?: (newOwnerId: string) => void
 }
 
-export const Card: React.FC<React.PropsWithChildren<CardProps>> = ({id , children ,  text , author , teamUsers , editable= false}) => {
-    const {onChangeOwner} = useRetro()
+export const Card: React.FC<React.PropsWithChildren<CardProps>> = ({id, style,  children ,  text , author , teamUsers , editable= false, onChangeOwner}) => {
     const [isUsersOpen, setUsersOpen] = useState(false);
 
     const close = useCallback(() => setUsersOpen(false), []);
@@ -30,40 +31,45 @@ export const Card: React.FC<React.PropsWithChildren<CardProps>> = ({id , childre
     useClickOutside(popover, close);
 
     return (
-        <div className={styles.wrapper}>
-            <div className={styles.card}>
-                <div className={styles.text}>
-                    {text}
-                </div>
-                <div className={styles.creator}>
-                    <div style={{position: 'relative'}}>
-                        {isUsersOpen && teamUsers.length > 1 &&
-                            <div className={styles.bubbleContainer} ref={popover}>
-                                <TeamUserPicker
-                                    authorId={author.id}
-                                    teamUsers={teamUsers}
-                                    onUserPicked={(userId) => {
-                                        onChangeOwner(id, userId)
-                                        setUsersOpen(false)
-                                    }}/>
-                            </div>
-                        }
-                    </div>
-
-                    <div
-                        style={{display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 8, cursor: editable ? 'pointer' : 'default'}}
-                        onClick={() => {
-                            if (editable) {
-                                setUsersOpen(true)
+        <div style={style} className={styles.wrapper}>
+            <div className={styles.content}>
+                <span className={styles.text}>{text}</span>
+                {author &&
+                    <div className={styles.creator}>
+                        <div style={{position: 'relative'}}>
+                            {isUsersOpen && teamUsers.length > 1 &&
+                                <div className={styles.bubbleContainer} ref={popover}>
+                                    <TeamUserPicker
+                                        authorId={author.id}
+                                        teamUsers={teamUsers}
+                                        onUserPicked={(userId) => {
+                                            onChangeOwner?.(userId)
+                                            setUsersOpen(false)
+                                        }}/>
+                                </div>
                             }
-                        }}>
-                        <Avatar isActive={false} url={author.avatar_link}/>
-                        <span>{author.name}</span>
-                        {editable && <EditIconSvg/>}
-                    </div>
-                </div>
-            </div>
+                        </div>
 
+                        <div
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                gap: 8,
+                                cursor: editable ? 'pointer' : 'default'
+                            }}
+                            onClick={() => {
+                                if (editable) {
+                                    setUsersOpen(true)
+                                }
+                            }}>
+                            <Avatar isActive={false} url={author.avatar_link}/>
+                            <span>{author.name}</span>
+                            {editable && <EditIconSvg/>}
+                        </div>
+                    </div>
+                }
+            </div>
             <div className={styles.childrenWrapper}>
                 {children}
             </div>

@@ -1,8 +1,11 @@
+@use  'src/abstracts/assets';
+
 .wrapper {
     display: flex;
     justify-content: space-between;
 
     min-height: 105px;
+    max-height: 200px;
     min-width: 225px;
     padding: 8px;
 
@@ -10,12 +13,18 @@
     border-radius: 16px;
     border: 1px solid black;
 }
-
-.card {
+.content {
     display: flex;
     flex-direction: column;
-    
+
     justify-content: space-between;
+}
+
+.text {
+    word-break: break-all;
+    font-size: 16px;
+
+    @include assets.scrollbar
 }
 
 .creator {
@@ -32,7 +41,6 @@
 .childrenWrapper {
     display: flex;
     justify-content: flex-end;
-    min-width: 100px;
     user-select: none;
 }
 .bubbleContainer {
@@ -59,6 +67,7 @@
 
     cursor: pointer;
     border-radius: 16px;
+
     &:hover {
         background-color: #D9D9D9;
     }
