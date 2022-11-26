@@ -1,5 +1,5 @@
 export interface UserResponse {
-    id: string,
+    user_id: string,
     avatar_link: string,
     email: string,
     user_type: string,
