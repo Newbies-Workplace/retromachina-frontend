@@ -1,65 +1,87 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Avatar } from "../../component/avatar/Avatar";
 import { Card } from "../../component/card/Card";
 import Navbar from "../../component/navbar/Navbar";
-import styles from '../summary/SummaryView.module.scss'
-import QuestionMarkSvg from '../../assets/icons/question-mark.svg'
+import styles from "../summary/SummaryView.module.scss";
+import QuestionMarkSvg from "../../assets/icons/question-mark.svg";
+import { TaskResponse } from "../../api/task/Task.interface";
+import { getTasksByRetroId } from "../../api/task/Task.service";
+import { useParams } from "react-router";
+import { UserResponse } from "../../api/user/User.interfaces";
+import { getUsersByTeamId } from "../../api/user/User.service";
+import { RetroResponse } from "../../api/retro/Retro.interface";
+import { getRetroByRetroId } from "../../api/retro/Retro.service";
+import dayjs from "dayjs";
 
+export const SummaryView = () => {
+    const { retroId } = useParams<{retroId: string}>();
+    const [tasks, setTasks] = useState<TaskResponse[]>([]);
+    const [users, setUsers] = useState<UserResponse[]>([]);
+    const [retro, setRetro] = useState<RetroResponse | null>(null);
 
-interface SummaryViewProps{
-    users:{
-        avatar_link:string,
-        isActive:boolean,
-        nick:string,
-    }[]
-    cards:{
-        text:string,
-    }[]
-}
+    useEffect(() => {
+        if (!retroId) return;
 
-export const SummaryView: React.FC<React.PropsWithChildren<SummaryViewProps>> = ({users,cards})=>{
-    return(
-        <>
-            <Navbar>
-                <div className={styles.summaryField}>
-                    Podsumowanie  
-                    <QuestionMarkSvg style={{marginLeft:"40px"}}></QuestionMarkSvg>
-                </div>
-            </Navbar>
-            <div className={styles.container}>
-                <div className={styles.wrapper}>
-                    <div className={styles.textSection}>
-                        <div className={styles.textFile}>Retro #3 23.12.2022</div>
-                    </div>
-                    {users.map((user)=>{
-                        return(
-                            <div className={styles.authorAndCardSection}>
-                                <div className={styles.authorSection}>
-                                    <Avatar url={user.avatar_link} isActive={user.isActive}></Avatar>
-                                    {user.nick}
-                                </div>
-                                {cards.map((card)=>{
-                                    return(
-                                        <div className={styles.cardSection}>
-                                            <div className={styles.blackcard}></div>
-                                        </div>
-                                    )
-
-                                })
-                            }
-                            </div>
-                            
-                            )
-                            
-                            
-                        })
-                    }
+        getTasksByRetroId(retroId)
+            .then((tasks) => {
+                setTasks(tasks);
+                console.log(tasks);
+            });
         
-                        
-                     
+        getRetroByRetroId(retroId)
+            .then((retro) => {
+                setRetro(retro);
+
+                getUsersByTeamId(retro.team_id)
+                    .then((users) => {
+                        setUsers(users);
+                    })
+            }); 
+    }, [])
+
+    return (
+        <>
+        <Navbar>
+            <div className={styles.summaryField}>
+                Podsumowanie  
+            <QuestionMarkSvg style={{ marginLeft: "40px" }}></QuestionMarkSvg>
+            </div>
+        </Navbar>
+        <div className={styles.container}>
+            <div className={styles.wrapper}>
+            <div className={styles.textSection}>
+                {/* TODO: Podłączenie później nazwy retro :D */}
+                <div className={styles.textFile}>
+                    Retro {dayjs(retro?.date).format("YYYY-MM-DD")}
                 </div>
             </div>
+            {users.map((user) => {
+                return (
+                <div key={user.user_id} className={styles.authorAndCardSection}>
+                    <div className={styles.authorSection}>
+                    <Avatar
+                        url={user.avatar_link}
+                        isActive={false}
+                    ></Avatar>
+                    {user.nick}
+                    </div>
+                    <div className={styles.cardSection}>
+                        {(() => {
+                            const userTasks = tasks.filter((task) => task.ownerId === user.user_id).map((task) => {
+                                return (
+                                    <div key={task.id} className={styles.blackcard}>
+                                        <Card id={task.id} teamUsers={[]} text={task.text}></Card>
+                                    </div>
+                                );
+                            });
+                            return userTasks.length !== 0 ? userTasks : "Brak zadań";
+                        })()}
+                     </div>
+                </div>
+                );
+            })}
+            </div>
+        </div>
         </>
     );
-
-}  
+};

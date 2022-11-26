@@ -75,6 +75,11 @@ export const TeamRetroList: React.FC<TeamRetroListProps> = ({
             <Button
               className={cs(styles.retroButton, styles.retro)}
               key={retro.id}
+              onClick={() =>
+                navigate(
+                  `/retro/${retro.id}/summary`
+                )
+              }
             >
               <span style={{ fontSize: 24 }}>{`Retro #${
                 retros.length - index

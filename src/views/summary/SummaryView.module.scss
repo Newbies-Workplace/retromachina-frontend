@@ -5,11 +5,12 @@
 .container {
     display: flex;
     justify-content: center;
-    align-items: center;
 
-    height: 100vh;
     background-image: url("../../../assets/images/background.svg");
     background-size: cover;
+    padding: 0px 20vw;
+    min-height: calc(100% - 148px - 10px);
+
 }
 
 .wrapper{
@@ -17,13 +18,17 @@
     
     border-radius: 16px;
 
-    display: flex;
-    
-    flex-direction: column;
-
     min-width: 1000px;
-    min-height: 800px;
+    height: 700px;
+
+    margin-top: 30px;
+    padding: 30px 0;
+
+    @include assets.scrollbar;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
+
 .summaryField{
     background-color: #F4F2E6;
     
@@ -31,8 +36,6 @@
     height: 45px;
 
     border-radius: 50px;
-
-
     border:3px #73BDA8 solid;
 
     display: flex;
@@ -44,7 +47,9 @@
 
     font-weight: 700;
     font-size:24px;
+
 }
+
 .textSection{
     width: 100%;
     min-height: 10px;
@@ -52,10 +57,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
-    padding-top: 20px;
-
 }
+
 .textFile{
     font-family: fonts.$font-paragraph;
 
@@ -71,16 +74,18 @@
 
     font-size: 32px;
 }
-.authorAndCardSection{
 
-    padding-top: 60px;
-   width:100% ;
+.authorAndCardSection{
+    padding-top: 40px;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
+
 .authorSection{
     width: 100%;
-    height:10px;
-
-
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -88,18 +93,17 @@
 
     gap:20px;
 }
+
 .cardSection{
-    
     width: 100%;
-    min-height: 150px;
 
     display: flex;
     align-items: center;
-    justify-content: space-around;
-
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
 }
+
 .blackcard{
-    width:300px;
-    height: 80px;
-    background-color: #F4F2E6;
+    width: 350px;
 }

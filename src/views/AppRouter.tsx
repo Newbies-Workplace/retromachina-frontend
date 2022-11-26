@@ -9,6 +9,7 @@ import TeamEditView from './team_edit/TeamEditView';
 import ActiveRetro from './active_retro/ActiveRetro';
 import {TeamCreateView} from "./team_create/TeamCreateView";
 import {RetroWrapper} from "./active_retro/RetroWrapper";
+import { SummaryView } from './summary/SummaryView';
 
 export const AppRouter: React.FC = () => {
     return (
@@ -49,7 +50,12 @@ export const AppRouter: React.FC = () => {
                     }/>
                 <Route
                     path="/retro/:retroId/summary"
-                    element={<RequireAuth><span>Podsumowanko</span></RequireAuth>}/>
+                    element={
+                        <RequireAuth>
+                            <SummaryView/>
+                        </RequireAuth>
+                    }/>
+
 
                 <Route
                     path="*"
