@@ -1,42 +1,75 @@
-import React, { useState } from "react"
+import React, {useEffect, useState} from "react"
 import { Card } from "../../../component/card/Card"
 import { Input } from "../../../component/input/Input"
 import { useRetro } from "../../../context/RetroContext.hook"
 import styles from "./DiscussView.module.scss"
 import DeleteIconSvg from "../../../assets/icons/delete-icon.svg";
 import {useUser} from "../../../context/UserContext.hook";
+import {SocketCard} from "../../../api/socket/Socket.events";
+
+interface Group {
+    votes: number
+    cards: SocketCard[]
+}
 
 export const DiscussView = () => {
-    const {cards, teamUsers, createActionPoint, deleteActionPoint, actionPoints, changeActionPointOwner} = useRetro()
+    const {cards, teamUsers, votes, createActionPoint, deleteActionPoint, actionPoints, changeActionPointOwner} = useRetro()
     const [value, setValue] = useState("")
     const {user} = useUser()
+    const [groups, setGroups] = useState<Group[]>([])
+
+    useEffect(() => {
+        setGroups(cards.filter(c => c.parentCardId === null)
+            .map(parent => {
+                const groupCards = [parent, ...cards.filter(c => c.parentCardId === parent.id)]
+                const count = groupCards.map((c) => votes.filter(v => v.parentCardId === c.id).length)
+                    .reduce((a, c) => a + c, 0)
+
+                return {
+                    cards: groupCards,
+                    votes: count
+                }
+            }))
+    }, [cards, votes])
 
     return  (
         <div className={styles.container}>
             <div className={styles.nextCardWrapper}>
                 <span className={styles.header}>Już za chwilę...</span>
-                {
-                    cards.map((card)=>{
-                        const author = teamUsers.find((user) => user.user_id === card.authorId);
-                        return(
-                            <Card
-                                id={card.id}
-                                key={card.id}
-                                text={card.text}
-                                author={{
-                                    avatar_link: author?.avatar_link || "",
-                                    name: author?.nick || "",
-                                    id: card.authorId,
-                                }}
-                                teamUsers={teamUsers}
-                            />
-                        )
-                    })
-                }
+                {groups.sort((a, b) => (b.votes - a.votes)).map(group => {
+                    return (
+                        <>
+                            {group.cards.map((card, index) => {
+                                const author = teamUsers.find((user) => user.user_id === card.authorId);
+
+                                return (
+                                    <Card
+                                        key={card.id}
+                                        style={{marginTop: index === 0 ? 0 : -80}}
+                                        id={card.id}
+                                        text={card.text}
+                                        author={{
+                                            avatar_link: author?.avatar_link || "",
+                                            name: author?.nick || "",
+                                            id: card.authorId,
+                                        }}
+                                        teamUsers={teamUsers}
+                                    >
+                                        {group.cards.length === index + 1 &&
+                                            <span style={{alignSelf: 'center'}}>{group.votes}</span>
+                                        }
+                                    </Card>
+                                )
+                            })}
+                        </>
+                    )
+                })}
             </div>
+
             <div className={styles.currentCardWrapper}>
 
             </div>
+
             <div className={styles.actionPointWrapper}>
                 <div className={styles.actionCardWrapper}>
                     {actionPoints?.map((actionPoint)=>{

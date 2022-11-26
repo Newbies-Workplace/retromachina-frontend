@@ -35,30 +35,30 @@ export const VoteView = () => {
                                         const userVotes = votes.filter((vote) => user?.user_id === vote.voterId && vote.parentCardId === card.id ).length
 
                                         return (
-                                            <div key={card.id} style={{marginTop: index === 0 ? 0 : -80}}>
-                                                <Card
-                                                    id={card.id}
-                                                    text={card.text}
-                                                    author={{
-                                                        avatar_link: author?.avatar_link || "",
-                                                        name: author?.nick || "",
-                                                        id: card.authorId,
-                                                    }}
-                                                    teamUsers={teamUsers}
-                                                >
-                                                    {groupCards.length === index + 1 &&
-                                                        <Counter
-                                                            canIncrement={votesLeft > 0}
-                                                            count={userVotes}
-                                                            onIncrement={() => {
-                                                                addVote(card.id)
-                                                            }}
-                                                            onDecrement={() => {
-                                                                removeVote(card.id)
-                                                            }}/>
-                                                    }
-                                                </Card>
-                                            </div>
+                                            <Card
+                                                id={card.id}
+                                                key={card.id}
+                                                text={card.text}
+                                                style={{marginTop: index === 0 ? 0 : -80}}
+                                                author={{
+                                                    avatar_link: author?.avatar_link || "",
+                                                    name: author?.nick || "",
+                                                    id: card.authorId,
+                                                }}
+                                                teamUsers={teamUsers}
+                                            >
+                                                {groupCards.length === index + 1 &&
+                                                    <Counter
+                                                        canIncrement={votesLeft > 0}
+                                                        count={userVotes}
+                                                        onIncrement={() => {
+                                                            addVote(card.id)
+                                                        }}
+                                                        onDecrement={() => {
+                                                            removeVote(card.id)
+                                                        }}/>
+                                                }
+                                            </Card>
                                         )})}
                                 </GroupCardContainer>
                             );
