@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import { ActionPoint } from "../../../api/socket/Socket.events"
 import { Card } from "../../../component/card/Card"
 import { Input } from "../../../component/input/Input"
 import { useRetro } from "../../../context/RetroContext.hook"
@@ -8,7 +7,7 @@ import DeleteIconSvg from "../../../assets/icons/delete-icon.svg";
 import {useUser} from "../../../context/UserContext.hook";
 
 export const DiscussView = () => {
-    const {cards, teamUsers, createActionPoint, deleteActionPoint, actionPoints} = useRetro()
+    const {cards, teamUsers, createActionPoint, deleteActionPoint, actionPoints, changeActionPointOwner} = useRetro()
     const [value, setValue] = useState("")
     const {user} = useUser()
 
@@ -44,7 +43,11 @@ export const DiscussView = () => {
                         const author = teamUsers.find((teamUser) => teamUser.user_id === actionPoint.ownerId)
                         return (
                             <Card
+                                style={{marginBottom: 16}}
                                 editable
+                                onChangeOwner={(newOwnerId) => {
+                                    changeActionPointOwner(actionPoint.id, newOwnerId)
+                                }}
                                 teamUsers={teamUsers}
                                 id={actionPoint.id}
                                 key={actionPoint.id}
@@ -57,8 +60,7 @@ export const DiscussView = () => {
                                 <DeleteIconSvg style={{cursor: "pointer"}} onClick={() => deleteActionPoint(actionPoint.id)}/>
                             </Card>
                         )
-                    })
-                    }
+                    })}
                 </div>
                 <div className={styles.actionCardInput}>
                     <Input
@@ -74,7 +76,6 @@ export const DiscussView = () => {
                             }
                         }}/>
                 </div>
-
             </div>
         </div>
     )
