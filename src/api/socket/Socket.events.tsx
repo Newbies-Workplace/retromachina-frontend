@@ -43,6 +43,7 @@ export interface RoomData {
     teamId: string
     createdDate: Date
     timerEnds: number | null
+    discutionCardId: string | null
     maxVotes: number
     votes: SocketVote[]
     usersReady: number
