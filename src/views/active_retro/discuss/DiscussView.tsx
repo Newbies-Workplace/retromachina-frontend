@@ -13,7 +13,8 @@ interface Group {
 }
 
 export const DiscussView = () => {
-    const {cards, teamUsers, votes, createActionPoint, deleteActionPoint, actionPoints, changeActionPointOwner} = useRetro()
+    const {cards, teamUsers, votes, createActionPoint, deleteActionPoint, actionPoints, changeActionPointOwner, discutionCardId} = useRetro();
+    const [discutionCard, setDiscutionCard] = useState<SocketCard | null>(null);
     const [value, setValue] = useState("")
     const {user} = useUser()
     const [groups, setGroups] = useState<Group[]>([])
@@ -31,6 +32,12 @@ export const DiscussView = () => {
                 }
             }))
     }, [cards, votes])
+
+    useEffect(() => {
+        console.log(discutionCard, discutionCardId);
+        console.log(cards)
+        setDiscutionCard(cards.find((card) => card.id === discutionCardId) || null);
+    }, [discutionCardId]);
 
     return  (
         <div className={styles.container}>
@@ -65,14 +72,16 @@ export const DiscussView = () => {
                     )
                 })}
             </div>
-
-            <div className={styles.currentCardWrapper}>
-
-            </div>
-
+            { discutionCardId &&
+                <div className={styles.currentCardWrapper}>
+                    <div className={styles.discussCard}>
+                        { discutionCard?.text }
+                    </div>
+                </div>
+            }
             <div className={styles.actionPointWrapper}>
                 <div className={styles.actionCardWrapper}>
-                    {actionPoints?.map((actionPoint)=>{
+                    {actionPoints?.filter((actionPoint) => actionPoint.parentCardId === discutionCardId).map((actionPoint)=>{
                         const author = teamUsers.find((teamUser) => teamUser.user_id === actionPoint.ownerId)
                         return (
                             <Card
@@ -104,7 +113,7 @@ export const DiscussView = () => {
                         onKeyDown={(e) => {
                             if (e.key === "Enter") {
                                 e.preventDefault()
-                                createActionPoint(value, cards[0]?.authorId ?? user?.user_id!)
+                                createActionPoint(value, discutionCard?.authorId ?? user?.user_id!)
                                 setValue("");
                             }
                         }}/>

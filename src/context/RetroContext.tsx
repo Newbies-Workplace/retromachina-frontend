@@ -46,6 +46,7 @@ interface RetroContext {
   teamUsers: UserResponse[]
   roomState: RoomState
 
+  discutionCardId: string | null
   timerEnds: number | null
   setTimer: (time: number | null) => void
 
@@ -82,6 +83,7 @@ export const RetroContext = createContext<RetroContext>({
   retroId: "",
   roomState: "reflection",
   timerEnds: null,
+  discutionCardId: null,
   setTimer: () => {},
   ready: false,
   readyPercentage: 0,
@@ -123,6 +125,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
   const [usersReady, setUsersReady] = useState<number>(0)
   const [users, setUsers] = useState<SocketUser[]>([])
   const [actionPoint,setActionPoint] = useState<ActionPoint[]>([])
+  const [discutionCardId, setDiscutionCardId] = useState<string | null>(null);
 
   const {user} = useUser()
   const navigate = useNavigate()
@@ -156,6 +159,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
       setIsReady(roomData.users.find((u) => u.id === user?.user_id)?.isReady || false)
       setUsers(roomData.users)
       setActionPoint(roomData.actionPoints)
+      setDiscutionCardId(roomData.discutionCardId);
     }
     createdSocket.on("event_room_sync", (e: RoomSyncEvent) => {
       roomDataListener(e.roomData)
@@ -287,6 +291,8 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
         state = "discuss";
         break;
       case "discuss":
+        socket.current?.emit("command_next_discussion_card");
+
         return;
     }
 
@@ -309,7 +315,13 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
         state = "group";
         break;
       case "discuss":
-        state = "vote";
+        if (!discutionCardId) { 
+          state = "vote";
+          break;
+        }
+        
+        state = "discuss";
+        socket.current?.emit("command_previous_discussion_card");
         break;
     }
 
@@ -344,6 +356,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
             roomState: roomState,
             teamUsers: teamUsers,
             timerEnds: timerEnds,
+            discutionCardId: discutionCardId,
             setTimer: setTimer,
             ready: isReady,
             setReady: setReady,
