@@ -16,7 +16,7 @@ export const DiscussView = () => {
     const {cards, teamUsers, votes, createActionPoint, deleteActionPoint, actionPoints, changeActionPointOwner, discutionCardId} = useRetro();
     const [discutionCard, setDiscutionCard] = useState<SocketCard | null>(null);
     const [value, setValue] = useState("")
-    const {user} = useUser()
+    const {user, isScrumMaster} = useUser()
     const [groups, setGroups] = useState<Group[]>([])
 
     useEffect(() => {
@@ -86,7 +86,7 @@ export const DiscussView = () => {
                         return (
                             <Card
                                 style={{marginBottom: 16}}
-                                editable
+                                editable={isScrumMaster}
                                 onChangeOwner={(newOwnerId) => {
                                     changeActionPointOwner(actionPoint.id, newOwnerId)
                                 }}
@@ -99,25 +99,28 @@ export const DiscussView = () => {
                                     name: author?.nick || "",
                                     id: author?.user_id || "",
                                 }}>
-                                <DeleteIconSvg style={{cursor: "pointer"}} onClick={() => deleteActionPoint(actionPoint.id)}/>
+                                { isScrumMaster && <DeleteIconSvg style={{cursor: "pointer"}} onClick={() => deleteActionPoint(actionPoint.id)}/>} 
                             </Card>
                         )
                     })}
                 </div>
-                <div className={styles.actionCardInput}>
-                    <Input
-                        multiline
-                        value={value}
-                        setValue={setValue}
-                        placeholder={"Nowy action point..."}
-                        onKeyDown={(e) => {
-                            if (e.key === "Enter") {
-                                e.preventDefault()
-                                createActionPoint(value, discutionCard?.authorId ?? user?.user_id!)
-                                setValue("");
-                            }
-                        }}/>
-                </div>
+                {isScrumMaster &&
+                    <div className={styles.actionCardInput}>
+                        <Input
+                            multiline
+                            value={value}
+                            setValue={setValue}
+                            placeholder={"Nowy action point..."}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter") {
+                                    e.preventDefault()
+                                    createActionPoint(value, discutionCard?.authorId ?? user?.user_id!)
+                                    setValue("");
+                                }
+                            }}/>
+                    </div>
+                 }
+
             </div>
         </div>
     )

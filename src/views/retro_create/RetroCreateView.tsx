@@ -115,8 +115,9 @@ export const RetroCreateView: React.FC = () => {
     setClicked(true);
     createRetro(teamId, columns)
         .then((retro) => {
-          navigator.clipboard.writeText(API_URL+`/retro/${retro.data.retro_id}`)
-          navigate(`/retro/${retro.data.retro_id}`)
+          navigator.clipboard?.writeText(API_URL+`/retro/${retro.data.retro_id}`)
+            .catch(console.log)
+          navigate(`/retro/${retro.data.retro_id}`)          
         })
         .catch(console.log)
   }
