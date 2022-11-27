@@ -67,7 +67,7 @@ export const DiscussView = () => {
             </div>
 
             <div className={styles.currentCardWrapper}>
-
+                <div className={styles.discussCard}></div>
             </div>
 
             <div className={styles.actionPointWrapper}>
