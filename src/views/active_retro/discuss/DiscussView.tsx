@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from "react"
+import React, { useEffect, useState } from "react"
 import { Card } from "../../../component/card/Card"
 import { Input } from "../../../component/input/Input"
 import { useRetro } from "../../../context/RetroContext.hook"
 import styles from "./DiscussView.module.scss"
 import DeleteIconSvg from "../../../assets/icons/delete-icon.svg";
-import {useUser} from "../../../context/UserContext.hook";
-import {SocketCard} from "../../../api/socket/Socket.events";
+import { useUser } from "../../../context/UserContext.hook";
+import { SocketCard } from "../../../api/socket/Socket.events";
 
 interface Group {
     votes: number
@@ -13,10 +13,10 @@ interface Group {
 }
 
 export const DiscussView = () => {
-    const {cards, teamUsers, votes, createActionPoint, deleteActionPoint, actionPoints, changeActionPointOwner, discutionCardId} = useRetro();
+    const { cards, teamUsers, votes, createActionPoint, deleteActionPoint, actionPoints, changeActionPointOwner, discutionCardId } = useRetro();
     const [discutionCard, setDiscutionCard] = useState<SocketCard | null>(null);
     const [value, setValue] = useState("")
-    const {user, isScrumMaster} = useUser()
+    const { user, isScrumMaster } = useUser()
     const [groups, setGroups] = useState<Group[]>([])
 
     useEffect(() => {
@@ -39,7 +39,7 @@ export const DiscussView = () => {
         setDiscutionCard(cards.find((card) => card.id === discutionCardId) || null);
     }, [discutionCardId]);
 
-    return  (
+    return (
         <div className={styles.container}>
             <div className={styles.nextCardWrapper}>
                 <span className={styles.header}>Już za chwilę...</span>
@@ -52,7 +52,7 @@ export const DiscussView = () => {
                                 return (
                                     <Card
                                         key={card.id}
-                                        style={{marginTop: index === 0 ? 0 : -80}}
+                                        style={{ marginTop: index === 0 ? 0 : -80 }}
                                         id={card.id}
                                         text={card.text}
                                         author={{
@@ -63,7 +63,7 @@ export const DiscussView = () => {
                                         teamUsers={teamUsers}
                                     >
                                         {group.cards.length === index + 1 &&
-                                            <span style={{alignSelf: 'center'}}>{group.votes}</span>
+                                            <span style={{ alignSelf: 'center' }}>{group.votes}</span>
                                         }
                                     </Card>
                                 )
@@ -72,20 +72,20 @@ export const DiscussView = () => {
                     )
                 })}
             </div>
-            { discutionCardId &&
+            {discutionCardId &&
                 <div className={styles.currentCardWrapper}>
                     <div className={styles.discussCard}>
-                        { discutionCard?.text }
+                        {discutionCard?.text}
                     </div>
                 </div>
             }
             <div className={styles.actionPointWrapper}>
                 <div className={styles.actionCardWrapper}>
-                    {actionPoints?.filter((actionPoint) => actionPoint.parentCardId === discutionCardId).map((actionPoint)=>{
+                    {actionPoints?.filter((actionPoint) => actionPoint.parentCardId === discutionCardId).map((actionPoint) => {
                         const author = teamUsers.find((teamUser) => teamUser.user_id === actionPoint.ownerId)
                         return (
                             <Card
-                                style={{marginBottom: 16}}
+                                style={{ marginBottom: 16 }}
                                 editable={isScrumMaster}
                                 onChangeOwner={(newOwnerId) => {
                                     changeActionPointOwner(actionPoint.id, newOwnerId)
@@ -99,28 +99,25 @@ export const DiscussView = () => {
                                     name: author?.nick || "",
                                     id: author?.user_id || "",
                                 }}>
-                                { isScrumMaster && <DeleteIconSvg style={{cursor: "pointer"}} onClick={() => deleteActionPoint(actionPoint.id)}/>} 
+                                {isScrumMaster && <DeleteIconSvg style={{ cursor: "pointer" }} onClick={() => deleteActionPoint(actionPoint.id)} />}
                             </Card>
                         )
                     })}
                 </div>
-                {isScrumMaster &&
-                    <div className={styles.actionCardInput}>
-                        <Input
-                            multiline
-                            value={value}
-                            setValue={setValue}
-                            placeholder={"Nowy action point..."}
-                            onKeyDown={(e) => {
-                                if (e.key === "Enter") {
-                                    e.preventDefault()
-                                    createActionPoint(value, discutionCard?.authorId ?? user?.user_id!)
-                                    setValue("");
-                                }
-                            }}/>
-                    </div>
-                 }
-
+                <div className={styles.actionCardInput}>
+                    <Input
+                        multiline
+                        value={value}
+                        setValue={setValue}
+                        placeholder={"Nowy action point..."}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                                e.preventDefault()
+                                createActionPoint(value, discutionCard?.authorId ?? user?.user_id!)
+                                setValue("");
+                            }
+                        }} />
+                </div>
             </div>
         </div>
     )
