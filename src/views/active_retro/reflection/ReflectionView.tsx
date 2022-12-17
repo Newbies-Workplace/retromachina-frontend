@@ -19,8 +19,8 @@ export const ReflectionView: React.FC = () => {
                 return (
                     <Column
                         key={column.id}
-                        columnData={column}
-                    >
+                        columnData={column}>
+
                         <ColumnInput
                             columnData={column}
                             onCardCreated={(value) => {
@@ -29,7 +29,6 @@ export const ReflectionView: React.FC = () => {
                             onIsWriting={(value) => {
                                 setWriting(value, column.id);
                             }}/>
-
 
                         {columnCards?.filter((card) => card.authorId === user?.user_id).map((card) => {
                             const user = teamUsers.find((user) => user.user_id === card.authorId);
