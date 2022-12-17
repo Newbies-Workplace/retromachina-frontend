@@ -5,13 +5,10 @@ interface RetroCardProps{
     onClick(): void
 }
 
-export const RetroCard: React.FC<RetroCardProps> = ({onClick}) => {
-    return(
-
+export const ActiveRetroCard: React.FC<RetroCardProps> = ({onClick}) => {
+    return (
         <div className={styles.wrapper} onClick={onClick}>
-            Retro właśnie 
-            trwa
+            Retro właśnie trwa
         </div>
-
     )
 }
