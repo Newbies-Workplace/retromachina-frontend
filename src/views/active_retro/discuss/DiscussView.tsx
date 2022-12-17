@@ -13,7 +13,7 @@ interface Group {
 }
 
 export const DiscussView = () => {
-    const { cards, teamUsers, votes, createActionPoint, deleteActionPoint, actionPoints, changeActionPointOwner, discutionCardId } = useRetro();
+    const { cards, teamUsers, votes, createActionPoint, deleteActionPoint, actionPoints, changeActionPointOwner, discussionCardId } = useRetro();
     const [discussionCard, setDiscussionCard] = useState<SocketCard | null>(null);
     const [value, setValue] = useState("")
     const { user, isScrumMaster } = useUser()
@@ -34,10 +34,10 @@ export const DiscussView = () => {
     }, [cards, votes])
 
     useEffect(() => {
-        console.log(discussionCard, discutionCardId);
+        console.log(discussionCard, discussionCardId);
         console.log(cards)
-        setDiscussionCard(cards.find((card) => card.id === discutionCardId) || null);
-    }, [discutionCardId]);
+        setDiscussionCard(cards.find((card) => card.id === discussionCardId) || null);
+    }, [discussionCardId]);
 
     return (
         <div className={styles.container}>
@@ -72,7 +72,7 @@ export const DiscussView = () => {
                     )
                 })}
             </div>
-            {discutionCardId &&
+            {discussionCardId &&
                 <div className={styles.currentCardWrapper}>
                     <div className={styles.discussCard}>
                         {discussionCard?.text}
@@ -81,7 +81,7 @@ export const DiscussView = () => {
             }
             <div className={styles.actionPointWrapper}>
                 <div className={styles.actionCardWrapper}>
-                    {actionPoints?.filter((actionPoint) => actionPoint.parentCardId === discutionCardId).map((actionPoint) => {
+                    {actionPoints?.filter((actionPoint) => actionPoint.parentCardId === discussionCardId).map((actionPoint) => {
                         const author = teamUsers.find((teamUser) => teamUser.user_id === actionPoint.ownerId)
                         return (
                             <Card
