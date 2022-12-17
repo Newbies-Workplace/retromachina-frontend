@@ -5,7 +5,7 @@ import cs from "classnames";
 import QuestionMarkSvg from "../../assets/icons/question-mark-icon.svg"
 
 export const RetroHeaderTracker = () => {
-  const [index, setindex] = useState(4);
+  const [index, setIndex] = useState(4);
   const { roomState } = useRetro();
   const classChanges = (stateName: string) => {
     return cs(styles.retroHeader, {
@@ -16,19 +16,19 @@ export const RetroHeaderTracker = () => {
   useEffect(() => {
     switch (roomState) {
       case "reflection":
-        setindex(0);
+        setIndex(0);
         break;
       case "group":
-        setindex(1);
+        setIndex(1);
         break;
       case "vote":
-        setindex(2);
+        setIndex(2);
         break;
       case "discuss":
-        setindex(3);
+        setIndex(3);
         break;
       default:
-        setindex(0);
+        setIndex(0);
     }
   }, [roomState]);
   return (
@@ -36,10 +36,11 @@ export const RetroHeaderTracker = () => {
       className={styles.wrapper}
       style={{ left: `calc(50% - (141px + (298px*${index})))` }}
     >
-      <div className={classChanges("reflection")}>Refleksja{roomState==="reflection"&&<QuestionMarkSvg/>}</div>
-      <div className={classChanges("group")}>Grupowanie{roomState==="group"&&<QuestionMarkSvg/>}</div>
-      <div className={classChanges("vote")}>Głosowanie{roomState==="vote"&&<QuestionMarkSvg/>}</div>
-      <div className={classChanges("discuss")}>Dyskusja{roomState==="discuss"&&<QuestionMarkSvg/>}</div>
+      <div className={classChanges("reflection")}>Refleksja</div>
+      <div className={classChanges("group")}>Grupowanie</div>
+      <div className={classChanges("vote")}>Głosowanie</div>
+      <div className={classChanges("discuss")}>Dyskusja</div>
+
       <div className={styles.retroHeader}>Podsumowanie</div>
     </div>
   );
