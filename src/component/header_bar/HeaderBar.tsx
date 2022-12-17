@@ -3,11 +3,14 @@ import styles from "./HeaderBar.module.scss";
 
 interface HeaderBarProps {
     text: string,
-    active?: Boolean
 }
 
-export const HeaderBar : React.FC <HeaderBarProps> = ({text, active = false}) => {
+export const HeaderBar : React.FC <HeaderBarProps> = ({text}) => {
     return (
-        <div className={styles.tile}> <div className={styles.text}>{text}</div> </div>
+        <div className={styles.tile}>
+            <div className={styles.text}>
+                {text}
+            </div>
+        </div>
     );
 }

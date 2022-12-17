@@ -10,17 +10,19 @@ interface DraggableCardProps {
 }
 
 export const DraggableCard: React.FC<React.PropsWithChildren<DraggableCardProps>> = ({children, parentCardId, cardId, columnId, style}) => {
-    const [{ isDragging }, drag] = useDrag(() => ({
+    const [{ isDragging, canDrag }, drag] = useDrag(() => ({
         type: ItemTypes.CARD,
         item: {parentCardId: parentCardId, cardId: cardId, columnId: columnId} as CardDragPayload,
         collect: (monitor) => ({
-            isDragging: monitor.isDragging()
+            isDragging: monitor.isDragging(),
+            canDrag: monitor.canDrag(),
         })
     }))
     const opacity = isDragging ? 0.25 : 1
+    const cursor = canDrag ? 'grab' : 'default'
 
     return (
-        <div ref={drag} style={{opacity: opacity, ...style}}>
+        <div ref={drag} style={{opacity: opacity, cursor: cursor, ...style}}>
             {children}
         </div>
     )

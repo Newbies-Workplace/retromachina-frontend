@@ -26,9 +26,9 @@ export const ColumnCardContainer: React.FC<React.PropsWithChildren<ColumnCardCon
     return <div
         ref={drop}
         style={{
-            height: '100%',
-            border: isOverCurrent && canDrop ? '0.5px dashed black' : '0.5px solid transparent',
-            borderRadius: 16
+            border: isOverCurrent && canDrop
+                ? '0.5px dashed black'
+                : '0.5px solid transparent',
         }}
         className={styles.container}>
         {children}

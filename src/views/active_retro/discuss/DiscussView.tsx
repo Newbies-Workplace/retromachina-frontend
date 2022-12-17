@@ -14,7 +14,7 @@ interface Group {
 
 export const DiscussView = () => {
     const { cards, teamUsers, votes, createActionPoint, deleteActionPoint, actionPoints, changeActionPointOwner, discutionCardId } = useRetro();
-    const [discutionCard, setDiscutionCard] = useState<SocketCard | null>(null);
+    const [discussionCard, setDiscussionCard] = useState<SocketCard | null>(null);
     const [value, setValue] = useState("")
     const { user, isScrumMaster } = useUser()
     const [groups, setGroups] = useState<Group[]>([])
@@ -34,9 +34,9 @@ export const DiscussView = () => {
     }, [cards, votes])
 
     useEffect(() => {
-        console.log(discutionCard, discutionCardId);
+        console.log(discussionCard, discutionCardId);
         console.log(cards)
-        setDiscutionCard(cards.find((card) => card.id === discutionCardId) || null);
+        setDiscussionCard(cards.find((card) => card.id === discutionCardId) || null);
     }, [discutionCardId]);
 
     return (
@@ -75,7 +75,7 @@ export const DiscussView = () => {
             {discutionCardId &&
                 <div className={styles.currentCardWrapper}>
                     <div className={styles.discussCard}>
-                        {discutionCard?.text}
+                        {discussionCard?.text}
                     </div>
                 </div>
             }
@@ -86,7 +86,7 @@ export const DiscussView = () => {
                         return (
                             <Card
                                 style={{ marginBottom: 16 }}
-                                editable={isScrumMaster}
+                                editable
                                 onChangeOwner={(newOwnerId) => {
                                     changeActionPointOwner(actionPoint.id, newOwnerId)
                                 }}
@@ -99,7 +99,9 @@ export const DiscussView = () => {
                                     name: author?.nick || "",
                                     id: author?.user_id || "",
                                 }}>
-                                {isScrumMaster && <DeleteIconSvg style={{ cursor: "pointer" }} onClick={() => deleteActionPoint(actionPoint.id)} />}
+                                <DeleteIconSvg
+                                    style={{cursor: "pointer"}}
+                                    onClick={() => deleteActionPoint(actionPoint.id)}/>
                             </Card>
                         )
                     })}
@@ -111,9 +113,9 @@ export const DiscussView = () => {
                         setValue={setValue}
                         placeholder={"Nowy action point..."}
                         onKeyDown={(e) => {
-                            if (e.key === "Enter") {
+                            if (e.key === "Enter" && !e.shiftKey) {
                                 e.preventDefault()
-                                createActionPoint(value, discutionCard?.authorId ?? user?.user_id!)
+                                createActionPoint(value, user?.user_id!)
                                 setValue("");
                             }
                         }} />
