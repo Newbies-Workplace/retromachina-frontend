@@ -1,0 +1,12 @@
+.container {
+  height: calc(100% - 160px);
+}
+
+.innerContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+}

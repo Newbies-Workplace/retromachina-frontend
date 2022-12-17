@@ -27,14 +27,16 @@ const Counter: React.FC<CounterProps> = ({
 
   return (
     <div className={styles.wrapper}>
-      <MinusIcons
-        className={cs(styles.action, {
-          [styles.active]: count > 0,
-          [styles.inactive]: count <= 0,
-        })}
-      />
+      <span style={{width: 16,height: 16}} onClick={onMinusClick}>
+        <MinusIcons 
+          className={cs(styles.action, {
+            [styles.active]: count > 0,
+            [styles.inactive]: count <= 0,
+          })}
+        />
+      </span>
       {count}
-      <AddIcon
+      <AddIcon  onClick={onPlusClick}
         style={{ color: "grey" }}
         className={cs(styles.action, {
           [styles.active]: canIncrement,

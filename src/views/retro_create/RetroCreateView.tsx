@@ -115,8 +115,9 @@ export const RetroCreateView: React.FC = () => {
     setClicked(true);
     createRetro(teamId, columns)
         .then((retro) => {
-          navigator.clipboard.writeText(API_URL+`/retro/${retro.data.retro_id}`)
-          navigate(`/retro/${retro.data.retro_id}`)
+          navigator.clipboard?.writeText(API_URL+`/retro/${retro.data.retro_id}`)
+            .catch(console.log)
+          navigate(`/retro/${retro.data.retro_id}`)          
         })
         .catch(console.log)
   }
@@ -162,7 +163,7 @@ export const RetroCreateView: React.FC = () => {
             )}
             
             <div className={styles.columnButton}>
-              <Button size="big" onClick={onAddColumn}>
+              <Button disabled={columns.length>=6} size="big" onClick={onAddColumn}>
                 <span>Nowa Kolumna</span>
                 <AddIcon />
               </Button>

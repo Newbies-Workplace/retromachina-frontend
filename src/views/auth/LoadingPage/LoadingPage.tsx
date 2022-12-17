@@ -2,7 +2,7 @@ import {useEffect} from 'react';
 import {useUser} from '../../../context/UserContext.hook';
 import {useNavigate} from 'react-router';
 import {LoadingView} from '../../../component/loading_view/LoadingView';
-import {AuthParams} from "../../../context/UserContext";
+import { AuthParams } from '../../../api/auth/Auth.interface';
 
 const LoadingPage = () => {
     const { login } = useUser();

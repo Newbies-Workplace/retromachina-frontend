@@ -1,0 +1,74 @@
+@use '../../../abstracts/colors';
+@use '../../../abstracts/fonts';
+@use '../../../abstracts/assets';
+
+.container{
+    display: flex;
+    @include assets.scrollbar;
+    overflow-y: hidden;
+    overflow-x: auto;
+    height: calc(100% - 148px - 8px);
+    justify-content: space-between;
+}
+
+.nextCardWrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    max-width: 350px;
+    min-width: 300px;
+    padding: 16px 8px;
+
+    @include assets.scrollbar;
+    overflow-x: hidden;
+
+    & .header{
+        margin-left: 8px;
+        font-size: 32px;
+        font-weight: 700;
+    }
+}
+
+.actionPointWrapper{
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 156px);
+    width: 320px;
+    background-color: colors.$primary-color;
+    padding: 0 16px;
+    justify-content: space-between;
+}
+
+.actionCardWrapper {
+    flex-direction: column;
+    padding: 16px 4px 100px 0;
+
+    @include assets.scrollbar;
+    overflow-x: hidden;
+}
+
+.actionCardInput {
+    margin-top: -16px;
+    padding-bottom: 16px;
+}
+
+.currentCardWrapper {
+    @include assets.scrollbar;
+    overflow-y: hidden;
+    display: flex;
+    justify-content: center;
+    padding-top: 32px;
+    min-width: 300px;
+    max-width: 900px;
+    padding: 32px 16px 0px 8px;
+}
+
+.discussCard {
+    width: 900px;
+    height: 30%;
+    border-radius: 16px;
+    border: 1px solid black;
+    background-color: white;
+    padding: 10px
+}

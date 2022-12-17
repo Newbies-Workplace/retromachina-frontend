@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {useUser} from "../../context/UserContext.hook";
 import Navbar from "../../component/navbar/Navbar";
 import NotFoundSvg from "../../assets/images/not-found.svg"
@@ -16,36 +16,39 @@ const HomeView: React.FC = () => {
     return (
         <>
             <Navbar>
-                <div className={styles.buttonWrapper}>
-                    <Button
-                        onClick={() => navigate("/team/create")}
-                        size="small"
-                    >
-                        <CreateTeamSvg />
-                        Stwórz Zespół
-                    </Button>
-                    
-                </div>
-            </Navbar>
+                { user?.user_type=="SCRUM_MASTER"  &&
+                    <div className={styles.buttonWrapper}>
 
-            {user?.teams?.length === 0 &&
-                <div className={styles.noTeam}>
-                    <div className={styles.text}>
-                        <span>Nie jesteś członkiem żadnego Zespołu!</span>
-                        <span style={{fontSize: 18}}>Daj znać swojemu scrum masterowi</span>
+                        <Button
+                            onClick={() => navigate("/team/create")}
+                            size="small"
+                        >
+                            <CreateTeamSvg />
+                            Stwórz Zespół
+                        </Button>
+
                     </div>
+                }
+            </Navbar>
+            <div className={styles.container}>
+                {user?.teams?.length === 0 &&
+                    <div className={styles.noTeam}>
+                        <div className={styles.text}>
+                            <span>Nie jesteś członkiem żadnego Zespołu!</span>
+                            <span style={{fontSize: 18}}>Daj znać swojemu scrum masterowi</span>
+                        </div>
 
-                    <NotFoundSvg />
-                </div>
-            }
+                        <NotFoundSvg />
+                    </div>
+                }
 
-            {user?.teams.map((team) =>
-            
-                <TeamRetroList
-                    key={team.id}
-                    teamId={team.id}
-                    teamName={team.name} />
-            )}
+                {user?.teams.map((team) =>
+                    <TeamRetroList
+                        key={team.id}
+                        teamId={team.id}
+                        teamName={team.name} />
+                )}
+            </div>
         </>
     )
 };

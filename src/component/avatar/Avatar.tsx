@@ -12,7 +12,7 @@ export const Avatar : React.FC<PropsCircle> =  ({isActive, url}) => {
         <div
             className={styles.circle}
             style={{outlineColor: isActive ? "#23F138" : "#D9D9D9"}}>
-            <img src={url} className={styles.photo} alt={"avatar"} />
+            <img src={url} className={styles.photo} />
         </div>
     );
 }

@@ -12,17 +12,18 @@ export const TeamCreateView: React.FC = () => {
     const navigate = useNavigate()
 
     const onSubmit = (team: Team) => {
-        createTeam(team).then((response) => {
-            if (response.status == 201) {
-                refreshUser()
-                    .then(() => {
-                        navigate("/");
-                    })
-            } else {
-                //coś się musi stać???
-                console.log(response.status);
-            }
-        })
+        createTeam(team)
+            .then((response) => {
+                if (response.status == 201) {
+                    refreshUser()
+                        .then(() => {
+                            navigate("/");
+                        })
+                } else {
+                    //coś się musi stać???
+                    console.log(response.status);
+                }
+            })
     }
 
     return (

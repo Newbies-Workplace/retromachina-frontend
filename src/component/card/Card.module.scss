@@ -1,41 +1,77 @@
-.wrapper{
-    min-height: 105px;
-    min-width: 325px;
+@use  'src/abstracts/assets';
+
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+
+    min-height: 150px;
+    max-height: 150px;
+    min-width: 225px;
+    padding: 8px;
+
     background-color: #FFFFFF;
-    padding: 10px;
     border-radius: 16px;
     border: 1px solid black;
-    display: flex;
-    justify-content: space-between;
 }
-.card{
+.content {
     display: flex;
     flex-direction: column;
-    
     justify-content: space-between;
+
     width: 100%;
-
-    
-}
-.text{
-    width: 90%;   
-    word-break: break-all;
 }
 
-.creator{
+.text {
+    word-break: break-word;
+    white-space: pre-line;
+
+    font-size: 16px;
+
+    @include assets.scrollbar
+}
+
+.creator {
     padding-top: 10px;
     
     display: flex;
     align-items: center;
-    & span{
-        margin-left: 10px;
+
+    & span {
         font-size: 16px;
     }
 }
 
-.childrenWrapper{
+.childrenWrapper {
     display: flex;
     justify-content: flex-end;
-    width:15%;
     user-select: none;
+}
+.bubbleContainer {
+    position: absolute;
+    background-color: #FFFFFF;
+    min-width:280px;
+    min-height: 50px;
+    top: 38px;
+    left: -6px;
+    border-radius: 16px;
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8px;
+
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+.userWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+
+    cursor: pointer;
+    border-radius: 16px;
+
+    &:hover {
+        background-color: #D9D9D9;
+    }
 }
