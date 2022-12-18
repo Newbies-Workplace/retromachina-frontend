@@ -3,165 +3,90 @@
 @use '../../abstracts/assets';
 
 .toolbox{
-    background-color: #EBD3A8;
-
     display: flex;
     align-items: center;
-    
+    gap: 8px;
+
+    padding: 8px;
+    max-width: fit-content;
+    background-color: #EBD3A8;
+
     border-radius:16px;
-
-    box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.25);
-
-    padding: 8px ;
-    gap:20px;
-    
-    max-width:fit-content;
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.25);
 }
 
-.timerbox{
-    background-color: #EBD3A8;
-    width:96px;
-    position: relative;
-   
-    
-}
-.timerbutton{
-    display:flex;
-    
+.box {
     width: 96px;
-    height: 84px;
-}
-.votebox{
-    background-color: #EBD3A8;
-    width:96px;
-    position: relative;
-   
-    
-}
-.voteboxbutton{
-    display:flex;
-    
-    width: 96px;
-    height: 84px;
+    height: 60px;
 }
 
-.midbox{
-    background-color: #EBD3A8;
-    
+.readyBox {
     display: flex;
     flex-direction: column;
-    
-    gap:5px;
-    width: 120px;
-    
-  
+    gap: 8px;
 
-    
+    & button {
+        height: 100%;
+        padding: 0 0 !important;
+    }
 }
 
-.readybutton{
+.nextPrevButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 8px;
+    background-color: #EBD3A8;
+    width: 96px;
+    height: 60px;
+
+    & button {
+        width: 60px;
+        padding: 0 0 !important;
+    }
+}
+
+.button {
+    height: 100%;
+    width: 100%;
+}
+
+.readyButton {
     background-color: #F4F2E6;
-    
+
     border-radius: 8px;
-    border:solid #73BDA8 3px;
-    
-    width: 120px;
-    height: 68px;
-    &.ready{
+    border: solid #73BDA8 3px;
+
+    width: 100%;
+
+    &.ready {
         background-color: #73BDA8;
     }
 }
 
-.wraper{
-   border: 0px solid #73BDA8;
-   border-radius: 6px;
-   height: 10px;
-   box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.25);
-   width: 120px;
-   
-}
-.container{
-    background-color: #F4F2E6;
-    height: 100%;
-    border-radius: 4px;
-}
-.barComplete{
-    background-color: #73BDA8;
-    height:100%;
-    border-radius: 4px;
-    width: 80%;
-    
-    
-}
-.label{
-    font-size: 0px;
-   
-}
-.votestatebox{
-    background-color: #EBD3A8;
-    min-width:96px;
-    
-    position: relative;
- 
-}
-.userversion{
+.voteState {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
-    gap: 10px;
-    
-}
-.votestate{
-    display:flex;
-    
-    width: 96px;
-    height: 84px;
-
-    background-color:#F4F2E6;
-
-    border-radius: 8px;
-
     justify-content: center;
     align-items: center;
-  
+
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    border-radius: 16px;
+    background-color: #F4F2E6;
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.25);
+
     font-family: fonts.$font-paragraph;
-
-    box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.25);
-
-    
 
     word-wrap: break-word;
     text-align: center;
-    position: relative;
-}
-
-.finish{
-    width: 96px;
-    height: 84px;
-}
-
-
-
-.buttonbox{
-   display: flex;
-   justify-content: space-between;
-   gap:10px;
-   background-color:#EBD3A8 ;
-   width:96px;
-   position: relative;
-   
-}
-
-.button{
-    width: 40px;
-    height: 84px;
 }
 
 .clearButton {
     background-color: colors.$warn;
 }
-//popupy i wszystkie menu 
 
 .timerTop {
     display: flex;
@@ -169,21 +94,21 @@
     padding-bottom: 4px;
 }
 
-.timeBubbleWraper{
+.timeBubbleWrapper {
     display: flex;
     flex-direction: column;
     position: absolute;
     top: -110px;
-    left: -50%;
-    
+
     background-color:#EBD3A8;
     border-radius: 16px;
 
     padding: 8px 8px 8px 8px;
 
-    box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.25);
 }
-.timer{
+
+.timer {
     height: 30px;
     width: 100%;
 
@@ -191,89 +116,82 @@
     padding-bottom: 2px;
 
     border-radius: 8px;
-    
+
     font-family: fonts.$font-paragraph;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    
-
-    font-size:18px;
-    &::placeholder{
-        font-size: 19px;
-        
-    }
+    font-size: 18px;
 }
-.buttonWraper{
-   display: flex;
 
+.buttonWrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
 
-   justify-content: space-between;
+    height: 30px;
+    width: 100%;
 
-   background-color: #EBD3A8;
-   
-   padding-top:5px;
-   
-   height:30px;
-   width: 100%;
+    padding-top: 5px;
 
-   gap:10px;
+    background-color: #EBD3A8;
 }
 
 .voteBubbleWraper{
     display: flex;
     flex-direction: column;
+
     position: absolute;
     top: -92px;
-    left: -40px;
-    
-    background-color:#EBD3A8;
+
+    background-color: #EBD3A8;
     border-radius: 16px;
 
-    padding: 8px 8px 8px 8px;
+    padding: 8px;
 
-    box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.25);
 }
-.votetext{
+
+.votetext {
     text-align: center;
     width: 100%;
-    min-width: 150px;   
+    min-width: 150px;
     font-size: 13px;
 }
-.numberfield{
-    background-color:#ECE6C2;
-    
-    width: 50px;
-    height: 30px;
 
+.numberfield {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    background-color: #ECE6C2;
+
+    width: 50px;
+    height: 30px;
 
     border-radius: 8px;
 
     font-weight: 700;
 }
-.plusminusbutton{
+
+.plusminusbutton {
     width: 40px;
 }
-.finishBubbleWraper{
-   background-color: #EBD3A8;
 
-   position: absolute;
+.finishBubbleWraper {
+    background-color: #EBD3A8;
 
-   border-radius: 16px;
-  
-   padding: 8px;
-
-   box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.25);
-
+    position: absolute;
     top: -95px;
-    left: -12px;
 
+    padding: 8px;
+
+    border-radius: 16px;
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.25);
 }
-.yesbutton{
+
+.yesbutton {
     background-color: #DC6E47;
 }

@@ -41,15 +41,15 @@ const ActiveRetroView: React.FC = () => {
             <Navbar
                 topContent={
                     <>
+                        {timerEnds !== null &&
+                            <Timer timerEnds={timerEnds}/>
+                        }
+
                         <TeamAvatars users={teamUsers.filter(u => u.user_id !== user!.user_id).map((user) => ({
                             id: user.user_id,
                             avatar_link: user.avatar_link,
                             isActive: activeUsers.some(socketUser => socketUser.id === user.user_id)
                         }))} />
-
-                        {timerEnds !== null &&
-                            <Timer timerEnds={timerEnds}/>
-                        }
                     </>
                 }>
                 <RetroHeaderTracker/>
