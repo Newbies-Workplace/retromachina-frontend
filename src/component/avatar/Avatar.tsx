@@ -2,9 +2,9 @@ import styles from './Avatar.module.scss';
 import React from 'react';
 
 interface PropsCircle{
-    isActive:Boolean,
+    isActive: Boolean,
     url: any
-    style?:React.CSSProperties;
+    style?: React.CSSProperties;
 }
 
 export const Avatar : React.FC<PropsCircle> =  ({isActive, url}) => {

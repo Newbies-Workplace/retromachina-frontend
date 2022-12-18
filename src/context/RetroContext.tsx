@@ -44,6 +44,7 @@ interface RetroContext {
   columns: SocketColumn[]
   cards: SocketCard[]
   teamUsers: UserResponse[]
+  activeUsers: SocketUser[]
   roomState: RoomState
 
   discussionCardId: string | null
@@ -88,6 +89,7 @@ export const RetroContext = createContext<RetroContext>({
   ready: false,
   readyPercentage: 0,
   teamUsers: [],
+  activeUsers: [],
   setReady: () => {},
   setWriting: () => {},
   createCard: () => {},
@@ -176,7 +178,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
       setTimerEnds(e.timerEnds);
     });
 
-    createdSocket.on("event_close_room", ()=>{
+    createdSocket.on("event_close_room", () => {
       navigate(`/retro/${retroId}/summary`)
     });
 
@@ -233,7 +235,6 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
       votesAmount: amount
     }
     socket.current?.emit("command_change_vote_amount", command)
-
   }
 
   const setReady = (ready: boolean) => {
@@ -355,6 +356,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
             cards: cards,
             roomState: roomState,
             teamUsers: teamUsers,
+            activeUsers: users,
             timerEnds: timerEnds,
             discussionCardId: discussionCardId,
             setTimer: setTimer,
