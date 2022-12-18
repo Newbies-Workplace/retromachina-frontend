@@ -19,8 +19,10 @@ export const TeamForm: React.FC<CreateTeamFormProps> = ({userEmail, team, onSubm
     const [name, setName] = useState(team?.name || "");
     const [email, setEmail] = useState("");
 
-    const onAddEmailClick = () => {
-        if (email.trim().length == 0) {
+    const onAddEmail = () => {
+        const mailRegex = /\S+@\S+\.\S+/;
+
+        if (email.trim().length == 0 || !mailRegex.test(email)) {
             return;
         }
 
@@ -29,10 +31,10 @@ export const TeamForm: React.FC<CreateTeamFormProps> = ({userEmail, team, onSubm
     }
 
     const onDeleteEmailClick = (index: number) => {
-        let _emails = [...emails];
-        _emails.splice(index, 1);
+        let newEmails = [...emails];
+        newEmails.splice(index, 1);
 
-        setEmails(_emails);
+        setEmails(newEmails);
     }
 
     const onSubmitClick = () => {
@@ -70,18 +72,24 @@ export const TeamForm: React.FC<CreateTeamFormProps> = ({userEmail, team, onSubm
                             value={email}
                             setValue={setEmail}
                             placeholder={'Wpisz email'}
-                            right={<AddIconSvg style={{cursor: 'pointer'}} onClick={() => onAddEmailClick()}/>}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter") {
+                                    onAddEmail()
+                                }
+                            }}
+                            right={<AddIconSvg style={{cursor: 'pointer'}} onClick={() => onAddEmail()}/>}
                             style={{border: "none", paddingLeft: "10px"}}/>
                     </div>
                 </div>
                 <div className={styles.actionSection}>
-                    { deletable ? ( 
-                        <Button style={{backgroundColor: "#DC6E47"}} onClick={onDelete}>
-                            Usuń
-                        </Button>
-                    ): (
-                    <span></span>
-                    )}
+                    { deletable
+                        ? (
+                            <Button style={{backgroundColor: "#DC6E47"}} onClick={onDelete}>
+                                Usuń
+                            </Button>
+                        )
+                        : <span />
+                    }
 
                     <Button onClick={onSubmitClick}>
                         Zapisz
