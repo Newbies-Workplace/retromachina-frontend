@@ -36,7 +36,6 @@ export const VoteView = () => {
 
                                         return (
                                             <Card
-                                                id={card.id}
                                                 key={card.id}
                                                 text={card.text}
                                                 style={{marginTop: index === 0 ? 0 : -80}}

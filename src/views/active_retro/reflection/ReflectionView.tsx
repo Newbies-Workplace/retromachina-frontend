@@ -35,7 +35,6 @@ export const ReflectionView: React.FC = () => {
 
                             return (
                                 <Card
-                                    id={card.id}
                                     key={card.id}
                                     text={card.text}
                                     author={{

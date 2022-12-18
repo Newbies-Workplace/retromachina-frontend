@@ -42,15 +42,17 @@ export const SummaryView = () => {
     return (
         <>
             <Navbar>
-                <HeaderBar text={"Podsumowanie"} active/>
+                <HeaderBar className={styles.header} text={"Podsumowanie"} active/>
             </Navbar>
+
             <div className={styles.container}>
                 <div className={styles.wrapper}>
                     <div className={styles.textSection}>
-                        <div className={styles.textFile}>
+                        <div className={styles.name}>
                             Retro {dayjs(retro?.date).format("YYYY-MM-DD")}
                         </div>
                     </div>
+
                     {users.map((user) => {
                         return (
                             <div key={user.user_id} className={styles.authorAndCardSection}>
@@ -60,15 +62,19 @@ export const SummaryView = () => {
                                         isActive={false} />
                                     {user.nick}
                                 </div>
+
                                 <div className={styles.cardSection}>
                                     {(() => {
                                         const userTasks = tasks.filter((task) => task.ownerId === user.user_id).map((task) => {
                                             return (
-                                                <div key={task.id} className={styles.blackcard}>
-                                                    <Card id={task.id} teamUsers={[]} text={task.text}></Card>
-                                                </div>
+                                                <Card
+                                                    className={styles.card}
+                                                    key={task.id}
+                                                    teamUsers={[]}
+                                                    text={task.text} />
                                             );
                                         });
+
                                         return userTasks.length !== 0 ? userTasks : "Brak zadań";
                                     })()}
                                 </div>

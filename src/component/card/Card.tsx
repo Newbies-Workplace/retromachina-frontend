@@ -8,10 +8,11 @@ import useClickOutside from "../../context/useClickOutside";
 import { useUser } from "../../context/UserContext.hook";
 import { useRetro } from "../../context/RetroContext.hook";
 import {User} from "../../interfaces/User.interface";
+import cs from "classnames";
 
 export interface CardProps {
     style?: React.CSSProperties
-    id: string
+    className?: string
     text: string
     author?: {
         avatar_link: string
@@ -23,7 +24,18 @@ export interface CardProps {
     onChangeOwner?: (newOwnerId: string) => void
 }
 
-export const Card: React.FC<React.PropsWithChildren<CardProps>> = ({id, style,  children ,  text , author , teamUsers , editable= false, onChangeOwner}) => {
+export const Card: React.FC<React.PropsWithChildren<CardProps>> = (
+    {
+        className,
+        style,
+        children ,
+        text ,
+        author ,
+        teamUsers ,
+        editable = false,
+        onChangeOwner
+    }
+) => {
     const close = useCallback(() => setUsersOpen(false), [])
     const popover = useRef<any>()
     useClickOutside(popover, close)
@@ -31,7 +43,7 @@ export const Card: React.FC<React.PropsWithChildren<CardProps>> = ({id, style,  
     const [isUsersOpen, setUsersOpen] = useState(false)
 
     return (
-        <div style={style} className={styles.wrapper}>
+        <div style={style} className={cs(styles.wrapper, className)}>
             <div className={styles.content}>
                 <span className={styles.text}>{text}</span>
                 {author &&

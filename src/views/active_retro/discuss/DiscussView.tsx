@@ -51,7 +51,6 @@ export const DiscussView = () => {
                                     <Card
                                         key={card.id}
                                         style={{ marginTop: index === 0 ? 0 : -80 }}
-                                        id={card.id}
                                         text={card.text}
                                         author={{
                                             avatar_link: author?.avatar_link || "",
@@ -93,7 +92,6 @@ export const DiscussView = () => {
                                     changeActionPointOwner(actionPoint.id, newOwnerId)
                                 }}
                                 teamUsers={teamUsers}
-                                id={actionPoint.id}
                                 key={actionPoint.id}
                                 text={actionPoint.text}
                                 author={{
