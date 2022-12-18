@@ -4,7 +4,7 @@ import {Route, Routes} from "react-router-dom";
 import Navbar from "../../component/navbar/Navbar";
 import {Timer} from "../../component/timer/Timer";
 import {useRetro} from "../../context/RetroContext.hook";
-import {Navigate, useNavigate} from "react-router";
+import {useNavigate} from "react-router";
 import { ReflectionView } from "./reflection/ReflectionView";
 import {GroupView} from "./group/GroupView";
 import { Toolbox } from "../../component/toolbox/Toolbox";
@@ -12,6 +12,8 @@ import { useUser } from "../../context/UserContext.hook";
 import { VoteView } from "./vote/VoteView";
 import { RetroHeaderTracker } from "../../component/retro_header_tracker/RetroHeaderTracker";
 import { DiscussView } from "./discuss/DiscussView";
+import {TeamAvatars} from "../../component/team_avatars/TeamAvatars";
+import {ProgressBar} from "../../component/progress_bar/ProgressBar";
 
 const ActiveRetroView: React.FC = () => {
     const navigate = useNavigate()
@@ -22,33 +24,42 @@ const ActiveRetroView: React.FC = () => {
         setTimer,
         ready,
         setReady,
+        activeUsers,
+        teamUsers,
         readyPercentage,
         nextRoomState,
         prevRoomState,
     } = useRetro()
-    const {isScrumMaster} = useUser()
+    const {isScrumMaster, user} = useUser()
 
-    // to zmienia etap pokoju
     useEffect(() => {
-        const action = setTimeout(() => {
-            navigate(`/retro/${retroId}/${roomState}`)
-        }, 100)
-
-        return () => {
-            clearTimeout(action)
-        }
+        navigate(`/retro/${retroId}/${roomState}`)
     }, [roomState])
 
     return (
         <>
-            <Navbar topContent={timerEnds !== null && <Timer timerEnds={timerEnds}/>}><RetroHeaderTracker/></Navbar>
+            <Navbar
+                topContent={
+                    <>
+                        <TeamAvatars users={teamUsers.filter(u => u.user_id !== user!.user_id).map((user) => ({
+                            avatar_link: user.avatar_link,
+                            isActive: activeUsers.some(socketUser => socketUser.id === user.user_id)
+                        }))} />
+
+                        {timerEnds !== null &&
+                            <Timer timerEnds={timerEnds}/>
+                        }
+                    </>
+                }>
+                <RetroHeaderTracker/>
+            </Navbar>
 
             <Routes>
                 <Route path="reflection" element={<ReflectionView/>} />
                 <Route path="group" element={<GroupView/>} />
                 <Route path="vote" element={<VoteView/>} />
                 <Route path="discuss" element={<DiscussView/>} />
-                <Route path="*" element={<Navigate to={"/404"}/>} />
+                <Route path="*" element={<ProgressBar/>}/>
             </Routes>
 
             <Toolbox
