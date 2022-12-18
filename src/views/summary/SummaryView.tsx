@@ -3,7 +3,6 @@ import { Avatar } from "../../component/avatar/Avatar";
 import { Card } from "../../component/card/Card";
 import Navbar from "../../component/navbar/Navbar";
 import styles from "../summary/SummaryView.module.scss";
-import QuestionMarkSvg from "../../assets/icons/question-mark.svg";
 import { TaskResponse } from "../../api/task/Task.interface";
 import { getTasksByRetroId } from "../../api/task/Task.service";
 import { useParams } from "react-router";
@@ -12,6 +11,7 @@ import { getUsersByTeamId } from "../../api/user/User.service";
 import { RetroResponse } from "../../api/retro/Retro.interface";
 import { getRetroByRetroId } from "../../api/retro/Retro.service";
 import dayjs from "dayjs";
+import {HeaderBar} from "../../component/header_bar/HeaderBar";
 
 export const SummaryView = () => {
     const { retroId } = useParams<{retroId: string}>();
@@ -27,7 +27,7 @@ export const SummaryView = () => {
                 setTasks(tasks);
                 console.log(tasks);
             });
-        
+
         getRetroByRetroId(retroId)
             .then((retro) => {
                 setRetro(retro);
@@ -36,52 +36,47 @@ export const SummaryView = () => {
                     .then((users) => {
                         setUsers(users);
                     })
-            }); 
+            });
     }, [])
 
     return (
         <>
-        <Navbar>
-            <div className={styles.summaryField}>
-                Podsumowanie  
-            <QuestionMarkSvg style={{ marginLeft: "40px" }}></QuestionMarkSvg>
-            </div>
-        </Navbar>
-        <div className={styles.container}>
-            <div className={styles.wrapper}>
-            <div className={styles.textSection}>
-                {/* TODO: Podłączenie później nazwy retro :D */}
-                <div className={styles.textFile}>
-                    Retro {dayjs(retro?.date).format("YYYY-MM-DD")}
-                </div>
-            </div>
-            {users.map((user) => {
-                return (
-                <div key={user.user_id} className={styles.authorAndCardSection}>
-                    <div className={styles.authorSection}>
-                    <Avatar
-                        url={user.avatar_link}
-                        isActive={false}
-                    ></Avatar>
-                    {user.nick}
+            <Navbar>
+                <HeaderBar text={"Podsumowanie"} active/>
+            </Navbar>
+            <div className={styles.container}>
+                <div className={styles.wrapper}>
+                    <div className={styles.textSection}>
+                        <div className={styles.textFile}>
+                            Retro {dayjs(retro?.date).format("YYYY-MM-DD")}
+                        </div>
                     </div>
-                    <div className={styles.cardSection}>
-                        {(() => {
-                            const userTasks = tasks.filter((task) => task.ownerId === user.user_id).map((task) => {
-                                return (
-                                    <div key={task.id} className={styles.blackcard}>
-                                        <Card id={task.id} teamUsers={[]} text={task.text}></Card>
-                                    </div>
-                                );
-                            });
-                            return userTasks.length !== 0 ? userTasks : "Brak zadań";
-                        })()}
-                     </div>
+                    {users.map((user) => {
+                        return (
+                            <div key={user.user_id} className={styles.authorAndCardSection}>
+                                <div className={styles.authorSection}>
+                                    <Avatar
+                                        url={user.avatar_link}
+                                        isActive={false} />
+                                    {user.nick}
+                                </div>
+                                <div className={styles.cardSection}>
+                                    {(() => {
+                                        const userTasks = tasks.filter((task) => task.ownerId === user.user_id).map((task) => {
+                                            return (
+                                                <div key={task.id} className={styles.blackcard}>
+                                                    <Card id={task.id} teamUsers={[]} text={task.text}></Card>
+                                                </div>
+                                            );
+                                        });
+                                        return userTasks.length !== 0 ? userTasks : "Brak zadań";
+                                    })()}
+                                </div>
+                            </div>
+                        );
+                    })}
                 </div>
-                );
-            })}
             </div>
-        </div>
         </>
     );
 };

@@ -8,12 +8,11 @@
 
     background-image: url("../../../assets/images/background.svg");
     background-size: cover;
-    padding: 0px 20vw;
-    min-height: calc(100% - 148px - 10px);
-
+    padding: 0 20vw;
+    min-height: calc(100% - 124px);
 }
 
-.wrapper{
+.wrapper {
     background-color: #EBD3A8;
     
     border-radius: 16px;
@@ -29,7 +28,7 @@
     overflow-x: hidden;
 }
 
-.summaryField{
+.summaryField {
     background-color: #F4F2E6;
     
     width: 304px;
@@ -43,14 +42,14 @@
     align-items: center;
     justify-content: center;
 
-    gap:30px;
+    gap: 30px;
 
     font-weight: 700;
-    font-size:24px;
+    font-size: 24px;
 
 }
 
-.textSection{
+.textSection {
     width: 100%;
     min-height: 10px;
 

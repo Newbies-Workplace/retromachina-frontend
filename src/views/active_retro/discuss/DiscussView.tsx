@@ -16,7 +16,7 @@ export const DiscussView = () => {
     const { cards, teamUsers, votes, createActionPoint, deleteActionPoint, actionPoints, changeActionPointOwner, discussionCardId } = useRetro();
     const [discussionCard, setDiscussionCard] = useState<SocketCard | null>(null);
     const [value, setValue] = useState("")
-    const { user, isScrumMaster } = useUser()
+    const { user } = useUser()
     const [groups, setGroups] = useState<Group[]>([])
 
     useEffect(() => {
@@ -34,8 +34,6 @@ export const DiscussView = () => {
     }, [cards, votes])
 
     useEffect(() => {
-        console.log(discussionCard, discussionCardId);
-        console.log(cards)
         setDiscussionCard(cards.find((card) => card.id === discussionCardId) || null);
     }, [discussionCardId]);
 
@@ -63,7 +61,9 @@ export const DiscussView = () => {
                                         teamUsers={teamUsers}
                                     >
                                         {group.cards.length === index + 1 &&
-                                            <span style={{ alignSelf: 'center' }}>{group.votes}</span>
+                                            <span className={styles.votes}>
+                                                {group.votes}
+                                            </span>
                                         }
                                     </Card>
                                 )
@@ -72,6 +72,7 @@ export const DiscussView = () => {
                     )
                 })}
             </div>
+
             {discussionCardId &&
                 <div className={styles.currentCardWrapper}>
                     <div className={styles.discussCard}>
@@ -79,6 +80,7 @@ export const DiscussView = () => {
                     </div>
                 </div>
             }
+
             <div className={styles.actionPointWrapper}>
                 <div className={styles.actionCardWrapper}>
                     {actionPoints?.filter((actionPoint) => actionPoint.parentCardId === discussionCardId).map((actionPoint) => {

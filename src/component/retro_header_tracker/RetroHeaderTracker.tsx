@@ -1,17 +1,11 @@
 import { useEffect, useState } from "react";
 import { useRetro } from "../../context/RetroContext.hook";
 import styles from "./RetroHeaderTracker.module.scss";
-import cs from "classnames";
-import QuestionMarkSvg from "../../assets/icons/question-mark-icon.svg"
+import {HeaderBar} from "../header_bar/HeaderBar";
 
 export const RetroHeaderTracker = () => {
   const [index, setIndex] = useState(4);
   const { roomState } = useRetro();
-  const classChanges = (stateName: string) => {
-    return cs(styles.retroHeader, {
-      [styles.active]: roomState === stateName,
-    });
-  };
 
   useEffect(() => {
     switch (roomState) {
@@ -34,14 +28,13 @@ export const RetroHeaderTracker = () => {
   return (
     <div
       className={styles.wrapper}
-      style={{ left: `calc(50% - (141px + (298px*${index})))` }}
+      style={{left: `calc(50% - (141px + (298px * ${index})))` }}
     >
-      <div className={classChanges("reflection")}>Refleksja</div>
-      <div className={classChanges("group")}>Grupowanie</div>
-      <div className={classChanges("vote")}>Głosowanie</div>
-      <div className={classChanges("discuss")}>Dyskusja</div>
-
-      <div className={styles.retroHeader}>Podsumowanie</div>
+      <HeaderBar className={styles.retroHeader} text={"Refleksja"} active={roomState === "reflection"}/>
+      <HeaderBar className={styles.retroHeader} text={"Grupowanie"} active={roomState === "group"}/>
+      <HeaderBar className={styles.retroHeader} text={"Głosowanie"} active={roomState === "vote"}/>
+      <HeaderBar className={styles.retroHeader} text={"Dyskusja"} active={roomState === "discuss"}/>
+      <HeaderBar className={styles.retroHeader} text={"Podsumowanie"}/>
     </div>
   );
 };

@@ -24,11 +24,11 @@ export interface CardProps {
 }
 
 export const Card: React.FC<React.PropsWithChildren<CardProps>> = ({id, style,  children ,  text , author , teamUsers , editable= false, onChangeOwner}) => {
-    const [isUsersOpen, setUsersOpen] = useState(false);
+    const close = useCallback(() => setUsersOpen(false), [])
+    const popover = useRef<any>()
+    useClickOutside(popover, close)
 
-    const close = useCallback(() => setUsersOpen(false), []);
-    const popover = useRef<any>();
-    useClickOutside(popover, close);
+    const [isUsersOpen, setUsersOpen] = useState(false)
 
     return (
         <div style={style} className={styles.wrapper}>
@@ -63,9 +63,14 @@ export const Card: React.FC<React.PropsWithChildren<CardProps>> = ({id, style,  
                                     setUsersOpen(true)
                                 }
                             }}>
-                            <Avatar isActive={false} url={author.avatar_link}/>
+                            <Avatar
+                                className={styles.avatar}
+                                isActive={false}
+                                url={author.avatar_link}/>
                             <span>{author.name}</span>
-                            {editable && <EditIconSvg/>}
+                            {editable &&
+                                <EditIconSvg width={12} height={12}/>
+                            }
                         </div>
                     </div>
                 }
@@ -89,7 +94,11 @@ const TeamUserPicker: React.FC<TeamUserPickerProps> = ({teamUsers, authorId, onU
             {teamUsers?.filter(user => user.user_id !== authorId).map(user => {
                 return (
                     <div key={user.user_id} className={styles.userWrapper} onClick={() => {onUserPicked(user.user_id)}}>
-                        <Avatar isActive={false} url={user.avatar_link}/>
+                        <Avatar
+                            className={styles.avatar}
+                            isActive={false}
+                            url={user.avatar_link} />
+
                         <span>{user.nick}</span>
                     </div>
                 )

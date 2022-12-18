@@ -51,7 +51,7 @@ export const ColumnInput: React.FC<ColumnInputProps> = (
                 }} />
 
             <CardCount
-                isWritting={columnData.isWriting}
+                isWriting={columnData.isWriting}
                 count={columnData.teamCardsAmount} />
         </>
     )

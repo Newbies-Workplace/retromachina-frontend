@@ -7,7 +7,7 @@
     @include assets.scrollbar;
     overflow-y: hidden;
     overflow-x: auto;
-    height: calc(100% - 148px - 8px);
+    height: calc(100% - 124px);
     justify-content: space-between;
 }
 
@@ -33,7 +33,7 @@
 .actionPointWrapper{
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 156px);
+    height: calc(100vh - 120px);
     width: 320px;
     background-color: colors.$primary-color;
     padding: 0 16px;
@@ -71,4 +71,11 @@
     border: 1px solid black;
     background-color: white;
     padding: 10px
+}
+
+.votes {
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    width: 32px;
 }

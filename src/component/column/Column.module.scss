@@ -1,18 +1,19 @@
 .cardWrapper {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 8px;
 
     height: fit-content;
-    max-width: 380px;
+    min-width: 300px;
 
     padding: 0 8px 32px 8px;
-    margin-bottom: 148px;
+    margin-bottom: 120px;
 }
 
 .columnHeaderWrapper{
-    min-height: 182px;
+    min-height: 110px;
     display: flex;
     align-items: flex-end;
+
     margin-bottom: 16px;
 }

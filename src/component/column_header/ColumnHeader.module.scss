@@ -2,50 +2,51 @@
 @use  'src/abstracts/fonts';
 @use  'src/abstracts/assets';
 
-.wrapper{
+.wrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
     gap: 5px;
 
-    width: min-content;
+    width: 100%;
     height: min-content;
-    min-width: 340px;
-    min-height: 95px;
-    max-width: 380px;
+
     background-color: white;
-    padding: 10px 20px;
+    padding: 8px;
     
     border-radius: 16px;
     border: 1px solid black;
+
     & span {
         font-size: 15px;
         font-weight: 400;      
     }
-    
 }
-.title{
+
+.title {
+    display: flex;
     flex-wrap: nowrap;
-    display:flex;
-    word-wrap: break-word;
-        
-    align-items: flex-start;
-    & span {
-        font-size: 25px;
-        font-weight: 700;  
-        
-    }
+    align-items: center;
     gap: 10px;
+
+    word-wrap: break-word;
+
+    & span {
+        font-size: 20px;
+        font-weight: 700;
+    }
 }
-.box{
-    width: 25px;
-    height: 25px;
+
+.box {
+    width: 16px;
+    height: 16px;
     
     border-radius: 6px;
     border: 1px solid black;
 }
-.description{
+
+.description {
     word-wrap: break-word;
     
     max-width: 300px;

@@ -4,7 +4,7 @@
 
 .container {
     width: 100%;
-    height: calc(100% - 156px - 10px);
+    height: calc(100% - 120px - 10px);
     padding-bottom: 8px;
 
     @include assets.scrollbar

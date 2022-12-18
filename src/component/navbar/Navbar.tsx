@@ -33,7 +33,10 @@ const Navbar: React.FC<React.PropsWithChildren<NavbarProps>> = ({children, topCo
 
                         <div className={styles.profile}>
                             <div onClick={() => toggle(true)}>
-                                <Avatar isActive={true} url={user?.avatar_link} />
+                                <Avatar
+                                    style={{cursor: 'pointer'}}
+                                    isActive={true}
+                                    url={user?.avatar_link} />
 
                                 {isOpen &&
                                     <div className={styles.bubbleContainer} ref={popover}>
