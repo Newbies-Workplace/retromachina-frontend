@@ -5,6 +5,6 @@
 .container{
     display: flex;
     @include assets.scrollbar;
-    height: calc(100% - 148px - 10px);
+    height: calc(100% - 124px);
 }
 

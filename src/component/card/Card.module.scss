@@ -4,8 +4,8 @@
     display: flex;
     justify-content: space-between;
 
-    min-height: 150px;
-    max-height: 150px;
+    min-height: 142px;
+    max-height: 142px;
     min-width: 225px;
     padding: 8px;
 
@@ -13,6 +13,7 @@
     border-radius: 16px;
     border: 1px solid black;
 }
+
 .content {
     display: flex;
     flex-direction: column;
@@ -25,19 +26,19 @@
     word-break: break-word;
     white-space: pre-line;
 
-    font-size: 16px;
+    font-size: 14px;
 
     @include assets.scrollbar
 }
 
 .creator {
-    padding-top: 10px;
+    padding-top: 4px;
     
     display: flex;
     align-items: center;
 
     & span {
-        font-size: 16px;
+        font-size: 12px;
     }
 }
 
@@ -45,23 +46,29 @@
     display: flex;
     justify-content: flex-end;
     user-select: none;
+    margin-left: 4px;
+    margin-right: -4px;
 }
+
 .bubbleContainer {
-    position: absolute;
-    background-color: #FFFFFF;
-    min-width:280px;
-    min-height: 50px;
-    top: 38px;
-    left: -6px;
-    border-radius: 16px;
     display: flex;
-    gap: 8px;
     flex-direction: column;
     justify-content: center;
-    padding: 8px;
+    gap: 8px;
 
+    position: absolute;
+    top: 38px;
+    left: -6px;
+
+    min-width:280px;
+    min-height: 50px;
+    border-radius: 16px;
+    padding: 0 8px;
+
+    background-color: #FFFFFF;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
+
 .userWrapper {
     display: flex;
     flex-direction: row;
@@ -74,4 +81,9 @@
     &:hover {
         background-color: #D9D9D9;
     }
+}
+
+.avatar {
+    width: 24px;
+    height: 24px;
 }

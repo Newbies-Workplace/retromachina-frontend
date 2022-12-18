@@ -14,7 +14,6 @@ import { axiosInstance } from "../../api/AxiosInstance";
 import { useUser } from "../../context/UserContext.hook";
 import { ProgressBar } from "../../component/progress_bar/ProgressBar";
 
-
 export interface Card{
   id: string
   columnId: string
@@ -28,6 +27,7 @@ export interface Column {
   desc: string | null;
   
 }
+
 interface RawColumn {
   color: string;
   name: string;
@@ -49,13 +49,14 @@ const getRandomColor = (): string => {
 
 export const RetroCreateView: React.FC = () => {
   const [clicked,setClicked] = useState(false);
-  const User = useUser();
+  const {user} = useUser();
   const params = qs.parse(location.search)
   const teamId: string = params.teamId as string
   if (!teamId) {
     return <Navigate to={"/"}/>
   }
 
+  const teamName = user?.teams.find(team => team.id === teamId)?.name
   const [columns, setColumns] = useState<Array<Column>>([]);
   const navigate = useNavigate()
 
@@ -138,9 +139,7 @@ export const RetroCreateView: React.FC = () => {
   return (
       <>
         <Navbar >
-          <HeaderBar text={`${User.user?.teams.find((team) => {
-            return team.id === teamId;
-          })?.name} `}/>
+          <HeaderBar text={`Nowa retrospektywa ${teamName}`}/>
           <Button className={styles.randomize} size={"small"} onClick={() => randomizeTemplate()}>
             Losuj szablon
           </Button>

@@ -12,8 +12,9 @@ export const ColumnHeader: React.FC<ColumnHeaderProps> = ({color, description, h
         <div className={style.wrapper}>
             <div className={style.title}>
                 <div className={style.boxWrapper}>
-                    <div className={style.box} style={{backgroundColor: color}}></div>
+                    <div className={style.box} style={{backgroundColor: color}} />
                 </div>
+
                 <span>{header}</span>
             </div>
 

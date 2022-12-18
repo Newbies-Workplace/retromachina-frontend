@@ -4,25 +4,21 @@ import {Avatar} from '../avatar/Avatar'
 
 interface TeamAvatarsProps {
     users: {
+        id: string
         isActive: boolean,
         avatar_link: string
     }[]
 }
 
 export const TeamAvatars: React.FC<React.PropsWithChildren<TeamAvatarsProps>> = ({users})=>{
-    const usersLength = users.length;
-
     return (
         <div className={styles.wrapper}>
-            {users.map((user, index) => {
-                const avatarZIndex = usersLength + (index + 1)
-
-                return(
-                    <div className={styles.avatar}>
+            {users.map((user) => {
+                return (
+                    <div className={styles.avatar} key={user.id}>
                         <Avatar
                             isActive={user.isActive}
-                            url={user.avatar_link}
-                            style={{zIndex: avatarZIndex}} />
+                            url={user.avatar_link}/>
                     </div>
                 );
             })}

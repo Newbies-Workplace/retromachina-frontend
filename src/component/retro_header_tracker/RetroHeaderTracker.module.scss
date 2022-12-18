@@ -2,27 +2,29 @@
 @use  'src/abstracts/fonts';
 @use  'src/abstracts/assets';
 
-.wrapper{
-    position: relative;
-    width: 100%;
-    display: flex;
-    gap: 16px;
-    justify-content: flex-start;
-    
+.wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  gap: 16px;
+
+  position: relative;
+
+  width: 100%;
 }
-.retroHeader{
-   min-width: 250px;
-   min-height: 45px;
-   border-radius: 50px;
-   background-color: colors.$background;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   margin:  0 16px;
-   font-size: 24px;
-   gap: 16px
-}
-.active{
-    @extend .retroHeader;
-    border: 4px solid colors.$accent;
+
+.retroHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+
+  padding: 0;
+  min-width: 250px;
+
+  border-radius: 50px;
+  background-color: colors.$background;
+  margin: 0 16px;
+  font-size: 24px;
 }

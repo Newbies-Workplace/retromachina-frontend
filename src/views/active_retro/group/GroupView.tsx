@@ -48,7 +48,6 @@ export const GroupView: React.FC = () => {
                                                     columnId={column.id}
                                                     style={{marginTop: index === 0 ? 0 : -80}}>
                                                     <Card
-                                                        id={card.id}
                                                         text={card.text}
                                                         author={{
                                                             avatar_link: user?.avatar_link || "",
