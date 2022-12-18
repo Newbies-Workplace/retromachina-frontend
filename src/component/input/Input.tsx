@@ -9,11 +9,13 @@ interface InputProps {
     setValue: (value: string) => void
     placeholder?: string
     multiline?: boolean
+    type?: React.HTMLInputTypeAttribute,
+    required?: boolean,
     right?: React.ReactNode
     onKeyDown?: KeyboardEventHandler<any> | undefined
 }
 
-export const Input: React.FC<InputProps> = ({className, value, setValue, placeholder, onKeyDown, multiline = false, right, style}) => {
+export const Input: React.FC<InputProps> = ({className, value, setValue, placeholder, onKeyDown, multiline = false, type, right, required, style}) => {
     return (
         <div className={styles.wrapper} style={style}>
             {multiline
@@ -22,6 +24,7 @@ export const Input: React.FC<InputProps> = ({className, value, setValue, placeho
                         style={style}
                         className={cs(styles.multiline, className)}
                         value={value}
+                        required={required}
                         placeholder={placeholder}
                         onChange={(e) => setValue(e.target.value)}
                         onKeyDown={onKeyDown}
@@ -32,6 +35,8 @@ export const Input: React.FC<InputProps> = ({className, value, setValue, placeho
                         style={style}
                         className={cs(styles.oneline, className)}
                         value={value}
+                        type={type}
+                        required={required}
                         placeholder={placeholder}
                         onChange={(e) => setValue(e.target.value)}
                         onKeyDown={onKeyDown}
