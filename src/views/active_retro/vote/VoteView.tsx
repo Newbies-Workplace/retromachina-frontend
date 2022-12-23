@@ -8,7 +8,15 @@ import styles from "./VoteView.module.scss"
 import {GroupCardContainer} from "../../../component/dragndrop/GroupCardContainer";
 
 export const VoteView = () => {
-    const {columns,cards,teamUsers,votes,maxVotes,addVote,removeVote} = useRetro()
+    const {
+        columns,
+        cards,
+        teamUsers,
+        votes,
+        maxVotes,
+        addVote,
+        removeVote,
+    } = useRetro()
     const {user} = useUser()
 
     const votesLeft = maxVotes - votes.filter((vote) => user?.user_id === vote.voterId ).length
@@ -32,7 +40,7 @@ export const VoteView = () => {
                                     onCardDropped={() => {}}>
                                     {groupCards.map((card, index) => {
                                         const author = teamUsers.find((user) => user.user_id === card.authorId);
-                                        const userVotes = votes.filter((vote) => user?.user_id === vote.voterId && vote.parentCardId === card.id ).length
+                                        const userVotes = votes.filter((vote) => user?.user_id === vote.voterId && (vote.parentCardId === card.id || vote.parentCardId == card.parentCardId)).length
 
                                         return (
                                             <Card

@@ -26,7 +26,7 @@ import {
   AddCardToCardCommand,
   ChangeOwnerCommand,
   CreateActionPointCommand,
-  DeleteActionPointCommand
+  DeleteActionPointCommand, ChangeCurrentDiscussCardCommand
 } from "../api/socket/Socket.commands";
 import {UserResponse} from "../api/user/User.interfaces";
 import {v4 as uuidv4} from "uuid";
@@ -34,6 +34,7 @@ import {useUser} from "./UserContext.hook";
 import {getUsersByTeamId} from "../api/user/User.service";
 import {CardMoveAction} from "../interfaces/CardMoveAction.interface";
 import { useNavigate } from "react-router";
+import {useCardGroups} from "./useCardGroups";
 
 interface RetroContextParams {
   retroId: string
@@ -161,7 +162,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
       setIsReady(roomData.users.find((u) => u.id === user?.user_id)?.isReady || false)
       setUsers(roomData.users)
       setActionPoint(roomData.actionPoints)
-      setDiscussionCardId(roomData.discutionCardId);
+      setDiscussionCardId(roomData.discussionCardId);
     }
     createdSocket.on("event_room_sync", (e: RoomSyncEvent) => {
       roomDataListener(e.roomData)
@@ -292,8 +293,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
         state = "discuss";
         break;
       case "discuss":
-        socket.current?.emit("command_next_discussion_card");
-
+        changeDiscussCard("next")
         return;
     }
 
@@ -316,20 +316,45 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
         state = "group";
         break;
       case "discuss":
-        if (!discussionCardId) {
+        if (changeDiscussCard("prev")) {
           state = "vote";
           break;
         }
-        
-        state = "discuss";
-        socket.current?.emit("command_previous_discussion_card");
-        break;
+
+        return;
     }
 
     const command: RoomStateCommand = {
       roomState: state
     }
     socket.current?.emit("command_room_state", command)
+  }
+
+  const changeDiscussCard = (to: "next" | "prev") => {
+    const groups = useCardGroups(cards, votes).sort((a, b) => b.votes - a.votes)
+
+    if (!discussionCardId) {
+      return false;
+    }
+    const currentIndex = groups.findIndex(g => g.parentCardId === discussionCardId)
+    const targetIndex = to === "next"
+        ? currentIndex + 1
+        : currentIndex - 1
+
+    if (to === "next" && targetIndex > groups.length) {
+      return true;
+    } else if (to === "prev" && targetIndex < 0) {
+      return true;
+    }
+
+    const targetCardId = groups[targetIndex].parentCardId
+
+    const command: ChangeCurrentDiscussCardCommand = {
+      cardId: targetCardId
+    }
+    socket.current?.emit("command_change_discussion_card", command)
+
+    return false
   }
 
   const moveCard = (move: CardMoveAction) => {
