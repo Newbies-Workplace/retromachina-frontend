@@ -6,31 +6,26 @@ import styles from "./DiscussView.module.scss"
 import DeleteIconSvg from "../../../assets/icons/delete-icon.svg";
 import { useUser } from "../../../context/UserContext.hook";
 import { SocketCard } from "../../../api/socket/Socket.events";
-
-interface Group {
-    votes: number
-    cards: SocketCard[]
-}
+import {Group, useCardGroups} from "../../../context/useCardGroups";
 
 export const DiscussView = () => {
-    const { cards, teamUsers, votes, createActionPoint, deleteActionPoint, actionPoints, changeActionPointOwner, discussionCardId } = useRetro();
+    const {
+        cards,
+        teamUsers,
+        votes,
+        createActionPoint,
+        deleteActionPoint,
+        actionPoints,
+        changeActionPointOwner,
+        discussionCardId,
+    } = useRetro();
     const [discussionCard, setDiscussionCard] = useState<SocketCard | null>(null);
     const [value, setValue] = useState("")
     const { user } = useUser()
     const [groups, setGroups] = useState<Group[]>([])
 
     useEffect(() => {
-        setGroups(cards.filter(c => c.parentCardId === null)
-            .map(parent => {
-                const groupCards = [parent, ...cards.filter(c => c.parentCardId === parent.id)]
-                const count = groupCards.map((c) => votes.filter(v => v.parentCardId === c.id).length)
-                    .reduce((a, c) => a + c, 0)
-
-                return {
-                    cards: groupCards,
-                    votes: count
-                }
-            }))
+        setGroups(useCardGroups(cards, votes))
     }, [cards, votes])
 
     useEffect(() => {

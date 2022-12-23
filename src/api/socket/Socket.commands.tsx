@@ -58,4 +58,8 @@ export interface SetMaxVotesCommand {
     votesAmount: number
 }
 
+export interface ChangeCurrentDiscussCardCommand {
+    cardId: string
+}
+
 export type RoomState = "reflection" | "group" | "vote" | "discuss";
