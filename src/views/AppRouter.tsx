@@ -1,7 +1,7 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import HomeView from "./home/HomeView";
-import {SignInView} from "./auth/signIn/SignInView";
+import {SignInView} from "./auth/SignIn/SignInView";
 import Loading from './auth/LoadingPage/LoadingPage';
 import {RequireAuth} from '../component/require_auth/RequireAuth';
 import {RetroCreateView} from './retro_create/RetroCreateView';
