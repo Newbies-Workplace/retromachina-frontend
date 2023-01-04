@@ -77,29 +77,30 @@ export const DiscussView = () => {
 
             <div className={styles.actionPointWrapper}>
                 <div className={styles.actionCardWrapper}>
-                    {actionPoints?.filter((actionPoint) => actionPoint.parentCardId === discussionCardId).map((actionPoint) => {
-                        const author = teamUsers.find((teamUser) => teamUser.user_id === actionPoint.ownerId)
-                        return (
-                            <Card
-                                style={{ marginBottom: 16 }}
-                                editable
-                                onChangeOwner={(newOwnerId) => {
-                                    changeActionPointOwner(actionPoint.id, newOwnerId)
-                                }}
-                                teamUsers={teamUsers}
-                                key={actionPoint.id}
-                                text={actionPoint.text}
-                                author={{
-                                    avatar_link: author?.avatar_link || "",
-                                    name: author?.nick || "",
-                                    id: author?.user_id || "",
-                                }}>
-                                <DeleteIconSvg
-                                    style={{cursor: "pointer"}}
-                                    onClick={() => deleteActionPoint(actionPoint.id)}/>
-                            </Card>
-                        )
-                    })}
+                    {actionPoints?.filter((actionPoint) => actionPoint.parentCardId === discussionCardId)
+                        .map((actionPoint) => {
+                            const author = teamUsers.find((teamUser) => teamUser.user_id === actionPoint.ownerId)
+                            return (
+                                <Card
+                                    style={{ marginBottom: 16 }}
+                                    editable
+                                    onChangeOwner={(newOwnerId) => {
+                                        changeActionPointOwner(actionPoint.id, newOwnerId)
+                                    }}
+                                    teamUsers={teamUsers}
+                                    key={actionPoint.id}
+                                    text={actionPoint.text}
+                                    author={{
+                                        avatar_link: author?.avatar_link || "",
+                                        name: author?.nick || "",
+                                        id: author?.user_id || "",
+                                    }}>
+                                    <DeleteIconSvg
+                                        style={{cursor: "pointer"}}
+                                        onClick={() => deleteActionPoint(actionPoint.id)}/>
+                                </Card>
+                            )
+                        })}
                 </div>
                 <div className={styles.actionCardInput}>
                     <Input

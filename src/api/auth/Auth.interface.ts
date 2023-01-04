@@ -2,7 +2,8 @@ export interface AuthParams {
     code: string,
     scope: string,
     authUser: string,
-    prompt: string
+    prompt: string,
+    state: string,
 }
 
 export interface AuthResponse {
