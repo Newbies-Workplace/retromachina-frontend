@@ -14,6 +14,7 @@ import dayjs from 'dayjs';
 import useClickOutside from "../../context/useClickOutside";
 import { useRetro } from '../../context/RetroContext.hook';
 import { useUser } from '../../context/UserContext.hook';
+import {usePlural} from "../../context/usePlural";
 
 interface ToolboxProps {
     className?: string
@@ -145,7 +146,7 @@ export const Toolbox: React.FC<ToolboxProps> = (
                         {isVoteOpen && (
                             <div className={styles.voteBubbleWraper} ref={votePopover}>
                                 <div className={styles.votetext}>
-                                    głosów na osobę
+                                    {usePlural(maxVotes, {one: "głos", few: "głosy", other: "głosów"})} na osobę
                                 </div>
 
                                 <div className={styles.buttonWrapper}>
@@ -199,7 +200,7 @@ export const Toolbox: React.FC<ToolboxProps> = (
                     <div className={styles.voteState}>
                         {`${userVotes}/${maxVotes}`}
                         <br/>
-                        głosów
+                        {usePlural(maxVotes, {one: "głos", few: "głosy", other: "głosów"})}
                     </div>
                 }
 
