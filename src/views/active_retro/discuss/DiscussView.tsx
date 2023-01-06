@@ -5,8 +5,9 @@ import { useRetro } from "../../../context/RetroContext.hook"
 import styles from "./DiscussView.module.scss"
 import DeleteIconSvg from "../../../assets/icons/delete-icon.svg";
 import { useUser } from "../../../context/UserContext.hook";
-import { SocketCard } from "../../../api/socket/Socket.events";
 import {Group, useCardGroups} from "../../../context/useCardGroups";
+import {Avatar} from "../../../component/avatar/Avatar";
+import {usePlural} from "../../../context/usePlural";
 
 export const DiscussView = () => {
     const {
@@ -19,7 +20,6 @@ export const DiscussView = () => {
         changeActionPointOwner,
         discussionCardId,
     } = useRetro();
-    const [discussionCard, setDiscussionCard] = useState<SocketCard | null>(null);
     const [value, setValue] = useState("")
     const { user } = useUser()
     const [groups, setGroups] = useState<Group[]>([])
@@ -27,10 +27,6 @@ export const DiscussView = () => {
     useEffect(() => {
         setGroups(useCardGroups(cards, votes))
     }, [cards, votes])
-
-    useEffect(() => {
-        setDiscussionCard(cards.find((card) => card.id === discussionCardId) || null);
-    }, [discussionCardId]);
 
     return (
         <div className={styles.container}>
@@ -69,9 +65,35 @@ export const DiscussView = () => {
 
             {discussionCardId &&
                 <div className={styles.currentCardWrapper}>
-                    <div className={styles.discussCard}>
-                        {discussionCard?.text}
-                    </div>
+                    {(() => {
+                        const group = groups.find(g => g.parentCardId === discussionCardId)!
+                        if (!group) {
+                            return null
+                        }
+
+                        return (
+                            <div className={styles.discussCardWrapper}>
+                                {group.cards.map(card => {
+                                    const author = teamUsers.find(u => u.user_id === card.authorId)
+
+                                    return (
+                                        <div key={card.id} className={styles.card}>
+                                            <Avatar
+                                                style={{minWidth: 24, minHeight: 24, width: 24, height: 24}}
+                                                isActive={false}
+                                                url={author?.avatar_link ?? ""} />
+
+                                            {card.text}
+                                        </div>
+                                    )
+                                })}
+
+                                <span className={styles.groupVotes}>
+                                    {group.votes} {usePlural(group.votes, {one: "głos", few: "głosy", other: "głosów"})}
+                                </span>
+                            </div>
+                        )
+                    })()}
                 </div>
             }
 
@@ -82,13 +104,13 @@ export const DiscussView = () => {
                             const author = teamUsers.find((teamUser) => teamUser.user_id === actionPoint.ownerId)
                             return (
                                 <Card
+                                    key={actionPoint.id}
                                     style={{ marginBottom: 16 }}
                                     editable
                                     onChangeOwner={(newOwnerId) => {
                                         changeActionPointOwner(actionPoint.id, newOwnerId)
                                     }}
                                     teamUsers={teamUsers}
-                                    key={actionPoint.id}
                                     text={actionPoint.text}
                                     author={{
                                         avatar_link: author?.avatar_link || "",
