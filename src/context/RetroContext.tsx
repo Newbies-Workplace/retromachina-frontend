@@ -346,7 +346,11 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
       return true;
     }
 
-    const targetCardId = groups[targetIndex].parentCardId
+    const targetCardId = groups[targetIndex]?.parentCardId
+
+    if (!targetCardId) {
+      return false;
+    }
 
     const command: ChangeCurrentDiscussCardCommand = {
       cardId: targetCardId

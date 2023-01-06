@@ -32,35 +32,40 @@ export const DiscussView = () => {
         <div className={styles.container}>
             <div className={styles.nextCardWrapper}>
                 <span className={styles.header}>Już za chwilę...</span>
-                {groups.sort((a, b) => (b.votes - a.votes)).map(group => {
-                    return (
-                        <>
-                            {group.cards.map((card, index) => {
-                                const author = teamUsers.find((user) => user.user_id === card.authorId);
+                {groups.sort((a, b) => (b.votes - a.votes))
+                    .filter((group, groupIndex) => {
+                        const discussIndex = groups.findIndex(g => g.parentCardId === discussionCardId)
+                        return discussIndex < groupIndex
+                    })
+                    .map(group => {
+                        return (
+                            <>
+                                {group.cards.map((card, index) => {
+                                    const author = teamUsers.find((user) => user.user_id === card.authorId);
 
-                                return (
-                                    <Card
-                                        key={card.id}
-                                        style={{ marginTop: index === 0 ? 0 : -80 }}
-                                        text={card.text}
-                                        author={{
-                                            avatar_link: author?.avatar_link || "",
-                                            name: author?.nick || "",
-                                            id: card.authorId,
-                                        }}
-                                        teamUsers={teamUsers}
-                                    >
-                                        {group.cards.length === index + 1 &&
-                                            <span className={styles.votes}>
+                                    return (
+                                        <Card
+                                            key={card.id}
+                                            style={{ marginTop: index === 0 ? 0 : -80 }}
+                                            text={card.text}
+                                            author={{
+                                                avatar_link: author?.avatar_link || "",
+                                                name: author?.nick || "",
+                                                id: card.authorId,
+                                            }}
+                                            teamUsers={teamUsers}
+                                        >
+                                            {group.cards.length === index + 1 &&
+                                                <span className={styles.votes}>
                                                 {group.votes}
                                             </span>
-                                        }
-                                    </Card>
-                                )
-                            })}
-                        </>
-                    )
-                })}
+                                            }
+                                        </Card>
+                                    )
+                                })}
+                            </>
+                        )
+                    })}
             </div>
 
             {discussionCardId &&
