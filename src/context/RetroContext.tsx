@@ -340,17 +340,13 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
         ? currentIndex + 1
         : currentIndex - 1
 
-    if (to === "next" && targetIndex > groups.length) {
+    if (to === "next" && targetIndex >= groups.length) {
       return true;
     } else if (to === "prev" && targetIndex < 0) {
       return true;
     }
 
     const targetCardId = groups[targetIndex]?.parentCardId
-
-    if (!targetCardId) {
-      return false;
-    }
 
     const command: ChangeCurrentDiscussCardCommand = {
       cardId: targetCardId

@@ -25,7 +25,6 @@ export const SummaryView = () => {
         getTasksByRetroId(retroId)
             .then((tasks) => {
                 setTasks(tasks);
-                console.log(tasks);
             });
 
         getRetroByRetroId(retroId)

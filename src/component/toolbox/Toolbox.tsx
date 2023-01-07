@@ -28,6 +28,9 @@ interface ToolboxProps {
     onReadyChange: (ready: boolean) => void
     readyPercentage: number
 
+    prevDisabled: boolean
+    nextDisabled: boolean
+
     onNextClicked: () => void
     onPrevClicked: () => void
 }
@@ -43,6 +46,9 @@ export const Toolbox: React.FC<ToolboxProps> = (
         isReady,
         onReadyChange,
         readyPercentage,
+
+        prevDisabled,
+        nextDisabled,
 
         onNextClicked,
         onPrevClicked,
@@ -237,12 +243,14 @@ export const Toolbox: React.FC<ToolboxProps> = (
                 <div className={styles.nextPrevButtons}>
                     <Button
                         size="medium"
+                        disabled={prevDisabled}
                         onClick={onPrevClicked}>
                         <LeftArrowIconSvg/>
                     </Button>
 
                     <Button
                         size="medium"
+                        disabled={nextDisabled}
                         onClick={onNextClicked}>
                         <RightArrowIconSvg/>
                     </Button>
