@@ -10,32 +10,21 @@ import {HeaderBar} from "../../component/header_bar/HeaderBar";
 import * as qs from 'query-string';
 import {Navigate, useNavigate} from "react-router";
 import {getRandomTemplate} from "../../api/retro_template/RetroTemplate.service";
-import { axiosInstance } from "../../api/AxiosInstance";
-import { useUser } from "../../context/UserContext.hook";
-import { ProgressBar } from "../../component/progress_bar/ProgressBar";
+import {useUser} from "../../context/UserContext.hook";
+import {ProgressBar} from "../../component/progress_bar/ProgressBar";
+import {createRetro} from "../../api/retro/Retro.service";
 
-export interface Card{
-  id: string
-  columnId: string
-  text: string
-  authorId: string
-}
 export interface Column {
   id: string;
   color: string;
   name: string;
   desc: string | null;
-  
 }
 
 interface RawColumn {
   color: string;
   name: string;
   desc: string | null;
-}
-
-const createRetro = (teamId: string, columns:Column[]) => {
-  return axiosInstance.post("/retros",{teamId,columns})
 }
 
 const getRandomColor = (): string => {
@@ -58,6 +47,7 @@ export const RetroCreateView: React.FC = () => {
 
   const teamName = user?.teams.find(team => team.id === teamId)?.name
   const [columns, setColumns] = useState<Array<Column>>([]);
+  const [templateId, setTemplateId] = useState<number | null>(null)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -72,13 +62,12 @@ export const RetroCreateView: React.FC = () => {
       desc: "",
     };
 
-    let columnsTemp = [...columns, column];
-    setColumns(columnsTemp);
+    setColumns([...columns, column]);
   };
 
   const onChangeColumn = (
       id: string,
-      column:RawColumn
+      column: RawColumn
   ) => {
     const columnIndex = columns.findIndex((column) => column.id === id);
     if (columnIndex === -1) return;
@@ -117,15 +106,16 @@ export const RetroCreateView: React.FC = () => {
     createRetro(teamId, columns)
         .then((retro) => {
           navigator.clipboard?.writeText(API_URL+`/retro/${retro.data.retro_id}`)
-            .catch(console.log)
-          navigate(`/retro/${retro.data.retro_id}`)          
+              .catch(console.log)
+          navigate(`/retro/${retro.data.retro_id}`)
         })
         .catch(console.log)
   }
 
   const randomizeTemplate = () => {
-    getRandomTemplate()
-        .then((template) => {
+    getRandomTemplate(templateId)
+        .then(template => {
+          setTemplateId(template.id)
           setColumns(template.columns.map(col => ({
             id: uuidv4(),
             name: col.name,
@@ -158,9 +148,9 @@ export const RetroCreateView: React.FC = () => {
                     name={column.name}
                     desc={column.desc ?? ""}
                 />
-                
+
             )}
-            
+
             <div className={styles.columnButton}>
               <Button disabled={columns.length>=6} size="big" onClick={onAddColumn}>
                 <span>Nowa Kolumna</span>
@@ -177,8 +167,8 @@ export const RetroCreateView: React.FC = () => {
               </div>
               {
                 clicked? <ProgressBar color="black"/> : <ActionIconSvg />
-              }      
-              
+              }
+
             </Button>
           </div>
         </div>

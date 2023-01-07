@@ -2,6 +2,7 @@ import {RetroTemplateResponse} from "./RetroTemplate.interface";
 
 const templates: RetroTemplateResponse[] = [
     {
+        id: 1,
         name: "Pogodynka",
         desc: null,
         columns: [
@@ -12,6 +13,7 @@ const templates: RetroTemplateResponse[] = [
         ]
     },
     {
+        id: 2,
         name: "Festiwal",
         desc: null,
         columns: [
@@ -21,6 +23,7 @@ const templates: RetroTemplateResponse[] = [
         ]
     },
     {
+        id: 3,
         name: "Start stop continue",
         desc: null,
         columns: [
@@ -30,6 +33,7 @@ const templates: RetroTemplateResponse[] = [
         ]
     },
     {
+        id: 4,
         name: "KALM",
         desc: null,
         columns: [
@@ -40,6 +44,7 @@ const templates: RetroTemplateResponse[] = [
         ]
     },
     {
+        id: 5,
         name: "Glad Sad Mad",
         desc: null,
         columns: [
@@ -49,6 +54,7 @@ const templates: RetroTemplateResponse[] = [
         ]
     },
     {
+        id: 6,
         name: "Gorący balon",
         desc: null,
         columns: [
@@ -59,6 +65,7 @@ const templates: RetroTemplateResponse[] = [
         ]
     },
     {
+        id: 7,
         name: "Superbohaterowie",
         desc: null,
         columns: [
@@ -69,6 +76,11 @@ const templates: RetroTemplateResponse[] = [
     },
 ]
 
-export const getRandomTemplate = (): Promise<RetroTemplateResponse> => {
-    return Promise.resolve(templates[Math.floor(Math.random() * templates.length)])
+export const getRandomTemplate = (currentId: number | null = null): Promise<RetroTemplateResponse> => {
+    const filteredTemplates = currentId
+        ? templates.filter(template => template.id !== currentId)
+        : templates
+    const randomTemplate = filteredTemplates[Math.floor(Math.random() * filteredTemplates.length)]
+
+    return Promise.resolve(randomTemplate)
 }
