@@ -15,17 +15,16 @@
 
     cursor: pointer;
 
-    &.small{
+    &.small {
         padding: 5px 10px;
         border-radius: 8px;
-
     }
-    &.medium{
+    &.medium {
         padding: 10px 32px;
         border-radius: 16px;
         font-size: 24px;
     }
-    &.big{
+    &.big {
         padding: 25px 42px;
         border-radius: 8px;
         display: flex;
@@ -33,15 +32,15 @@
         min-width: 250px;
     }
 
-    &.round{
+    &.round {
         border-radius: 50%;
         width: 30px;
         height: 30px;
     }
-    &.disabled{
-        background-color: grey;
-    }
 
+    &.disabled {
+        background-color: #c2c2c2;
+    }
     &:active {
         box-shadow: none;
         transform: translateY(4px);

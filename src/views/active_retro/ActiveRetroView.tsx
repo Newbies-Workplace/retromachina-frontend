@@ -14,10 +14,14 @@ import { RetroHeaderTracker } from "../../component/retro_header_tracker/RetroHe
 import { DiscussView } from "./discuss/DiscussView";
 import {TeamAvatars} from "../../component/team_avatars/TeamAvatars";
 import {ProgressBar} from "../../component/progress_bar/ProgressBar";
+import {useCardGroups} from "../../context/useCardGroups";
 
 const ActiveRetroView: React.FC = () => {
     const navigate = useNavigate()
     const {
+        cards,
+        votes,
+        discussionCardId,
         timerEnds,
         roomState,
         retroId,
@@ -35,6 +39,10 @@ const ActiveRetroView: React.FC = () => {
     useEffect(() => {
         navigate(`/retro/${retroId}/${roomState}`)
     }, [roomState])
+    const groups = useCardGroups(cards, votes).sort((a, b) => b.votes - a.votes)
+    const currentIndex = groups.findIndex(g => g.parentCardId === discussionCardId)
+    const targetIndex = currentIndex + 1
+    const nextDisabled = targetIndex >= groups.length
 
     return (
         <>
@@ -66,12 +74,14 @@ const ActiveRetroView: React.FC = () => {
             <Toolbox
                 className={styles.toolbox}
                 isScrumMaster={isScrumMaster}
-                isVotingVisible={roomState == "vote"}
-                isFinishVisible={roomState == "discuss"}
+                isVotingVisible={roomState === "vote"}
+                isFinishVisible={roomState === "discuss"}
                 onTimeChanged={setTimer}
                 isReady={ready}
                 onReadyChange={setReady}
                 readyPercentage={readyPercentage}
+                nextDisabled={nextDisabled}
+                prevDisabled={roomState === "reflection"}
                 onNextClicked={nextRoomState}
                 onPrevClicked={prevRoomState}/>
         </>
