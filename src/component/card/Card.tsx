@@ -4,10 +4,6 @@ import {Avatar} from "../avatar/Avatar"
 import {UserResponse} from "../../api/user/User.interfaces";
 import EditIconSvg from "../../assets/icons/edit-icon.svg"
 import useClickOutside from "../../context/useClickOutside";
-
-import { useUser } from "../../context/UserContext.hook";
-import { useRetro } from "../../context/RetroContext.hook";
-import {User} from "../../interfaces/User.interface";
 import cs from "classnames";
 
 export interface CardProps {

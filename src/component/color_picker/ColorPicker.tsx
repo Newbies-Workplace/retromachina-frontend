@@ -2,6 +2,7 @@ import React, { useCallback, useRef, useState } from "react";
 import { HexColorPicker } from "react-colorful";
 import styles from './ColorPicker.module.scss'
 import useClickOutside from "../../context/useClickOutside";
+import EditIconSvg from "../../assets/icons/edit-icon.svg"
 
 interface PopoverPickerProps{
     color: string,
@@ -21,7 +22,9 @@ export const ColorPicker: React.FC<PopoverPickerProps> = ({ color , onChange }) 
         className={styles.swatch}
         style={{ backgroundColor: color }}
         onClick={() => toggle(true)}
-      />
+      >
+          <EditIconSvg width={24} height={24} opacity={0.5}/>
+      </div>
 
       {isOpen && (
         <>
