@@ -15,6 +15,7 @@ import useClickOutside from "../../context/useClickOutside";
 import { useRetro } from '../../context/RetroContext.hook';
 import { useUser } from '../../context/UserContext.hook';
 import {usePlural} from "../../context/usePlural";
+import {ConfirmDialog} from "../confirm_dialog/ConfirmDialog";
 
 interface ToolboxProps {
     className?: string
@@ -217,23 +218,11 @@ export const Toolbox: React.FC<ToolboxProps> = (
                         </Button>
 
                         {isFinishOpen &&
-                            <div className={styles.finishBubbleWraper} ref={finishPopover}>
-                                <span className={styles.votetext}>Czy na pewno?</span>
-
-                                <div className={styles.buttonWrapper}>
-                                    <Button
-                                        size="small"
-                                        onClick={() => setOpenFinish(false)}>
-                                        Nie
-                                    </Button>
-                                    <Button
-                                        size="small"
-                                        className={styles.yesbutton}
-                                        onClick={endRetro}>
-                                        Tak
-                                    </Button>
-                                </div>
-                            </div>
+                            <ConfirmDialog
+                                title={"Zakończenie retrospektywy"}
+                                content={"Czy na pewno chcesz zakończyć retrospektywę?"}
+                                onConfirmed={endRetro}
+                                onDismiss={() => setOpenFinish(false)} />
                         }
                     </>
                 )}
@@ -257,7 +246,5 @@ export const Toolbox: React.FC<ToolboxProps> = (
                 </div>
             }
         </div>
-
     );
 }
-
