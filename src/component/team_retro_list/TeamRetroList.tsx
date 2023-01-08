@@ -24,7 +24,7 @@ export const TeamRetroList: React.FC<TeamRetroListProps> = (
 ) => {
     const navigate = useNavigate();
     const { isScrumMaster } = useUser();
-    const [retros, setRetros] = useState(Array<RetroResponse>());
+    const [retros, setRetros] = useState<RetroResponse[]>([]);
     const isAnyRetroRunning = retros.findIndex((a) => a.is_running) !== -1;
 
     useEffect(() => {

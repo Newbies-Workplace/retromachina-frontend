@@ -6,9 +6,9 @@ import Loading from './auth/LoadingPage/LoadingPage';
 import {RequireAuth} from '../component/require_auth/RequireAuth';
 import {RetroCreateView} from './retro_create/RetroCreateView';
 import TeamEditView from './team_edit/TeamEditView';
-import ActiveRetroView from './active_retro/ActiveRetroView';
+import RetroActiveView from './retro_active/RetroActiveView';
 import {TeamCreateView} from "./team_create/TeamCreateView";
-import {RetroWrapper} from "./active_retro/RetroWrapper";
+import {RetroWrapper} from "./retro_active/RetroWrapper";
 import { SummaryView } from './summary/SummaryView';
 import {NotFoundView} from "./404/NotFoundView";
 import {Navigate} from "react-router";
@@ -45,7 +45,7 @@ export const AppRouter: React.FC = () => {
                     element={
                         <RequireAuth>
                             <RetroWrapper>
-                                <ActiveRetroView/>
+                                <RetroActiveView/>
                             </RetroWrapper>
                         </RequireAuth>
                     }/>

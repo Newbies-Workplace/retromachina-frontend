@@ -1,5 +1,6 @@
 import React from "react"
 import styles from "./RetroCard.module.scss"
+import {Button} from "../button/Button";
 
 interface RetroCardProps{
     onClick(): void
@@ -7,8 +8,8 @@ interface RetroCardProps{
 
 export const ActiveRetroCard: React.FC<RetroCardProps> = ({onClick}) => {
     return (
-        <div className={styles.wrapper} onClick={onClick}>
+        <Button className={styles.wrapper} onClick={onClick}>
             Retro właśnie trwa
-        </div>
+        </Button>
     )
 }

@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import styles from "./ActiveRetroView.module.scss"
+import styles from "./RetroActiveView.module.scss"
 import {Route, Routes} from "react-router-dom";
 import Navbar from "../../component/navbar/Navbar";
 import {Timer} from "../../component/timer/Timer";
@@ -16,7 +16,7 @@ import {TeamAvatars} from "../../component/team_avatars/TeamAvatars";
 import {ProgressBar} from "../../component/progress_bar/ProgressBar";
 import {useCardGroups} from "../../context/useCardGroups";
 
-const ActiveRetroView: React.FC = () => {
+const RetroActiveView: React.FC = () => {
     const navigate = useNavigate()
     const {
         cards,
@@ -87,4 +87,4 @@ const ActiveRetroView: React.FC = () => {
         </>
     );
 };
-export default ActiveRetroView;
+export default RetroActiveView;
