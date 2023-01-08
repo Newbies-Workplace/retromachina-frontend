@@ -11,6 +11,7 @@ import { getUsersByTeamId } from '../../api/user/User.service';
 import {HeaderBar} from "../../component/header_bar/HeaderBar";
 import styles from "./TeamEditView.module.scss";
 import {ProgressBar} from "../../component/progress_bar/ProgressBar";
+import {ConfirmDialog} from "../../component/confirm_dialog/ConfirmDialog";
 
 interface Invite {
     email: string,
@@ -25,6 +26,7 @@ const TeamEditView: React.FC = () => {
     const { user, refreshUser } = useUser();
     const navigate = useNavigate()
     const [team, setTeam] = useState<Team | null>(null);
+    const [confirmOpen, setConfirmOpen] = useState(false)
 
     useEffect(() => {
         const waitForResult = async () => {
@@ -92,8 +94,21 @@ const TeamEditView: React.FC = () => {
                 </div>
             }
 
+            {confirmOpen &&
+                <ConfirmDialog
+                    title={"Usunięcie zespołu"}
+                    content={`Czy na pewno chcesz usunąć zespół ${team?.name ?? ""}?`}
+                    onConfirmed={onDelete}
+                    onDismiss={() => setConfirmOpen(false)}/>
+            }
+
             {team &&
-                <TeamForm onSubmit={onSubmit} onDelete={onDelete} userEmail={user?.email || ""} team={team} deletable/>
+                <TeamForm
+                    onSubmit={onSubmit}
+                    onDelete={() => setConfirmOpen(true)}
+                    userEmail={user?.email || ""}
+                    team={team}
+                    deletable />
             }
         </>
     );

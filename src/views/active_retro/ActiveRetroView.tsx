@@ -42,7 +42,7 @@ const ActiveRetroView: React.FC = () => {
     const groups = useCardGroups(cards, votes).sort((a, b) => b.votes - a.votes)
     const currentIndex = groups.findIndex(g => g.parentCardId === discussionCardId)
     const targetIndex = currentIndex + 1
-    const nextDisabled = targetIndex >= groups.length
+    const nextDisabled = roomState === 'discuss' && targetIndex >= groups.length
 
     return (
         <>
