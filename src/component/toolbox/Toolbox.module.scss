@@ -16,6 +16,9 @@
 }
 
 .box {
+    display: flex;
+    justify-content: center;
+
     width: 96px;
     height: 60px;
 }
@@ -139,7 +142,7 @@
     background-color: #EBD3A8;
 }
 
-.voteBubbleWraper{
+.voteBubbleWrapper{
     display: flex;
     flex-direction: column;
 
@@ -154,7 +157,7 @@
     box-shadow: 0 4px 0 rgba(0, 0, 0, 0.25);
 }
 
-.votetext {
+.voteText {
     text-align: center;
     width: 100%;
     min-width: 150px;
@@ -178,20 +181,4 @@
 
 .plusminusbutton {
     width: 40px;
-}
-
-.finishBubbleWraper {
-    background-color: #EBD3A8;
-
-    position: absolute;
-    top: -95px;
-
-    padding: 8px;
-
-    border-radius: 16px;
-    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.25);
-}
-
-.yesbutton {
-    background-color: #DC6E47;
 }

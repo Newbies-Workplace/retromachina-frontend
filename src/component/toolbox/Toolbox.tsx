@@ -151,8 +151,8 @@ export const Toolbox: React.FC<ToolboxProps> = (
                         </Button>
 
                         {isVoteOpen && (
-                            <div className={styles.voteBubbleWraper} ref={votePopover}>
-                                <div className={styles.votetext}>
+                            <div className={styles.voteBubbleWrapper} ref={votePopover}>
+                                <div className={styles.voteText}>
                                     {usePlural(maxVotes, {one: "głos", few: "głosy", other: "głosów"})} na osobę
                                 </div>
 
