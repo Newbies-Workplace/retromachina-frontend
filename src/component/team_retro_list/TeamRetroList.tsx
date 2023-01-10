@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import styles from "./TeamRetroList.module.scss";
-import { Button } from "../button/Button";
+import {Button} from "../button/Button";
 import AddIcon from "../../assets/icons/add-icon.svg";
 import TaskIconSvg from "../../assets/icons/task-icon.svg";
 import EditIconSvg from "../../assets/icons/edit-icon.svg";
-import { RetroResponse } from "../../api/retro/Retro.interface";
-import { useNavigate } from "react-router-dom";
-import { getRetrosByTeamId } from "../../api/retro/Retro.service";
-import { useUser } from "../../context/UserContext.hook";
+import {RetroResponse} from "../../api/retro/Retro.interface";
+import {useNavigate} from "react-router-dom";
+import {getRetrosByTeamId} from "../../api/retro/Retro.service";
+import {useUser} from "../../context/UserContext.hook";
 import cs from "classnames";
-import { ActiveRetroCard } from "../retro_card/ActiveRetroCard";
+import {ActiveRetroCard} from "../retro_card/ActiveRetroCard";
 
 interface TeamRetroListProps {
     teamName: string;
@@ -73,12 +73,12 @@ export const TeamRetroList: React.FC<TeamRetroListProps> = (
                             className={cs(styles.retroButton, styles.retro)}
                             key={retro.id}
                             onClick={() => navigate(`/retro/${retro.id}/summary`)}>
-                                <span style={{ fontSize: 24 }}>
-                                    {`Retro #${retros.length - index}`}
-                                </span>
                             <span style={{ fontSize: 24 }}>
-                                    {new Date(retro.date).toLocaleDateString("pl-Pl")}
-                                </span>
+                                {`Retro #${retros.length - index}`}
+                            </span>
+                            <span style={{ fontSize: 24 }}>
+                                {new Date(retro.date).toLocaleDateString("pl-Pl")}
+                            </span>
                         </Button>
                     )
                 })}
