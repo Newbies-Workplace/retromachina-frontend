@@ -85,7 +85,6 @@ export const DiscussView = () => {
                                         <div key={card.id} className={styles.card}>
                                             <Avatar
                                                 style={{minWidth: 24, minHeight: 24, width: 24, height: 24}}
-                                                isActive={false}
                                                 url={author?.avatar_link ?? ""} />
 
                                             {card.text}
