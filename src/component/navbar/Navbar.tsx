@@ -35,7 +35,6 @@ const Navbar: React.FC<React.PropsWithChildren<NavbarProps>> = ({children, topCo
                             <div onClick={() => toggle(true)}>
                                 <Avatar
                                     style={{cursor: 'pointer'}}
-                                    isActive={true}
                                     url={user?.avatar_link} />
 
                                 {isOpen &&

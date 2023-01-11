@@ -73,7 +73,6 @@ export const Card: React.FC<React.PropsWithChildren<CardProps>> = (
                             }}>
                             <Avatar
                                 className={styles.avatar}
-                                isActive={false}
                                 url={author.avatar_link}/>
                             <span>{author.name}</span>
                             {editable &&
@@ -104,7 +103,6 @@ const TeamUserPicker: React.FC<TeamUserPickerProps> = ({teamUsers, authorId, onU
                     <div key={user.user_id} className={styles.userWrapper} onClick={() => {onUserPicked(user.user_id)}}>
                         <Avatar
                             className={styles.avatar}
-                            isActive={false}
                             url={user.avatar_link} />
 
                         <span>{user.nick}</span>

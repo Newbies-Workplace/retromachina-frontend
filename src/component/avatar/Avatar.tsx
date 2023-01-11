@@ -2,18 +2,22 @@ import styles from './Avatar.module.scss';
 import React from 'react';
 import cs from "classnames";
 
-interface PropsCircle {
+interface AvatarProps {
     className?: string
     style?: React.CSSProperties
-    isActive: Boolean
+    inactive?: Boolean
     url: any
 }
 
-export const Avatar : React.FC<PropsCircle> = ({isActive, style, url, className}) => {
+export const Avatar : React.FC<AvatarProps> = ({inactive = false, style, url, className}) => {
     return (
         <div
-            className={cs(styles.circle, className)}
-            style={{outlineColor: isActive ? "#23F138" : "#D9D9D9", ...style}}>
+            style={style}
+            className={cs(
+                styles.circle, {
+                    [styles.inactive]: inactive
+                }, className
+            )}>
             <img src={url} className={styles.photo} />
         </div>
     );

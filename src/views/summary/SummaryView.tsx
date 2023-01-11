@@ -56,9 +56,7 @@ export const SummaryView = () => {
                         return (
                             <div key={user.user_id} className={styles.authorAndCardSection}>
                                 <div className={styles.authorSection}>
-                                    <Avatar
-                                        url={user.avatar_link}
-                                        isActive={false} />
+                                    <Avatar url={user.avatar_link} />
                                     {user.nick}
                                 </div>
 
