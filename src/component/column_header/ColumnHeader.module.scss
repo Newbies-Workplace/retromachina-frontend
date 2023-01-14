@@ -49,8 +49,9 @@
 .description {
     word-wrap: break-word;
 
-    @include assets.scrollbar;
-
-
+    max-height: 60px;
     max-width: 300px;
+
+    @include assets.scrollbar;
+    overflow-x: hidden;
 }
