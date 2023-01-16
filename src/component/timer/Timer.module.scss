@@ -2,7 +2,7 @@
 @use  'src/abstracts/fonts';
 @use  'src/abstracts/assets';
 
-.timer{
+.timer {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -10,7 +10,7 @@
     height: 36px;
     width: 130px;
 
-    border-radius: 34px;
+    border-radius: 36px;
     border: 2px solid black;
     background-color: colors.$background;
 
