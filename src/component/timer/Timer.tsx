@@ -4,18 +4,18 @@ import cs from 'classnames';
 import dayjs from "dayjs";
 
 interface PropsTimer {
-    timerEnds: number | null;
+    timerEnds: number | null
 }
 
-export const Timer: React.FC<PropsTimer> = ({ timerEnds }) => {
+export const Timer: React.FC<PropsTimer> = ({timerEnds}) => {
     const [timeLeft, setTimeLeft] = useState<number>(0)
-    let isExpiring;
-    let isFinished;
-    let timeText = dayjs.duration(timeLeft, 's').format('m:ss');
+    let isExpiring
+    let isFinished
+    let timeText = dayjs.duration(timeLeft, 's').format('m:ss')
 
     if (timeLeft <= 0) {
         isFinished = true
-        timeText = "po czasie";
+        timeText = "po czasie"
     } else if (timeLeft <= 30) {
         isExpiring = true
     }
@@ -37,7 +37,7 @@ export const Timer: React.FC<PropsTimer> = ({ timerEnds }) => {
         }
     }, [timerEnds])
 
-    return(
+    return (
         <div className={cs(
             styles.timer,
             {
