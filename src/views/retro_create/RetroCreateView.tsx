@@ -13,6 +13,7 @@ import {getRandomTemplate} from "../../api/retro_template/RetroTemplate.service"
 import {useUser} from "../../context/UserContext.hook";
 import {ProgressBar} from "../../component/progress_bar/ProgressBar";
 import {createRetro} from "../../api/retro/Retro.service";
+import {getRandomColor} from "../../common/Util";
 
 export interface Column {
   id: string;
@@ -27,14 +28,7 @@ interface RawColumn {
   desc: string | null;
 }
 
-const getRandomColor = (): string => {
-  const letters = '0123456789ABCDEF';
-  let color = '#';
-  for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-};
+const MAX_COLUMNS = 6
 
 export const RetroCreateView: React.FC = () => {
   const [clicked,setClicked] = useState(false);
@@ -92,13 +86,10 @@ export const RetroCreateView: React.FC = () => {
   const onDeleteColumn = (id: string) => {
     const columnIndex = columns.findIndex((column) => column.id === id);
 
-    let columnsTemp = Array<Column>();
-    columns.forEach((_column, index) => {
-      if (columnIndex == index) return;
-      columnsTemp.push(_column);
-    });
+    const newColumns = [...columns]
+    newColumns.splice(columnIndex, 1)
 
-    setColumns(columnsTemp);
+    setColumns(newColumns);
   };
 
   const onCreateRetroClick = async () => {
@@ -128,7 +119,7 @@ export const RetroCreateView: React.FC = () => {
 
   return (
       <>
-        <Navbar >
+        <Navbar>
           <HeaderBar text={`Nowa retrospektywa ${teamName}`}/>
           <Button className={styles.randomize} size={"small"} onClick={() => randomizeTemplate()}>
             Losuj szablon
@@ -147,12 +138,12 @@ export const RetroCreateView: React.FC = () => {
                     color={column.color}
                     name={column.name}
                     desc={column.desc ?? ""}
+                    withDescription
                 />
-
             )}
 
             <div className={styles.columnButton}>
-              <Button disabled={columns.length>=6} size="big" onClick={onAddColumn}>
+              <Button disabled={columns.length >= MAX_COLUMNS} size="big" onClick={onAddColumn}>
                 <span>Nowa Kolumna</span>
                 <AddIcon />
               </Button>
@@ -165,10 +156,10 @@ export const RetroCreateView: React.FC = () => {
                 <span>Akcja</span>
                 (Zacznij & skopiuj link)
               </div>
-              {
-                clicked? <ProgressBar color="black"/> : <ActionIconSvg />
+              {clicked
+                  ? <ProgressBar color="black"/>
+                  : <ActionIconSvg />
               }
-
             </Button>
           </div>
         </div>

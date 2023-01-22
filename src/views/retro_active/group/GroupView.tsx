@@ -18,7 +18,11 @@ export const GroupView: React.FC = () => {
                 return (
                     <Column
                         key={column.id}
-                        columnData={column}>
+                        columnData={{
+                            color: column.color,
+                            name: column.name,
+                            description: column.desc,
+                        }}>
                         <ColumnCardContainer
                             columnId={column.id}
                             onCardDropped={(cardId) => moveCard({

@@ -29,8 +29,11 @@ export const VoteView = () => {
                 return(
                     <Column
                         key={column.id}
-                        columnData={column}
-                    >
+                        columnData={{
+                            color: column.color,
+                            name: column.name,
+                            description: column.desc,
+                        }}>
                         {columnCards.filter(c => c.parentCardId === null).map(group => {
                             const groupCards = [group, ...cards.filter(c => c.parentCardId === group.id)]
                             return (

@@ -39,7 +39,7 @@ export const TeamRetroList: React.FC<TeamRetroListProps> = (
         <div className={styles.team}>
             <div className={styles.topBar}>
                 <h2 className={styles.title}>{teamName}</h2>
-                <Button onClick={() => navigate("/tasks")} size="small">
+                <Button onClick={() => navigate(`/team/${teamId}/board`)} size="small">
                     <TaskIconSvg />
                     Lista zadań
                 </Button>

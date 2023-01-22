@@ -19,7 +19,11 @@ export const ReflectionView: React.FC = () => {
                 return (
                     <Column
                         key={column.id}
-                        columnData={column}>
+                        columnData={{
+                            color: column.color,
+                            name: column.name,
+                            description: column.desc,
+                        }}>
 
                         <ColumnInput
                             columnData={column}

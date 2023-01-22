@@ -9,9 +9,11 @@ import TeamEditView from './team_edit/TeamEditView';
 import RetroActiveView from './retro_active/RetroActiveView';
 import {TeamCreateView} from "./team_create/TeamCreateView";
 import {RetroWrapper} from "./retro_active/RetroWrapper";
-import { SummaryView } from './summary/SummaryView';
+import { RetroSummaryView } from './retro_summary/RetroSummaryView';
 import {NotFoundView} from "./404/NotFoundView";
 import {Navigate} from "react-router";
+import {TeamBoardView} from "./team_board/TeamBoardView";
+import {TeamBoardEditView} from "./team_board_edit/TeamBoardEditView";
 
 export const AppRouter: React.FC = () => {
     return (
@@ -33,9 +35,13 @@ export const AppRouter: React.FC = () => {
                 <Route
                     path="/team/:teamId/edit"
                     element={<RequireAuth><TeamEditView/></RequireAuth>}/>
+
                 <Route
-                    path="/tasks"
-                    element={<RequireAuth><span>Lista Zadań</span></RequireAuth>}/>
+                    path="/team/:teamId/board"
+                    element={<RequireAuth><TeamBoardView/></RequireAuth>}/>
+                <Route
+                    path="/team/:teamId/board/edit"
+                    element={<RequireAuth><TeamBoardEditView/></RequireAuth>}/>
 
                 <Route
                     path="/retro/create"
@@ -54,7 +60,7 @@ export const AppRouter: React.FC = () => {
                     path="/retro/:retroId/summary"
                     element={
                         <RequireAuth>
-                            <SummaryView/>
+                            <RetroSummaryView/>
                         </RequireAuth>
                     }/>
 
