@@ -9,7 +9,7 @@ import {
   SocketCard,
   SocketColumn, SocketUser,
   SocketVote
-} from "../api/socket/Socket.events";
+} from "../../api/retro/Retro.events";
 import {
   AddVoteCommand,
   DeleteCardCommand,
@@ -26,14 +26,14 @@ import {
   ChangeOwnerCommand,
   CreateActionPointCommand,
   DeleteActionPointCommand, ChangeCurrentDiscussCardCommand
-} from "../api/socket/Socket.commands";
-import {UserResponse} from "../api/user/User.interfaces";
+} from "../../api/retro/Retro.commands";
+import {UserResponse} from "../../api/user/User.interfaces";
 import {v4 as uuidv4} from "uuid";
-import {useUser} from "./UserContext.hook";
-import {getUsersByTeamId} from "../api/user/User.service";
-import {CardMoveAction} from "../interfaces/CardMoveAction.interface";
+import {useUser} from "../UserContext.hook";
+import {getUsersByTeamId} from "../../api/user/User.service";
+import {CardMoveAction} from "../../interfaces/CardMoveAction.interface";
 import { useNavigate } from "react-router";
-import {useCardGroups} from "./useCardGroups";
+import {useCardGroups} from "../useCardGroups";
 
 interface RetroContextParams {
   retroId: string
@@ -135,7 +135,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
 
   useEffect(() => {
     const createdSocket = io(
-        SOCKET_URL,
+        `${SOCKET_URL}/retro`,
         {
           query: {
             retro_id: retroId,
@@ -144,6 +144,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
             //@ts-ignore
             Authorization: window.localStorage.getItem("Bearer"),
           },
+          forceNew: true
         }
     );
     socket.current = createdSocket;

@@ -64,7 +64,7 @@ export const TeamRetroList: React.FC<TeamRetroListProps> = (
                 {retros.map((retro, index) => {
                     if (retro.is_running) {
                         return (
-                            <ActiveRetroCard onClick={() => navigate(`/retro/${retro.id}/reflection`)}/>
+                            <ActiveRetroCard key={retro.id} onClick={() => navigate(`/retro/${retro.id}/reflection`)}/>
                         )
                     }
 

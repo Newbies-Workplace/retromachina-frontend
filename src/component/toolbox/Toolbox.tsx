@@ -12,7 +12,7 @@ import React, { useCallback, useRef, useState } from "react";
 import cs from 'classnames';
 import dayjs from 'dayjs';
 import useClickOutside from "../../context/useClickOutside";
-import { useRetro } from '../../context/RetroContext.hook';
+import { useRetro } from '../../context/retro/RetroContext.hook';
 import { useUser } from '../../context/UserContext.hook';
 import {usePlural} from "../../context/usePlural";
 import {ConfirmDialog} from "../confirm_dialog/ConfirmDialog";

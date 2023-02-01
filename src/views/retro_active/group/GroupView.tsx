@@ -1,4 +1,4 @@
-import {useRetro} from "../../../context/RetroContext.hook"
+import {useRetro} from "../../../context/retro/RetroContext.hook"
 import styles from "./GroupView.module.scss"
 import {Column} from "../../../component/column/Column"
 import React from "react";

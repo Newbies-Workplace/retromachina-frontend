@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {RetroContextProvider} from "../../context/RetroContext";
+import {RetroContextProvider} from "../../context/retro/RetroContext";
 import {Navigate, useNavigate, useParams} from "react-router";
 import {getRetroByRetroId} from "../../api/retro/Retro.service";
 

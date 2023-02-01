@@ -1,4 +1,4 @@
-import {SocketColumn} from "../../api/socket/Socket.events";
+import {SocketColumn} from "../../api/retro/Retro.events";
 import React, {useEffect, useState} from "react";
 import {Input} from "../input/Input";
 import {CardCount} from "../card_indicator/CardIndicator";

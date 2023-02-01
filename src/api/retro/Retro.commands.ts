@@ -3,9 +3,9 @@ export interface ReadyCommand {
 }
 
 export interface NewCardCommand {
-    id: string,
-    text: string,
-    authorId: string,
+    id: string
+    text: string
+    authorId: string
     columnId: string
 }
 
@@ -27,13 +27,13 @@ export interface RoomStateCommand {
 }
 
 export interface AddCardToCardCommand {
-    parentCardId: string;
-    cardId: string;
+    parentCardId: string
+    cardId: string
 }
 
 export interface MoveCardToColumnCommand {
-    columnId: string;
-    cardId: string;
+    columnId: string
+    cardId: string
 }
 export interface ChangeOwnerCommand {
     actionPointId: string

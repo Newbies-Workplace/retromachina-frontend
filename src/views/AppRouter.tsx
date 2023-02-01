@@ -14,13 +14,14 @@ import {NotFoundView} from "./404/NotFoundView";
 import {Navigate} from "react-router";
 import {TeamBoardView} from "./team_board/TeamBoardView";
 import {TeamBoardEditView} from "./team_board_edit/TeamBoardEditView";
+import {TeamBoardWrapper} from "./team_board/TeamBoardWrapper";
 
 export const AppRouter: React.FC = () => {
     return (
         <Router>
             <Routes>
                 <Route path="/signin"
-                    element={<SignInView/>}/>
+                       element={<SignInView/>}/>
                 <Route
                     path="/loading"
                     element={<Loading/>}/>
@@ -38,7 +39,13 @@ export const AppRouter: React.FC = () => {
 
                 <Route
                     path="/team/:teamId/board"
-                    element={<RequireAuth><TeamBoardView/></RequireAuth>}/>
+                    element={
+                        <RequireAuth>
+                            <TeamBoardWrapper>
+                                <TeamBoardView/>
+                            </TeamBoardWrapper>
+                        </RequireAuth>
+                    }/>
                 <Route
                     path="/team/:teamId/board/edit"
                     element={<RequireAuth><TeamBoardEditView/></RequireAuth>}/>

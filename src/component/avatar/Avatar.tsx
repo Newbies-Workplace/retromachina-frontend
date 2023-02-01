@@ -18,7 +18,7 @@ export const Avatar : React.FC<AvatarProps> = ({inactive = false, style, url, cl
                     [styles.inactive]: inactive
                 }, className
             )}>
-            <img src={url} className={styles.photo} />
+            <img referrerPolicy="no-referrer" src={url} className={styles.photo} />
         </div>
     );
 }

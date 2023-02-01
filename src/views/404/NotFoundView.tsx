@@ -6,6 +6,7 @@ import Navbar from "../../component/navbar/Navbar";
 
 export const NotFoundView: React.FC = () => {
     const navigate = useNavigate()
+
     return (
         <div className={styles.container}>
             <Navbar/>

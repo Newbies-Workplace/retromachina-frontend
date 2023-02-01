@@ -2,7 +2,7 @@ import React from "react"
 import {Card} from "../../../component/card/Card"
 import Counter from "../../../component/card/counter/Counter"
 import {Column} from "../../../component/column/Column"
-import {useRetro} from "../../../context/RetroContext.hook"
+import {useRetro} from "../../../context/retro/RetroContext.hook"
 import {useUser} from "../../../context/UserContext.hook"
 import styles from "./VoteView.module.scss"
 import {GroupCardContainer} from "../../../component/dragndrop/GroupCardContainer";

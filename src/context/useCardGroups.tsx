@@ -1,4 +1,4 @@
-import {SocketCard, SocketVote} from "../api/socket/Socket.events";
+import {SocketCard, SocketVote} from "../api/retro/Retro.events";
 
 export const useCardGroups = (cards: SocketCard[], votes: SocketVote[]): Group[] => {
     return cards.filter(c => c.parentCardId === null)

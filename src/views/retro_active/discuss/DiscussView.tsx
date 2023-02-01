@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Card } from "../../../component/card/Card"
 import { Input } from "../../../component/input/Input"
-import { useRetro } from "../../../context/RetroContext.hook"
+import { useRetro } from "../../../context/retro/RetroContext.hook"
 import styles from "./DiscussView.module.scss"
 import DeleteIconSvg from "../../../assets/icons/delete-icon.svg";
 import { useUser } from "../../../context/UserContext.hook";

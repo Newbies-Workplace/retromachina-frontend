@@ -2,8 +2,7 @@ import {Navigate, useNavigate, useParams} from "react-router";
 import React, {useEffect, useState} from "react";
 import {HeaderBar} from "../../component/header_bar/HeaderBar";
 import Navbar from "../../component/navbar/Navbar";
-import {Board, BoardColumn} from "../../interfaces/Board.interface";
-import {editBoard, getBoard} from "../../api/team/Team.service";
+import {Board, BoardColumn} from "../../api/board/Board.interface";
 import {ColumnCreate} from "../../component/column_create/ColumnCreate";
 import styles from "./TeamBoardEditView.module.scss";
 import {Button} from "../../component/button/Button";
@@ -12,6 +11,7 @@ import {v4 as uuidv4} from "uuid";
 import {getRandomColor} from "../../common/Util";
 import NextIcon from "../../assets/icons/next.svg"
 import PrevIcon from "../../assets/icons/prev.svg"
+import {editBoard, getBoard} from "../../api/board/Board.service";
 
 const MAX_COLUMNS = 6
 
@@ -117,7 +117,7 @@ export const TeamBoardEditView: React.FC = () => {
                                 onDelete={() => onDeleteColumn(col.id)}
                             />
 
-                            <div onClick={() => onChangeDefaultColumn(col.id)} className={styles.columnAction}>
+                            <div className={styles.columnAction}>
                                 {index !== 0 &&
                                     <PrevIcon
                                         style={{cursor: 'pointer'}}
@@ -134,12 +134,14 @@ export const TeamBoardEditView: React.FC = () => {
                                         onClick={() => onChangeOrder(index, 'next')}/>
                                 }
 
-                                <input
-                                    type={"radio"}
-                                    name={"default"}
-                                    value={col.id}
-                                    checked={board.defaultColumnId === col.id}/>
-                                <span>Domyślna</span>
+                                <div onClick={() => onChangeDefaultColumn(col.id)}>
+                                    <input
+                                        type={"radio"}
+                                        name={"default"}
+                                        value={col.id}
+                                        checked={board.defaultColumnId === col.id}/>
+                                    <span>Domyślna</span>
+                                </div>
                             </div>
                         </div>
                     )}
