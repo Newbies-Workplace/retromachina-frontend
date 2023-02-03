@@ -2,11 +2,11 @@ import { axiosInstance } from '../../api/AxiosInstance';
 import { useUser } from '../../context/UserContext.hook'
 import {Navigate, useNavigate, useParams} from 'react-router'
 import {TeamForm} from '../../component/forms/TeamForm';
-import { Team } from '../../api/team/Team.interface';
+import { TeamRequest } from '../../api/team/Team.interface';
 import React, { useEffect, useState } from 'react';
 import { User } from '../../interfaces/User.interface';
 import Navbar from '../../component/navbar/Navbar';
-import { getInvitesInfoByTeamId, getTeamInfoByTeamId } from '../../api/team/Team.service';
+import { getInvitesByTeamId, getTeamById } from '../../api/team/Team.service';
 import { getUsersByTeamId } from '../../api/user/User.service';
 import {HeaderBar} from "../../component/header_bar/HeaderBar";
 import styles from "./TeamEditView.module.scss";
@@ -25,12 +25,12 @@ const TeamEditView: React.FC = () => {
     }
     const { user, refreshUser } = useUser();
     const navigate = useNavigate()
-    const [team, setTeam] = useState<Team | null>(null);
+    const [team, setTeam] = useState<TeamRequest | null>(null);
     const [confirmOpen, setConfirmOpen] = useState(false)
 
     useEffect(() => {
         const waitForResult = async () => {
-            const name = await getTeamInfoByTeamId(teamId)
+            const name = await getTeamById(teamId)
                 .then((data) => data.name)
 
             const emails = await getUsersByTeamId(teamId)
@@ -40,7 +40,7 @@ const TeamEditView: React.FC = () => {
                     return elem.email
                 }))
 
-            const invites = await getInvitesInfoByTeamId(teamId)
+            const invites = await getInvitesByTeamId(teamId)
                 .then((data) => data.invites.map((invite: Invite) => invite.email))
 
             setTeam({
@@ -52,7 +52,7 @@ const TeamEditView: React.FC = () => {
         waitForResult();
     }, []);
 
-    const onSubmit = (team: Team ) => {
+    const onSubmit = (team: TeamRequest ) => {
         axiosInstance.put(`/teams/${teamId}`, {
             name: team.name,
             emails: team.emails

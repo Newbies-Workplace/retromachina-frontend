@@ -9,9 +9,11 @@ import {ColumnCardContainer} from "../../component/dragndrop/ColumnCardContainer
 import {DraggableCard} from "../../component/dragndrop/DraggableCard";
 import {Card} from "../../component/card/Card";
 import {useBoard} from "../../context/board/BoardContext.hook";
+import {useUser} from "../../context/UserContext.hook";
 
 export const TeamBoardView: React.FC = () => {
-    const {board, teamUsers, moveTask, changeTaskOwner} = useBoard()
+    const {board, team, teamUsers, moveTask, changeTaskOwner} = useBoard()
+    const {user} = useUser()
     const navigate = useNavigate()
 
     if (!board) {
@@ -28,9 +30,11 @@ export const TeamBoardView: React.FC = () => {
         <>
             <Navbar>
                 <HeaderBar text={`Tablica zadań`}/>
-                <Button className={styles.toolbarAction} size={"small"} onClick={onEditClick}>
-                    Edytuj
-                </Button>
+                {team?.scrumMasterId === user?.user_id &&
+                    <Button className={styles.toolbarAction} size={"small"} onClick={onEditClick}>
+                        Edytuj
+                    </Button>
+                }
             </Navbar>
 
             <div className={styles.container}>
