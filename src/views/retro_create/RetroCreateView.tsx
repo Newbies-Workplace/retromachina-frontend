@@ -14,6 +14,7 @@ import {useUser} from "../../context/UserContext.hook";
 import {ProgressBar} from "../../component/progress_bar/ProgressBar";
 import {createRetro} from "../../api/retro/Retro.service";
 import {getRandomColor} from "../../common/Util";
+import {RetroCreateRequest} from "../../api/retro/Retro.interface";
 
 export interface Column {
   id: string;
@@ -94,7 +95,13 @@ export const RetroCreateView: React.FC = () => {
 
   const onCreateRetroClick = async () => {
     setClicked(true);
-    createRetro(teamId, columns)
+
+    const request: RetroCreateRequest = {
+      teamId: teamId,
+      columns: columns
+    }
+
+    createRetro(request)
         .then((retro) => {
           navigator.clipboard?.writeText(API_URL+`/retro/${retro.data.retro_id}`)
               .catch(console.log)
