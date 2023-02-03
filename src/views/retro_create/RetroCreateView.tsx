@@ -107,7 +107,10 @@ export const RetroCreateView: React.FC = () => {
               .catch(console.log)
           navigate(`/retro/${retro.data.retro_id}`)
         })
-        .catch(console.log)
+        .catch((e) => {
+          setClicked(false)
+          navigate('/')
+        })
   }
 
   const randomizeTemplate = () => {
