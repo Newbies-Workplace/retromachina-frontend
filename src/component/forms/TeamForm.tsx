@@ -3,13 +3,13 @@ import {Button} from '../button/Button';
 import styles from './TeamForm.module.scss'
 import AddIconSvg from '../../assets/icons/add-icon.svg'
 import DeleteIcon from '../../assets/icons/delete-icon.svg'
-import { Team } from '../../api/team/Team.interface';
+import { TeamRequest } from '../../api/team/Team.interface';
 import {Input} from "../input/Input";
 
 interface CreateTeamFormProps {
     userEmail: string
-    team: Team | null
-    onSubmit: (team: Team) => void
+    team: TeamRequest | null
+    onSubmit: (team: TeamRequest) => void
     onDelete?: () => void
     deletable?: boolean
 }

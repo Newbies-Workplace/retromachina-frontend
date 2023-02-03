@@ -1,19 +1,19 @@
-import { Team } from "./Team.interface";
+import {TeamRequest, TeamResponse} from "./Team.interface";
 import { axiosInstance } from "../AxiosInstance";
 
-export const getTeamInfoByTeamId = async (teamId: string) => {
+export const getTeamById = async (teamId: string): Promise<TeamResponse> => {
     return axiosInstance.get(`teams/${teamId}`)
         .then(res => res.data)
 }
 
-export const getInvitesInfoByTeamId = async (teamId: string) => {
+export const getInvitesByTeamId = async (teamId: string) => {
     return axiosInstance.get(`invites?team_id=${teamId}`)
         .then(res => res.data);
 }
 
-export const createTeam = async (team: Team) => {
+export const createTeam = async (team: TeamRequest): Promise<TeamResponse> => {
     return axiosInstance.post("teams", {
         name: team.name,
         emails: team.emails
-    });
+    }).then(res => res.data);
 }

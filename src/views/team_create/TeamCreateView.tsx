@@ -1,7 +1,7 @@
 import {useUser} from '../../context/UserContext.hook'
 import {useNavigate} from 'react-router'
 import {TeamForm} from '../../component/forms/TeamForm';
-import {Team} from '../../api/team/Team.interface';
+import {TeamRequest} from '../../api/team/Team.interface';
 import Navbar from '../../component/navbar/Navbar';
 import {createTeam} from '../../api/team/Team.service';
 import React from "react";
@@ -11,19 +11,15 @@ export const TeamCreateView: React.FC = () => {
     const { user, refreshUser } = useUser();
     const navigate = useNavigate()
 
-    const onSubmit = (team: Team) => {
+    const onSubmit = (team: TeamRequest) => {
         createTeam(team)
-            .then((response) => {
-                if (response.status == 201) {
-                    refreshUser()
-                        .then(() => {
-                            navigate("/");
-                        })
-                } else {
-                    //coś się musi stać???
-                    console.log(response.status);
-                }
+            .then(() => {
+                refreshUser()
+                    .then(() => {
+                        navigate("/");
+                    })
             })
+            .catch(console.error)
     }
 
     return (

@@ -6,6 +6,8 @@ import {getBoard} from "../../api/board/Board.service";
 import {getUsersByTeamId} from "../../api/user/User.service";
 import {UserResponse} from "../../api/user/User.interfaces";
 import {TaskUpdateCommand} from "../../api/board/Board.commands";
+import {TeamResponse} from "../../api/team/Team.interface";
+import {getTeamById} from "../../api/team/Team.service";
 
 interface BoardContextParams {
     teamId: string
@@ -14,6 +16,7 @@ interface BoardContextParams {
 interface BoardContext {
     teamId: string
     board: Board | null
+    team: TeamResponse | null
     teamUsers: UserResponse[]
     moveTask: (taskId: string, targetColumnId: string) => void
     changeTaskOwner: (taskId: string, newOwnerId: string) => void
@@ -22,6 +25,7 @@ interface BoardContext {
 export const BoardContext = createContext<BoardContext>({
     teamId: '',
     board: null,
+    team: null,
     teamUsers: [],
     moveTask: () => {},
     changeTaskOwner: () => {},
@@ -35,11 +39,15 @@ export const BoardContextProvider: React.FC<React.PropsWithChildren<BoardContext
 ) => {
     const socket = useRef<Socket>()
     const [board, setBoard] = useState<Board | null>(null)
+    const [team, setTeam] = useState<TeamResponse | null>(null)
     const [teamUsers, setTeamUsers] = useState<UserResponse[]>([])
 
     useEffect(() => {
         getBoard(teamId)
             .then(board => setBoard(board))
+
+        getTeamById(teamId)
+            .then(team => setTeam(team))
 
         getUsersByTeamId(teamId)
             .then((users) => setTeamUsers(users))
@@ -109,6 +117,7 @@ export const BoardContextProvider: React.FC<React.PropsWithChildren<BoardContext
             value={{
                 teamId: teamId,
                 board: board,
+                team: team,
                 teamUsers: teamUsers,
                 moveTask: moveTask,
                 changeTaskOwner: changeTaskOwner,
