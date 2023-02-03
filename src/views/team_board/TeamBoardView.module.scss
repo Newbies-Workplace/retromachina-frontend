@@ -1,0 +1,21 @@
+@use  'src/abstracts/colors';
+@use  'src/abstracts/fonts';
+@use  'src/abstracts/assets';
+
+.container {
+  display: flex;
+  @include assets.scrollbar;
+  height: calc(100% - 124px);
+}
+
+.headerStyle {
+  min-height: 0;
+
+  margin-top: 32px;
+}
+
+.toolbarAction {
+  position: absolute;
+
+  right: 16px;
+}

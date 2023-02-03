@@ -1,0 +1,35 @@
+@use  'src/abstracts/colors';
+@use  'src/abstracts/fonts';
+@use  'src/abstracts/assets';
+
+.container {
+  width: 100%;
+  height: calc(100% - 120px - 10px);
+  padding-bottom: 8px;
+
+  @include assets.scrollbar
+}
+
+.columns {
+  display: flex;
+  align-items: start;
+  gap: 32px;
+
+  margin-top: 32px;
+  margin-left: 12px;
+}
+
+.columnButton {
+  padding-right: 16px;
+}
+
+.action {
+  position: absolute;
+
+  right: 16px;
+}
+
+.columnAction {
+  display: flex;
+  align-items: center;
+}

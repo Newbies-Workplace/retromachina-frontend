@@ -1,4 +1,4 @@
-import { Team } from "../../interfaces/Team.interface";
+import { Team } from "./Team.interface";
 import { axiosInstance } from "../AxiosInstance";
 
 export const getTeamInfoByTeamId = async (teamId: string) => {

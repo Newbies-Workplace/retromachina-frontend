@@ -2,7 +2,7 @@ import React from "react"
 import {Card} from "../../../component/card/Card"
 import Counter from "../../../component/card/counter/Counter"
 import {Column} from "../../../component/column/Column"
-import {useRetro} from "../../../context/RetroContext.hook"
+import {useRetro} from "../../../context/retro/RetroContext.hook"
 import {useUser} from "../../../context/UserContext.hook"
 import styles from "./VoteView.module.scss"
 import {GroupCardContainer} from "../../../component/dragndrop/GroupCardContainer";
@@ -29,8 +29,11 @@ export const VoteView = () => {
                 return(
                     <Column
                         key={column.id}
-                        columnData={column}
-                    >
+                        columnData={{
+                            color: column.color,
+                            name: column.name,
+                            description: column.desc,
+                        }}>
                         {columnCards.filter(c => c.parentCardId === null).map(group => {
                             const groupCards = [group, ...cards.filter(c => c.parentCardId === group.id)]
                             return (

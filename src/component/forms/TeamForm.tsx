@@ -3,7 +3,7 @@ import {Button} from '../button/Button';
 import styles from './TeamForm.module.scss'
 import AddIconSvg from '../../assets/icons/add-icon.svg'
 import DeleteIcon from '../../assets/icons/delete-icon.svg'
-import { Team } from '../../interfaces/Team.interface';
+import { Team } from '../../api/team/Team.interface';
 import {Input} from "../input/Input";
 
 interface CreateTeamFormProps {

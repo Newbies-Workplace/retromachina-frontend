@@ -1,4 +1,4 @@
-import {useRetro} from "../../../context/RetroContext.hook"
+import {useRetro} from "../../../context/retro/RetroContext.hook"
 import styles from "./ReflectionView.module.scss"
 import {Column} from "../../../component/column/Column"
 import DeleteIconSvg from "../../../assets/icons/delete-icon.svg"
@@ -19,7 +19,11 @@ export const ReflectionView: React.FC = () => {
                 return (
                     <Column
                         key={column.id}
-                        columnData={column}>
+                        columnData={{
+                            color: column.color,
+                            name: column.name,
+                            description: column.desc,
+                        }}>
 
                         <ColumnInput
                             columnData={column}

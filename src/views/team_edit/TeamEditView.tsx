@@ -2,7 +2,7 @@ import { axiosInstance } from '../../api/AxiosInstance';
 import { useUser } from '../../context/UserContext.hook'
 import {Navigate, useNavigate, useParams} from 'react-router'
 import {TeamForm} from '../../component/forms/TeamForm';
-import { Team } from '../../interfaces/Team.interface';
+import { Team } from '../../api/team/Team.interface';
 import React, { useEffect, useState } from 'react';
 import { User } from '../../interfaces/User.interface';
 import Navbar from '../../component/navbar/Navbar';

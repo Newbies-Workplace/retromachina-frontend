@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Avatar } from "../../component/avatar/Avatar";
 import { Card } from "../../component/card/Card";
 import Navbar from "../../component/navbar/Navbar";
-import styles from "../summary/SummaryView.module.scss";
+import styles from "./RetroSummaryView.module.scss";
 import { TaskResponse } from "../../api/task/Task.interface";
 import { getTasksByRetroId } from "../../api/task/Task.service";
 import { useParams } from "react-router";
@@ -13,7 +13,7 @@ import { getRetroByRetroId } from "../../api/retro/Retro.service";
 import dayjs from "dayjs";
 import {HeaderBar} from "../../component/header_bar/HeaderBar";
 
-export const SummaryView = () => {
+export const RetroSummaryView = () => {
     const { retroId } = useParams<{retroId: string}>();
     const [tasks, setTasks] = useState<TaskResponse[]>([]);
     const [users, setUsers] = useState<UserResponse[]>([]);

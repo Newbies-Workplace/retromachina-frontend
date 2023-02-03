@@ -1,4 +1,4 @@
-import {useRetro} from "../../../context/RetroContext.hook"
+import {useRetro} from "../../../context/retro/RetroContext.hook"
 import styles from "./GroupView.module.scss"
 import {Column} from "../../../component/column/Column"
 import React from "react";
@@ -18,7 +18,11 @@ export const GroupView: React.FC = () => {
                 return (
                     <Column
                         key={column.id}
-                        columnData={column}>
+                        columnData={{
+                            color: column.color,
+                            name: column.name,
+                            description: column.desc,
+                        }}>
                         <ColumnCardContainer
                             columnId={column.id}
                             onCardDropped={(cardId) => moveCard({

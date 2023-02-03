@@ -39,7 +39,7 @@ export const TeamRetroList: React.FC<TeamRetroListProps> = (
         <div className={styles.team}>
             <div className={styles.topBar}>
                 <h2 className={styles.title}>{teamName}</h2>
-                <Button onClick={() => navigate("/tasks")} size="small">
+                <Button onClick={() => navigate(`/team/${teamId}/board`)} size="small">
                     <TaskIconSvg />
                     Lista zadań
                 </Button>
@@ -64,7 +64,7 @@ export const TeamRetroList: React.FC<TeamRetroListProps> = (
                 {retros.map((retro, index) => {
                     if (retro.is_running) {
                         return (
-                            <ActiveRetroCard onClick={() => navigate(`/retro/${retro.id}/reflection`)}/>
+                            <ActiveRetroCard key={retro.id} onClick={() => navigate(`/retro/${retro.id}/reflection`)}/>
                         )
                     }
 

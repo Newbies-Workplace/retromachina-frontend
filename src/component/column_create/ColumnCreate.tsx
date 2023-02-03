@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import styles from './ColumnCreate.module.scss'
 import DeleteIcon from '../../assets/icons/delete-icon.svg'
 import {Input} from '../input/Input'
@@ -7,16 +7,17 @@ import {ColorPicker} from '../color_picker/ColorPicker'
 export interface ColumnCreateProps {
     color: string,
     name: string,
-    desc: string 
+    desc: string
     onChange: (column: {
         color: string,
         name: string,
         desc: string | null,
     }) => void
     onDelete: () => void
+    withDescription?: boolean
 }
 
-export const ColumnCreate: React.FC<ColumnCreateProps> = ({color, name, desc, onChange, onDelete }) => {
+export const ColumnCreate: React.FC<ColumnCreateProps> = ({color, name, desc, onChange, onDelete, withDescription = false}) => {
     return (
         <div className={styles.wrapper} >
             <div className={styles.topBar}>
@@ -45,15 +46,17 @@ export const ColumnCreate: React.FC<ColumnCreateProps> = ({color, name, desc, on
                 <DeleteIcon onClick={onDelete} className={styles.delete}/>
             </div>
 
-            <Input
-                multiline
-                value={desc}
-                setValue={(desc) => onChange({
-                    color: color,
-                    name: name,
-                    desc: desc
-                })}
-                placeholder="Opis"/>
+            {withDescription &&
+                <Input
+                    multiline
+                    value={desc}
+                    setValue={(desc) => onChange({
+                        color: color,
+                        name: name,
+                        desc: desc
+                    })}
+                    placeholder="Opis"/>
+            }
         </div>
     )
 }

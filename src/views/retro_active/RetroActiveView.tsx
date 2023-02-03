@@ -3,7 +3,7 @@ import styles from "./RetroActiveView.module.scss"
 import {Route, Routes} from "react-router-dom";
 import Navbar from "../../component/navbar/Navbar";
 import {Timer} from "../../component/timer/Timer";
-import {useRetro} from "../../context/RetroContext.hook";
+import {useRetro} from "../../context/retro/RetroContext.hook";
 import {useNavigate} from "react-router";
 import { ReflectionView } from "./reflection/ReflectionView";
 import {GroupView} from "./group/GroupView";

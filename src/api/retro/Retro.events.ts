@@ -1,4 +1,4 @@
-import {RoomState} from "./Socket.commands";
+import {RoomState} from "./Retro.commands";
 
 export interface SocketVote{
     parentCardId: string,
