@@ -5,7 +5,7 @@ import {Column} from "../../../component/column/Column"
 import {useRetro} from "../../../context/retro/RetroContext.hook"
 import {useUser} from "../../../context/UserContext.hook"
 import styles from "./VoteView.module.scss"
-import {GroupCardContainer} from "../../../component/dragndrop/GroupCardContainer";
+import {GroupCardContainer} from "../../../component/dragndrop/group_card_container/GroupCardContainer";
 
 export const VoteView = () => {
     const {

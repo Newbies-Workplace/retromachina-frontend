@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 
-const useClickOutside = (ref: any, handler:any) => {
+const useClickOutside = (ref: any, handler: (event: MouseEvent) => void) => {
     useEffect(() => {
       let startedInside = false;
       let startedWhenMounted = false;
   
-      const listener = (event:any) => {
+      const listener = (event: MouseEvent) => {
         // Do nothing if `mousedown` or `touchstart` started inside ref element
         if (startedInside || !startedWhenMounted) return;
         // Do nothing if clicking ref's element or descendent elements
@@ -14,7 +14,7 @@ const useClickOutside = (ref: any, handler:any) => {
         handler(event);
       };
   
-      const validateEventStart = (event:any) => {
+      const validateEventStart = (event: MouseEvent | TouchEvent) => {
         startedWhenMounted = ref.current;
         startedInside = ref.current && ref.current.contains(event.target);
       };

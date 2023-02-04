@@ -5,7 +5,7 @@ import React from "react";
 import {Card} from "../../../component/card/Card";
 import {ColumnCardContainer} from "../../../component/dragndrop/ColumnCardContainer";
 import {DraggableCard} from "../../../component/dragndrop/DraggableCard";
-import {GroupCardContainer} from "../../../component/dragndrop/GroupCardContainer";
+import {GroupCardContainer} from "../../../component/dragndrop/group_card_container/GroupCardContainer";
 
 export const GroupView: React.FC = () => {
     const {teamUsers, columns, cards, moveCard} = useRetro()
