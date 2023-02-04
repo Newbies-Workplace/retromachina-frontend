@@ -119,19 +119,19 @@ export const TeamBoardEditView: React.FC = () => {
 
                             <div className={styles.columnAction}>
                                 {index !== 0 &&
-                                    <PrevIcon
-                                        style={{cursor: 'pointer'}}
-                                        width={32}
-                                        height={32}
-                                        onClick={() => onChangeOrder(index, 'prev')}/>
+                                    <Button
+                                        size={'round'}
+                                        onClick={() => onChangeOrder(index, 'prev')}>
+                                        <PrevIcon/>
+                                    </Button>
                                 }
 
                                 {index !== board.columns.length - 1 &&
-                                    <NextIcon
-                                        style={{cursor: 'pointer'}}
-                                        width={32}
-                                        height={32}
-                                        onClick={() => onChangeOrder(index, 'next')}/>
+                                    <Button
+                                        size={'round'}
+                                        onClick={() => onChangeOrder(index, 'next')}>
+                                        <NextIcon/>
+                                    </Button>
                                 }
 
                                 <div onClick={() => onChangeDefaultColumn(col.id)}>
