@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react"
-import { Card } from "../../../component/card/Card"
-import { Input } from "../../../component/input/Input"
-import { useRetro } from "../../../context/retro/RetroContext.hook"
+import React, {useEffect, useState} from "react"
+import {Card} from "../../../component/card/Card"
+import {Input} from "../../../component/input/Input"
+import {useRetro} from "../../../context/retro/RetroContext.hook"
 import styles from "./DiscussView.module.scss"
 import DeleteIconSvg from "../../../assets/icons/delete-icon.svg";
-import { useUser } from "../../../context/UserContext.hook";
+import {useUser} from "../../../context/UserContext.hook";
 import {Group, useCardGroups} from "../../../context/useCardGroups";
 import {Avatar} from "../../../component/avatar/Avatar";
 import {usePlural} from "../../../context/usePlural";
+import {GroupCardContainer} from "../../../component/dragndrop/group_card_container/GroupCardContainer";
+import {ColumnCardContainer} from "../../../component/dragndrop/ColumnCardContainer";
 
 export const DiscussView = () => {
     const {
@@ -39,7 +41,11 @@ export const DiscussView = () => {
                     })
                     .map(group => {
                         return (
-                            <>
+                            <GroupCardContainer
+                                key={group.parentCardId}
+                                parentCardId={group.parentCardId}
+                                onCardDropped={() => {}}
+                            >
                                 {group.cards.map((card, index) => {
                                     const author = teamUsers.find((user) => user.user_id === card.authorId);
 
@@ -63,7 +69,7 @@ export const DiscussView = () => {
                                         </Card>
                                     )
                                 })}
-                            </>
+                            </GroupCardContainer>
                         )
                     })}
             </div>

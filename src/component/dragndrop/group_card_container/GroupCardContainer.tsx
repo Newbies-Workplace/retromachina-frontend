@@ -1,6 +1,9 @@
 import React from "react";
 import {useDrop} from "react-dnd";
-import {CardDragPayload, ItemTypes} from "./dragndrop";
+import {CardDragPayload, ItemTypes} from "../dragndrop";
+import styles from "./GroupCardContainer.module.scss";
+import {useKeyDownListener} from "../../../context/useKeyDownListener";
+import cs from "classnames";
 
 interface GroupCardContainerProps {
     parentCardId: string
@@ -20,13 +23,16 @@ export const GroupCardContainer: React.FC<React.PropsWithChildren<GroupCardConta
         })
     }), [parentCardId])
 
+    const isShiftPressed = useKeyDownListener('Shift')
+
     return (
-        <div ref={drop} style={{
-            display: 'flex',
-            flexDirection: 'column',
-            minHeight: 100,
-            minWidth: 100,
-        }}>
+        <div
+            ref={drop}
+            className={
+                cs(styles.group, {
+                    [styles.shifted]: isShiftPressed
+                })
+            }>
             {children}
         </div>
     )

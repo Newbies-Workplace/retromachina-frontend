@@ -68,7 +68,7 @@ export const Toolbox: React.FC<ToolboxProps> = (
     const [isVoteOpen, setOpenVote] = useState(false)
     const [isFinishOpen, setOpenFinish] = useState(false)
 
-    const timePopover= useRef<any>();
+    const timePopover = useRef<any>();
     const closeTimer = useCallback(() => setOpenTimer(false), []);
     useClickOutside(timePopover, closeTimer);
 
