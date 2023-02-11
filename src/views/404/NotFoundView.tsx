@@ -3,6 +3,7 @@ import {Button} from "../../component/button/Button";
 import {useNavigate} from "react-router";
 import styles from "./NotFoundView.module.scss"
 import Navbar from "../../component/navbar/Navbar";
+import NotFoundSvg from "../../assets/images/not-found.svg";
 
 export const NotFoundView: React.FC = () => {
     const navigate = useNavigate()
@@ -12,7 +13,13 @@ export const NotFoundView: React.FC = () => {
             <Navbar/>
 
             <div className={styles.innerContainer}>
-                <span>404</span>
+                <NotFoundSvg />
+
+                <div className={styles.texts}>
+                    <span>404</span>
+                    <span style={{fontSize: 18}}>Strony nie znaleziono</span>
+                </div>
+
                 <Button size={'small'} onClick={() => navigate("/")}>
                     Powrót na stronę główną
                 </Button>

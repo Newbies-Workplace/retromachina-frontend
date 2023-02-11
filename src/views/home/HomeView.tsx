@@ -33,12 +33,12 @@ const HomeView: React.FC = () => {
             <div className={styles.container}>
                 {user?.teams?.length === 0 &&
                     <div className={styles.noTeam}>
+                        <NotFoundSvg />
+
                         <div className={styles.text}>
                             <span>Nie jesteś członkiem żadnego Zespołu!</span>
                             <span style={{fontSize: 18}}>Daj znać swojemu scrum masterowi</span>
                         </div>
-
-                        <NotFoundSvg />
                     </div>
                 }
 

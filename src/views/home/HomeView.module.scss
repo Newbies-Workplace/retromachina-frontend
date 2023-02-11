@@ -13,14 +13,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 80px;
+  gap: 20px;
 
-  margin-top: 32px;
-
-  & span {
-    font-size: 28px;
-    font-weight: 900;
-  }
+  height: 100%;
 }
 
 .text {
@@ -29,6 +24,11 @@
   align-items: center;
   flex-direction: column;
   gap: 20px;
+
+  & span {
+    font-size: 28px;
+    font-weight: 900;
+  }
 }
 
 .buttonWrapper{
