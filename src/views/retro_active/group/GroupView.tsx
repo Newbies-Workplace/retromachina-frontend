@@ -21,7 +21,7 @@ export const GroupView: React.FC = () => {
                         columnData={{
                             color: column.color,
                             name: column.name,
-                            description: column.desc,
+                            description: column.description,
                         }}>
                         <ColumnCardContainer
                             columnId={column.id}

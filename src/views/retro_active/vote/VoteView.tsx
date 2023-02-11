@@ -32,7 +32,7 @@ export const VoteView = () => {
                         columnData={{
                             color: column.color,
                             name: column.name,
-                            description: column.desc,
+                            description: column.description,
                         }}>
                         {columnCards.filter(c => c.parentCardId === null).map(group => {
                             const groupCards = [group, ...cards.filter(c => c.parentCardId === group.id)]

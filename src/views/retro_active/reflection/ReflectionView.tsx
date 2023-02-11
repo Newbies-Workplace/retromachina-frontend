@@ -22,7 +22,7 @@ export const ReflectionView: React.FC = () => {
                         columnData={{
                             color: column.color,
                             name: column.name,
-                            description: column.desc,
+                            description: column.description,
                         }}>
 
                         <ColumnInput

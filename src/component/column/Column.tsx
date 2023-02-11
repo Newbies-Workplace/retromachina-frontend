@@ -25,7 +25,8 @@ export const Column: React.FC<React.PropsWithChildren<ColumnProps>> = (
                 <ColumnHeader
                     color={columnData.color}
                     header={columnData.name}
-                    description={columnData.description ?? undefined} />
+                    description={columnData.description ?? undefined}
+                />
             </div>
 
             {children}
