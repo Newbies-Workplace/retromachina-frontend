@@ -29,7 +29,6 @@ export interface SocketColumn {
 export interface SocketUser {
     id: string
     isReady: boolean
-    isWriting: boolean
 }
 export interface ActionPoint{
     id: string,
@@ -52,10 +51,6 @@ export interface RoomData {
     cards: SocketCard[]
     users: SocketUser[]
     actionPoints: ActionPoint[]
-}
-
-export interface OnJoinEvent {
-    roomData: RoomData
 }
 
 export interface RoomSyncEvent {
