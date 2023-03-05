@@ -3,8 +3,6 @@ import io, {Socket} from "socket.io-client";
 import {
   ActionPoint,
   ChangeTimerEvent,
-  OnJoinEvent,
-  RoomData,
   RoomSyncEvent,
   SocketCard,
   SocketColumn, SocketUser,
@@ -116,6 +114,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
     }
 ) => {
   const socket = useRef<Socket>()
+  const [teamId, setTeamId] = useState<string | null>(null)
   const [votes, setVotes] = useState<SocketVote[]>([])
   const [maxVotes, setMaxVotes] = useState<number>(0)
   const [timerEnds, setTimerEnds] = useState<number | null>(0)
@@ -151,8 +150,9 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
 
     createdSocket.on("error", console.log);
 
-    const roomDataListener = (roomData: RoomData) => {
+    createdSocket.on("event_room_sync", ({roomData}: RoomSyncEvent) => {
       setRoomState(roomData.roomState)
+      setTeamId(roomData.teamId)
       setColumns(roomData.retroColumns)
       setCards(roomData.cards)
       setTimerEnds(roomData.timerEnds)
@@ -163,17 +163,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
       setUsers(roomData.users)
       setActionPoint(roomData.actionPoints)
       setDiscussionCardId(roomData.discussionCardId);
-    }
-    createdSocket.on("event_room_sync", (e: RoomSyncEvent) => {
-      roomDataListener(e.roomData)
     })
-    createdSocket.on("event_on_join", (e: OnJoinEvent) => {
-      roomDataListener(e.roomData)
-
-      getUsersByTeamId(e.roomData.teamId)
-          .then((users) => setTeamUsers(users))
-          .catch(console.log);
-    });
 
     createdSocket.on("event_change_timer", (e: ChangeTimerEvent) => {
       setTimerEnds(e.timerEnds);
@@ -188,6 +178,14 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
       createdSocket.disconnect();
     };
   }, []);
+
+  useEffect(() => {
+    if (teamId) {
+      getUsersByTeamId(teamId)
+          .then((users) => setTeamUsers(users))
+          .catch(console.log);
+    }
+  }, [teamId])
 
   const createActionPoint = (text: string, ownerId: string) => {
     const command: CreateActionPointCommand = {
