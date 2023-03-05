@@ -71,9 +71,7 @@ export const Card: React.FC<React.PropsWithChildren<CardProps>> = (
                                     setUsersOpen(true)
                                 }
                             }}>
-                            <Avatar
-                                className={styles.avatar}
-                                url={author.avatar_link}/>
+                            <Avatar url={author.avatar_link} size={24}/>
                             <span>{author.name}</span>
                             {editable &&
                                 <EditIconSvg width={12} height={12}/>
@@ -101,9 +99,7 @@ const TeamUserPicker: React.FC<TeamUserPickerProps> = ({teamUsers, authorId, onU
             {teamUsers?.filter(user => user.user_id !== authorId).map(user => {
                 return (
                     <div key={user.user_id} className={styles.userWrapper} onClick={() => {onUserPicked(user.user_id)}}>
-                        <Avatar
-                            className={styles.avatar}
-                            url={user.avatar_link} />
+                        <Avatar url={user.avatar_link} size={24} />
 
                         <span>{user.nick}</span>
                     </div>
