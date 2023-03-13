@@ -22,11 +22,7 @@ export const Avatar : React.FC<AvatarProps> = (
     return (
         <div
             style={style}
-            className={cs(
-                styles.circle, {
-                    [styles.inactive]: inactive
-                }, className
-            )}>
+            className={className}>
             <img
                 referrerPolicy="no-referrer"
                 src={url}
@@ -36,7 +32,11 @@ export const Avatar : React.FC<AvatarProps> = (
                     minWidth: size,
                     minHeight: size,
                 }}
-                className={styles.photo}/>
+                className={cs(
+                    styles.circle,
+                    {[styles.inactive]: inactive},
+                    styles.photo
+                )}/>
         </div>
     );
 }

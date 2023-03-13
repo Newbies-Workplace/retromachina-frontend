@@ -9,7 +9,6 @@ import {Group, useCardGroups} from "../../../context/useCardGroups";
 import {Avatar} from "../../../component/avatar/Avatar";
 import {usePlural} from "../../../context/usePlural";
 import {GroupCardContainer} from "../../../component/dragndrop/group_card_container/GroupCardContainer";
-import {ColumnCardContainer} from "../../../component/dragndrop/ColumnCardContainer";
 
 export const DiscussView = () => {
     const {
