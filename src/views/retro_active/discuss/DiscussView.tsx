@@ -9,7 +9,6 @@ import {Group, useCardGroups} from "../../../context/useCardGroups";
 import {Avatar} from "../../../component/avatar/Avatar";
 import {usePlural} from "../../../context/usePlural";
 import {GroupCardContainer} from "../../../component/dragndrop/group_card_container/GroupCardContainer";
-import {ColumnCardContainer} from "../../../component/dragndrop/ColumnCardContainer";
 
 export const DiscussView = () => {
     const {
@@ -89,9 +88,7 @@ export const DiscussView = () => {
 
                                     return (
                                         <div key={card.id} className={styles.card}>
-                                            <Avatar
-                                                style={{minWidth: 24, minHeight: 24, width: 24, height: 24}}
-                                                url={author?.avatar_link ?? ""} />
+                                            <Avatar url={author?.avatar_link ?? ""} size={24}/>
 
                                             {card.text}
                                         </div>
