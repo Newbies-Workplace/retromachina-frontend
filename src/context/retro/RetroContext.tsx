@@ -117,7 +117,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
   const [teamId, setTeamId] = useState<string | null>(null)
   const [votes, setVotes] = useState<SocketVote[]>([])
   const [maxVotes, setMaxVotes] = useState<number>(0)
-  const [timerEnds, setTimerEnds] = useState<number | null>(0)
+  const [timerEnds, setTimerEnds] = useState<number | null>(null)
   const [isReady, setIsReady] = useState(false)
   const [roomState, setRoomState] = useState<RoomState>("reflection")
   const [teamUsers, setTeamUsers] = useState<UserResponse[]>([])
@@ -163,7 +163,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
       setUsers(roomData.users)
       setActionPoint(roomData.actionPoints)
       setDiscussionCardId(roomData.discussionCardId)
-      setTimeOffset(roomData.serverTime - new Date().valueOf())
+      setTimeOffset(new Date().valueOf() - roomData.serverTime)
     })
 
     createdSocket.on("event_timer_change", (e: TimerChangeEvent) => {
