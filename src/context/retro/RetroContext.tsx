@@ -167,11 +167,11 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
 
       const serverTimeOffset = dayjs(roomData.serverTime).subtract(dayjs().valueOf(), 'ms').valueOf()
       setTimeOffset(serverTimeOffset)
-      setTimerEnds(roomData.timerEnds ? roomData.timerEnds + timeOffset : null)
+      setTimerEnds(roomData.timerEnds ? roomData.timerEnds - timeOffset : null)
     })
 
     createdSocket.on("event_change_timer", (e: ChangeTimerEvent) => {
-      setTimerEnds(e.timerEnds);
+      setTimerEnds(e.timerEnds ? e.timerEnds - timeOffset : null);
     });
 
     createdSocket.on("event_close_room", () => {
@@ -278,7 +278,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
   const setTimer = (time: number | null) => {
     setTimerEnds(time)
     const command: SetTimerCommand = {
-      timestamp: time ? time + timeOffset : time
+      timestamp: time ? time - timeOffset : time
     }
     socket.current?.emit("command_change_timer", command)
   }
