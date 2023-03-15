@@ -157,15 +157,17 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
       setTeamId(roomData.teamId)
       setColumns(roomData.retroColumns)
       setCards(roomData.cards)
-      setTimerEnds(roomData.timerEnds)
       setUsersReady(roomData.usersReady)
       setVotes(roomData.votes)
       setMaxVotes(roomData.maxVotes)
       setIsReady(roomData.users.find((u) => u.id === user?.user_id)?.isReady || false)
       setUsers(roomData.users)
       setActionPoint(roomData.actionPoints)
-      setDiscussionCardId(roomData.discussionCardId);
-      setTimeOffset(dayjs().subtract(roomData.serverTime, 'ms').valueOf())
+      setDiscussionCardId(roomData.discussionCardId)
+
+      const serverTimeOffset = dayjs().subtract(roomData.serverTime, 'ms').valueOf()
+      setTimeOffset(serverTimeOffset)
+      setTimerEnds(roomData.timerEnds ? roomData.timerEnds + timeOffset : null)
     })
 
     createdSocket.on("event_change_timer", (e: ChangeTimerEvent) => {
@@ -276,7 +278,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
   const setTimer = (time: number | null) => {
     setTimerEnds(time)
     const command: SetTimerCommand = {
-      timestamp: time ? time - timeOffset : time
+      timestamp: time ? time + timeOffset : time
     }
     socket.current?.emit("command_change_timer", command)
   }
