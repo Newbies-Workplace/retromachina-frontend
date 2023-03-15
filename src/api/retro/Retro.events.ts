@@ -1,11 +1,11 @@
 import {RoomState} from "./Retro.commands";
 
-export interface SocketVote{
+export interface SocketVote {
     parentCardId: string,
     voterId: string
 }
 
-export interface ChangeTimerEvent {
+export interface TimerChangeEvent {
     timerEnds: number | null //timestamp
 }
 
