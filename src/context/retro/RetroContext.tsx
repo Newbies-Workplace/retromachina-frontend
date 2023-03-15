@@ -171,7 +171,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
     })
 
     createdSocket.on("event_change_timer", (e: ChangeTimerEvent) => {
-      setTimerEnds(e.timerEnds);
+      setTimerEnds(e.timerEnds ? e.timerEnds - timeOffset : null);
     });
 
     createdSocket.on("event_close_room", () => {
