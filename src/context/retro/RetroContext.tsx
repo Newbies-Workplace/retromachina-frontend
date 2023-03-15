@@ -276,7 +276,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
   const setTimer = (time: number | null) => {
     setTimerEnds(time)
     const command: SetTimerCommand = {
-      timestamp: time ? time + timeOffset : time
+      timestamp: time ? time - timeOffset : time
     }
     socket.current?.emit("command_change_timer", command)
   }

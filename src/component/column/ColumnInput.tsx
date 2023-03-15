@@ -7,7 +7,6 @@ interface ColumnInputProps {
     columnData: SocketColumn,
     onCardCreated: (text: string) => void
     onIsWriting: (value: boolean) => void
-
 }
 
 export const ColumnInput: React.FC<ColumnInputProps> = (
