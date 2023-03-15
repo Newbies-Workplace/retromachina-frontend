@@ -163,11 +163,14 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
       setUsers(roomData.users)
       setActionPoint(roomData.actionPoints)
       setDiscussionCardId(roomData.discussionCardId)
-      setTimeOffset(new Date().valueOf() - roomData.serverTime)
+
+      const serverTimeOffset = new Date().valueOf() - roomData.serverTime
+      setTimeOffset(serverTimeOffset)
+      handleTimerChanged(roomData.timerEnds, serverTimeOffset)
     })
 
     createdSocket.on("event_timer_change", (e: TimerChangeEvent) => {
-      setTimerEnds(e.timerEnds ? e.timerEnds - timeOffset : null);
+      handleTimerChanged(e.timerEnds, timeOffset)
     });
 
     createdSocket.on("event_close_room", () => {
@@ -274,9 +277,13 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
   const setTimer = (time: number | null) => {
     setTimerEnds(time)
     const command: SetTimerCommand = {
-      timestamp: time ? time + timeOffset : null
+      timestamp: time ? time - timeOffset : null
     }
     socket.current?.emit("command_timer_change", command)
+  }
+
+  const handleTimerChanged = (time: number | null, serverOffset: number) => {
+    setTimerEnds(time ? time + serverOffset : null)
   }
 
   const nextRoomState = () => {
