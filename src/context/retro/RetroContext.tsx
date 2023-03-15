@@ -164,7 +164,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
       setActionPoint(roomData.actionPoints)
       setDiscussionCardId(roomData.discussionCardId)
 
-      const serverTimeOffset = new Date().valueOf() - roomData.serverTime
+      const serverTimeOffset = roomData.serverTime - new Date().valueOf()
       setTimeOffset(serverTimeOffset)
       handleTimerChanged(roomData.timerEnds, serverTimeOffset)
     })
