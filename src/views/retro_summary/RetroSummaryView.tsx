@@ -91,7 +91,7 @@ export const RetroSummaryView = () => {
                             <div className={styles.authors}>
                                 {userWithoutTasks.map((user) => {
                                     return (
-                                        <div className={styles.authorSection}>
+                                        <div className={styles.authorSection} key={user.user_id}>
                                             <Avatar url={user.avatar_link} />
                                             {user.nick}
                                         </div>

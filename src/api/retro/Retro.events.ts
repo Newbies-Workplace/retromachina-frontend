@@ -51,6 +51,7 @@ export interface RoomData {
     cards: SocketCard[]
     users: SocketUser[]
     actionPoints: ActionPoint[]
+    serverTime: number
 }
 
 export interface RoomSyncEvent {

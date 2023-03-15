@@ -32,6 +32,7 @@ import {getUsersByTeamId} from "../../api/user/User.service";
 import {CardMoveAction} from "../../interfaces/CardMoveAction.interface";
 import { useNavigate } from "react-router";
 import {useCardGroups} from "../useCardGroups";
+import dayjs from "dayjs";
 
 interface RetroContextParams {
   retroId: string
@@ -127,6 +128,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
   const [users, setUsers] = useState<SocketUser[]>([])
   const [actionPoint,setActionPoint] = useState<ActionPoint[]>([])
   const [discussionCardId, setDiscussionCardId] = useState<string | null>(null);
+  const [timeOffset, setTimeOffset] = useState<number>(0)
 
   const {user} = useUser()
   const navigate = useNavigate()
@@ -163,6 +165,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
       setUsers(roomData.users)
       setActionPoint(roomData.actionPoints)
       setDiscussionCardId(roomData.discussionCardId);
+      setTimeOffset(dayjs().subtract(roomData.serverTime, 'ms').valueOf())
     })
 
     createdSocket.on("event_change_timer", (e: ChangeTimerEvent) => {
@@ -273,7 +276,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
   const setTimer = (time: number | null) => {
     setTimerEnds(time)
     const command: SetTimerCommand = {
-      timestamp: time
+      timestamp: time ? time + timeOffset : time
     }
     socket.current?.emit("command_change_timer", command)
   }
