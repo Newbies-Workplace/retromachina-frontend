@@ -114,6 +114,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
     }
 ) => {
   const socket = useRef<Socket>()
+  const timeOffset = useRef<number>()
   const [teamId, setTeamId] = useState<string | null>(null)
   const [votes, setVotes] = useState<SocketVote[]>([])
   const [maxVotes, setMaxVotes] = useState<number>(0)
@@ -127,7 +128,6 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
   const [users, setUsers] = useState<SocketUser[]>([])
   const [actionPoint,setActionPoint] = useState<ActionPoint[]>([])
   const [discussionCardId, setDiscussionCardId] = useState<string | null>(null);
-  const [timeOffset, setTimeOffset] = useState<number>(0)
 
   const {user} = useUser()
   const navigate = useNavigate()
@@ -165,12 +165,12 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
       setDiscussionCardId(roomData.discussionCardId)
 
       const serverTimeOffset = roomData.serverTime - new Date().valueOf()
-      setTimeOffset(serverTimeOffset)
+      timeOffset.current = serverTimeOffset
       handleTimerChanged(roomData.timerEnds, serverTimeOffset)
     })
 
     createdSocket.on("event_timer_change", (e: TimerChangeEvent) => {
-      handleTimerChanged(e.timerEnds, timeOffset)
+      handleTimerChanged(e.timerEnds, timeOffset.current ?? 0)
     });
 
     createdSocket.on("event_close_room", () => {
@@ -277,12 +277,13 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
   const setTimer = (time: number | null) => {
     setTimerEnds(time)
     const command: SetTimerCommand = {
-      timestamp: time ? time + timeOffset : null
+      timestamp: time ? time + (timeOffset.current ?? 0) : null
     }
     socket.current?.emit("command_timer_change", command)
   }
 
   const handleTimerChanged = (time: number | null, serverOffset: number) => {
+    console.log(`handleTimerChanged ${time} ${serverOffset}`)
     setTimerEnds(time ? time - serverOffset : null)
   }
 

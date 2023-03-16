@@ -99,7 +99,7 @@ const RetroActiveView: React.FC = () => {
                 isScrumMaster={isScrumMaster}
                 isVotingVisible={roomState === "vote"}
                 isFinishVisible={roomState === "discuss"}
-                onTimeChanged={setTimer}
+                onTimeChanged={time => setTimer(time)}
                 isReady={ready}
                 onReadyChange={setReady}
                 readyPercentage={readyPercentage}
