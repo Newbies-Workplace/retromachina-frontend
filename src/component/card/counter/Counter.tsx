@@ -9,6 +9,7 @@ interface CounterProps {
     count: number;
     onIncrement(): void;
     onDecrement(): void;
+    style?: React.CSSProperties;
 }
 
 const Counter: React.FC<CounterProps> = (
@@ -17,6 +18,7 @@ const Counter: React.FC<CounterProps> = (
         canIncrement,
         onIncrement,
         onDecrement,
+        style,
     }
 ) => {
     const onMinusClick = () => {
@@ -32,7 +34,7 @@ const Counter: React.FC<CounterProps> = (
     };
 
     return (
-        <div className={styles.wrapper}>
+        <div className={styles.wrapper} style={style}>
             <MinusIcons
                 onClick={onMinusClick}
                 className={cs(styles.action, {

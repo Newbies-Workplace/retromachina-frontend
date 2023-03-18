@@ -93,9 +93,14 @@
 
 .votes {
     display: flex;
-    align-self: center;
     justify-content: center;
+    flex-grow: 1;
+
     width: 32px;
+
+    & span {
+        align-self: center;
+    }
 }
 
 .groupVotes {

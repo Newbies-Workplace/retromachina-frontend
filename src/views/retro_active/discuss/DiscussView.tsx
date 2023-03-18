@@ -62,9 +62,9 @@ export const DiscussView = () => {
                                             teamUsers={teamUsers}
                                         >
                                             {group.cards.length === index + 1 &&
-                                                <span className={styles.votes}>
-                                                {group.votes}
-                                            </span>
+                                                <div className={styles.votes}>
+                                                    <span className={styles.voteNumber}>{group.votes}</span>
+                                                </div>
                                             }
                                         </Card>
                                     )
