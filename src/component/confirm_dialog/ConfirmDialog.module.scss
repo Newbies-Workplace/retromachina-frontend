@@ -1,19 +1,5 @@
 @use  'src/abstracts/colors';
 
-.backdrop {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  height: 100%;
-  width: 100%;
-
-  position: absolute;
-  top: 0;
-
-  background-color: rgba(0, 0, 0, 0.37);
-}
-
 .dialog {
   display: flex;
   flex-direction: column;

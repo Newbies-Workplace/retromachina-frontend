@@ -109,6 +109,10 @@
     color: #696969;
 }
 
+.deleteButton {
+    background-color: colors.$warn;
+}
+
 @media screen and (max-width: 1000px) {
     .nextCardWrapper {
         display: none;

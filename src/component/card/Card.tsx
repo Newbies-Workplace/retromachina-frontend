@@ -1,10 +1,12 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import styles from "./Card.module.scss"
 import {Avatar} from "../avatar/Avatar"
 import {UserResponse} from "../../api/user/User.interfaces";
 import EditIconSvg from "../../assets/icons/edit-icon.svg"
+import SaveIcon from "../../assets/icons/save.svg"
 import useClickOutside from "../../context/useClickOutside";
 import cs from "classnames";
+import {Button} from "../button/Button";
 
 export interface CardProps {
     style?: React.CSSProperties
@@ -16,8 +18,9 @@ export interface CardProps {
         id: string
     }
     teamUsers: UserResponse[]
-    editable?: boolean
-    onChangeOwner?: (newOwnerId: string) => void
+    editableUser?: boolean
+    editableText?: boolean
+    onUpdate?: (ownerId: string, text: string) => void
 }
 
 export const Card: React.FC<React.PropsWithChildren<CardProps>> = (
@@ -28,20 +31,74 @@ export const Card: React.FC<React.PropsWithChildren<CardProps>> = (
         text ,
         author ,
         teamUsers ,
-        editable = false,
-        onChangeOwner
+        editableUser = false,
+        editableText = false,
+        onUpdate
     }
 ) => {
-    const close = useCallback(() => setUsersOpen(false), [])
-    const popover = useRef<any>()
-    useClickOutside(popover, close)
-
     const [isUsersOpen, setUsersOpen] = useState(false)
+    const [isEditingText, setIsEditingText] = useState(false)
+    const [editingText, setEditingText] = useState(text)
+
+    const closeUserPickerPopover = useCallback(() => {
+        setUsersOpen(false)
+    }, [])
+    const closeEditingMode = useCallback(() => {
+        setIsEditingText(false)
+        setEditingText(text)
+    }, [text])
+    const popover = useRef<any>()
+    const textarea = useRef<any>()
+
+    useClickOutside(popover, closeUserPickerPopover)
+    useClickOutside(textarea, closeEditingMode)
+
+    useEffect(() => {
+        setEditingText(text)
+    }, [text])
+
+    const onTextClick = () => {
+        if (editableText) {
+            setIsEditingText(true)
+        }
+    }
+
+    const onSaveClick = () => {
+        if (!author) {
+            return
+        }
+        onUpdate?.(author.id, editingText.trim())
+        setIsEditingText(false)
+    }
 
     return (
         <div style={style} className={cs(styles.wrapper, className)}>
             <div className={styles.content}>
-                <span className={styles.text}>{text}</span>
+                {isEditingText
+                    ? <textarea
+                        className={cs(styles.text, styles.input)}
+                        value={editingText}
+                        onChange={(e) => setEditingText(e.target.value)}
+                        ref={textarea}
+                        autoFocus
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter" && !e.shiftKey) {
+                                e.preventDefault()
+                                onSaveClick()
+                            }
+                        }}
+                        onFocus={(e) => {
+                            // workaround for focus at line end
+                            const temp = e.target.value
+                            e.target.value = ''
+                            e.target.value = temp
+                        }}
+                    />
+                    : <span className={styles.text} onClick={onTextClick}>
+                        {text}
+                    </span>
+                }
+
                 {author &&
                     <div className={styles.creator}>
                         <div style={{position: 'relative'}}>
@@ -51,7 +108,7 @@ export const Card: React.FC<React.PropsWithChildren<CardProps>> = (
                                         authorId={author.id}
                                         teamUsers={teamUsers}
                                         onUserPicked={(userId) => {
-                                            onChangeOwner?.(userId)
+                                            onUpdate?.(userId, text)
                                             setUsersOpen(false)
                                         }}/>
                                 </div>
@@ -64,16 +121,16 @@ export const Card: React.FC<React.PropsWithChildren<CardProps>> = (
                                 flexDirection: 'row',
                                 alignItems: 'center',
                                 gap: 8,
-                                cursor: editable ? 'pointer' : 'default'
+                                cursor: editableUser ? 'pointer' : 'default'
                             }}
                             onClick={() => {
-                                if (editable) {
+                                if (editableUser) {
                                     setUsersOpen(true)
                                 }
                             }}>
                             <Avatar url={author.avatar_link} size={24}/>
                             <span>{author.name}</span>
-                            {editable &&
+                            {editableUser &&
                                 <EditIconSvg width={12} height={12}/>
                             }
                         </div>
@@ -81,7 +138,12 @@ export const Card: React.FC<React.PropsWithChildren<CardProps>> = (
                 }
             </div>
             <div className={styles.childrenWrapper}>
-                {children}
+                {isEditingText
+                    ? <Button size={'round'} onClick={onSaveClick}>
+                        <SaveIcon/>
+                    </Button>
+                    : children
+                }
             </div>
         </div>
     )

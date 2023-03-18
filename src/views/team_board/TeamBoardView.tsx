@@ -67,8 +67,8 @@ export const TeamBoardView: React.FC = () => {
                                                 id: task.ownerId,
                                             }}
                                             teamUsers={teamUsers}
-                                            editable
-                                            onChangeOwner={(newOwnerId) => changeTaskOwner(task.id, newOwnerId)}
+                                            editableUser
+                                            onUpdate={(newOwnerId) => changeTaskOwner(task.id, newOwnerId)}
                                         />
                                     </DraggableCard>
                                 )

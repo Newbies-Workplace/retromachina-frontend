@@ -3,6 +3,7 @@ import styles from "./ConfirmDialog.module.scss"
 import { Portal } from 'react-portal';
 import {Button} from "../button/Button";
 import cs from "classnames";
+import {Backdrop} from "../backdrop/Backdrop";
 
 interface ConfirmDialogProps {
     title: string
@@ -14,7 +15,7 @@ interface ConfirmDialogProps {
 export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({title, content, onConfirmed, onDismiss}) => {
     return (
         <Portal>
-            <div className={styles.backdrop} onClick={onDismiss}>
+            <Backdrop onDismiss={onDismiss}>
                 <div className={styles.dialog} onClick={e => e.stopPropagation()}>
                     <div className={styles.title}>{title}</div>
 
@@ -38,7 +39,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({title, content, onC
                         </Button>
                     </div>
                 </div>
-            </div>
+            </Backdrop>
         </Portal>
     )
 }
