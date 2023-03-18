@@ -3,12 +3,13 @@ import {Card} from "../../../component/card/Card"
 import {Input} from "../../../component/input/Input"
 import {useRetro} from "../../../context/retro/RetroContext.hook"
 import styles from "./DiscussView.module.scss"
-import DeleteIconSvg from "../../../assets/icons/delete-icon.svg";
+import DeleteIcon from "../../../assets/icons/delete-icon.svg";
 import {useUser} from "../../../context/UserContext.hook";
 import {Group, useCardGroups} from "../../../context/useCardGroups";
 import {Avatar} from "../../../component/avatar/Avatar";
 import {usePlural} from "../../../context/usePlural";
 import {GroupCardContainer} from "../../../component/dragndrop/group_card_container/GroupCardContainer";
+import {Button} from "../../../component/button/Button";
 
 export const DiscussView = () => {
     const {
@@ -17,8 +18,8 @@ export const DiscussView = () => {
         votes,
         createActionPoint,
         deleteActionPoint,
+        updateActionPoint,
         actionPoints,
-        changeActionPointOwner,
         discussionCardId,
     } = useRetro();
     const [value, setValue] = useState("")
@@ -61,9 +62,9 @@ export const DiscussView = () => {
                                             teamUsers={teamUsers}
                                         >
                                             {group.cards.length === index + 1 &&
-                                                <span className={styles.votes}>
-                                                {group.votes}
-                                            </span>
+                                                <div className={styles.votes}>
+                                                    <span className={styles.voteNumber}>{group.votes}</span>
+                                                </div>
                                             }
                                         </Card>
                                     )
@@ -113,9 +114,10 @@ export const DiscussView = () => {
                                 <Card
                                     key={actionPoint.id}
                                     style={{ marginBottom: 16 }}
-                                    editable
-                                    onChangeOwner={(newOwnerId) => {
-                                        changeActionPointOwner(actionPoint.id, newOwnerId)
+                                    editableUser
+                                    editableText
+                                    onUpdate={(ownerId, text) => {
+                                        updateActionPoint(actionPoint.id, ownerId, text)
                                     }}
                                     teamUsers={teamUsers}
                                     text={actionPoint.text}
@@ -124,9 +126,12 @@ export const DiscussView = () => {
                                         name: author?.nick || "",
                                         id: author?.user_id || "",
                                     }}>
-                                    <DeleteIconSvg
-                                        style={{cursor: "pointer"}}
-                                        onClick={() => deleteActionPoint(actionPoint.id)}/>
+                                    <Button
+                                        size={'round'}
+                                        onClick={() => deleteActionPoint(actionPoint.id)}
+                                        className={styles.deleteButton}>
+                                        <DeleteIcon/>
+                                    </Button>
                                 </Card>
                             )
                         })}

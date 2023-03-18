@@ -3,6 +3,7 @@
 .wrapper {
     display: flex;
     justify-content: space-between;
+    gap: 4px;
 
     min-height: 142px;
     max-height: 142px;
@@ -31,6 +32,14 @@
     @include assets.scrollbar
 }
 
+.input {
+    resize: none;
+    height: 100%;
+    border: none;
+    outline: none;
+    padding: 0;
+}
+
 .creator {
     padding-top: 4px;
     
@@ -44,10 +53,8 @@
 
 .childrenWrapper {
     display: flex;
-    justify-content: flex-end;
+    flex-direction: column;
     user-select: none;
-    margin-left: 4px;
-    margin-right: -4px;
 }
 
 .bubbleContainer {
@@ -57,7 +64,7 @@
     gap: 8px;
 
     position: absolute;
-    top: 38px;
+    top: 24px;
     left: -6px;
 
     min-width: 250px;

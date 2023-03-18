@@ -12,7 +12,7 @@ import {
   AddVoteCommand,
   DeleteCardCommand,
   SetMaxVotesCommand,
-  NewCardCommand,
+  CreateCardCommand,
   ReadyCommand,
   RemoveVoteCommand,
   RoomState,
@@ -21,9 +21,9 @@ import {
   WriteStateCommand,
   MoveCardToColumnCommand,
   AddCardToCardCommand,
-  ChangeOwnerCommand,
+  UpdateActionPointCommand,
   CreateActionPointCommand,
-  DeleteActionPointCommand, ChangeCurrentDiscussCardCommand
+  DeleteActionPointCommand, ChangeCurrentDiscussCardCommand, UpdateCardCommand
 } from "../../api/retro/Retro.commands";
 import {UserResponse} from "../../api/user/User.interfaces";
 import {v4 as uuidv4} from "uuid";
@@ -56,6 +56,7 @@ interface RetroContext {
   setWriting: (value: boolean, columnId: string) => void
 
   createCard: (text: string, columnId: string) => void
+  updateCard: (cardId: string, text: string) => void
   deleteCard: (cardId: string) => void
 
   nextRoomState: () => void
@@ -70,7 +71,7 @@ interface RetroContext {
 
   endRetro: () => void
 
-  changeActionPointOwner: (actionPointId: string, userId: string) => void
+  updateActionPoint: (actionPointId: string, userId: string, text: string) => void
   createActionPoint: (text: string, ownerId: string) => void
   deleteActionPoint: (actionPointId: string) => void
   actionPoints: ActionPoint[]
@@ -91,6 +92,7 @@ export const RetroContext = createContext<RetroContext>({
   setReady: () => {},
   setWriting: () => {},
   createCard: () => {},
+  updateCard: () => {},
   deleteCard: () => {},
   nextRoomState: () => {},
   prevRoomState: () => {},
@@ -101,7 +103,7 @@ export const RetroContext = createContext<RetroContext>({
   setMaxVotesAmount: () => {},
   moveCard: () => {},
   endRetro: () => {},
-  changeActionPointOwner: () => {},
+  updateActionPoint: () => {},
   createActionPoint: () => {},
   deleteActionPoint: () => {},
   actionPoints: [],
@@ -196,7 +198,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
       text: text,
       ownerId: ownerId,
     }
-    socket.current?.emit("command_add_action_point", command)
+    socket.current?.emit("command_create_action_point", command)
   }
 
   const deleteActionPoint = (actionPointId: string) => {
@@ -207,12 +209,13 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
     socket.current?.emit("command_delete_action_point", command)
   }
 
-  const onChangeOwner = (apId: string, userId: string ) => {
-    const command: ChangeOwnerCommand = {
+  const updateActionPoint = (apId: string, userId: string, text: string) => {
+    const command: UpdateActionPointCommand = {
       actionPointId: apId,
       ownerId: userId,
+      text: text
     }
-    socket.current?.emit("command_change_action_point_owner", command)
+    socket.current?.emit("command_update_action_point", command)
   }
 
   const endRetro = () => {
@@ -257,14 +260,22 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
   }
 
   const createCard = (text: string, columnId: string) => {
-    const command: NewCardCommand = {
+    const command: CreateCardCommand = {
       id: uuidv4(),
       text: text,
       columnId: columnId,
       authorId: user!.user_id,
     }
-    socket.current?.emit("command_new_card", command)
+    socket.current?.emit("command_create_card", command)
     setWriting(false, columnId)
+  }
+
+  const updateCard = (cardId: string, text: string) => {
+    const command: UpdateCardCommand = {
+      cardId: cardId,
+      text: text,
+    }
+    socket.current?.emit("command_update_card", command)
   }
 
   const deleteCard = (cardId: string) => {
@@ -283,7 +294,6 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
   }
 
   const handleTimerChanged = (time: number | null, serverOffset: number) => {
-    console.log(`handleTimerChanged ${time} ${serverOffset}`)
     setTimerEnds(time ? time - serverOffset : null)
   }
 
@@ -397,6 +407,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
             readyPercentage: readyPercentage,
             setWriting: setWriting,
             createCard: createCard,
+            updateCard: updateCard,
             deleteCard: deleteCard,
             nextRoomState: nextRoomState,
             prevRoomState: prevRoomState,
@@ -407,7 +418,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
             setMaxVotesAmount: setMaxVotesAmount,
             moveCard: moveCard,
             endRetro:endRetro,
-            changeActionPointOwner: onChangeOwner,
+            updateActionPoint: updateActionPoint,
             createActionPoint: createActionPoint,
             deleteActionPoint: deleteActionPoint,
             actionPoints: actionPoint,

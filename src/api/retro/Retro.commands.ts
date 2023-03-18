@@ -2,11 +2,16 @@ export interface ReadyCommand {
     readyState: boolean
 }
 
-export interface NewCardCommand {
+export interface CreateCardCommand {
     id: string
     text: string
     authorId: string
     columnId: string
+}
+
+export interface UpdateCardCommand {
+    cardId: string
+    text: string
 }
 
 export interface DeleteCardCommand {
@@ -35,9 +40,10 @@ export interface MoveCardToColumnCommand {
     columnId: string
     cardId: string
 }
-export interface ChangeOwnerCommand {
+export interface UpdateActionPointCommand {
     actionPointId: string
     ownerId: string
+    text: string
 }
 export interface CreateActionPointCommand {
     text: string

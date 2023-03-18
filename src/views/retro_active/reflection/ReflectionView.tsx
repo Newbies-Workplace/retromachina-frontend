@@ -1,15 +1,16 @@
 import {useRetro} from "../../../context/retro/RetroContext.hook"
 import styles from "./ReflectionView.module.scss"
 import {Column} from "../../../component/column/Column"
-import DeleteIconSvg from "../../../assets/icons/delete-icon.svg"
+import DeleteIcon from "../../../assets/icons/delete-icon.svg"
 import { useUser } from "../../../context/UserContext.hook"
 import React from "react";
 import {ColumnInput} from "../../../component/column/ColumnInput";
 import {Card} from "../../../component/card/Card";
+import {Button} from "../../../component/button/Button";
 
 export const ReflectionView: React.FC = () => {
     const {user} = useUser();
-    const {teamUsers, columns, cards, setWriting, createCard, deleteCard} = useRetro()
+    const {teamUsers, columns, cards, setWriting, createCard, updateCard, deleteCard} = useRetro()
 
     return (
         <div className={styles.container}>
@@ -41,14 +42,21 @@ export const ReflectionView: React.FC = () => {
                                 <Card
                                     key={card.id}
                                     text={card.text}
+                                    editableText
                                     author={{
                                         avatar_link: user?.avatar_link || "",
                                         name: user?.nick || "",
                                         id: card.authorId,
                                     }}
                                     teamUsers={teamUsers}
+                                    onUpdate={(_, text) => updateCard(card.id, text)}
                                 >
-                                    <DeleteIconSvg style={{cursor: "pointer"}} onClick={() => deleteCard(card.id)}/>
+                                    <Button
+                                        size={'round'}
+                                        onClick={() => deleteCard(card.id)}
+                                        className={styles.deleteButton}>
+                                        <DeleteIcon/>
+                                    </Button>
                                 </Card>
                             );
                         })}
