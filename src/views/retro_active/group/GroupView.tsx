@@ -58,7 +58,6 @@ export const GroupView: React.FC = () => {
                                                             name: user?.nick || "",
                                                             id: card.authorId,
                                                         }}
-                                                        editableText
                                                         teamUsers={teamUsers}
                                                     />
                                                 </DraggableCard>
