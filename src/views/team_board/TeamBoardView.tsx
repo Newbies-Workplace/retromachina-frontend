@@ -3,6 +3,7 @@ import {useNavigate} from "react-router";
 import Navbar from "../../component/navbar/Navbar";
 import {HeaderBar} from "../../component/header_bar/HeaderBar";
 import styles from "./TeamBoardView.module.scss";
+import DeleteIcon from './../../assets/icons/delete-icon.svg'
 import {Button} from "../../component/button/Button";
 import {Column} from "../../component/column/Column";
 import {ColumnCardContainer} from "../../component/dragndrop/ColumnCardContainer";
@@ -12,7 +13,7 @@ import {useBoard} from "../../context/board/BoardContext.hook";
 import {useUser} from "../../context/UserContext.hook";
 
 export const TeamBoardView: React.FC = () => {
-    const {board, team, teamUsers, moveTask, changeTaskOwner} = useBoard()
+    const {board, team, teamUsers, moveTask, updateTask, deleteTask} = useBoard()
     const {user} = useUser()
     const navigate = useNavigate()
 
@@ -68,8 +69,16 @@ export const TeamBoardView: React.FC = () => {
                                             }}
                                             teamUsers={teamUsers}
                                             editableUser
-                                            onUpdate={(newOwnerId) => changeTaskOwner(task.id, newOwnerId)}
-                                        />
+                                            editableText
+                                            onUpdate={(ownerId, text) => updateTask(task.id, ownerId, text)}
+                                        >
+                                            <Button
+                                                size={'round'}
+                                                onClick={() => deleteTask(task.id)}
+                                                className={styles.deleteButton}>
+                                                <DeleteIcon/>
+                                            </Button>
+                                        </Card>
                                     </DraggableCard>
                                 )
                             })}
