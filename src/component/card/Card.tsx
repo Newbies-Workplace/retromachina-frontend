@@ -33,9 +33,11 @@ export const Card: React.FC<React.PropsWithChildren<CardProps>> = (
         teamUsers ,
         editableUser = false,
         editableText = false,
-        onUpdate
+        onUpdate,
     }
 ) => {
+    const popover = useRef<any>()
+    const textarea = useRef<any>()
     const [isUsersOpen, setUsersOpen] = useState(false)
     const [isEditingText, setIsEditingText] = useState(false)
     const [editingText, setEditingText] = useState(text)
@@ -47,20 +49,23 @@ export const Card: React.FC<React.PropsWithChildren<CardProps>> = (
         setIsEditingText(false)
         setEditingText(text)
     }, [text])
-    const popover = useRef<any>()
-    const textarea = useRef<any>()
-
-    useClickOutside(popover, closeUserPickerPopover)
-    useClickOutside(textarea, closeEditingMode)
 
     useEffect(() => {
         setEditingText(text)
     }, [text])
 
+    useClickOutside(popover, closeUserPickerPopover)
+    useClickOutside(textarea, closeEditingMode)
+
     const onTextClick = () => {
         if (editableText) {
             setIsEditingText(true)
         }
+    }
+
+    const onChangeUser = (userId: string) => {
+        onUpdate?.(userId, text)
+        setUsersOpen(false)
     }
 
     const onSaveClick = () => {
@@ -92,8 +97,7 @@ export const Card: React.FC<React.PropsWithChildren<CardProps>> = (
                             const temp = e.target.value
                             e.target.value = ''
                             e.target.value = temp
-                        }}
-                    />
+                        }} />
                     : <span className={styles.text} onClick={onTextClick}>
                         {text}
                     </span>
@@ -107,10 +111,7 @@ export const Card: React.FC<React.PropsWithChildren<CardProps>> = (
                                     <TeamUserPicker
                                         authorId={author.id}
                                         teamUsers={teamUsers}
-                                        onUserPicked={(userId) => {
-                                            onUpdate?.(userId, text)
-                                            setUsersOpen(false)
-                                        }}/>
+                                        onUserPicked={(userId) => onChangeUser(userId)}/>
                                 </div>
                             }
                         </div>
