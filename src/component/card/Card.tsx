@@ -4,9 +4,10 @@ import {Avatar} from "../avatar/Avatar"
 import {UserResponse} from "../../api/user/User.interfaces";
 import EditIconSvg from "../../assets/icons/edit-icon.svg"
 import SaveIcon from "../../assets/icons/save.svg"
-import useClickOutside from "../../context/useClickOutside";
 import cs from "classnames";
 import {Button} from "../button/Button";
+import {PositioningBackdrop} from "../backdrop/PositioningBackdrop";
+import useClickOutside from "../../context/useClickOutside";
 
 export interface CardProps {
     style?: React.CSSProperties
@@ -36,8 +37,7 @@ export const Card: React.FC<React.PropsWithChildren<CardProps>> = (
         onUpdate,
     }
 ) => {
-    const popover = useRef<any>()
-    const textarea = useRef<any>()
+    const teamUsersRef = useRef<any>()
     const [isUsersOpen, setUsersOpen] = useState(false)
     const [isEditingText, setIsEditingText] = useState(false)
     const [editingText, setEditingText] = useState(text)
@@ -45,8 +45,10 @@ export const Card: React.FC<React.PropsWithChildren<CardProps>> = (
     const closeUserPickerPopover = useCallback(() => {
         setUsersOpen(false)
     }, [])
+
     const closeEditingMode = useCallback(() => {
         setIsEditingText(false)
+        setUsersOpen(false)
         setEditingText(text)
     }, [text])
 
@@ -54,8 +56,7 @@ export const Card: React.FC<React.PropsWithChildren<CardProps>> = (
         setEditingText(text)
     }, [text])
 
-    useClickOutside(popover, closeUserPickerPopover)
-    useClickOutside(textarea, closeEditingMode)
+    useClickOutside(teamUsersRef, closeUserPickerPopover)
 
     const onTextClick = () => {
         if (editableText) {
@@ -77,76 +78,74 @@ export const Card: React.FC<React.PropsWithChildren<CardProps>> = (
     }
 
     return (
-        <div style={style} className={cs(styles.wrapper, className)}>
-            <div className={styles.content}>
-                {isEditingText
-                    ? <textarea
-                        className={cs(styles.text, styles.input)}
-                        value={editingText}
-                        onChange={(e) => setEditingText(e.target.value)}
-                        ref={textarea}
-                        autoFocus
-                        onKeyDown={(e) => {
-                            if (e.key === "Enter" && !e.shiftKey) {
-                                e.preventDefault()
-                                onSaveClick()
-                            }
-                        }}
-                        onFocus={(e) => {
-                            // workaround for focus at line end
-                            const temp = e.target.value
-                            e.target.value = ''
-                            e.target.value = temp
-                        }} />
-                    : <span className={styles.text} onClick={onTextClick}>
-                        {text}
-                    </span>
-                }
-
-                {author &&
-                    <div className={styles.creator}>
-                        <div style={{position: 'relative'}}>
-                            {isUsersOpen && teamUsers.length > 1 &&
-                                <div className={styles.bubbleContainer} ref={popover}>
-                                    <TeamUserPicker
-                                        authorId={author.id}
-                                        teamUsers={teamUsers}
-                                        onUserPicked={(userId) => onChangeUser(userId)}/>
-                                </div>
-                            }
-                        </div>
-
-                        <div
-                            style={{
-                                display: 'flex',
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                gap: 8,
-                                cursor: editableUser ? 'pointer' : 'default'
-                            }}
-                            onClick={() => {
-                                if (editableUser) {
-                                    setUsersOpen(true)
+        <PositioningBackdrop onDismiss={() => closeEditingMode()} visible={isEditingText || isUsersOpen}>
+            <div style={style} className={cs(styles.wrapper, className)}>
+                <div className={styles.content}>
+                    {isEditingText
+                        ? <textarea
+                            className={cs(styles.text, styles.input)}
+                            value={editingText}
+                            onChange={(e) => setEditingText(e.target.value)}
+                            autoFocus
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter" && !e.shiftKey) {
+                                    e.preventDefault()
+                                    onSaveClick()
                                 }
-                            }}>
-                            <Avatar url={author.avatar_link} size={24}/>
-                            <span>{author.name}</span>
-                            {editableUser &&
-                                <EditIconSvg width={12} height={12}/>
-                            }
+                            }}
+                            onFocus={(e) => {
+                                // workaround for focus at line end
+                                const temp = e.target.value
+                                e.target.value = ''
+                                e.target.value = temp
+                            }} />
+                        : <span className={styles.text} onClick={onTextClick}>{text}</span>
+                    }
+
+                    {author &&
+                        <div className={styles.creator}>
+                            <div style={{position: 'relative'}}>
+                                {isUsersOpen && teamUsers.length > 1 &&
+                                    <div className={styles.bubbleContainer} ref={teamUsersRef}>
+                                        <TeamUserPicker
+                                            authorId={author?.id || ''}
+                                            teamUsers={teamUsers}
+                                            onUserPicked={(userId) => onChangeUser(userId)}/>
+                                    </div>
+                                }
+                            </div>
+
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    flexDirection: 'row',
+                                    alignItems: 'center',
+                                    gap: 8,
+                                    cursor: editableUser ? 'pointer' : 'default'
+                                }}
+                                onClick={() => {
+                                    if (editableUser) {
+                                        setUsersOpen(true)
+                                    }
+                                }}>
+                                <Avatar url={author.avatar_link} size={24}/>
+                                <span>{author.name}</span>
+                                {editableUser && <EditIconSvg width={12} height={12}/>}
+                            </div>
                         </div>
-                    </div>
-                }
+                    }
+                </div>
+
+                <div className={styles.childrenWrapper}>
+                    {isEditingText
+                        ? <Button size={'round'} onClick={onSaveClick}>
+                            <SaveIcon/>
+                        </Button>
+                        : children
+                    }
+                </div>
             </div>
-            <div className={styles.childrenWrapper}>
-                {isEditingText
-                    ? <Button size={'round'} onClick={onSaveClick}>
-                        <SaveIcon/>
-                    </Button>
-                    : children
-                }
-            </div>
-        </div>
+        </PositioningBackdrop>
     )
 }
 
