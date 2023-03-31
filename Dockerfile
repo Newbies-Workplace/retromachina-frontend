@@ -14,8 +14,6 @@ WORKDIR /app
 
 ENV CI=true
 ENV SERVER_PORT=8080
-ENV API_URL="http://retro.newbies.pl:3000/api/rest/v1/"
-ENV SOCKET_URL="ws://retro.newbies.pl:3001"
 EXPOSE 8080
 
 COPY --from=builder /build/package*.json ./

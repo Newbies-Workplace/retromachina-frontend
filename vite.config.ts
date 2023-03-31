@@ -18,8 +18,8 @@ export default defineConfig ({
         port: 8080,
     },
     define: {
-        API_URL: process.env.API_URL,
-        SOCKET_URL: process.env.SOCKET_URL
+        API_URL: process.env.API_URL || "http://retro.newbies.pl:3000/api/rest/v1/",
+        SOCKET_URL: process.env.SOCKET_URL || "ws://retro.newbies.pl:3001",
     }
 })
 
