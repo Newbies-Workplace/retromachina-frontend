@@ -11,18 +11,18 @@ export default defineConfig(({mode}) => {
 
     return {
         plugins: [svgrComponent(), react()],
-            root: 'src',
+        root: 'src',
         build: {
-        outDir: '../dist',
+            outDir: '../dist',
             sourcemap: true,
-    },
+        },
         server: {
             host: '0.0.0.0',
-                port: 8080,
+            port: 8080,
         },
         define: {
             API_URL: process.env.API_URL,
-                SOCKET_URL: process.env.SOCKET_URL,
+            SOCKET_URL: process.env.SOCKET_URL,
         }
     }
 })
