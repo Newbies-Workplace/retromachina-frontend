@@ -1,5 +1,6 @@
 FROM node:18.11.0 as builder
 ARG API_URL
+ARG SOCKET_URL
 
 WORKDIR /build
 
