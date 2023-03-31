@@ -17,24 +17,20 @@ export const PositioningBackdrop: React.FC<PositioningBackdropProps> = (
 ) => {
     const boxRef = useRef<HTMLDivElement>(null)
     const [pos, setPos] = useState({x: 0, y: 0, w: 0, h: 0})
-    const [windowSize, setWindowSize] = useState([
-        window.innerWidth,
-        window.innerHeight,
-    ]);
 
     useEffect(() => {
-        const handleWindowResize = () => {
-            setWindowSize([window.innerWidth, window.innerHeight]);
-        };
-
-        window.addEventListener('resize', handleWindowResize);
+        window.addEventListener('resize', updateElementPosition);
 
         return () => {
-            window.removeEventListener('resize', handleWindowResize);
+            window.removeEventListener('resize', updateElementPosition);
         };
-    });
+    }, []);
 
     useEffect(() => {
+        updateElementPosition()
+    }, [visible])
+
+    const updateElementPosition = () => {
         const ref = boxRef.current
 
         if (ref) {
@@ -48,7 +44,7 @@ export const PositioningBackdrop: React.FC<PositioningBackdropProps> = (
 
             setPos(newPos)
         }
-    }, [visible, windowSize])
+    }
 
     return (
         <>
