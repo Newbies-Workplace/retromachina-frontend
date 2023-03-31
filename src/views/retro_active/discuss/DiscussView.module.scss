@@ -45,7 +45,9 @@
 }
 
 .actionCardWrapper {
+    display: flex;
     flex-direction: column;
+    gap: 16px;
 
     padding: 16px 4px 100px 0;
 

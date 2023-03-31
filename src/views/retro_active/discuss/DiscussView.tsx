@@ -113,7 +113,6 @@ export const DiscussView = () => {
                             return (
                                 <Card
                                     key={actionPoint.id}
-                                    style={{ marginBottom: 16 }}
                                     editableUser
                                     editableText
                                     onUpdate={(ownerId, text) => {
