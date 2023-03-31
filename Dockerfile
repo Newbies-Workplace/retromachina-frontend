@@ -1,28 +1,13 @@
-FROM node:18.11.0 as builder
-ARG API_URL
-ARG SOCKET_URL
-ENV API_URL $API_URL
-ENV SOCKET_URL $SOCKET_URL
+FROM node:18-alpine
 
-WORKDIR /build
+WORKDIR /react-vite-app
+
+EXPOSE 8080
+
+COPY package.json package-lock.json ./
+
+RUN npm install --silent
 
 COPY . ./
 
-RUN npm ci
-RUN npm run build
-
-FROM node:18.11.0-alpine
-
-WORKDIR /app
-
-ENV CI=true
-ENV SERVER_PORT=8080
-EXPOSE 8080
-
-COPY --from=builder /build/package*.json ./
-COPY --from=builder /build/server.js ./
-COPY --from=builder /build/dist/ ./dist
-
-RUN npm ci --only=production --ignore-scripts
-
-CMD node server.js
+CMD ["npm", "run", "dev"]
