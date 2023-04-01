@@ -137,7 +137,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
 
   useEffect(() => {
     const createdSocket = io(
-        `${process.env.SOCKET_URL}/retro`,
+        `${process.env.RETRO_SOCKET_URL}/retro`,
         {
           query: {
             retro_id: retroId,

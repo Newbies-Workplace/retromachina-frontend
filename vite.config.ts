@@ -11,6 +11,7 @@ export default defineConfig(({ mode }) => {
             react(),
             EnvironmentPlugin('all', { prefix: 'RETRO_' }),
         ],
+        envDir: '../',
         root: 'src',
         build: {
             outDir: '../dist',

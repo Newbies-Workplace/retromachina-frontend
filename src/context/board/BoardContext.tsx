@@ -58,7 +58,7 @@ export const BoardContextProvider: React.FC<React.PropsWithChildren<BoardContext
 
     useEffect(() => {
         const createdSocket = io(
-            `${process.env.SOCKET_URL}/board`,
+            `${process.env.RETRO_SOCKET_URL}/board`,
             {
                 query: {
                     team_id: teamId,
