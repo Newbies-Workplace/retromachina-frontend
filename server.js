@@ -9,7 +9,7 @@ const _dirname = path.dirname(__filename);
 const app = express();
 
 // config stuff
-const publicDir = path.join(__dirname, 'dist');
+const publicDir = path.join(_dirname, 'dist');
 const port = process.env.SERVER_PORT || 8080;
 
 // fallback to index.html
