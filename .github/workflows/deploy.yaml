@@ -55,6 +55,9 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
+          build-args: |
+            RETRO_API_URL=${{ secrets.API_URL }}
+            RETRO_SOCKET_URL=${{ secrets.SOCKET_URL }}
           context: .
           push: true
           tags: ${{ steps.meta.outputs.tags }}

@@ -2,7 +2,7 @@
 =)
 ## Development
 
-### Instalation
+### Installation
 
 * Clone this repo
 * Install nodejs
