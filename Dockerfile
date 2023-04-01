@@ -3,6 +3,7 @@ FROM node:16.10.0 as builder
 WORKDIR /build
 COPY . ./
 
+RUN ls -a
 RUN npm ci
 RUN npm run build
 

@@ -6,8 +6,7 @@
   "main": "src/index.ts",
   "scripts": {
     "dev": "vite --host",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "vite build"
   },
   "dependencies": {
     "@ramonak/react-progress-bar": "^5.0.3",
