@@ -2,9 +2,17 @@ version: "3"
 
 services:
   retro-web:
-    build:
-      context: ../
-    restart: always
+    image: ghcr.io/newbies-workplace/retromachina-frontend:latest    
+    restart: unless-stopped
+    environment:
+      - API_URL="https://retro.newbies.pl/api/rest/v1/"
+      - SOCKET_URL="wss://retro.newbies.pl"
     container_name: retro-web
     ports:
       - "80:8080"
+    networks:
+      - reverse-proxy_global
+
+networks:
+  reverse-proxy_global:
+    external: true
