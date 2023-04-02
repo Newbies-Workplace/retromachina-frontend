@@ -1,17 +1,18 @@
-import { axiosInstance } from '../../api/AxiosInstance';
-import { useUser } from '../../context/UserContext.hook'
+import {axiosInstance} from '../../api/AxiosInstance';
+import {useUser} from '../../context/UserContext.hook'
 import {Navigate, useNavigate, useParams} from 'react-router'
 import {TeamForm} from '../../component/forms/TeamForm';
-import { TeamRequest } from '../../api/team/Team.interface';
-import React, { useEffect, useState } from 'react';
-import { User } from '../../interfaces/User.interface';
+import {TeamRequest} from '../../api/team/Team.interface';
+import React, {useEffect, useState} from 'react';
+import {User} from '../../interfaces/User.interface';
 import Navbar from '../../component/navbar/Navbar';
-import { getInvitesByTeamId, getTeamById } from '../../api/team/Team.service';
-import { getUsersByTeamId } from '../../api/user/User.service';
+import {getInvitesByTeamId, getTeamById} from '../../api/team/Team.service';
+import {getUsersByTeamId} from '../../api/user/User.service';
 import {HeaderBar} from "../../component/header_bar/HeaderBar";
 import styles from "./TeamEditView.module.scss";
 import {ProgressBar} from "../../component/progress_bar/ProgressBar";
 import {ConfirmDialog} from "../../component/confirm_dialog/ConfirmDialog";
+import {toast} from "react-toastify";
 
 interface Invite {
     email: string,
@@ -56,18 +57,20 @@ const TeamEditView: React.FC = () => {
         axiosInstance.put(`/teams/${teamId}`, {
             name: team.name,
             emails: team.emails
-        }).then((response) => {
-            if (response.status == 204) {
+        })
+            .then((response) => {
                 refreshUser()
                     .then(() => {
                         navigate("/");
                     })
-            } else {
-                //coś się musi stać???
-                // - pewnie coś musi
-                console.log(response.status);
-            }
-        })
+            })
+            .then(() => {
+                toast.success('Zmiany zapisano')
+            })
+            .catch((e) => {
+                console.log(e)
+                toast.error('Wystąpił błąd')
+            })
     };
 
     const onDelete = () => {
@@ -77,6 +80,13 @@ const TeamEditView: React.FC = () => {
                     .then(() => {
                         navigate("/");
                     })
+            })
+            .then(() => {
+                toast.success('Zespół usunięto')
+            })
+            .catch((e) => {
+                console.log(e)
+                toast.error('Wystąpił błąd')
             })
     }
 

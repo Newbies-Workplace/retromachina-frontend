@@ -32,6 +32,7 @@ import {getUsersByTeamId} from "../../api/user/User.service";
 import {CardMoveAction} from "../../interfaces/CardMoveAction.interface";
 import { useNavigate } from "react-router";
 import {useCardGroups} from "../useCardGroups";
+import {toast} from "react-toastify";
 
 interface RetroContextParams {
   retroId: string
@@ -151,7 +152,10 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
     );
     socket.current = createdSocket;
 
-    createdSocket.on("error", console.log);
+    createdSocket.on("error", (e) => {
+      console.log(e)
+      toast.error('Wystąpił błąd')
+    });
 
     createdSocket.on("event_room_sync", ({roomData}: RoomSyncEvent) => {
       setRoomState(roomData.roomState)

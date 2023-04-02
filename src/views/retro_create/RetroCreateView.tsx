@@ -15,6 +15,7 @@ import {ProgressBar} from "../../component/progress_bar/ProgressBar";
 import {createRetro} from "../../api/retro/Retro.service";
 import {getRandomColor} from "../../common/Util";
 import {RetroCreateRequest} from "../../api/retro/Retro.interface";
+import {toast} from "react-toastify";
 
 export interface Column {
   id: string;
@@ -111,6 +112,8 @@ export const RetroCreateView: React.FC = () => {
           navigate(`/retro/${retro.data.retro_id}`)
         })
         .catch((e) => {
+          console.log(e)
+          toast.error('Wystąpił błąd')
           setClicked(false)
           navigate('/')
         })

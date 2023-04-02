@@ -6,6 +6,7 @@ import Navbar from '../../component/navbar/Navbar';
 import {createTeam} from '../../api/team/Team.service';
 import React from "react";
 import {HeaderBar} from "../../component/header_bar/HeaderBar";
+import {toast} from "react-toastify";
 
 export const TeamCreateView: React.FC = () => {
     const { user, refreshUser } = useUser();
@@ -19,7 +20,13 @@ export const TeamCreateView: React.FC = () => {
                         navigate("/");
                     })
             })
-            .catch(console.error)
+            .then(() => {
+                toast.success('Zespół stworzono')
+            })
+            .catch((e) => {
+                console.log(e)
+                toast.error('Wystąpił błąd')
+            })
     }
 
     return (
