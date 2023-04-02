@@ -8,6 +8,7 @@ import {UserResponse} from "../../api/user/User.interfaces";
 import {TaskDeleteCommand, TaskUpdateCommand} from "../../api/board/Board.commands";
 import {TeamResponse} from "../../api/team/Team.interface";
 import {getTeamById} from "../../api/team/Team.service";
+import {toast} from "react-toastify";
 
 interface BoardContextParams {
     teamId: string
@@ -99,7 +100,10 @@ export const BoardContextProvider: React.FC<React.PropsWithChildren<BoardContext
             )
         })
 
-        createdSocket.on("error", console.log);
+        createdSocket.on("error", (e) => {
+            console.log(e)
+            toast.error('Wystąpił błąd')
+        });
 
         return () => {
             createdSocket.removeAllListeners()

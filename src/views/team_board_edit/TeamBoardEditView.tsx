@@ -12,6 +12,7 @@ import {getRandomColor} from "../../common/Util";
 import NextIcon from "../../assets/icons/next.svg"
 import PrevIcon from "../../assets/icons/prev.svg"
 import {editBoard, getBoard} from "../../api/board/Board.service";
+import {toast} from "react-toastify";
 
 const MAX_COLUMNS = 6
 
@@ -88,7 +89,13 @@ export const TeamBoardEditView: React.FC = () => {
             .then(() => {
                 navigate(`/team/${teamId}/board`)
             })
-            .catch(console.log)
+            .then(() => {
+                toast.error('Tablicę zapisano')
+            })
+            .catch((e) => {
+                console.log(e)
+                toast.error('Wystąpił błąd')
+            })
     }
 
     return (
