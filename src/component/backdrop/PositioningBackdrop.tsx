@@ -42,6 +42,8 @@ export const PositioningBackdrop: React.FC<PositioningBackdropProps> = (
                 w: ref.clientWidth,
             }
 
+            console.log(newPos)
+
             setPos(newPos)
         }
     }

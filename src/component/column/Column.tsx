@@ -5,6 +5,7 @@ import cs from "classnames";
 
 interface ColumnProps {
     headerStyle?: string,
+    headerRight?: React.ReactNode
     columnData: {
         color: string
         name: string,
@@ -16,6 +17,7 @@ export const Column: React.FC<React.PropsWithChildren<ColumnProps>> = (
     {
         children,
         headerStyle,
+        headerRight,
         columnData,
     }
 ) => {
@@ -26,6 +28,7 @@ export const Column: React.FC<React.PropsWithChildren<ColumnProps>> = (
                     color={columnData.color}
                     header={columnData.name}
                     description={columnData.description ?? undefined}
+                    right={headerRight}
                 />
             </div>
 

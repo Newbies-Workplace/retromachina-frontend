@@ -5,17 +5,23 @@ interface ColumnHeaderProps{
     color: string,
     description?: string
     header: string
+    right?: React.ReactNode
 }
 
-export const ColumnHeader: React.FC<ColumnHeaderProps> = ({color, description, header}) => {
+export const ColumnHeader: React.FC<ColumnHeaderProps> = ({color, description, header, right}) => {
     return (
         <div className={style.wrapper}>
-            <div className={style.title}>
-                <div className={style.boxWrapper}>
-                    <div className={style.box} style={{backgroundColor: color}} />
+            <div className={style.top}>
+                <div className={style.title}>
+                    <div className={style.boxWrapper}>
+                        <div className={style.box} style={{backgroundColor: color}} />
+                    </div>
+
+                    <span>{header}</span>
                 </div>
 
-                <span>{header}</span>
+
+                {right}
             </div>
 
             {description !== undefined &&

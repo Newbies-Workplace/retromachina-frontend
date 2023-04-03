@@ -90,7 +90,7 @@ export const TeamBoardEditView: React.FC = () => {
                 navigate(`/team/${teamId}/board`)
             })
             .then(() => {
-                toast.error('Tablicę zapisano')
+                toast.success('Tablicę zapisano')
             })
             .catch((e) => {
                 console.log(e)
