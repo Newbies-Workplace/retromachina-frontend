@@ -8,6 +8,13 @@ interface PositioningBackdropProps {
     children: React.ReactNode
 }
 
+type Position = {
+    x: number
+    y: number
+    width: number
+    height: number
+}
+
 export const PositioningBackdrop: React.FC<PositioningBackdropProps> = (
     {
         children,
@@ -16,7 +23,7 @@ export const PositioningBackdrop: React.FC<PositioningBackdropProps> = (
     }
 ) => {
     const boxRef = useRef<HTMLDivElement>(null)
-    const [pos, setPos] = useState({x: 0, y: 0, w: 0, h: 0})
+    const [pos, setPos] = useState<Position>()
 
     useEffect(() => {
         window.addEventListener('resize', updateElementPosition);
@@ -35,14 +42,12 @@ export const PositioningBackdrop: React.FC<PositioningBackdropProps> = (
 
         if (ref) {
             const viewportOffset = ref.getBoundingClientRect();
-            const newPos = {
+            const newPos: Position = {
                 x: viewportOffset.left,
                 y: viewportOffset.top,
-                h: ref.clientHeight,
-                w: ref.clientWidth,
+                height: ref.clientHeight,
+                width: ref.clientWidth,
             }
-
-            console.log(newPos)
 
             setPos(newPos)
         }
@@ -50,7 +55,7 @@ export const PositioningBackdrop: React.FC<PositioningBackdropProps> = (
 
     return (
         <>
-            {visible &&
+            {visible && pos &&
                 <Portal>
                     <div className={styles.backdrop} onClick={onDismiss} />
 
@@ -58,8 +63,8 @@ export const PositioningBackdrop: React.FC<PositioningBackdropProps> = (
                         position: 'absolute',
                         top: pos.y,
                         left: pos.x,
-                        width: pos.w,
-                        height: pos.h
+                        width: pos.width,
+                        height: pos.height,
                     }}>
                         {children}
                     </div>
@@ -67,11 +72,11 @@ export const PositioningBackdrop: React.FC<PositioningBackdropProps> = (
             }
 
             <div ref={boxRef}>
-                {visible
+                {visible && pos
                     ? <div style={{
                         display: 'flex',
-                        width: pos.w,
-                        height: pos.h
+                        width: pos.width,
+                        height: pos.height,
                     }}/>
                     : children
                 }

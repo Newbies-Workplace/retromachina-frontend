@@ -67,36 +67,36 @@ export const TeamBoardView: React.FC = () => {
                             </Button>
                         }>
 
-                        {creatingTask && creatingTask?.columnId === column.id && (
-                            (() => {
-                                const author = teamUsers.find((user) => user.user_id === creatingTask.ownerId)
-
-                                return (
-                                    <Card
-                                        text={creatingTask.text}
-                                        author={{
-                                            avatar_link: author?.avatar_link || "",
-                                            name: author?.nick || "",
-                                            id: creatingTask.ownerId,
-                                        }}
-                                        teamUsers={teamUsers}
-                                        editableText
-                                        autoFocus
-                                        onEditDismiss={() => {
-                                            setCreatingTask(undefined)
-                                        }}
-                                        onUpdate={(ownerId, text) => {
-                                            createTask(creatingTask.id, text, ownerId, column.id)
-                                            setCreatingTask(undefined)
-                                        }}
-                                    />
-                                )
-                            })())
-                        }
-
                         <ColumnCardContainer
                             columnId={column.id}
                             onCardDropped={(taskId) => moveTask(taskId, column.id)}>
+
+                            {creatingTask && creatingTask?.columnId === column.id && (
+                                (() => {
+                                    const author = teamUsers.find((user) => user.user_id === creatingTask.ownerId)
+
+                                    return (
+                                        <Card
+                                            text={creatingTask.text}
+                                            author={{
+                                                avatar_link: author?.avatar_link || "",
+                                                name: author?.nick || "",
+                                                id: creatingTask.ownerId,
+                                            }}
+                                            teamUsers={teamUsers}
+                                            editableText
+                                            autoFocus
+                                            onEditDismiss={() => {
+                                                setCreatingTask(undefined)
+                                            }}
+                                            onUpdate={(ownerId, text) => {
+                                                createTask(creatingTask.id, text, ownerId, column.id)
+                                                setCreatingTask(undefined)
+                                            }}
+                                        />
+                                    )
+                                })())
+                            }
 
                             {board.tasks.filter(task => task.columnId === column.id).map(task => {
                                 const author = teamUsers.find((user) => user.user_id === task.ownerId);
