@@ -1,11 +1,11 @@
 import {useRetro} from "../../../context/retro/RetroContext.hook"
 import styles from "./GroupView.module.scss"
-import {Column} from "../../../component/column/Column"
+import {Column} from "../../../component/molecules/column/Column"
 import React from "react";
-import {Card} from "../../../component/card/Card";
-import {ColumnCardContainer} from "../../../component/dragndrop/ColumnCardContainer";
-import {DraggableCard} from "../../../component/dragndrop/DraggableCard";
-import {GroupCardContainer} from "../../../component/dragndrop/group_card_container/GroupCardContainer";
+import {Card} from "../../../component/molecules/card/Card";
+import {ColumnCardContainer} from "../../../component/molecules/dragndrop/ColumnCardContainer";
+import {DraggableCard} from "../../../component/molecules/dragndrop/DraggableCard";
+import {GroupCardContainer} from "../../../component/molecules/dragndrop/group_card_container/GroupCardContainer";
 
 export const GroupView: React.FC = () => {
     const {teamUsers, columns, cards, moveCard} = useRetro()
@@ -54,11 +54,15 @@ export const GroupView: React.FC = () => {
                                                     <Card
                                                         text={card.text}
                                                         author={{
-                                                            avatar_link: user?.avatar_link || "",
+                                                            avatar: user?.avatar_link || "",
                                                             name: user?.nick || "",
                                                             id: card.authorId,
                                                         }}
-                                                        teamUsers={teamUsers}
+                                                        teamUsers={teamUsers.map((user) => ({
+                                                            id: user.user_id,
+                                                            name: user.nick,
+                                                            avatar: user.avatar_link,
+                                                        }))}
                                                     />
                                                 </DraggableCard>
                                             )

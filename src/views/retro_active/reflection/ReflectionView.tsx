@@ -1,12 +1,12 @@
 import {useRetro} from "../../../context/retro/RetroContext.hook"
 import styles from "./ReflectionView.module.scss"
-import {Column} from "../../../component/column/Column"
+import {Column} from "../../../component/molecules/column/Column"
 import DeleteIcon from "../../../assets/icons/delete-icon.svg"
-import { useUser } from "../../../context/UserContext.hook"
+import { useUser } from "../../../context/user/UserContext.hook"
 import React from "react";
-import {ColumnInput} from "../../../component/column/ColumnInput";
-import {Card} from "../../../component/card/Card";
-import {Button} from "../../../component/button/Button";
+import {ColumnInput} from "../../../component/molecules/column/ColumnInput";
+import {Card} from "../../../component/molecules/card/Card";
+import {Button} from "../../../component/atoms/button/Button";
 
 export const ReflectionView: React.FC = () => {
     const {user} = useUser();
@@ -44,11 +44,15 @@ export const ReflectionView: React.FC = () => {
                                     text={card.text}
                                     editableText
                                     author={{
-                                        avatar_link: user?.avatar_link || "",
+                                        avatar: user?.avatar_link || "",
                                         name: user?.nick || "",
                                         id: card.authorId,
                                     }}
-                                    teamUsers={teamUsers}
+                                    teamUsers={teamUsers.map((user) => ({
+                                        id: user.user_id,
+                                        name: user.nick,
+                                        avatar: user.avatar_link,
+                                    }))}
                                     onUpdate={(_, text) => updateCard(card.id, text)}
                                 >
                                     <Button

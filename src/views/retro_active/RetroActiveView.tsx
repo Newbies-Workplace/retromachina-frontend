@@ -1,21 +1,21 @@
 import React, {useEffect} from "react";
 import styles from "./RetroActiveView.module.scss"
 import {Route, Routes} from "react-router-dom";
-import Navbar from "../../component/navbar/Navbar";
-import {Timer} from "../../component/timer/Timer";
+import Navbar from "../../component/organisms/navbar/Navbar";
+import {Timer} from "../../component/molecules/timer/Timer";
 import {useRetro} from "../../context/retro/RetroContext.hook";
 import {useNavigate} from "react-router";
 import { ReflectionView } from "./reflection/ReflectionView";
 import {GroupView} from "./group/GroupView";
-import { Toolbox } from "../../component/toolbox/Toolbox";
-import { useUser } from "../../context/UserContext.hook";
+import { Toolbox } from "../../component/molecules/toolbox/Toolbox";
+import { useUser } from "../../context/user/UserContext.hook";
 import { VoteView } from "./vote/VoteView";
 import { RetroHeaderTracker } from "../../component/retro_header_tracker/RetroHeaderTracker";
 import { DiscussView } from "./discuss/DiscussView";
-import {TeamAvatars} from "../../component/team_avatars/TeamAvatars";
-import {ProgressBar} from "../../component/progress_bar/ProgressBar";
+import {TeamAvatars} from "../../component/molecules/team_avatars/TeamAvatars";
+import {ProgressBar} from "../../component/atoms/progress_bar/ProgressBar";
 import {useCardGroups} from "../../context/useCardGroups";
-import {Button} from "../../component/button/Button";
+import {Button} from "../../component/atoms/button/Button";
 import dayjs from "dayjs";
 
 const RetroActiveView: React.FC = () => {

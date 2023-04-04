@@ -1,17 +1,17 @@
 import React, {useState} from "react";
 import {useNavigate} from "react-router";
-import Navbar from "../../component/navbar/Navbar";
-import {HeaderBar} from "../../component/header_bar/HeaderBar";
+import Navbar from "../../component/organisms/navbar/Navbar";
+import {HeaderBar} from "../../component/atoms/header_bar/HeaderBar";
 import styles from "./TeamBoardView.module.scss";
 import DeleteIcon from './../../assets/icons/delete-icon.svg'
 import AddIcon from './../../assets/icons/add-icon.svg'
-import {Button} from "../../component/button/Button";
-import {Column} from "../../component/column/Column";
-import {ColumnCardContainer} from "../../component/dragndrop/ColumnCardContainer";
-import {DraggableCard} from "../../component/dragndrop/DraggableCard";
-import {Card} from "../../component/card/Card";
+import {Button} from "../../component/atoms/button/Button";
+import {Column} from "../../component/molecules/column/Column";
+import {ColumnCardContainer} from "../../component/molecules/dragndrop/ColumnCardContainer";
+import {DraggableCard} from "../../component/molecules/dragndrop/DraggableCard";
+import {Card} from "../../component/molecules/card/Card";
 import {useBoard} from "../../context/board/BoardContext.hook";
-import {useUser} from "../../context/UserContext.hook";
+import {useUser} from "../../context/user/UserContext.hook";
 import {TaskResponse} from "../../api/task/Task.interface";
 import {v4 as uuidv4} from "uuid";
 
@@ -79,11 +79,11 @@ export const TeamBoardView: React.FC = () => {
                                         <Card
                                             text={creatingTask.text}
                                             author={{
-                                                avatar_link: author?.avatar_link || "",
+                                                avatar: author?.avatar_link || "",
                                                 name: author?.nick || "",
                                                 id: creatingTask.ownerId,
                                             }}
-                                            teamUsers={teamUsers}
+                                            teamUsers={[]}
                                             editableText
                                             autoFocus
                                             onEditDismiss={() => {
@@ -110,11 +110,15 @@ export const TeamBoardView: React.FC = () => {
                                         <Card
                                             text={task.text}
                                             author={{
-                                                avatar_link: author?.avatar_link || "",
+                                                avatar: author?.avatar_link || "",
                                                 name: author?.nick || "",
                                                 id: task.ownerId,
                                             }}
-                                            teamUsers={teamUsers}
+                                            teamUsers={teamUsers.map((user) => ({
+                                                id: user.user_id,
+                                                name: user.nick,
+                                                avatar: user.avatar_link,
+                                            }))}
                                             editableUser
                                             editableText
                                             onUpdate={(ownerId, text) => updateTask(task.id, ownerId, text)}
