@@ -1,11 +1,11 @@
 import {Navigate, useNavigate, useParams} from "react-router";
 import React, {useEffect, useState} from "react";
-import {HeaderBar} from "../../component/header_bar/HeaderBar";
-import Navbar from "../../component/navbar/Navbar";
+import {HeaderBar} from "../../component/atoms/header_bar/HeaderBar";
+import Navbar from "../../component/organisms/navbar/Navbar";
 import {Board, BoardColumn} from "../../api/board/Board.interface";
-import {ColumnCreate} from "../../component/column_create/ColumnCreate";
+import {ColumnCreate} from "../../component/molecules/column_create/ColumnCreate";
 import styles from "./TeamBoardEditView.module.scss";
-import {Button} from "../../component/button/Button";
+import {Button} from "../../component/atoms/button/Button";
 import AddIcon from "../../assets/icons/add-icon.svg";
 import {v4 as uuidv4} from "uuid";
 import {getRandomColor} from "../../common/Util";

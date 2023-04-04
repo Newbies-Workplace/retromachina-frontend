@@ -1,11 +1,11 @@
 import React from "react"
-import {Card} from "../../../component/card/Card"
-import Counter from "../../../component/card/counter/Counter"
-import {Column} from "../../../component/column/Column"
+import {Card} from "../../../component/molecules/card/Card"
+import Counter from "../../../component/molecules/card/counter/Counter"
+import {Column} from "../../../component/molecules/column/Column"
 import {useRetro} from "../../../context/retro/RetroContext.hook"
-import {useUser} from "../../../context/UserContext.hook"
+import {useUser} from "../../../context/user/UserContext.hook"
 import styles from "./VoteView.module.scss"
-import {GroupCardContainer} from "../../../component/dragndrop/group_card_container/GroupCardContainer";
+import {GroupCardContainer} from "../../../component/molecules/dragndrop/group_card_container/GroupCardContainer";
 
 export const VoteView = () => {
     const {
@@ -51,11 +51,15 @@ export const VoteView = () => {
                                                 text={card.text}
                                                 style={{marginTop: index === 0 ? 0 : -80}}
                                                 author={{
-                                                    avatar_link: author?.avatar_link || "",
+                                                    avatar: author?.avatar_link || "",
                                                     name: author?.nick || "",
                                                     id: card.authorId,
                                                 }}
-                                                teamUsers={teamUsers}
+                                                teamUsers={teamUsers.map((user) => ({
+                                                    id: user.user_id,
+                                                    name: user.nick,
+                                                    avatar: user.avatar_link,
+                                                }))}
                                             >
                                                 {groupCards.length === index + 1 &&
                                                     <Counter

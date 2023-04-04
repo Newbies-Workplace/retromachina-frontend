@@ -1,8 +1,8 @@
 import React from "react";
-import {Button} from "../../component/button/Button";
+import {Button} from "../../component/atoms/button/Button";
 import {useNavigate} from "react-router";
 import styles from "./NotFoundView.module.scss"
-import Navbar from "../../component/navbar/Navbar";
+import Navbar from "../../component/organisms/navbar/Navbar";
 import NotFoundSvg from "../../assets/images/not-found.svg";
 
 export const NotFoundView: React.FC = () => {

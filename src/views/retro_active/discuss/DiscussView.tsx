@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from "react"
-import {Card} from "../../../component/card/Card"
-import {Input} from "../../../component/input/Input"
+import {Card} from "../../../component/molecules/card/Card"
+import {Input} from "../../../component/atoms/input/Input"
 import {useRetro} from "../../../context/retro/RetroContext.hook"
 import styles from "./DiscussView.module.scss"
 import DeleteIcon from "../../../assets/icons/delete-icon.svg";
-import {useUser} from "../../../context/UserContext.hook";
+import {useUser} from "../../../context/user/UserContext.hook";
 import {Group, useCardGroups} from "../../../context/useCardGroups";
-import {Avatar} from "../../../component/avatar/Avatar";
+import {Avatar} from "../../../component/atoms/avatar/Avatar";
 import {usePlural} from "../../../context/usePlural";
-import {GroupCardContainer} from "../../../component/dragndrop/group_card_container/GroupCardContainer";
-import {Button} from "../../../component/button/Button";
+import {GroupCardContainer} from "../../../component/molecules/dragndrop/group_card_container/GroupCardContainer";
+import {Button} from "../../../component/atoms/button/Button";
 
 export const DiscussView = () => {
     const {
@@ -55,11 +55,15 @@ export const DiscussView = () => {
                                             style={{ marginTop: index === 0 ? 0 : -80 }}
                                             text={card.text}
                                             author={{
-                                                avatar_link: author?.avatar_link || "",
+                                                avatar: author?.avatar_link || "",
                                                 name: author?.nick || "",
                                                 id: card.authorId,
                                             }}
-                                            teamUsers={teamUsers}
+                                            teamUsers={teamUsers.map((user) => ({
+                                              id: user.user_id,
+                                              name: user.nick,
+                                              avatar: user.avatar_link,
+                                            }))}
                                         >
                                             {group.cards.length === index + 1 &&
                                                 <div className={styles.votes}>
@@ -118,13 +122,17 @@ export const DiscussView = () => {
                                     onUpdate={(ownerId, text) => {
                                         updateActionPoint(actionPoint.id, ownerId, text)
                                     }}
-                                    teamUsers={teamUsers}
+                                    teamUsers={teamUsers.map((user) => ({
+                                        id: user.user_id,
+                                        name: user.nick,
+                                        avatar: user.avatar_link,
+                                    }))}
                                     text={actionPoint.text}
-                                    author={{
-                                        avatar_link: author?.avatar_link || "",
-                                        name: author?.nick || "",
-                                        id: author?.user_id || "",
-                                    }}>
+                                    author={author ? {
+                                        avatar: author.avatar_link,
+                                        name: author.nick,
+                                        id: author.user_id,
+                                    } : undefined}>
                                     <Button
                                         size={'round'}
                                         onClick={() => deleteActionPoint(actionPoint.id)}

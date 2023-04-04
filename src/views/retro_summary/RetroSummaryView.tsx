@@ -1,7 +1,7 @@
 import React, {useEffect, useMemo, useState} from "react";
-import {Avatar} from "../../component/avatar/Avatar";
-import {Card} from "../../component/card/Card";
-import Navbar from "../../component/navbar/Navbar";
+import {Avatar} from "../../component/atoms/avatar/Avatar";
+import {Card} from "../../component/molecules/card/Card";
+import Navbar from "../../component/organisms/navbar/Navbar";
 import styles from "./RetroSummaryView.module.scss";
 import {TaskResponse} from "../../api/task/Task.interface";
 import {getTasksByRetroId} from "../../api/task/Task.service";
@@ -11,7 +11,7 @@ import {getUsersByTeamId} from "../../api/user/User.service";
 import {RetroResponse} from "../../api/retro/Retro.interface";
 import {getRetroByRetroId} from "../../api/retro/Retro.service";
 import dayjs from "dayjs";
-import {HeaderBar} from "../../component/header_bar/HeaderBar";
+import {HeaderBar} from "../../component/atoms/header_bar/HeaderBar";
 
 export const RetroSummaryView = () => {
     const { retroId } = useParams<{retroId: string}>();

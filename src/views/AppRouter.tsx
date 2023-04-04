@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import HomeView from "./home/HomeView";
 import {SignInView} from "./auth/SignIn/SignInView";
 import Loading from './auth/LoadingPage/LoadingPage';
-import {RequireAuth} from '../component/require_auth/RequireAuth';
+import {RequireAuth} from '../context/user/RequireAuth';
 import {RetroCreateView} from './retro_create/RetroCreateView';
 import TeamEditView from './team_edit/TeamEditView';
 import RetroActiveView from './retro_active/RetroActiveView';

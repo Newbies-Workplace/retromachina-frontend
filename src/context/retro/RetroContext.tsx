@@ -27,7 +27,7 @@ import {
 } from "../../api/retro/Retro.commands";
 import {UserResponse} from "../../api/user/User.interfaces";
 import {v4 as uuidv4} from "uuid";
-import {useUser} from "../UserContext.hook";
+import {useUser} from "../user/UserContext.hook";
 import {getUsersByTeamId} from "../../api/user/User.service";
 import {CardMoveAction} from "../../interfaces/CardMoveAction.interface";
 import { useNavigate } from "react-router";

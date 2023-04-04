@@ -1,7 +1,7 @@
 import {useEffect} from 'react';
-import {useUser} from '../../../context/UserContext.hook';
+import {useUser} from '../../../context/user/UserContext.hook';
 import {useNavigate} from 'react-router';
-import {LoadingView} from '../../../component/loading_view/LoadingView';
+import {LoadingView} from '../../../component/organisms/loading_view/LoadingView';
 import {AuthParams} from '../../../api/auth/Auth.interface';
 import {getRedirectPath, setRedirectPath} from "../../../context/useRedirect";
 

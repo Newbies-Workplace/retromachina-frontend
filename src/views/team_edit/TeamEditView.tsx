@@ -1,16 +1,16 @@
 import {axiosInstance} from '../../api/AxiosInstance';
-import {useUser} from '../../context/UserContext.hook'
+import {useUser} from '../../context/user/UserContext.hook'
 import {Navigate, useNavigate, useParams} from 'react-router'
-import {TeamForm} from '../../component/forms/TeamForm';
+import {TeamForm} from '../../component/organisms/forms/TeamForm';
 import {TeamRequest} from '../../api/team/Team.interface';
 import React, {useEffect, useState} from 'react';
 import {User} from '../../interfaces/User.interface';
-import Navbar from '../../component/navbar/Navbar';
+import Navbar from '../../component/organisms/navbar/Navbar';
 import {getInvitesByTeamId, getTeamById} from '../../api/team/Team.service';
 import {getUsersByTeamId} from '../../api/user/User.service';
-import {HeaderBar} from "../../component/header_bar/HeaderBar";
+import {HeaderBar} from "../../component/atoms/header_bar/HeaderBar";
 import styles from "./TeamEditView.module.scss";
-import {ProgressBar} from "../../component/progress_bar/ProgressBar";
+import {ProgressBar} from "../../component/atoms/progress_bar/ProgressBar";
 import {ConfirmDialog} from "../../component/confirm_dialog/ConfirmDialog";
 import {toast} from "react-toastify";
 
