@@ -19,4 +19,4 @@ jobs:
         uses: bitovi/github-actions-react-to-ghp@v1.2.0
         with:
           path: dist/storybook
-          build_command: PUBLIC_DIR=/retromachina-frontend/ npm run build-storybook
+          build_command: npm run build-storybook

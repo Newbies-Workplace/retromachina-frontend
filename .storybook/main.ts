@@ -4,7 +4,7 @@ const config: StorybookConfig = {
     "../src/**/*.mdx",
     "../src/**/*.stories.@(js|jsx|ts|tsx)",
   ],
-  staticDirs: ['public'],
+  staticDirs: [{from: 'public', to: 'assets'}],
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
@@ -17,10 +17,5 @@ const config: StorybookConfig = {
   docs: {
     autodocs: "tag",
   },
-  viteFinal: (config) => {
-    config.base = process.env.PUBLIC_DIR || config.base;
-
-    return config
-  }
 };
 export default config;
