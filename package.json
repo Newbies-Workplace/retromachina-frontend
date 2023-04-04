@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "build": "vite build",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build -o dist/storybook"
   },
   "dependencies": {
     "@ramonak/react-progress-bar": "^5.0.3",

@@ -15,7 +15,7 @@ export const Default: Story = {
         text: 'Test',
         author: {
             id: 'aaa',
-            avatar: 'src/assets/sample.png',
+            avatar: '/sample.png',
             name: 'John Doe'
         },
         teamUsers: []
@@ -29,12 +29,12 @@ export const WithEditableAuthor: Story = {
         teamUsers: [
             {
                 id: 'bbb',
-                avatar: 'src/assets/sample.png',
+                avatar: '/sample.png',
                 name: 'John Doe 2'
             },
             {
                 id: 'cc',
-                avatar: 'src/assets/sample.png',
+                avatar: '/sample.png',
                 name: 'John Doe 3'
             },
         ]

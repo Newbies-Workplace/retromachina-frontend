@@ -14,7 +14,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Active: Story = {
     args: {
-        url: 'src/assets/sample.png'
+        url: '/sample.png'
     }
 }
 
