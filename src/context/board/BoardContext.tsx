@@ -1,11 +1,11 @@
 import React, {createContext, useEffect, useRef, useState} from "react";
 import io, {Socket} from "socket.io-client";
-import {TaskDeletedEvent, TaskUpdatedEvent} from "../../api/board/Board.events";
+import {TaskCreatedEvent, TaskDeletedEvent, TaskUpdatedEvent} from "../../api/board/Board.events";
 import {Board} from "../../api/board/Board.interface";
 import {getBoard} from "../../api/board/Board.service";
 import {getUsersByTeamId} from "../../api/user/User.service";
 import {UserResponse} from "../../api/user/User.interfaces";
-import {TaskDeleteCommand, TaskUpdateCommand} from "../../api/board/Board.commands";
+import {TaskCreateCommand, TaskDeleteCommand, TaskUpdateCommand} from "../../api/board/Board.commands";
 import {TeamResponse} from "../../api/team/Team.interface";
 import {getTeamById} from "../../api/team/Team.service";
 import {toast} from "react-toastify";
@@ -20,6 +20,7 @@ interface BoardContext {
     team: TeamResponse | null
     teamUsers: UserResponse[]
     moveTask: (taskId: string, targetColumnId: string) => void
+    createTask: (taskId: string, text: string, ownerId: string, columnId: string) => void
     updateTask: (taskId: string, newOwnerId: string, text: string) => void
     deleteTask: (taskId: string) => void
 }
@@ -30,6 +31,7 @@ export const BoardContext = createContext<BoardContext>({
     team: null,
     teamUsers: [],
     moveTask: () => {},
+    createTask: () => {},
     updateTask: () => {},
     deleteTask: () => {},
 })
@@ -71,6 +73,24 @@ export const BoardContextProvider: React.FC<React.PropsWithChildren<BoardContext
             }
         );
         socket.current = createdSocket;
+
+        createdSocket.on("task_created_event", (event: TaskCreatedEvent) => {
+            setBoard((board) => board
+                ? {
+                    ...board,
+                    tasks: [
+                        ...board.tasks,
+                        {
+                            id: event.taskId,
+                            columnId: event.columnId,
+                            ownerId: event.ownerId,
+                            text: event.text,
+                        }
+                    ]
+                }
+                : null
+            )
+        })
 
         createdSocket.on("task_updated_event", (event: TaskUpdatedEvent) => {
             setBoard((board) => board
@@ -120,6 +140,17 @@ export const BoardContextProvider: React.FC<React.PropsWithChildren<BoardContext
         socket.current?.emit("command_update_task", command)
     }
 
+    const createTask = (taskId: string, text: string, ownerId: string, columnId: string) => {
+        const command: TaskCreateCommand = {
+            taskId: taskId,
+            ownerId: ownerId,
+            text: text,
+            columnId: columnId,
+        }
+
+        socket.current?.emit("command_create_task", command)
+    }
+
     const updateTask = (taskId: string, newOwnerId: string, text: string) => {
         const command: TaskUpdateCommand = {
             taskId: taskId,
@@ -152,6 +183,7 @@ export const BoardContextProvider: React.FC<React.PropsWithChildren<BoardContext
                 team: team,
                 teamUsers: teamUsers,
                 moveTask: moveTask,
+                createTask: createTask,
                 updateTask: updateTask,
                 deleteTask: deleteTask,
             }}

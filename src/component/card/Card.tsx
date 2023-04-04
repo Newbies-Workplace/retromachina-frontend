@@ -21,7 +21,9 @@ export interface CardProps {
     teamUsers: UserResponse[]
     editableUser?: boolean
     editableText?: boolean
+    autoFocus?: boolean
     onUpdate?: (ownerId: string, text: string) => void
+    onEditDismiss?: () => void
 }
 
 export const Card: React.FC<React.PropsWithChildren<CardProps>> = (
@@ -34,12 +36,14 @@ export const Card: React.FC<React.PropsWithChildren<CardProps>> = (
         teamUsers ,
         editableUser = false,
         editableText = false,
+        autoFocus = false,
         onUpdate,
+        onEditDismiss,
     }
 ) => {
     const teamUsersRef = useRef<any>()
     const [isUsersOpen, setUsersOpen] = useState(false)
-    const [isEditingText, setIsEditingText] = useState(false)
+    const [isEditingText, setIsEditingText] = useState(autoFocus)
     const [editingText, setEditingText] = useState(text)
 
     const closeUserPickerPopover = useCallback(() => {
@@ -50,6 +54,7 @@ export const Card: React.FC<React.PropsWithChildren<CardProps>> = (
         setIsEditingText(false)
         setUsersOpen(false)
         setEditingText(text)
+        onEditDismiss?.()
     }, [text])
 
     useEffect(() => {
