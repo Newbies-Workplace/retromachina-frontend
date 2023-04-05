@@ -16,7 +16,6 @@ import {ProgressBar} from "../../component/atoms/progress_bar/ProgressBar";
 import {useCardGroups} from "../../context/useCardGroups";
 import {Button} from "../../component/atoms/button/Button";
 import dayjs from "dayjs";
-import {RetroHeaderTracker} from "../../component/molecules/retro_header_tracker/RetroHeaderTracker";
 
 const RetroActiveView: React.FC = () => {
     const navigate = useNavigate()
@@ -82,17 +81,19 @@ const RetroActiveView: React.FC = () => {
                             }))}/>
                         }
                     </>
-                }>
-                <RetroHeaderTracker/>
-            </Navbar>
+                } />
 
-            <Routes>
-                <Route path="reflection" element={<ReflectionView/>} />
-                <Route path="group" element={<GroupView/>} />
-                <Route path="vote" element={<VoteView/>} />
-                <Route path="discuss" element={<DiscussView/>} />
-                <Route path="*" element={<ProgressBar/>}/>
-            </Routes>
+            <div className={styles.container}>
+                <div className={styles.content}>
+                    <Routes>
+                        <Route path="reflection" element={<ReflectionView/>} />
+                        <Route path="group" element={<GroupView/>} />
+                        <Route path="vote" element={<VoteView/>} />
+                        <Route path="discuss" element={<DiscussView/>} />
+                        <Route path="*" element={<ProgressBar/>}/>
+                    </Routes>
+                </div>
+            </div>
 
             <Toolbox
                 className={styles.toolbox}

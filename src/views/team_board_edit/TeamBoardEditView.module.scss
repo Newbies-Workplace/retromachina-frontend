@@ -3,9 +3,8 @@
 @use  'src/abstracts/assets';
 
 .container {
-  width: 100%;
-  height: calc(100% - 120px - 10px);
-  padding-bottom: 8px;
+  display: flex;
+  flex-grow: 1;
 
   @include assets.scrollbar
 }
@@ -21,12 +20,6 @@
 
 .columnButton {
   padding-right: 16px;
-}
-
-.action {
-  position: absolute;
-
-  right: 16px;
 }
 
 .columnAction {

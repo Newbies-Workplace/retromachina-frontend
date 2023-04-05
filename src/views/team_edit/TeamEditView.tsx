@@ -92,9 +92,7 @@ const TeamEditView: React.FC = () => {
 
     return (
         <>
-            <Navbar>
-                <HeaderBar text="Edycja Zespołu" />
-            </Navbar>
+            <Navbar />
 
             {!team &&
                 <div className={styles.container}>

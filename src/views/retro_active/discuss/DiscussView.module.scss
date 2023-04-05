@@ -2,18 +2,14 @@
 @use '../../../abstracts/fonts';
 @use '../../../abstracts/assets';
 
-.container {
+.content {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
-
-    height: calc(100% - 124px);
-
-    @include assets.scrollbar;
-    overflow-y: hidden;
-    overflow-x: auto;
+    height: 100%;
 }
 
-.nextCardWrapper {
+.upNextSection {
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -30,37 +26,21 @@
         font-size: 32px;
         font-weight: 700;
     }
+
+    .votes {
+        display: flex;
+        justify-content: center;
+        flex-grow: 1;
+
+        width: 32px;
+
+        & span {
+            align-self: center;
+        }
+    }
 }
 
-.actionPointWrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-    height: calc(100vh - 120px);
-    width: 320px;
-
-    background-color: colors.$primary-color;
-    padding: 0 16px;
-}
-
-.actionCardWrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-
-    padding: 16px 4px 100px 0;
-
-    @include assets.scrollbar;
-    overflow-x: hidden;
-}
-
-.actionCardInput {
-    margin-top: -16px;
-    padding-bottom: 16px;
-}
-
-.currentCardWrapper {
+.currentCardSection {
     @include assets.scrollbar;
 
     flex-grow: 1;
@@ -69,51 +49,78 @@
     min-width: 300px;
     max-width: 900px;
     padding: 32px 8px 0 8px;
-}
 
-.discussCardWrapper {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
+    .card {
+        display: flex;
+        gap: 8px;
 
-    background-color: white;
-    padding: 10px;
+        margin-bottom: 16px;
+    }
 
-    border: 1px solid black;
-    border-radius: 16px;
+    .discussCardWrapper {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
 
-    word-break: break-word;
-    white-space: pre-line;
-}
+        background-color: white;
+        padding: 10px;
 
-.card {
-    display: flex;
-    gap: 8px;
+        border: 1px solid black;
+        border-radius: 16px;
 
-    margin-bottom: 16px;
-}
+        word-break: break-word;
+        white-space: pre-line;
+    }
 
-.votes {
-    display: flex;
-    justify-content: center;
-    flex-grow: 1;
+    .groupVotes {
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
 
-    width: 32px;
+        margin-top: auto;
 
-    & span {
-        align-self: center;
+        font-size: 16px;
+        color: #696969;
     }
 }
 
-.groupVotes {
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
+.actionPointsSection {
+    flex-direction: column;
+    flex-grow: 1;
+    position: relative;
+    max-width: 400px;
 
-    margin-top: auto;
+    .actionPointContent {
+        display: flex;
+        flex-direction: column;
 
-    font-size: 16px;
-    color: #696969;
+
+        background-color: colors.$primary-color;
+        padding: 0 16px;
+
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+    }
+
+    .actionPointList {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        margin-bottom: auto;
+        padding: 16px 0;
+
+        @include assets.scrollbar;
+    }
+
+    .actionPointInput {
+        justify-self: flex-end;
+        padding-bottom: 16px;
+        margin-top: -16px;
+    }
 }
 
 .deleteButton {
@@ -121,13 +128,15 @@
 }
 
 @media screen and (max-width: 1000px) {
-    .nextCardWrapper {
+    .upNextSection {
         display: none;
     }
 }
 
 @media screen and (max-width: 1200px) {
-    .actionCardInput {
-        padding-bottom: 100px;
+    .actionPointsSection {
+        .actionPointInput {
+            padding-bottom: 100px;
+        }
     }
 }

@@ -135,12 +135,11 @@ export const RetroCreateView: React.FC = () => {
 
   return (
       <>
-        <Navbar>
-          <HeaderBar text={`Nowa retrospektywa ${teamName}`}/>
-          <Button className={styles.randomize} size={"small"} onClick={() => randomizeTemplate()}>
+        <Navbar topContent={
+          <Button size={"small"} onClick={() => randomizeTemplate()}>
             Losuj szablon
           </Button>
-        </Navbar>
+        }/>
 
         <div className={styles.container}>
           <div className={styles.columns}>

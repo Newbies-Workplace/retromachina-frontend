@@ -1,5 +1,4 @@
 import {useRetro} from "../../../context/retro/RetroContext.hook"
-import styles from "./GroupView.module.scss"
 import {Column} from "../../../component/molecules/column/Column"
 import React from "react";
 import {Card} from "../../../component/molecules/card/Card";
@@ -11,7 +10,7 @@ export const GroupView: React.FC = () => {
     const {teamUsers, columns, cards, moveCard} = useRetro()
 
     return (
-        <div className={styles.container}>
+        <div style={{display: 'flex', flexDirection: 'row'}}>
             {columns?.map((column) => {
                 const columnCards = cards.filter(c => c.columnId === column.id)
 

@@ -31,8 +31,8 @@ export const DiscussView = () => {
     }, [cards, votes])
 
     return (
-        <div className={styles.container}>
-            <div className={styles.nextCardWrapper}>
+        <div className={styles.content}>
+            <div className={styles.upNextSection}>
                 <span className={styles.header}>Już za chwilę...</span>
                 {groups.sort((a, b) => (b.votes - a.votes))
                     .filter((group, groupIndex) => {
@@ -60,9 +60,9 @@ export const DiscussView = () => {
                                                 id: card.authorId,
                                             }}
                                             teamUsers={teamUsers.map((user) => ({
-                                              id: user.user_id,
-                                              name: user.nick,
-                                              avatar: user.avatar_link,
+                                                id: user.user_id,
+                                                name: user.nick,
+                                                avatar: user.avatar_link,
                                             }))}
                                         >
                                             {group.cards.length === index + 1 &&
@@ -79,7 +79,7 @@ export const DiscussView = () => {
             </div>
 
             {discussionCardId &&
-                <div className={styles.currentCardWrapper}>
+                <div className={styles.currentCardSection}>
                     {(() => {
                         const group = groups.find(g => g.parentCardId === discussionCardId)!
                         if (!group) {
@@ -109,53 +109,57 @@ export const DiscussView = () => {
                 </div>
             }
 
-            <div className={styles.actionPointWrapper}>
-                <div className={styles.actionCardWrapper}>
-                    {actionPoints?.filter((actionPoint) => actionPoint.parentCardId === discussionCardId)
-                        .map((actionPoint) => {
-                            const author = teamUsers.find((teamUser) => teamUser.user_id === actionPoint.ownerId)
-                            return (
-                                <Card
-                                    key={actionPoint.id}
-                                    editableUser
-                                    editableText
-                                    onUpdate={(ownerId, text) => {
-                                        updateActionPoint(actionPoint.id, ownerId, text)
-                                    }}
-                                    teamUsers={teamUsers.map((user) => ({
-                                        id: user.user_id,
-                                        name: user.nick,
-                                        avatar: user.avatar_link,
-                                    }))}
-                                    text={actionPoint.text}
-                                    author={author ? {
-                                        avatar: author.avatar_link,
-                                        name: author.nick,
-                                        id: author.user_id,
-                                    } : undefined}>
-                                    <Button
-                                        size={'round'}
-                                        onClick={() => deleteActionPoint(actionPoint.id)}
-                                        className={styles.deleteButton}>
-                                        <DeleteIcon/>
-                                    </Button>
-                                </Card>
-                            )
-                        })}
-                </div>
-                <div className={styles.actionCardInput}>
-                    <Input
-                        multiline
-                        value={value}
-                        setValue={setValue}
-                        placeholder={"Nowy action point..."}
-                        onKeyDown={(e) => {
-                            if (e.key === "Enter" && !e.shiftKey) {
-                                e.preventDefault()
-                                createActionPoint(value, user?.user_id!)
-                                setValue("");
-                            }
-                        }} />
+            <div className={styles.actionPointsSection}>
+                <div className={styles.actionPointContent}>
+                    <div className={styles.actionPointList}>
+                        {actionPoints?.filter((actionPoint) => actionPoint.parentCardId === discussionCardId)
+                            .map((actionPoint) => {
+                                const author = teamUsers.find((teamUser) => teamUser.user_id === actionPoint.ownerId)
+
+                                return (
+                                    <Card
+                                        key={actionPoint.id}
+                                        editableUser
+                                        editableText
+                                        onUpdate={(ownerId, text) => {
+                                            updateActionPoint(actionPoint.id, ownerId, text)
+                                        }}
+                                        teamUsers={teamUsers.map((user) => ({
+                                            id: user.user_id,
+                                            name: user.nick,
+                                            avatar: user.avatar_link,
+                                        }))}
+                                        text={actionPoint.text}
+                                        author={author ? {
+                                            avatar: author.avatar_link,
+                                            name: author.nick,
+                                            id: author.user_id,
+                                        } : undefined}>
+                                        <Button
+                                            size={'round'}
+                                            onClick={() => deleteActionPoint(actionPoint.id)}
+                                            className={styles.deleteButton}>
+                                            <DeleteIcon/>
+                                        </Button>
+                                    </Card>
+                                )
+                            })}
+                    </div>
+
+                    <div className={styles.actionPointInput}>
+                        <Input
+                            multiline
+                            value={value}
+                            setValue={setValue}
+                            placeholder={"Nowy action point..."}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter" && !e.shiftKey) {
+                                    e.preventDefault()
+                                    createActionPoint(value, user?.user_id!)
+                                    setValue("");
+                                }
+                            }} />
+                    </div>
                 </div>
             </div>
         </div>

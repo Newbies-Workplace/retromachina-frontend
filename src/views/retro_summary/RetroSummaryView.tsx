@@ -49,9 +49,7 @@ export const RetroSummaryView = () => {
 
     return (
         <>
-            <Navbar>
-                <HeaderBar className={styles.header} text={"Podsumowanie"} active/>
-            </Navbar>
+            <Navbar />
 
             <div className={styles.container}>
                 <div className={styles.wrapper}>

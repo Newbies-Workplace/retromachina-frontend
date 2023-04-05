@@ -13,7 +13,7 @@ export const ReflectionView: React.FC = () => {
     const {teamUsers, columns, cards, setWriting, createCard, updateCard, deleteCard} = useRetro()
 
     return (
-        <div className={styles.container}>
+        <div style={{display: 'flex', flexDirection: 'row'}}>
             {columns?.map((column) => {
                 const columnCards = cards.filter(c => c.columnId === column.id)
 

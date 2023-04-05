@@ -4,7 +4,6 @@ import Counter from "../../../component/molecules/card/counter/Counter"
 import {Column} from "../../../component/molecules/column/Column"
 import {useRetro} from "../../../context/retro/RetroContext.hook"
 import {useUser} from "../../../context/user/UserContext.hook"
-import styles from "./VoteView.module.scss"
 import {GroupCardContainer} from "../../../component/molecules/dragndrop/group_card_container/GroupCardContainer";
 
 export const VoteView = () => {
@@ -22,7 +21,7 @@ export const VoteView = () => {
     const votesLeft = maxVotes - votes.filter((vote) => user?.user_id === vote.voterId ).length
 
     return (
-        <div className={styles.container}>
+        <div style={{display: 'flex', flexDirection: 'row'}}>
             {columns?.map((column) => {
                 const columnCards = cards.filter(c => c.columnId === column.id)
 

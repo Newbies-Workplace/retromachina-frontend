@@ -4,20 +4,15 @@
 
 .container {
   display: flex;
+  flex-grow: 1;
+
   @include assets.scrollbar;
-  height: calc(100% - 124px);
 }
 
 .headerStyle {
   min-height: 0;
 
   margin-top: 32px;
-}
-
-.toolbarAction {
-  position: absolute;
-
-  right: 16px;
 }
 
 .deleteButton {

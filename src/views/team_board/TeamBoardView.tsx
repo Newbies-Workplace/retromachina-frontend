@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import {useNavigate} from "react-router";
 import Navbar from "../../component/organisms/navbar/Navbar";
-import {HeaderBar} from "../../component/atoms/header_bar/HeaderBar";
 import styles from "./TeamBoardView.module.scss";
 import DeleteIcon from './../../assets/icons/delete-icon.svg'
 import AddIcon from './../../assets/icons/add-icon.svg'
@@ -42,14 +41,12 @@ export const TeamBoardView: React.FC = () => {
 
     return (
         <>
-            <Navbar>
-                <HeaderBar text={`Tablica zadań`}/>
-                {team?.scrumMasterId === user?.user_id &&
-                    <Button className={styles.toolbarAction} size={"small"} onClick={onEditClick}>
-                        Edytuj
-                    </Button>
-                }
-            </Navbar>
+            <Navbar topContent={
+                team?.scrumMasterId === user?.user_id &&
+                <Button size={"small"} onClick={onEditClick}>
+                    Edytuj
+                </Button>
+            } />
 
             <div className={styles.container}>
                 {board.columns?.sort((a, b) => a.order - b.order).map(column =>
