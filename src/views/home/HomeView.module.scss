@@ -2,10 +2,8 @@
 @use '../../abstracts/fonts';
 @use '../../abstracts/assets';
 
-.container{
+.container {
   @include assets.scrollbar;
-  height: calc(100% - 124px);
-  width: calc(100% - 6px);
 }
 
 .noTeam {

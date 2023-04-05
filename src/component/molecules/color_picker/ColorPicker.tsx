@@ -42,7 +42,6 @@ export const ColorPicker: React.FC<PopoverPickerProps> = ({ color , onChange }) 
                             ))}
                         </div>
                     </div>
-
                 </>
             )}
         </div>

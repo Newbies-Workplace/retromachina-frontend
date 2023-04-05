@@ -3,7 +3,7 @@ import styles from "./Backdrop.module.scss"
 import {Portal} from "react-portal";
 
 interface PositioningBackdropProps {
-    onDismiss: () => void
+    onDismiss?: () => void
     visible?: boolean
     children: React.ReactNode
 }
@@ -19,7 +19,7 @@ export const PositioningBackdrop: React.FC<PositioningBackdropProps> = (
     {
         children,
         visible = true,
-        onDismiss
+        onDismiss = () => {},
     }
 ) => {
     const boxRef = useRef<HTMLDivElement>(null)

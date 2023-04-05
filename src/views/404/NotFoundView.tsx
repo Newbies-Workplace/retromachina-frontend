@@ -9,10 +9,10 @@ export const NotFoundView: React.FC = () => {
     const navigate = useNavigate()
 
     return (
-        <div className={styles.container}>
+        <>
             <Navbar/>
 
-            <div className={styles.innerContainer}>
+            <div className={styles.container}>
                 <NotFoundSvg />
 
                 <div className={styles.texts}>
@@ -24,6 +24,6 @@ export const NotFoundView: React.FC = () => {
                     Powrót na stronę główną
                 </Button>
             </div>
-        </div>
+        </>
     )
 }
