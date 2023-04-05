@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from "react";
 import styles from "./TeamRetroList.module.scss";
-import {Button} from "../atoms/button/Button";
-import AddIcon from "../../assets/icons/add-icon.svg";
-import TaskIconSvg from "../../assets/icons/task-icon.svg";
-import EditIconSvg from "../../assets/icons/edit-icon.svg";
-import {RetroResponse} from "../../api/retro/Retro.interface";
+import AddIcon from "../../../assets/icons/add-icon.svg";
+import TaskIconSvg from "../../../assets/icons/task-icon.svg";
+import EditIconSvg from "../../../assets/icons/edit-icon.svg";
 import {useNavigate} from "react-router-dom";
-import {getRetrosByTeamId} from "../../api/retro/Retro.service";
-import {useUser} from "../../context/user/UserContext.hook";
 import cs from "classnames";
 import {ActiveRetroCard} from "../retro_card/ActiveRetroCard";
+import {useUser} from "../../../context/user/UserContext.hook";
+import {getRetrosByTeamId} from "../../../api/retro/Retro.service";
+import {Button} from "../../atoms/button/Button";
+import {RetroResponse} from "../../../api/retro/Retro.interface";
 
 interface TeamRetroListProps {
     teamName: string;

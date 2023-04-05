@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./ConfirmDialog.module.scss"
-import {Button} from "../atoms/button/Button";
 import cs from "classnames";
 import {Backdrop} from "../backdrop/Backdrop";
+import {Button} from "../../atoms/button/Button";
 
 interface ConfirmDialogProps {
     title: string

@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { useRetro } from "../../context/retro/RetroContext.hook";
+import React, { useEffect, useState } from "react";
 import styles from "./RetroHeaderTracker.module.scss";
-import {HeaderBar} from "../atoms/header_bar/HeaderBar";
+import {useRetro} from "../../../context/retro/RetroContext.hook";
+import {HeaderBar} from "../../atoms/header_bar/HeaderBar";
 
 export const RetroHeaderTracker = () => {
   const [index, setIndex] = useState(4);

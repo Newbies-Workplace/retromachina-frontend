@@ -2,7 +2,7 @@ import React, { useCallback, useRef, useState } from "react";
 import { HexColorPicker } from "react-colorful";
 import styles from './ColorPicker.module.scss'
 import useClickOutside from "../../../context/useClickOutside";
-import EditIconSvg from "../../assets/icons/edit-icon.svg"
+import EditIconSvg from "../../../assets/icons/edit-icon.svg"
 
 interface PopoverPickerProps{
     color: string,

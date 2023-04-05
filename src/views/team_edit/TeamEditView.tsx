@@ -11,8 +11,8 @@ import {getUsersByTeamId} from '../../api/user/User.service';
 import {HeaderBar} from "../../component/atoms/header_bar/HeaderBar";
 import styles from "./TeamEditView.module.scss";
 import {ProgressBar} from "../../component/atoms/progress_bar/ProgressBar";
-import {ConfirmDialog} from "../../component/confirm_dialog/ConfirmDialog";
 import {toast} from "react-toastify";
+import {ConfirmDialog} from "../../component/molecules/confirm_dialog/ConfirmDialog";
 
 interface Invite {
     email: string,

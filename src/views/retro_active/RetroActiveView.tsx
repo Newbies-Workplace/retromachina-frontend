@@ -10,13 +10,13 @@ import {GroupView} from "./group/GroupView";
 import { Toolbox } from "../../component/molecules/toolbox/Toolbox";
 import { useUser } from "../../context/user/UserContext.hook";
 import { VoteView } from "./vote/VoteView";
-import { RetroHeaderTracker } from "../../component/retro_header_tracker/RetroHeaderTracker";
 import { DiscussView } from "./discuss/DiscussView";
 import {TeamAvatars} from "../../component/molecules/team_avatars/TeamAvatars";
 import {ProgressBar} from "../../component/atoms/progress_bar/ProgressBar";
 import {useCardGroups} from "../../context/useCardGroups";
 import {Button} from "../../component/atoms/button/Button";
 import dayjs from "dayjs";
+import {RetroHeaderTracker} from "../../component/molecules/retro_header_tracker/RetroHeaderTracker";
 
 const RetroActiveView: React.FC = () => {
     const navigate = useNavigate()
