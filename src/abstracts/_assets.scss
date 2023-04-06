@@ -2,7 +2,7 @@
 @use 'src/abstracts/fonts';
 
 @mixin scrollbar {
-    overflow-x: scroll;
+    overflow-x: auto;
 
     &::-webkit-scrollbar {
         width: 4px;

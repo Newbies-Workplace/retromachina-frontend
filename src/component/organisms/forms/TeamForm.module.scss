@@ -5,6 +5,12 @@
 .container {
     display: flex;
     justify-content: center;
+    flex-grow: 1;
+
+    background-image: url("../../../assets/images/background.svg");
+    background-size: cover;
+
+    @include assets.scrollbar;
 
     background-color: colors.$background;
 }
@@ -19,8 +25,10 @@
 
     width: 600px;
     min-height: 700px;
+    height: fit-content;
+
     padding: 30px;
-    margin: 32px 32px 0;
+    margin: 32px;
 
     background-color: colors.$primary-color;
     border-radius: 16px;
@@ -30,6 +38,7 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+
     width: 100%;
 }
 
@@ -39,8 +48,7 @@
     justify-content: space-between;
 
     height: 40px;
-    padding: 4px;
-    padding-left: 20px;
+    padding: 4px 4px 4px 20px;
 
     background-color: white;
     border-radius: 16px;

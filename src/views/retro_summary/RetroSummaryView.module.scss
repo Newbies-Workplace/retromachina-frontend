@@ -5,15 +5,12 @@
 .container {
     display: flex;
     justify-content: center;
-
-    height: calc(100% - 120px);
+    flex-grow: 1;
 
     background-image: url("../../../assets/images/background.svg");
     background-size: cover;
 
     @include assets.scrollbar;
-    overflow-x: hidden;
-    overflow-y: scroll;
 }
 
 .wrapper {

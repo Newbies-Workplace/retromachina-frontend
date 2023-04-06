@@ -1,6 +1,5 @@
 import {Navigate, useNavigate, useParams} from "react-router";
 import React, {useEffect, useState} from "react";
-import {HeaderBar} from "../../component/atoms/header_bar/HeaderBar";
 import Navbar from "../../component/organisms/navbar/Navbar";
 import {Board, BoardColumn} from "../../api/board/Board.interface";
 import {ColumnCreate} from "../../component/molecules/column_create/ColumnCreate";
@@ -100,12 +99,11 @@ export const TeamBoardEditView: React.FC = () => {
 
     return (
         <>
-            <Navbar>
-                <HeaderBar text={`Edycja tablicy zadań`}/>
+            <Navbar topContent={
                 <Button className={styles.action} size={"small"} onClick={saveBoard}>
                     Zapisz
                 </Button>
-            </Navbar>
+            } />
 
             <div className={styles.container}>
                 <div className={styles.columns}>

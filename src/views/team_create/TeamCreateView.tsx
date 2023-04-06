@@ -5,7 +5,6 @@ import {TeamRequest} from '../../api/team/Team.interface';
 import Navbar from '../../component/organisms/navbar/Navbar';
 import {createTeam} from '../../api/team/Team.service';
 import React from "react";
-import {HeaderBar} from "../../component/atoms/header_bar/HeaderBar";
 import {toast} from "react-toastify";
 
 export const TeamCreateView: React.FC = () => {
@@ -31,9 +30,8 @@ export const TeamCreateView: React.FC = () => {
 
     return (
         <>
-            <Navbar>
-                <HeaderBar text="Tworzenie Zespołu" />
-            </Navbar>
+            <Navbar/>
+
             <TeamForm onSubmit={onSubmit} userEmail={user?.email || ""} team={null} />
         </>
     );

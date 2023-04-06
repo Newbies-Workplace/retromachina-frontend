@@ -14,21 +14,16 @@ const HomeView: React.FC = () => {
 
     return (
         <>
-            <Navbar>
-                { user?.user_type=="SCRUM_MASTER"  &&
-                    <div className={styles.buttonWrapper}>
-
-                        <Button
-                            onClick={() => navigate("/team/create")}
-                            size="small"
-                        >
-                            <CreateTeamSvg />
-                            Stwórz Zespół
-                        </Button>
-
-                    </div>
-                }
-            </Navbar>
+            <Navbar topContent={
+                user?.user_type === "SCRUM_MASTER" &&
+                <Button
+                    onClick={() => navigate("/team/create")}
+                    size="small"
+                >
+                    <CreateTeamSvg />
+                    Stwórz Zespół
+                </Button>
+            }/>
             <div className={styles.container}>
                 {user?.teams?.length === 0 &&
                     <div className={styles.noTeam}>

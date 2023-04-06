@@ -3,14 +3,14 @@ import styles from "./Backdrop.module.scss"
 import {Portal} from "react-portal";
 
 interface BackdropProps {
-    onDismiss: () => void
+    onDismiss?: () => void
     children: React.ReactNode
 }
 
 export const Backdrop: React.FC<BackdropProps> = (
     {
         children,
-        onDismiss
+        onDismiss = () => {},
     }
 ) => {
     return (
