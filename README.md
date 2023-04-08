@@ -1,20 +1,24 @@
-# retromachina-frontend
-=)
+# Retromachina frontend
+
+## Key technologies
+- React
+- REST API (axios)
+- WebSockets (socket.io)
+- SCSS
+- Storybook
+
+## Requirements
+- node (run ```nvm use```)
+- running retromachina-backend instance
+
 ## Development
 
-### Installation
-
-* Clone this repo
-* Install nodejs
-    * Node Version Manager
+- run:
   ```bash
-  nvm use
+  npm install
   ```
-    * *or install nodejs not older than presented in `.nvmrc`*
-* `npm install`
-
-# docker
-
-```bash
-    docker-compose up -d
-```
+- create `.env` file in root directory based on `.env.template`
+- run npm script:
+  ```bash
+  npm run dev
+  ```
