@@ -4,7 +4,7 @@ import LogoSvg from "../../../assets/images/logo.svg";
 import {Avatar} from "../../atoms/avatar/Avatar";
 import {useNavigate} from "react-router";
 import {useUser} from "../../../context/user/UserContext.hook";
-import {LogoutBubble} from "../../molecules/logout_bubble/LogoutBubble"
+import {Menu} from "../menu/Menu"
 import useClickOutside from "../../../context/useClickOutside";
 
 interface NavbarProps {
@@ -39,7 +39,7 @@ const Navbar: React.FC<NavbarProps> = ({children, topContent}) => {
 
                             {isOpen &&
                                 <div className={styles.bubbleContainer} ref={popover}>
-                                    <LogoutBubble/>
+                                    <Menu/>
                                 </div>
                             }
                         </div>
