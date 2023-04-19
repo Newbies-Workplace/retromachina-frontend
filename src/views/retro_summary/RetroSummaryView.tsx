@@ -5,16 +5,17 @@ import Navbar from "../../component/organisms/navbar/Navbar";
 import styles from "./RetroSummaryView.module.scss";
 import {TaskResponse} from "../../api/task/Task.interface";
 import {getTasksByRetroId} from "../../api/task/Task.service";
-import {useParams} from "react-router";
+import {useNavigate, useParams} from "react-router";
 import {UserResponse} from "../../api/user/User.interfaces";
 import {getUsersByTeamId} from "../../api/user/User.service";
 import {RetroResponse} from "../../api/retro/Retro.interface";
 import {getRetroByRetroId} from "../../api/retro/Retro.service";
 import dayjs from "dayjs";
-import {HeaderBar} from "../../component/atoms/header_bar/HeaderBar";
+import {Button} from "../../component/atoms/button/Button";
 
 export const RetroSummaryView = () => {
     const { retroId } = useParams<{retroId: string}>();
+    const navigate = useNavigate();
     const [tasks, setTasks] = useState<TaskResponse[]>([]);
     const [users, setUsers] = useState<UserResponse[]>([]);
     const [retro, setRetro] = useState<RetroResponse | null>(null);
@@ -100,6 +101,14 @@ export const RetroSummaryView = () => {
                             Brak zadań
                         </div>
                     }
+
+                    <div className={styles.goBack}>
+                        <Button onClick={() => {
+                            navigate(`/team/${retro?.team_id}/board`);
+                        }}>
+                            Powrót do listy zadań
+                        </Button>
+                    </div>
                 </div>
             </div>
         </>
