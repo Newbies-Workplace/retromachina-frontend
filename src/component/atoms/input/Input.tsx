@@ -13,9 +13,10 @@ interface InputProps {
     required?: boolean,
     right?: React.ReactNode
     onKeyDown?: KeyboardEventHandler<any> | undefined
+    maxLength?: number
 }
 
-export const Input: React.FC<InputProps> = ({className, value, setValue, placeholder, onKeyDown, multiline = false, type, right, required, style}) => {
+export const Input: React.FC<InputProps> = ({className, value, setValue, placeholder, onKeyDown, multiline = false, type, right, required, style, maxLength}) => {
     return (
         <div className={styles.wrapper} style={style}>
             {multiline
@@ -32,6 +33,7 @@ export const Input: React.FC<InputProps> = ({className, value, setValue, placeho
                 )
                 : (
                     <input
+                        maxLength={maxLength}
                         style={style}
                         className={cs(styles.oneline, className)}
                         value={value}
