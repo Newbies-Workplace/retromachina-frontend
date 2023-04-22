@@ -5,6 +5,7 @@ import AddIconSvg from '../../../assets/icons/add-icon.svg'
 import DeleteIcon from '../../../assets/icons/delete-icon.svg'
 import { TeamRequest } from '../../../api/team/Team.interface';
 import {Input} from "../../atoms/input/Input";
+import {UserPicker} from "../../molecules/user_picker/UserPicker";
 
 interface CreateTeamFormProps {
     userEmail: string
@@ -17,17 +18,9 @@ interface CreateTeamFormProps {
 export const TeamForm: React.FC<CreateTeamFormProps> = ({userEmail, team, onSubmit, onDelete, deletable}) => {
     const [emails, setEmails] = useState(team?.emails || []);
     const [name, setName] = useState(team?.name || "");
-    const [email, setEmail] = useState("");
 
-    const onAddEmail = () => {
-        const mailRegex = /\S+@\S+\.\S+/;
-
-        if (email.trim().length == 0 || !mailRegex.test(email)) {
-            return;
-        }
-
+    const onAddEmail = (email: string) => {
         setEmails([...emails, email]);
-        setEmail("")
     }
 
     const onDeleteEmailClick = (index: number) => {
@@ -61,24 +54,10 @@ export const TeamForm: React.FC<CreateTeamFormProps> = ({userEmail, team, onSubm
                     <div className={styles.section}>
                         <h1>Członkowie</h1>
 
-                        {emails?.map((email, index) =>
-                            <div className={styles.mailBox} key={email}>
-                                {email}
-                                <DeleteIcon style={{cursor: 'pointer'}} onClick={() => onDeleteEmailClick(index)}/>
-                            </div>
-                        )}
-
-                        <Input
-                            value={email}
-                            setValue={setEmail}
-                            placeholder={'Wpisz email'}
-                            onKeyDown={(e) => {
-                                if (e.key === "Enter") {
-                                    onAddEmail()
-                                }
-                            }}
-                            right={<AddIconSvg style={{cursor: 'pointer'}} onClick={() => onAddEmail()}/>}
-                            style={{border: "none", paddingLeft: "10px"}}/>
+                        <UserPicker
+                            users={emails}
+                            onAdd={(email) => onAddEmail(email)}
+                            onDelete={(email) => onDeleteEmailClick(emails.indexOf(email))} />
                     </div>
                 </div>
                 <div className={styles.actionSection}>
