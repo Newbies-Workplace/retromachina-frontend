@@ -16,14 +16,15 @@
     height: 40px !important;
 }
 
-.container{
+.container {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
 
     @include assets.scrollbar;
-    :-webkit-scrollbar-thumb {
-        border-radius: 0px
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 0;
     }
 }
 
