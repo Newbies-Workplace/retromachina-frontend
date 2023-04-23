@@ -1,11 +1,11 @@
 import {useEffect} from 'react';
 import {useUser} from '../../../context/user/UserContext.hook';
 import {useNavigate} from 'react-router';
-import {LoadingView} from '../../../component/organisms/loading_view/LoadingView';
+import {Loader} from '../../../component/organisms/loader/Loader';
 import {AuthParams} from '../../../api/auth/Auth.interface';
 import {getRedirectPath, setRedirectPath} from "../../../context/useRedirect";
 
-const LoadingPage = () => {
+const LoadingView = () => {
     const {login} = useUser()
     const navigate = useNavigate()
 
@@ -25,8 +25,8 @@ const LoadingPage = () => {
     }, [])
 
     return (
-        <LoadingView />
+        <Loader />
     )
 }
 
-export default LoadingPage
+export default LoadingView

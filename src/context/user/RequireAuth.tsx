@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {Navigate, useLocation} from "react-router";
 import { useUser } from './UserContext.hook';
-import {LoadingView} from '../../component/organisms/loading_view/LoadingView';
+import {Loader} from '../../component/organisms/loader/Loader';
 import {setRedirectPath} from "../useRedirect";
 
 interface RequireAuthProps {
@@ -26,7 +26,7 @@ export const RequireAuth: React.FC<React.PropsWithChildren<RequireAuthProps>> = 
     });
 
     if (busy) {
-        return <LoadingView/>
+        return <Loader/>
     }
 
     if (user) {
