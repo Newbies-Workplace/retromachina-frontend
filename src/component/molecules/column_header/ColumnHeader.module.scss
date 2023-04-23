@@ -61,15 +61,17 @@
 
     @include assets.scrollbar;
     overflow-x: hidden;
+
+    &:-webkit-scrollbar{
+        width: 3px;
+        height: 5px;
+        border-radius: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb{
+        background: rgb(186, 186, 186);
+        border-radius: 10px
+    }
+
 }
 
-.description::-webkit-scrollbar{
-    width: 3px;
-    height: 5px;
-    border-radius: 6px;
-}
-
-.description::-webkit-scrollbar-thumb {
-    background: rgb(186, 186, 186);
-    border-radius: 10px
-}

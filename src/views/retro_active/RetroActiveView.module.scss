@@ -22,9 +22,9 @@
     flex-grow: 1;
 
     @include assets.scrollbar;
-}
-.container::-webkit-scrollbar-thumb {
-    border-radius: 0px
+    :-webkit-scrollbar-thumb {
+        border-radius: 0px
+    }
 }
 
 .content {
