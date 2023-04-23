@@ -32,6 +32,7 @@ export const ColumnCreate: React.FC<ColumnCreateProps> = ({color, name, desc, on
                     }}/>
 
                 <Input
+                    maxLength={35}
                     value={name}
                     setValue={(name) => {
                         onChange({
