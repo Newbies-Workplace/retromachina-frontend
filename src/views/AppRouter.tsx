@@ -1,8 +1,8 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import HomeView from "./home/HomeView";
-import {SignInView} from "./auth/SignIn/SignInView";
-import Loading from './auth/LoadingPage/LoadingPage';
+import {SignInView} from "./auth/sign_in/SignInView";
+import Loading from './auth/loading/LoadingView';
 import {RequireAuth} from '../context/user/RequireAuth';
 import {RetroCreateView} from './retro_create/RetroCreateView';
 import TeamEditView from './team_edit/TeamEditView';
@@ -15,16 +15,21 @@ import {Navigate} from "react-router";
 import {TeamBoardView} from "./team_board/TeamBoardView";
 import {TeamBoardEditView} from "./team_board_edit/TeamBoardEditView";
 import {TeamBoardWrapper} from "./team_board/TeamBoardWrapper";
+import {PrivacyPolicyView} from "./auth/privacy_policy/PrivacyPolicyView";
 
 export const AppRouter: React.FC = () => {
     return (
         <Router>
             <Routes>
-                <Route path="/signin"
-                       element={<SignInView/>}/>
+                <Route
+                    path="/signin"
+                    element={<SignInView/>}/>
                 <Route
                     path="/loading"
                     element={<Loading/>}/>
+                <Route
+                    path="/privacy"
+                    element={<PrivacyPolicyView/>}/>
 
                 <Route
                     path="/"

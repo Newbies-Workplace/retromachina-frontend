@@ -10,13 +10,20 @@ export const SignInView: React.FC = () => {
         <div className={styles.container}>
             <div className={styles.dialog}>
                 <div className={styles.text}>
-                    <LogoSvg />
+                    <LogoSvg width={400} height={40}/>
                     <span>powered by <a href="http://newbies.pl">Newbies</a></span>
                 </div>
 
-                <a href={href}>
-                    <GoogleButton className={styles.googleBtn} />
-                </a>
+                <div className={styles.bottom}>
+                    <a href={href}>
+                        <GoogleButton className={styles.googleBtn} />
+                    </a>
+
+                    <span className={styles.privacy}>
+                        Korzystając z Retromachiny akceptujesz<br/>
+                        <a href={"/privacy"}>politykę prywatności</a>
+                    </span>
+                </div>
             </div>
         </div>
     );
