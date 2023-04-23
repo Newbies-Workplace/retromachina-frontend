@@ -4,6 +4,7 @@ import { useUser } from '../../../context/user/UserContext.hook'
 import { useNavigate } from 'react-router'
 import {Avatar} from "../../atoms/avatar/Avatar";
 import AuthorsIcon from '../../../assets/icons/authors.svg';
+import BugIcon from '../../../assets/icons/bug-icon.svg';
 import React from "react";
 import {Link} from "react-router-dom";
 
@@ -49,6 +50,11 @@ export const Menu = () => {
                 <Link className={styles.option} to={'http://newbies.pl'}>
                     <AuthorsIcon width={24} height={24}/>
                     O autorach
+                </Link>
+
+                <Link className={styles.option} to={'mailto:newbies@rst.com.pl?subject=Bug retromachina&body=Opis błędu:'}>
+                    <BugIcon width={24} height={24}/>
+                    Zgłoś błąd
                 </Link>
             </div>
 
