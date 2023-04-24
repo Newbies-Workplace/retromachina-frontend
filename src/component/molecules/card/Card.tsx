@@ -83,6 +83,19 @@ export const Card: React.FC<React.PropsWithChildren<CardProps>> = (
         setIsEditingText(false)
     }
 
+    const cardRef = useRef<HTMLDivElement>(null);
+
+    function IsHeightValid(): boolean {
+        if(cardRef.current){
+            const height = document.body.offsetHeight;
+            const top = cardRef.current.getBoundingClientRect().top;
+            if(height - top > (height*0.25)) return true;
+        }
+        return false;
+        
+
+    }    
+    
     return (
         <PositioningBackdrop onDismiss={() => closeEditingMode()} visible={isEditingText || isUsersOpen}>
             <div style={style} className={cs(styles.wrapper, className)}>
@@ -109,15 +122,19 @@ export const Card: React.FC<React.PropsWithChildren<CardProps>> = (
                     }
 
                     {author &&
-                        <div className={styles.creator}>
+                        <div className={styles.creator} ref={cardRef}>
                             <div style={{position: 'relative'}}>
                                 {isUsersOpen && teamUsers.length > 1 &&
-                                    <div className={styles.bubbleContainer} ref={teamUsersRef}>
-                                        <TeamUserPicker
-                                            authorId={author?.id || ''}
-                                            teamUsers={teamUsers}
-                                            onUserPicked={(userId) => onChangeUser(userId)}/>
-                                    </div>
+                                    <div className={IsHeightValid() ? styles.viewContainerDown : styles.viewContainerUp } >
+                                        <div className={styles.bubbleContainer} ref={teamUsersRef}>
+                                            <div className={styles.scrollableContent}>
+                                            <TeamUserPicker
+                                                authorId={author?.id || ''}
+                                                teamUsers={teamUsers}
+                                                onUserPicked={(userId) => onChangeUser(userId)}/>
+                                            </div>
+                                        </div>
+                                    </div> 
                                 }
                             </div>
 

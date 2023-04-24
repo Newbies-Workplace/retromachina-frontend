@@ -60,17 +60,41 @@
     user-select: none;
 }
 
-.bubbleContainer {
+.scrollableContent{
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    align-items: flex-start;
+    overflow: auto;
     gap: 8px;
 
+    min-width: 250px;
+    @include assets.scrollbar;
+}
+
+.viewContainerUp,.viewContainerDown{
+    display: flex;
+    align-items: flex-end;
     position: absolute;
-    top: 24px;
+    top: -200px;
     left: -6px;
+    
+    width: 265px;
+    height: 180px;
+    
+}
+.viewContainerDown{
+    top: 24px;
+    align-items: flex-start;
+}
+
+.bubbleContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
 
     min-width: 250px;
+    max-height: 144px; // 144px for 4 members | 180px for 5 members;
     border-radius: 8px;
     padding: 4px;
 
@@ -83,12 +107,13 @@
     flex-direction: row;
     align-items: center;
     gap: 8px;
+    min-width: 99%;
 
     cursor: pointer;
     border-radius: 4px;
 
     padding: 2px;
-
+    order: -1;
     &:hover {
         background-color: #D9D9D9;
     }

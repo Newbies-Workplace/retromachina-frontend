@@ -96,7 +96,6 @@
         flex-direction: column;
 
         background-color: colors.$primary-color;
-        padding: 0 16px;
 
         position: absolute;
         left: 0;
@@ -111,14 +110,15 @@
         gap: 8px;
 
         margin-bottom: auto;
-        padding: 16px 0;
-
+        
+        padding: 5px 10px 15px 16px;
         @include assets.scrollbar;
     }
 
     .actionPointInput {
+        border-top: 10px solid linear-gradient !important;
         justify-self: flex-end;
-        padding-bottom: 16px;
+        padding: 10px 10px 16px 15px;
         margin-top: -16px;
     }
 }
