@@ -5,7 +5,6 @@
 .content {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     height: 100%;
     max-height: calc(100vh - 72px);
 }
@@ -15,8 +14,8 @@
     flex-direction: column;
     gap: 16px;
 
-    max-width: 350px;
-    min-width: 300px;
+    max-width: 20%;
+    min-width: 20%;
     padding: 16px 8px;
 
     @include assets.scrollbar;
@@ -47,9 +46,10 @@
     flex-grow: 1;
     justify-content: center;
 
-    min-width: 300px;
-    max-width: 900px;
-    padding: 32px 8px 0 8px;
+    min-width: 65%;
+    max-width: 65%;
+    padding: 32px 8px 150px 8px;
+
 
     .card {
         display: flex;
@@ -61,7 +61,11 @@
     .discussCardWrapper {
         display: flex;
         flex-direction: column;
-        flex-grow: 1;
+        
+
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
 
         background-color: white;
         padding: 10px;
@@ -71,6 +75,8 @@
 
         word-break: break-word;
         white-space: pre-line;
+
+        margin-right: auto;
     }
 
     .groupVotes {
@@ -89,7 +95,7 @@
     flex-direction: column;
     flex-grow: 1;
     position: relative;
-    max-width: 400px;
+    max-width: 20%;
 
     .actionPointContent {
         display: flex;
@@ -127,9 +133,21 @@
     background-color: colors.$warn;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1200px) {
+    
+    .content {
+        justify-content: flex-start;
+    }
     .upNextSection {
         display: none;
+    }
+
+    .currentCardSection{
+        max-width: 35%;
+    }
+
+    .actionPointsSection {
+        max-width: 65%;
     }
 }
 
