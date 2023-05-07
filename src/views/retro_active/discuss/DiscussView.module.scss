@@ -4,6 +4,7 @@
 
 .content {
     display: flex;
+    justify-content: space-between;
     flex-direction: row;
     height: 100%;
     max-height: calc(100vh - 72px);
@@ -14,8 +15,9 @@
     flex-direction: column;
     gap: 16px;
 
-    max-width: 20%;
-    min-width: 20%;
+    min-width: 250px;
+    max-width: 250px;
+
     padding: 16px 8px;
 
     @include assets.scrollbar;
@@ -46,10 +48,7 @@
     flex-grow: 1;
     justify-content: center;
 
-    min-width: 65%;
-    max-width: 65%;
-    padding: 32px 8px 150px 8px;
-
+    padding: 32px 8px 116px 8px;
 
     .card {
         display: flex;
@@ -62,10 +61,7 @@
         display: flex;
         flex-direction: column;
         
-
-        width: 80%;
-        margin-left: auto;
-        margin-right: auto;
+        margin: 0 20px;
 
         background-color: white;
         padding: 10px;
@@ -75,8 +71,6 @@
 
         word-break: break-word;
         white-space: pre-line;
-
-        margin-right: auto;
     }
 
     .groupVotes {
@@ -95,7 +89,8 @@
     flex-direction: column;
     flex-grow: 1;
     position: relative;
-    max-width: 20%;
+    min-width: 300px;
+    max-width: 300px;
 
     .actionPointContent {
         display: flex;
@@ -133,25 +128,11 @@
     background-color: colors.$warn;
 }
 
-@media screen and (max-width: 1200px) {
-    
-    .content {
-        justify-content: flex-start;
-    }
+@media screen and (max-width: 1000px) {
     .upNextSection {
         display: none;
     }
 
-    .currentCardSection{
-        max-width: 35%;
-    }
-
-    .actionPointsSection {
-        max-width: 65%;
-    }
-}
-
-@media screen and (max-width: 1200px) {
     .actionPointsSection {
         .actionPointInput {
             padding-bottom: 100px;
