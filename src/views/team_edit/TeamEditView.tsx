@@ -2,22 +2,16 @@ import {axiosInstance} from '../../api/AxiosInstance';
 import {useUser} from '../../context/user/UserContext.hook'
 import {Navigate, useNavigate, useParams} from 'react-router'
 import {TeamForm} from '../../component/organisms/forms/TeamForm';
-import {TeamRequest} from '../../api/team/Team.interface';
+import {InviteResponse, TeamRequest} from '../../api/team/Team.interface';
 import React, {useEffect, useState} from 'react';
 import {User} from '../../interfaces/User.interface';
 import Navbar from '../../component/organisms/navbar/Navbar';
 import {getInvitesByTeamId, getTeamById} from '../../api/team/Team.service';
 import {getUsersByTeamId} from '../../api/user/User.service';
-import {HeaderBar} from "../../component/atoms/header_bar/HeaderBar";
 import styles from "./TeamEditView.module.scss";
 import {ProgressBar} from "../../component/atoms/progress_bar/ProgressBar";
 import {toast} from "react-toastify";
 import {ConfirmDialog} from "../../component/molecules/confirm_dialog/ConfirmDialog";
-
-interface Invite {
-    email: string,
-    team_id: string
-}
 
 const TeamEditView: React.FC = () => {
     const { teamId } = useParams<{teamId: string}>();
@@ -36,13 +30,13 @@ const TeamEditView: React.FC = () => {
 
             const emails = await getUsersByTeamId(teamId)
                 .then((users) => users.filter((elem: User) => {
-                    return elem.email != user?.email
+                    return elem.email !== user?.email
                 }).map((elem: User) => {
                     return elem.email
                 }))
 
             const invites = await getInvitesByTeamId(teamId)
-                .then((data) => data.invites.map((invite: Invite) => invite.email))
+                .then((data) => data.map((invite: InviteResponse) => invite.email))
 
             setTeam({
                 name,

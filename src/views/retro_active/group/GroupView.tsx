@@ -41,7 +41,7 @@ export const GroupView: React.FC = () => {
                                             targetId: group.id,
                                         })}>
                                         {groupCards.map((card, index) => {
-                                            const user = teamUsers.find((user) => user.user_id === card.authorId);
+                                            const user = teamUsers.find((user) => user.id === card.authorId);
 
                                             return (
                                                 <DraggableCard
@@ -58,7 +58,7 @@ export const GroupView: React.FC = () => {
                                                             id: card.authorId,
                                                         }}
                                                         teamUsers={teamUsers.map((user) => ({
-                                                            id: user.user_id,
+                                                            id: user.id,
                                                             name: user.nick,
                                                             avatar: user.avatar_link,
                                                         }))}

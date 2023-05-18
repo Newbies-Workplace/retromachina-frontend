@@ -1,11 +1,14 @@
 export interface UserResponse {
-    user_id: string,
-    avatar_link: string,
-    email: string,
-    user_type: string,
+    id: string,
     nick: string,
-    teams: {
+    email: string,
+    avatar_link: string,
+    teams?: {
         name: string,
-        id: string
+        id: string,
+        owner_id: string,
+        role: Role
     }[]
 }
+
+export type Role = 'ADMIN' | 'USER';

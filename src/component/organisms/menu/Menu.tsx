@@ -10,7 +10,7 @@ import {Link} from "react-router-dom";
 
 export const Menu = () => {
     const navigate = useNavigate();
-    const {user, isScrumMaster} = useUser();
+    const {user} = useUser();
 
     const onLogoutClick = () => {
         window.localStorage.clear();
@@ -21,13 +21,7 @@ export const Menu = () => {
         <div className={styles.container}>
             <div className={styles.topSection}>
                 <div className={styles.user}>
-                    <div className={styles.avatar}>
-                        <Avatar url={user?.avatar_link} size={40}/>
-
-                        {isScrumMaster &&
-                            <span className={styles.scrumMasterIndicator}>SM</span>
-                        }
-                    </div>
+                    <Avatar url={user?.avatar_link} size={40}/>
 
                     <div className={styles.userData}>
                         <span className={styles.nickname}>{user?.nick}</span>

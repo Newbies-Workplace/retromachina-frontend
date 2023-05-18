@@ -6,11 +6,9 @@ import ActionIconSvg from "../../assets/icons/action-icon.svg";
 import {ColumnCreate} from "../../component/molecules/column_create/ColumnCreate";
 import React, {useEffect, useState} from "react";
 import {v4 as uuidv4} from "uuid";
-import {HeaderBar} from "../../component/atoms/header_bar/HeaderBar";
 import * as qs from 'query-string';
 import {Navigate, useNavigate} from "react-router";
 import {getRandomTemplate} from "../../api/retro_template/RetroTemplate.service";
-import {useUser} from "../../context/user/UserContext.hook";
 import {ProgressBar} from "../../component/atoms/progress_bar/ProgressBar";
 import {createRetro} from "../../api/retro/Retro.service";
 import {getRandomColor} from "../../common/Util";
@@ -34,14 +32,12 @@ const MAX_COLUMNS = 6
 
 export const RetroCreateView: React.FC = () => {
   const [clicked,setClicked] = useState(false);
-  const {user} = useUser();
   const params = qs.parse(location.search)
   const teamId: string = params.teamId as string
   if (!teamId) {
     return <Navigate to={"/"}/>
   }
 
-  const teamName = user?.teams.find(team => team.id === teamId)?.name
   const [columns, setColumns] = useState<Array<Column>>([]);
   const [templateId, setTemplateId] = useState<number | null>(null)
   const navigate = useNavigate()
@@ -104,12 +100,12 @@ export const RetroCreateView: React.FC = () => {
 
     createRetro(request)
         .then((retro) => {
-          const retroUrl = `${window.location.host}/retro/${retro.data.retro_id}`
+          const retroUrl = `${window.location.host}/retro/${retro.data.id}`
 
           navigator.clipboard?.writeText(retroUrl)
               .catch(console.log)
 
-          navigate(`/retro/${retro.data.retro_id}`)
+          navigate(`/retro/${retro.data.id}`)
         })
         .catch((e) => {
           console.log(e)

@@ -6,5 +6,11 @@ export interface TeamRequest {
 export interface TeamResponse {
     id: string
     name: string
-    scrumMasterId: string
+    owner_id: string
+}
+
+export interface InviteResponse {
+    email: string;
+    team_id: string;
+    role: string;
 }

@@ -32,27 +32,6 @@
 
 	background-color: colors.$accent;
 
-	.avatar {
-		display: block;
-		align-items: flex-end;
-		justify-content: flex-end;
-		position: relative;
-
-		.scrumMasterIndicator {
-			position: absolute;
-			bottom: -10px;
-
-			height: 20px;
-
-			border-radius: 20px;
-			padding: 0 6px;
-
-			font-size: 14px;
-
-			background-color: colors.$background;
-		}
-	}
-
 	.user {
 		display: flex;
 		flex-direction: row;

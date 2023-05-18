@@ -35,14 +35,14 @@ export const TeamBoardView: React.FC = () => {
             id: uuidv4(),
             text: '',
             columnId: columnId,
-            ownerId: user?.user_id
+            ownerId: user?.id
         })
     }
 
     return (
         <>
             <Navbar topContent={
-                team?.scrumMasterId === user?.user_id &&
+                team?.owner_id === user?.id &&
                 <Button size={"small"} onClick={onEditClick}>
                     Edytuj
                 </Button>
@@ -70,7 +70,7 @@ export const TeamBoardView: React.FC = () => {
 
                             {creatingTask && creatingTask?.columnId === column.id && (
                                 (() => {
-                                    const author = teamUsers.find((user) => user.user_id === creatingTask.ownerId)
+                                    const author = teamUsers.find((user) => user.id === creatingTask.ownerId)
 
                                     return (
                                         <Card
@@ -96,7 +96,7 @@ export const TeamBoardView: React.FC = () => {
                             }
 
                             {board.tasks.filter(task => task.columnId === column.id).map(task => {
-                                const author = teamUsers.find((user) => user.user_id === task.ownerId);
+                                const author = teamUsers.find((user) => user.id === task.ownerId);
 
                                 return (
                                     <DraggableCard
@@ -112,7 +112,7 @@ export const TeamBoardView: React.FC = () => {
                                                 id: task.ownerId,
                                             }}
                                             teamUsers={teamUsers.map((user) => ({
-                                                id: user.user_id,
+                                                id: user.id,
                                                 name: user.nick,
                                                 avatar: user.avatar_link,
                                             }))}

@@ -10,6 +10,7 @@ import {useUser} from "../../../context/user/UserContext.hook";
 import {getRetrosByTeamId} from "../../../api/retro/Retro.service";
 import {Button} from "../../atoms/button/Button";
 import {RetroResponse} from "../../../api/retro/Retro.interface";
+import {useTeamRole} from "../../../context/useTeamRole";
 
 interface TeamRetroListProps {
     teamName: string;
@@ -23,7 +24,7 @@ export const TeamRetroList: React.FC<TeamRetroListProps> = (
     }
 ) => {
     const navigate = useNavigate();
-    const { isScrumMaster } = useUser();
+    const { isAdmin } = useTeamRole(teamId);
     const [retros, setRetros] = useState<RetroResponse[]>([]);
     const isAnyRetroRunning = retros.findIndex((a) => a.is_running) !== -1;
 
@@ -44,7 +45,7 @@ export const TeamRetroList: React.FC<TeamRetroListProps> = (
                     Lista zadań
                 </Button>
 
-                {isScrumMaster &&
+                {isAdmin &&
                     <Button onClick={() => navigate(`/team/${teamId}/edit`)} size="round">
                         <EditIconSvg />
                     </Button>
@@ -52,7 +53,7 @@ export const TeamRetroList: React.FC<TeamRetroListProps> = (
             </div>
 
             <div className={styles.wrapper}>
-                {isScrumMaster && !isAnyRetroRunning && (
+                {isAdmin && !isAnyRetroRunning && (
                     <Button
                         className={styles.retroButton}
                         onClick={() => navigate(`/retro/create?teamId=${teamId}`)}

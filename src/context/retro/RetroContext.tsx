@@ -40,6 +40,7 @@ interface RetroContextParams {
 
 interface RetroContext {
   retroId: string
+  teamId: string | null
   columns: SocketColumn[]
   cards: SocketCard[]
   teamUsers: UserResponse[]
@@ -82,6 +83,7 @@ export const RetroContext = createContext<RetroContext>({
   columns: [],
   cards: [],
   retroId: "",
+  teamId: null,
   roomState: "reflection",
   timerEnds: null,
   discussionCardId: null,
@@ -165,7 +167,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
       setUsersReady(roomData.usersReady)
       setVotes(roomData.votes)
       setMaxVotes(roomData.maxVotes)
-      setIsReady(roomData.users.find((u) => u.id === user?.user_id)?.isReady || false)
+      setIsReady(roomData.users.find((u) => u.id === user?.id)?.isReady || false)
       setUsers(roomData.users)
       setActionPoint(roomData.actionPoints)
       setDiscussionCardId(roomData.discussionCardId)
@@ -268,7 +270,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
       id: uuidv4(),
       text: text,
       columnId: columnId,
-      authorId: user!.user_id,
+      authorId: user!.id,
     }
     socket.current?.emit("command_create_card", command)
     setWriting(false, columnId)
@@ -398,6 +400,7 @@ export const RetroContextProvider: React.FC<React.PropsWithChildren<RetroContext
       <RetroContext.Provider
           value={{
             retroId: retroId,
+            teamId: teamId,
             columns: columns,
             cards: cards,
             roomState: roomState,

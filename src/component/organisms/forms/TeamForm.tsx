@@ -16,6 +16,7 @@ interface CreateTeamFormProps {
 }
 
 export const TeamForm: React.FC<CreateTeamFormProps> = ({userEmail, team, onSubmit, onDelete, deletable}) => {
+    //todo change emails to users
     const [emails, setEmails] = useState(team?.emails || []);
     const [name, setName] = useState(team?.name || "");
 
@@ -44,11 +45,6 @@ export const TeamForm: React.FC<CreateTeamFormProps> = ({userEmail, team, onSubm
                     <div className={styles.section}>
                         <h1>Team</h1>
                         <Input value={name} setValue={setName} placeholder={"Nazwa zespołu"} style={{border: "none", paddingLeft: "10px"}}/>
-                    </div>
-
-                    <div className={styles.section}>
-                        <h1>Scrum Master</h1>
-                        <span style={{wordBreak: 'break-all'}}>Ty ({userEmail})</span>
                     </div>
 
                     <div className={styles.section}>

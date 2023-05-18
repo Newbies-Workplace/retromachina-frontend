@@ -18,7 +18,7 @@ export const VoteView = () => {
     } = useRetro()
     const {user} = useUser()
 
-    const votesLeft = maxVotes - votes.filter((vote) => user?.user_id === vote.voterId ).length
+    const votesLeft = maxVotes - votes.filter((vote) => user?.id === vote.voterId ).length
 
     return (
         <div style={{display: 'flex', flexDirection: 'row'}}>
@@ -41,8 +41,8 @@ export const VoteView = () => {
                                     parentCardId={group.id}
                                     onCardDropped={() => {}}>
                                     {groupCards.map((card, index) => {
-                                        const author = teamUsers.find((user) => user.user_id === card.authorId);
-                                        const userVotes = votes.filter((vote) => user?.user_id === vote.voterId && (vote.parentCardId === card.id || vote.parentCardId == card.parentCardId)).length
+                                        const author = teamUsers.find((user) => user.id === card.authorId);
+                                        const userVotes = votes.filter((vote) => user?.id === vote.voterId && (vote.parentCardId === card.id || vote.parentCardId == card.parentCardId)).length
 
                                         return (
                                             <Card
@@ -55,7 +55,7 @@ export const VoteView = () => {
                                                     id: card.authorId,
                                                 }}
                                                 teamUsers={teamUsers.map((user) => ({
-                                                    id: user.user_id,
+                                                    id: user.id,
                                                     name: user.nick,
                                                     avatar: user.avatar_link,
                                                 }))}

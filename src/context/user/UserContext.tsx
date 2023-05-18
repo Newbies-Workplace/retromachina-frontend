@@ -7,22 +7,18 @@ import {loginGoogle} from "../../api/auth/Auth.service";
 
 interface UserContext {
     user: UserResponse | null,
-    isScrumMaster: boolean,
     refreshUser: () => Promise<void>,
     login: (params: AuthParams) => Promise<void>
 }
 
 export const UserContext = createContext<UserContext>({
     user: null,
-    isScrumMaster: false,
     refreshUser: () => { return Promise.reject() },
     login: () => { return Promise.reject() }
 });
 
 export const UserContextProvider: React.FC<any> = ({ children }) => {
     const [user, setUser] = useState<UserResponse | null>(null);
-
-    const isScrumMaster = user?.user_type === "SCRUM_MASTER";
 
     useEffect(() => {
         const token = localStorage.getItem('Bearer');
@@ -66,7 +62,6 @@ export const UserContextProvider: React.FC<any> = ({ children }) => {
         <UserContext.Provider
             value={{
                 user: user,
-                isScrumMaster: isScrumMaster,
                 refreshUser: refreshUser,
                 login: login,
             }}>

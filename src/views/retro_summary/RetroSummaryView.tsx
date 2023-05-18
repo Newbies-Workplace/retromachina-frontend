@@ -21,11 +21,11 @@ export const RetroSummaryView = () => {
     const [retro, setRetro] = useState<RetroResponse | null>(null);
 
     const userWithTasks = useMemo(
-        () => users.filter(user => tasks.filter(task => task.ownerId === user.user_id).length !== 0),
+        () => users.filter(user => tasks.filter(task => task.ownerId === user.id).length !== 0),
         [users],
     )
     const userWithoutTasks = useMemo(
-        () => users.filter(user => tasks.filter(task => task.ownerId === user.user_id).length === 0),
+        () => users.filter(user => tasks.filter(task => task.ownerId === user.id).length === 0),
         [users],
     )
 
@@ -61,10 +61,10 @@ export const RetroSummaryView = () => {
                     </div>
 
                     {userWithTasks.map((user) => {
-                        const userTasks = tasks.filter((task) => task.ownerId === user.user_id)
+                        const userTasks = tasks.filter((task) => task.ownerId === user.id)
 
                         return (
-                            <div key={user.user_id} className={styles.authorAndCardSection}>
+                            <div key={user.id} className={styles.authorAndCardSection}>
                                 <div className={styles.authorSection}>
                                     <Avatar url={user.avatar_link} />
                                     {user.nick}
@@ -90,7 +90,7 @@ export const RetroSummaryView = () => {
                             <div className={styles.authors}>
                                 {userWithoutTasks.map((user) => {
                                     return (
-                                        <div className={styles.authorSection} key={user.user_id}>
+                                        <div className={styles.authorSection} key={user.id}>
                                             <Avatar url={user.avatar_link} />
                                             {user.nick}
                                         </div>

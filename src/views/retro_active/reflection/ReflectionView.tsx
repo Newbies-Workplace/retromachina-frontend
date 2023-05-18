@@ -35,8 +35,8 @@ export const ReflectionView: React.FC = () => {
                                 setWriting(value, column.id);
                             }}/>
 
-                        {columnCards?.filter((card) => card.authorId === user?.user_id).map((card) => {
-                            const user = teamUsers.find((user) => user.user_id === card.authorId);
+                        {columnCards?.filter((card) => card.authorId === user?.id).map((card) => {
+                            const user = teamUsers.find((user) => user.id === card.authorId);
 
                             return (
                                 <Card
@@ -49,7 +49,7 @@ export const ReflectionView: React.FC = () => {
                                         id: card.authorId,
                                     }}
                                     teamUsers={teamUsers.map((user) => ({
-                                        id: user.user_id,
+                                        id: user.id,
                                         name: user.nick,
                                         avatar: user.avatar_link,
                                     }))}
