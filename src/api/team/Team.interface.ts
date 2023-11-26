@@ -1,16 +1,23 @@
+import { Role } from "../user/User.interfaces";
+
 export interface TeamRequest {
-    name: string
-    emails: string[]
+  name: string;
+  users: TeamUser[];
+}
+
+export interface TeamUser {
+  email: string;
+  role: Role;
 }
 
 export interface TeamResponse {
-    id: string
-    name: string
-    owner_id: string
+  id: string;
+  name: string;
+  owner_id: string;
 }
 
 export interface InviteResponse {
-    email: string;
-    team_id: string;
-    role: string;
+  email: string;
+  team_id: string;
+  role: Role;
 }
