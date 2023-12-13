@@ -17,6 +17,7 @@
 .inputWrapper {
   display: flex;
   align-items: center;
+  flex-grow: 1;
 
   padding: 0 8px;
   max-height: 30px;
@@ -25,6 +26,8 @@
   border: 1px solid #000000;
 
   .input {
+    flex-grow: 1;
+
     background-color: transparent;
     border: none;
     outline: none;
@@ -34,7 +37,7 @@
 
 .user {
   display: flex;
-  justify-content: center;
+  flex-grow: 1;
   align-items: center;
   gap: 10px;
 
@@ -47,6 +50,23 @@
 
   border: 1px solid #000000;
   border-radius: 16px;
+
+  .email {
+    flex-grow: 1;
+    font-size: 16px;
+  }
+}
+
+.separator {
+  width: 2px;
+  height: 20px;
+  background-color: black;
+}
+
+.role {
+  border-color: transparent;
+  outline: none;
+  cursor: pointer;
 }
 
 .close {

@@ -16,6 +16,7 @@ import {ProgressBar} from "../../component/atoms/progress_bar/ProgressBar";
 import {useCardGroups} from "../../context/useCardGroups";
 import {Button} from "../../component/atoms/button/Button";
 import dayjs from "dayjs";
+import {useTeamRole} from "../../context/useTeamRole";
 
 const RetroActiveView: React.FC = () => {
     const navigate = useNavigate()
@@ -26,6 +27,7 @@ const RetroActiveView: React.FC = () => {
         timerEnds,
         roomState,
         retroId,
+        teamId,
         setTimer,
         ready,
         setReady,
@@ -35,7 +37,8 @@ const RetroActiveView: React.FC = () => {
         nextRoomState,
         prevRoomState,
     } = useRetro()
-    const {isScrumMaster, user} = useUser()
+    const { user} = useUser()
+    const { isAdmin } = useTeamRole(teamId!)
 
     useEffect(() => {
         navigate(`/retro/${retroId}/${roomState}`)
@@ -60,7 +63,7 @@ const RetroActiveView: React.FC = () => {
             <Navbar
                 topContent={
                     <>
-                        {timerEnds !== null && isScrumMaster &&
+                        {timerEnds !== null && isAdmin &&
                             <Button
                                 className={styles.quickAdd}
                                 onClick={onQuickAddTime}
@@ -74,10 +77,10 @@ const RetroActiveView: React.FC = () => {
                         }
 
                         {teamUsers.length !== 1 &&
-                            <TeamAvatars users={teamUsers.filter(u => u.user_id !== user!.user_id).map((user) => ({
-                                id: user.user_id,
+                            <TeamAvatars users={teamUsers.filter(u => u.id !== user!.id).map((user) => ({
+                                id: user.id,
                                 avatar_link: user.avatar_link,
-                                isActive: activeUsers.some(socketUser => socketUser.id === user.user_id)
+                                isActive: activeUsers.some(socketUser => socketUser.id === user.id)
                             }))}/>
                         }
                     </>
@@ -97,7 +100,7 @@ const RetroActiveView: React.FC = () => {
 
             <Toolbox
                 className={styles.toolbox}
-                isScrumMaster={isScrumMaster}
+                isAdmin={isAdmin}
                 isVotingVisible={roomState === "vote"}
                 isFinishVisible={roomState === "discuss"}
                 onTimeChanged={time => setTimer(time)}

@@ -15,7 +15,6 @@ const HomeView: React.FC = () => {
     return (
         <>
             <Navbar topContent={
-                user?.user_type === "SCRUM_MASTER" &&
                 <Button
                     onClick={() => navigate("/team/create")}
                     size="small"
@@ -31,12 +30,12 @@ const HomeView: React.FC = () => {
 
                         <div className={styles.text}>
                             <span>Nie jesteś członkiem żadnego Zespołu!</span>
-                            <span style={{fontSize: 18}}>Daj znać swojemu scrum masterowi</span>
+                            <span style={{fontSize: 18}}>Stwórz nowy zespół lub poczekaj na zaproszenie od innego członka retromachiny!</span>
                         </div>
                     </div>
                 }
 
-                {user?.teams.map((team) =>
+                {user?.teams?.map((team) =>
                     <TeamRetroList
                         key={team.id}
                         teamId={team.id}

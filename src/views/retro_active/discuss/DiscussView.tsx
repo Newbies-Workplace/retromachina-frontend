@@ -47,7 +47,7 @@ export const DiscussView = () => {
                                 onCardDropped={() => {}}
                             >
                                 {group.cards.map((card, index) => {
-                                    const author = teamUsers.find((user) => user.user_id === card.authorId);
+                                    const author = teamUsers.find((user) => user.id === card.authorId);
 
                                     return (
                                         <Card
@@ -60,7 +60,7 @@ export const DiscussView = () => {
                                                 id: card.authorId,
                                             }}
                                             teamUsers={teamUsers.map((user) => ({
-                                                id: user.user_id,
+                                                id: user.id,
                                                 name: user.nick,
                                                 avatar: user.avatar_link,
                                             }))}
@@ -89,7 +89,7 @@ export const DiscussView = () => {
                         return (
                             <div className={styles.discussCardWrapper}>
                                 {group.cards.map(card => {
-                                    const author = teamUsers.find(u => u.user_id === card.authorId)
+                                    const author = teamUsers.find(u => u.id === card.authorId)
 
                                     return (
                                         <div key={card.id} className={styles.card}>
@@ -114,7 +114,7 @@ export const DiscussView = () => {
                     <div className={styles.actionPointList}>
                         {actionPoints?.filter((actionPoint) => actionPoint.parentCardId === discussionCardId)
                             .map((actionPoint) => {
-                                const author = teamUsers.find((teamUser) => teamUser.user_id === actionPoint.ownerId)
+                                const author = teamUsers.find((teamUser) => teamUser.id === actionPoint.ownerId)
 
                                 return (
                                     <Card
@@ -125,7 +125,7 @@ export const DiscussView = () => {
                                             updateActionPoint(actionPoint.id, ownerId, text)
                                         }}
                                         teamUsers={teamUsers.map((user) => ({
-                                            id: user.user_id,
+                                            id: user.id,
                                             name: user.nick,
                                             avatar: user.avatar_link,
                                         }))}
@@ -133,7 +133,7 @@ export const DiscussView = () => {
                                         author={author ? {
                                             avatar: author.avatar_link,
                                             name: author.nick,
-                                            id: author.user_id,
+                                            id: author.id,
                                         } : undefined}>
                                         <Button
                                             size={'round'}
@@ -155,7 +155,7 @@ export const DiscussView = () => {
                             onKeyDown={(e) => {
                                 if (e.key === "Enter" && !e.shiftKey) {
                                     e.preventDefault()
-                                    createActionPoint(value, user?.user_id!)
+                                    createActionPoint(value, user?.id!)
                                     setValue("");
                                 }
                             }} />

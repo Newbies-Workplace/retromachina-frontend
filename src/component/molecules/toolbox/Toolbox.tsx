@@ -19,7 +19,7 @@ import {ConfirmDialog} from "../confirm_dialog/ConfirmDialog";
 
 interface ToolboxProps {
     className?: string
-    isScrumMaster: boolean
+    isAdmin: boolean
     isVotingVisible: boolean
     isFinishVisible: boolean
 
@@ -39,7 +39,7 @@ interface ToolboxProps {
 export const Toolbox: React.FC<ToolboxProps> = (
     {
         className,
-        isScrumMaster,
+        isAdmin,
         isVotingVisible,
         isFinishVisible,
         onTimeChanged,
@@ -57,7 +57,7 @@ export const Toolbox: React.FC<ToolboxProps> = (
 ) => {
     const {maxVotes, setMaxVotesAmount, votes, endRetro} = useRetro();
     const {user} = useUser()
-    const userVotes = maxVotes - votes.filter((vote) => user?.user_id === vote.voterId).length
+    const userVotes = maxVotes - votes.filter((vote) => user?.id === vote.voterId).length
 
     const [time, setTime] = useState(300)
     const timeText = dayjs(0)
@@ -107,7 +107,7 @@ export const Toolbox: React.FC<ToolboxProps> = (
 
     return (
         <div className={cs(styles.toolbox, className)}>
-            {isScrumMaster &&
+            {isAdmin &&
                 <div className={styles.box}>
                     <Button
                         className={styles.button}
@@ -141,7 +141,7 @@ export const Toolbox: React.FC<ToolboxProps> = (
             }
 
             <div className={styles.box}>
-                {isVotingVisible && isScrumMaster &&
+                {isVotingVisible && isAdmin &&
                     <>
                         <Button
                             className={styles.button}
@@ -211,7 +211,7 @@ export const Toolbox: React.FC<ToolboxProps> = (
                     </div>
                 }
 
-                {isFinishVisible && isScrumMaster && (
+                {isFinishVisible && isAdmin && (
                     <>
                         <Button className={styles.button} size="medium" onClick={()=>setOpenFinish(true)}>
                             <CheckeredFlagIconSvg/>
@@ -228,7 +228,7 @@ export const Toolbox: React.FC<ToolboxProps> = (
                 )}
             </div>
 
-            {isScrumMaster &&
+            {isAdmin &&
                 <div className={styles.nextPrevButtons}>
                     <Button
                         size="medium"

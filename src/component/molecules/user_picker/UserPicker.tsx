@@ -1,73 +1,111 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import CloseIcon from "../../../assets/icons/close-icon.svg";
 import styles from "./UserPicker.module.scss";
+import { Role } from "../../../api/user/User.interfaces";
+import { TeamUser } from "../../../api/team/Team.interface";
+import { toast } from "react-toastify";
 
 interface UserPickerProps {
-    users: string[]
-    onAdd: (email: string) => void
-    onDelete: (email: string) => void
+  users: TeamUser[];
+  onAdd: (user: TeamUser) => void;
+  onRoleChange: (email: string, role: Role) => void;
+  onDelete: (email: string) => void;
 }
 
-export const UserPicker: React.FC<UserPickerProps> = ({users, onAdd, onDelete}) => {
-    const [value, setValue] = useState<string>("")
+export const UserPicker: React.FC<UserPickerProps> = ({
+  users,
+  onAdd,
+  onRoleChange,
+  onDelete,
+}) => {
+  const [email, setEmail] = useState<string>("");
+  const [role, setRole] = useState<Role>("USER");
 
-    const onMailAdd = () => {
-        const mailRegex = /\S+@\S+\.\S+/;
+  const onUserAdd = () => {
+    const mailRegex = /\S+@\S+\.\S+/;
+    const trimmedEmail = email.trim();
 
-        if (value.trim().length == 0 || !mailRegex.test(value)) {
-            return;
-        }
-
-        onAdd(value);
-        setValue("");
+    if (trimmedEmail.length == 0 || !mailRegex.test(trimmedEmail)) {
+      return;
     }
 
-    return (
-        <div className={styles.picker}>
-            {users.map((email) => (
-                <User
-                    key={email}
-                    email={email}
-                    onDelete={() => onDelete(email)} />
-            ))}
+    if (users.map((user) => user.email).includes(trimmedEmail)) {
+      toast.error("Użytkownik o podanym adresie email już istnieje");
+      return;
+    }
 
-            <div className={styles.inputWrapper}>
-                <input
-                    className={styles.input}
-                    value={value}
-                    placeholder="Podaj adres email..."
-                    onBlur={onMailAdd}
-                    onChange={(e) => setValue(e.currentTarget.value)}
-                    onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                            onMailAdd();
-                        }
-                    }} />
+    onAdd({ email: trimmedEmail, role: role });
 
-                {value.length > 0 &&
-                    <CloseIcon
-                        className={styles.close}
-                        onClick={() => setValue("")} />
-                }
-            </div>
-        </div>
-    );
-}
+    setEmail("");
+    setRole("USER");
+  };
 
+  return (
+    <div className={styles.picker}>
+      {users.map((user) => (
+        <User
+          key={user.email}
+          email={user.email}
+          role={user.role}
+          onRoleChange={(role) => onRoleChange(user.email, role)}
+          onDelete={() => onDelete(email)}
+        />
+      ))}
+
+      <div className={styles.inputWrapper}>
+        <input
+          className={styles.input}
+          value={email}
+          placeholder="Podaj adres email..."
+          onBlur={onUserAdd}
+          onChange={(e) => setEmail(e.currentTarget.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              onUserAdd();
+            }
+          }}
+        />
+
+        {email.length > 0 && (
+          <CloseIcon
+            className={styles.close}
+            onClick={() => {
+              setEmail("");
+              setRole("USER");
+            }}
+          />
+        )}
+      </div>
+    </div>
+  );
+};
 
 interface UserProps {
-    email: string
-    onDelete: () => void
+  email: string;
+  role: Role;
+  onRoleChange: (role: Role) => void;
+  onDelete: () => void;
 }
 
-const User: React.FC<UserProps> = ({email, onDelete}) => {
-    return (
-        <div className={styles.user}>
-            {email}
+const User: React.FC<UserProps> = ({ email, role, onRoleChange, onDelete }) => {
+  return (
+    <div className={styles.user}>
+      <span className={styles.email}>{email}</span>
 
-            <CloseIcon
-                className={styles.close}
-                onClick={onDelete} />
-        </div>
-    );
-}
+      <div className={styles.separator} />
+
+      <select
+        value={role}
+        onChange={(e) => onRoleChange(e.target.value as Role)}
+        className={styles.role}
+      >
+        <option value={"ADMIN"}>Administrator</option>
+        <option value={"USER"}>Użytkownik</option>
+      </select>
+
+      <div className={styles.separator} />
+
+      <CloseIcon className={styles.close} onClick={onDelete} />
+    </div>
+  );
+};

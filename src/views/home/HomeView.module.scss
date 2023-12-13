@@ -3,17 +3,22 @@
 @use '../../abstracts/assets';
 
 .container {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+
   @include assets.scrollbar;
 }
 
 .noTeam {
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 20px;
 
-  height: 100%;
+  padding: 20px;
 }
 
 .text {
