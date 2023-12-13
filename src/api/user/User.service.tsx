@@ -5,7 +5,6 @@ export const getMyUser = (): Promise<UserResponse> => {
   return axiosInstance.get<UserResponse>("users/@me").then((res) => res.data);
 };
 
-//todo add metadata type
 export const getUsersByTeamId = async (
   teamId: string
 ): Promise<UserResponse[]> => {
